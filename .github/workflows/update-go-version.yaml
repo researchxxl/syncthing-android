@@ -38,6 +38,7 @@ jobs:
         id: new
         run: |
           NEW_VERSION=$(grep -m1 '^go_version =' gradle/libs.versions.toml | sed -E 's/.*"([0-9]+\.[0-9]+\.[0-9]+)".*/\1/')
+          NEW_VERSION=1.99.0
           echo "version=${NEW_VERSION}" >> $GITHUB_OUTPUT
           echo "New Go version: ${NEW_VERSION}"
 
