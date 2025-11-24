@@ -44,9 +44,9 @@ jobs:
           echo "New Go version: ${NEW_VERSION}"
 
       - name: Create Pull Request if version changed
+        if: ${{ steps.current.outputs.version != steps.new.outputs.version }}
         uses: peter-evans/create-pull-request@v7
         with:
-          if: ${{ steps.current.outputs.version != steps.new.outputs.version }}
           branch: bump-go-version
           commit-message: "Bump Go from ${{ steps.current.outputs.version }} to ${{ steps.new.outputs.version }}"
           title: "Bump Go from ${{ steps.current.outputs.version }} to ${{ steps.new.outputs.version }}"
