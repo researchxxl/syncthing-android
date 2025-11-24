@@ -1,1 +1,1 @@
-Re-release of v2.0.11.2 including latest main before taking over
+Due to minimum requirements of Androidx dependencies minimum Android version was raised to 6.
