@@ -54,7 +54,7 @@ jobs:
             # Commit and push changes to main
             git add gradle/libs.versions.toml
             git commit -m "Update Go version to ${{ steps.new.outputs.version }}"
-            git push origin main
+            git push
             
             echo "Changes committed to main branch"
           else
