@@ -9,12 +9,18 @@ on:
     branches:
       - main
   workflow_dispatch:
+    inputs:
+      use-environment:
+        description: 'Target environment'
+        required: false
+        type: string
+        default: dev
 
 jobs:
   build:
     name: Debug Build
     runs-on: ubuntu-latest
-    environment: ${{ github.event_name == 'workflow_dispatch' ? 'dev' : 'dev-sign-untrusted' }}
+    environment: ${{ inputs.use-environment }}
     steps:
       - uses: actions/checkout@v4
         with:
