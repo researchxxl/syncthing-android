@@ -52,10 +52,10 @@ jobs:
         uses: peter-evans/create-pull-request@v7
         with:
           branch: "bump-syncthing-${{ steps.latest.outputs.tag }}"
-          commit-message: "Bump syncthing submodule to ${{ steps.latest.outputs.tag }}"
-          title: "Bump syncthing submodule to ${{ steps.latest.outputs.tag }}"
+          commit-message: "Bump Syncthing submodule to ${{ steps.latest.outputs.tag }}"
+          title: "Bump Syncthing submodule to ${{ steps.latest.outputs.tag }}"
           body: |
-            Update syncthing submodule to ${{ steps.latest.outputs.tag }}
+            Bump Syncthing submodule to ${{ steps.latest.outputs.tag }}
           labels: dependencies
           author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
           base: main
