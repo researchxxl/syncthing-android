@@ -61,7 +61,7 @@ jobs:
           sed -i -E 's/version-name = "[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+"/version-name = "'"${NEW_VERSION}"'"/' gradle/libs.versions.toml
           IFS='.' read -r MAJOR MINOR PATCH BUILD <<< "$NEW_VERSION"
           VERSION_CODE=$(( MAJOR*1000000 + MINOR*10000 + PATCH*100 + BUILD ))
-          sed -i -E 's/version-code = [0-9]+/version-code = '"${VERSION_CODE}"'/' gradle/libs.versions.toml
+          sed -i -E 's/version-code = "[0-9]+"/version-code = "'"${VERSION_CODE}"'"/' gradle/libs.versions.toml
           git add gradle/libs.versions.toml
           echo "Updated version to: ${NEW_VERSION} (${VERSION_CODE})"
 
