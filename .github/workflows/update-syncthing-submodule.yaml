@@ -1,4 +1,4 @@
-name: Update Syncthing Submodule
+name: Update Syncthing submodule
 
 on:
   schedule:
