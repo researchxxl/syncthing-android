@@ -9,18 +9,12 @@ on:
     branches:
       - main
   workflow_dispatch:
-    inputs:
-      use-environment:
-        description: 'Target environment'
-        required: false
-        type: string
-        default: dev
 
 jobs:
   build:
     name: Debug Build
     runs-on: ubuntu-latest
-    environment: ${{ github.event_name == 'workflow_dispatch' && inputs.use-environment || 'dev-sign-untrusted' }}
+    environment: ${{ github.event_name == 'workflow_dispatch' && 'dev' || 'dev-sign-untrusted' }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -203,15 +197,12 @@ jobs:
       - name: Setup debug signing
         run: |
           set -eu
-          # Create directories - debug keystore goes to ANDROID_USER_HOME
           mkdir -p "$ANDROID_USER_HOME"
           
           if [ -n "${{ secrets.DEBUG_KEYSTORE_B64 }}" ]; then
-            echo "Using TRUSTED debug.keystore for builds from branches corresponding to this repository"
             echo '${{ secrets.DEBUG_KEYSTORE_B64 }}' | base64 -d > "${{ runner.temp }}/.android/debug.keystore"
           else
-            cp "scripts/debug/debug.keystore.pub" "${{ runner.temp }}/.android/debug.keystore"
-            echo "Using UNTRUSTED PUBLIC debug.keystore for builds from forked repositories"
+            exit 1
           fi
 
       - name: Build app
