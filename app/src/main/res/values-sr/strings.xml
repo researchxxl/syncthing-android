@@ -86,7 +86,6 @@
     <string name="pause_device">Паузирај уређај</string>
     <string name="versioning_type_external">Спољашњи</string>
     <string name="webui_remote_access_title">Удаљени приступ веб интерфејсу</string>
-    <string name="keep_wakelock_while_binary_running">Држи CPU будним док Syncthing ради</string>
     <string name="share_activity_title">Сачувај у Syncthing-у</string>
     <string name="reason_mobile_data_disallowed">Syncthing није конфигурисан да ради на мобилним подацима.</string>
     <string name="pull_order_type_alphabetic_description">Преузмите фајлове у алфабетском редоследу по имену фајла.</string>
@@ -281,7 +280,6 @@
     <string name="tip_sync_on_local_network_text">Ако желите да синхронизујете само са уређајима који се налазе на локалној WiFi мрежи или су доступни преко WiFi хотспота, можете смањити потрошњу батерије и избегнути случајно синхронизовање преко мобилних података искључивањем следећих опција под \'Подешавања/Syncthing Опције\': \n- Омогући NAT пролаз \n- Глобално Откривање \n- Омогући Релеј \nСамо оставите \'Локално откривање\' омогућено.</string>
     <string name="open_in_browser">Отвори у прегледачу</string>
     <string name="enable_relaying">Омогући релеј</string>
-    <string name="keep_wakelock_while_binary_running_summary">Само за Android 5 или ниже. Користите ово подешавање ако имате неочекиване прекиде док радите на батерији. Ово ће резултирати повећаном потрошњом батерије.</string>
     <string name="use_tor_title">Користите Tor</string>
     <string name="view_syncthing_log">Погледај Syncthing лог</string>
     <string name="sub_folder">Подфасцикла</string>

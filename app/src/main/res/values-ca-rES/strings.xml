@@ -313,7 +313,6 @@
     <!-- Experimental options -->
     <string name="use_proxy">Connecta emprant un proxy</string>
     <string name="do_not_use_proxy">No s\'ha configurat cap proxy.</string>
-    <string name="keep_wakelock_while_binary_running">Mantingues activa la CPU mentre s\'executi el Syncthing</string>
     <string name="use_tor_title">Utilitza Tor</string>
     <string name="use_tor_summary">Força la connexió a través de Tor per millorar la privacitat. Requereix Orbot. Desactiva les opcions del proxy.</string>
     <string name="socks_proxy_address_title">Proxy SOCKS5</string>
@@ -555,7 +554,6 @@
     <string name="notification_crash_text">Feu clic per veure els registres (%1$s)</string>
     <string name="state_clean_waiting">Esperant per netejar</string>
     <string name="open_issue_tracker_summary">Obre el rastrejador d\'incidències de Syncthing-Fork a %1$s</string>
-    <string name="keep_wakelock_while_binary_running_summary">Només per a Android 5 o anterior. Feu servir aquesta configuració si experimenteu desconnexions inesperades mentre funcioneu amb bateria. Això comportarà un augment del consum de bateria.</string>
     <string name="reason_not_on_wifi">Syncthing pot funcionar amb Wi-Fi, però no hi ha Wi-Fi connectat o el telèfon està en mode vol.</string>
     <string name="reason_on_nonmetered_wifi">Syncthing pot funcionar en connexions WiFi no mesurades. La connexió WiFi activa no té límits.</string>
     <string name="reason_location_unavailable">Heu activat \"Executa a les xarxes WiFi seleccionades\" a la configuració. Els serveis de localització d\'Android estan actualment desactivats. Segons les restriccions d\'Android, Syncthing no pot determinar el nom de la xarxa WiFi actual per decidir si s\'ha d\'executar. Solució: activeu la localització, concediu permís de localització i torneu a connectar el WiFi.</string>

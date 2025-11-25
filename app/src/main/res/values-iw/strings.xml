@@ -301,8 +301,6 @@
     <string name="invalid_integer_value" tools:ignore="PluralsCandidate">ערך קלט אינו חוקי. נא להזין ערך בין %1$d ו־%2$d.</string>
     <string name="use_proxy">התחבר דרך פרוקסי</string>
     <string name="do_not_use_proxy">לא הוגדר פרוקסי.</string>
-    <string name="keep_wakelock_while_binary_running">השאר את המעבד ער כאשר Syncthing פועל</string>
-    <string name="keep_wakelock_while_binary_running_summary">רק עבור אנדרואיד 5 ומטה. השתמש בהגדרה זו אם אתה חווה ניתוקים בלתי צפויים בזמן הפעלה על סוללה. זה יוביל לצריכת סוללה מוגברת.</string>
     <string name="use_tor_title">השתמש ב־Tor</string>
     <string name="use_tor_summary">אלץ את כל התעבורה לעבור דרך Tor בשביל פרטיות מוגברת. דורש את Orbot. משבית אפשרויות פרוקסי.</string>
     <string name="socks_proxy_address_title">פרוקסי SOCKS5</string>

@@ -121,7 +121,6 @@
     <string name="enable_relaying">Дозволити ретрансляцію (Relaying)</string>
     <string name="usage_reporting">Статистика анонімного використання</string>
     <string name="export_config">Експорт налаштувань</string>
-    <string name="keep_wakelock_while_binary_running">Перешкоджати режиму сну під час роботи Syncthing </string>
     <string name="use_tor_title">Використовувати Tor</string>
     <!-- Dialog shown before config import -->
     <string name="dialog_confirm_import">Ви дійсно хочете імпортувати конфігурацію? Наявні налаштування, включно зі спільними теками та списком пристроїв, буде замінено.</string>
@@ -419,7 +418,6 @@
     <string name="versioning_type_external">Зовнішнє</string>
     <string name="download_support_bundle_in_progress">Підготовка до завантаження пакета підтримки …</string>
     <string name="http_proxy_address_title">Проксі HTTP(S)</string>
-    <string name="keep_wakelock_while_binary_running_summary">Тільки для Android 5 або старішої версії. Використовуйте це налаштування, якщо під час роботи від батареї виникають несподівані відключення. Це призведе до збільшення споживання батареї.</string>
     <string name="undo_ignored_devices_folders_question">Це скасує раніше ігноровані пристрої і теки. Продовжити?</string>
     <string name="download_support_bundle_succeeded">Пакет підтримки успішно завантажено до %s.</string>
     <string name="download_support_bundle_failed">Не вдалося завантажити пакет підтримки. Перевірте журнал.</string>

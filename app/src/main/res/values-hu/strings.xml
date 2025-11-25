@@ -416,8 +416,6 @@
     <!-- Experimental options -->
     <string name="use_proxy">Kapcsolódás porxyn keresztül</string>
     <string name="do_not_use_proxy">Nincs proxy beállítva.</string>
-    <string name="keep_wakelock_while_binary_running">CPU ébren tartása a Syncthing futása során</string>
-    <string name="keep_wakelock_while_binary_running_summary">Csak Android 5 vagy annál alacsonyabb operációs rendszer esetén. Akkor használja ezt a beállítást, ha akkumulátorral való működés közben váratlan lekapcsolódásokat tapasztal. Ez megnövekedett akkumulátor-fogyasztást eredményez.</string>
     <string name="use_tor_title">Tor használata</string>
     <string name="use_tor_summary">A megnövelt biztonság érdekében minden forgalom a TOR-on keresztül. Orbot szükséges. Letiltja a proxy beállításokat.</string>
     <string name="socks_proxy_address_title">SOCKS5 proxy</string>

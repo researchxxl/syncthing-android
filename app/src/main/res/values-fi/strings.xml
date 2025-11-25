@@ -287,7 +287,6 @@
     <string name="enable_relaying">Aktivoi yhteyden välitys</string>
     <string name="usage_reporting">Anonyymi käytönseuranta</string>
     <string name="export_config">Vie asetukset</string>
-    <string name="keep_wakelock_while_binary_running">Pidä suoritin hereillä kun Syncthing on käynnissä</string>
     <string name="use_tor_title">Käytä Tor-verkkoa</string>
     <string name="broadcast_service_control_title">Palvelun hallinta lähetetyillä komennoilla (Broadcasts)</string>
     <!-- Dialog shown before config export -->

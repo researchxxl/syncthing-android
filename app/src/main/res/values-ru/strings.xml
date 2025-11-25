@@ -297,7 +297,6 @@ Android требует разрешение доступа к геолокаци
     <string name="export_config">Экспорт настроек</string>
     <!-- Experimental options -->
     <string name="use_proxy">Подсоединиться через прокси</string>
-    <string name="keep_wakelock_while_binary_running">Поддерживать CPU включенным, пока Syncthing работает</string>
     <string name="use_tor_title">Использовать Tor</string>
     <string name="use_tor_summary">Для дополнительной приватности перенаправлять весь трафик через Tor. Требует наличия Orbot. Отключает опции прокси.</string>
     <string name="socks_proxy_address_title">SOCKS5 прокси</string>
@@ -607,7 +606,6 @@ Android требует разрешение доступа к геолокаци
     <string name="webui_tcp_port_title">TCP порт веб-интерфейса</string>
     <string name="crash_reporting">Анонимные отчеты о сбоях</string>
     <string name="webui_remote_access_title">Удалённый доступ к веб-интерфейсу</string>
-    <string name="keep_wakelock_while_binary_running_summary">Только для Android 5 или ниже. Используйте эту настройку, если у вас возникают неожиданные отключения при работе от аккумулятора. Это приведет к увеличению расхода батареи.</string>
     <string name="syncthing_database_size">Размер базы данных Synthing</string>
     <string name="os_open_file_limit">Предельное количество открытых файлов для Android</string>
     <string name="reason_on_mobile_data">Syncthing разрешено работать от мобильной сети.</string>

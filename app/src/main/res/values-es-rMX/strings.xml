@@ -128,7 +128,6 @@
     <string name="local_announce_enabled">Descubrimiento Local</string>
     <string name="usage_reporting">Reporte de uso anónimo</string>
     <string name="export_config">Exportar Configuración</string>
-    <string name="keep_wakelock_while_binary_running">Mantener el CPU encendido mientras Syncthing está en ejecución</string>
     <!-- Dialog shown before config export -->
     <string name="dialog_confirm_export">¿Realmente quiere exportar su configuración? Los archivos existentes se sobreescribirán. \n \n¡ADVERTENCIA! Otras aplicaciones pudieran leer la llave privada desde la ubicación del respaldo y usarla para descargar/modificar los archivos sincronizados.</string>
     <!-- Dialog shown before config import -->

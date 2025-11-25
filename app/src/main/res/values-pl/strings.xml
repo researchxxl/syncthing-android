@@ -265,7 +265,6 @@
     <string name="usage_reporting">Anonimowe statystyki użycia</string>
     <string name="crash_reporting">Anonimowe zgłaszanie awarii</string>
     <string name="export_config">Eksportuj ustawienia</string>
-    <string name="keep_wakelock_while_binary_running">Utrzymywanie wybudzonego CPU podczas działania</string>
     <string name="use_tor_title">Korzystaj z sieci Tor</string>
     <!-- Dialog shown before config export -->
     <string name="dialog_confirm_export">Czy na pewno chcesz wyeksportować konfigurację? Istniejące archiwum zostanie nadpisane.</string>
@@ -507,7 +506,6 @@
     <string name="app_version_title">Wersja nakładki Syncthing-Fork</string>
     <string name="folder_type_sendreceive_description">Zawartość tego folderu będzie zarówno wysyłana jak i odbierana z innych urządzeń.</string>
     <string name="tip_write_to_sdcard_title">Obejście problemu: zapis na zewnętrznej karcie SD</string>
-    <string name="keep_wakelock_while_binary_running_summary">Tylko dla systemu Android 5 lub starszego. Użyj tego ustawienia, jeśli podczas pracy na baterii wystąpią nieoczekiwane rozłączenia. Spowoduje to zwiększone zużycie baterii.</string>
     <string name="download_support_bundle_succeeded">Pakiet obsługi został pomyślnie pobrany do %s.</string>
     <string name="dialog_settings_restart_app_question">Zmiana tej opcji wymaga natychmiastowego ponownego uruchomienia aplikacji. Wszystkie inne zmiany zostaną odrzucone. Kontynuować?</string>
     <string name="reason_not_while_power_saving">Syncthing nie jest uruchomiony, ponieważ telefon jest obecnie w trybie oszczędzania energii.</string>

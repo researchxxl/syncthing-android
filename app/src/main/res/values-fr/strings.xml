@@ -199,7 +199,6 @@
     <!-- Experimental options -->
     <string name="use_proxy">Se connecter via un proxy</string>
     <string name="do_not_use_proxy">Aucun proxy configuré.</string>
-    <string name="keep_wakelock_while_binary_running">Garder le CPU en éveil quand Syncthing fonctionne</string>
     <string name="use_tor_title">Utiliser Tor</string>
     <string name="use_tor_summary">Forcer tout le trafic à travers Tor mieux préserver sa vie privée. Nécessite Orbot. Désactive les options de proxy.</string>
     <string name="socks_proxy_address_title">Proxy SOCKS5</string>
@@ -635,7 +634,6 @@
     <string name="run_on_time_schedule_summary">Quand cette option est activée, Syncthing tente de synchroniser pendant la durée configurée si les condition d\'exécution sont remplies et que la dernière synchro a eu lieu depuis plus de l\'intervalle spécifié. Ceci peut économiser beaucoup la batterie mais nécessite que les pairs soient en ligne. Notez que cela peut laisser des fichiers temporaires incomplets jusqu\'à la synchro suivante.</string>
     <string name="folder_type_send_receive">Envoyer et recevoir</string>
     <string name="webui_remote_access_summary">Permettre l\'accès au GUI depuis un autre appareil. Si activé, vous pourrez vous connecter avec l\'utilisateur \'syncthing\' et la clé d\'API comme mot de passe. Désactivé par défaut (plus sécurisé)</string>
-    <string name="keep_wakelock_while_binary_running_summary">Pour Android 5 et antérieur. activer si vous avez de nombreuses déconnexions sur batterie. Ceci augmente la consommation.</string>
     <string name="undo_ignored_devices_folders_title">Reprendre les appareils et partages ignorés</string>
     <string name="api_key_copied_to_clipboard">Clé d\'API copiée dans le presse-papiers</string>
     <string name="advanced_storage_path_overview">Aperçu du chemin de stockage avancé</string>
