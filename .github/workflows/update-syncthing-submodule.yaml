@@ -11,7 +11,7 @@ permissions:
   pull-requests: write
 
 jobs:
-  update-syncthing:
+  update-syncthing-submodule:
     name: Update Syncthing submodule
     runs-on: ubuntu-latest
     steps:
