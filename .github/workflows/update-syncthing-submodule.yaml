@@ -47,6 +47,22 @@ jobs:
           cd -
           git add syncthing/src/github.com/syncthing/syncthing
 
+      - name: Update versions.toml
+        if: ${{ steps.current.outputs.commit != steps.latest.outputs.commit }}
+        run: |
+          set -eu
+          TAG="${{ steps.latest.outputs.tag }}"
+          # Strip leading "v"
+          TAG="${TAG#v}"
+          # Extract major.minor.patch from tag (e.g. 2.0.12 from 2.0.12-rc.1)
+          BASE_VERSION=$(echo "$TAG" | sed -E 's/^([0-9]+\.[0-9]+\.[0-9]+).*/\1/')
+          # Append .0 as required by your version scheme
+          NEW_VERSION="${BASE_VERSION}.0"
+          echo "Updating version-name to: ${NEW_VERSION}"
+          # Replace version-name in libs.versions.toml
+          sed -i -E 's/version-name = "[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+"/version-name = "'"${NEW_VERSION}"'"/' gradle/libs.versions.toml
+          git add gradle/libs.versions.toml
+
       - name: Create Pull Request if commit changed
         if: ${{ steps.current.outputs.commit != steps.latest.outputs.commit }}
         uses: peter-evans/create-pull-request@v7
@@ -60,5 +76,6 @@ jobs:
           author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
           base: main
           add-paths: |
+            gradle/libs.versions.toml
             syncthing/src/github.com/syncthing/syncthing
           delete-branch: true
