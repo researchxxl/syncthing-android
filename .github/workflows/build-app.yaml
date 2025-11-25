@@ -20,7 +20,7 @@ jobs:
   build:
     name: Debug Build
     runs-on: ubuntu-latest
-    environment: ${{ inputs.use-environment }}
+    environment: ${{ github.event_name == 'workflow_dispatch' && inputs.use-environment || 'dev-sign-untrusted' }}
     steps:
       - uses: actions/checkout@v4
         with:
