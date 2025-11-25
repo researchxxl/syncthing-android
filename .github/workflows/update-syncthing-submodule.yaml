@@ -31,9 +31,9 @@ jobs:
         id: latest
         run: |
           LATEST_TAG=$(curl -s https://api.github.com/repos/syncthing/syncthing/releases \
-            | jq -r 'map(select(.prerelease == false)) | .[0].tag_name')
+            | jq -r 'map(select(.draft == false)) | .[0].tag_name')
           echo "Latest tag: ${LATEST_TAG}"
-          LATEST_COMMIT=$(git ls-remote https://github.com/syncthing/syncthing.git refs/tags/${LATEST_TAG} | awk '{print $1}')
+          LATEST_COMMIT=$(git ls-remote https://github.com/syncthing/syncthing.git refs/tags/${LATEST_TAG}^{} | awk '{print $1}')
           echo "commit=${LATEST_COMMIT}" >> $GITHUB_OUTPUT
           echo "Latest commit: ${LATEST_COMMIT}"
 
@@ -41,7 +41,7 @@ jobs:
         if: ${{ steps.current.outputs.commit != steps.latest.outputs.commit }}
         run: |
           cd syncthing/src/github.com/syncthing/syncthing
-          git fetch origin ${LATEST_TAG}
+          git fetch origin "refs/tags/${LATEST_TAG}^{}"
           git checkout ${LATEST_COMMIT}
           cd -
           git add syncthing/src/github.com/syncthing/syncthing
