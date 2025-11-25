@@ -1,0 +1,21 @@
+name: Update Syncthing Submodule
+
+on:
+  schedule:
+    # Run every Wednesday at 19:00 UTC
+    - cron: '0 19 * * 3'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-syncthing-submodule:
+    name: Update Syncthing submodule
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+          fetch-depth: 0
