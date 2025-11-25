@@ -420,10 +420,6 @@ public class FirstStartActivity extends ThemedAppCompatActivity {
                 btnGrantIgnoreDozePerm.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-                            // We will never reach here, but fix lint.
-                            return;
-                        }
                         requestIgnoreDozePermission();
                     }
                 });
@@ -491,16 +487,11 @@ public class FirstStartActivity extends ThemedAppCompatActivity {
     }
 
     private boolean haveIgnoreDozePermission() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            // Older android version don't have the doze feature so we'll assume having the anti-doze permission.
-            return true;
-        }
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         return pm.isIgnoringBatteryOptimizations(getPackageName());
     }
 
     @SuppressLint("InlinedApi")
-    @RequiresApi(api = Build.VERSION_CODES.M)
     private void requestIgnoreDozePermission() {
         Boolean intentFailed = false;
         Intent intent = new Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);

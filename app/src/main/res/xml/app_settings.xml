@@ -445,14 +445,6 @@
             android:hint="@string/http_proxy_address_title"
             android:inputType="textUri|textNoSuggestions" />
 
-        <!-- Only valid for Android < 6 -->
-        <CheckBoxPreference
-            android:key="wakelock_while_binary_running"
-            android:title="@string/keep_wakelock_while_binary_running"
-            android:summary="@string/keep_wakelock_while_binary_running_summary"
-            android:singleLineTitle="false"
-            android:defaultValue="false" />
-
     </PreferenceScreen>
 
     <PreferenceScreen

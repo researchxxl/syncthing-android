@@ -209,7 +209,6 @@ public class SettingsActivity extends SyncthingActivity {
         private PasswordPreference mBackupPassword;
 
         /* Experimental options */
-        private CheckBoxPreference mUseWakelock;
         private CheckBoxPreference mUseTor;
         private EditTextPreference mSocksProxyAddress;
         private EditTextPreference mHttpProxyAddress;
@@ -378,15 +377,7 @@ public class SettingsActivity extends SyncthingActivity {
             mUseTor                         = (CheckBoxPreference) findPreference(Constants.PREF_USE_TOR);
             mSocksProxyAddress              = (EditTextPreference) findPreference(Constants.PREF_SOCKS_PROXY_ADDRESS);
             mHttpProxyAddress               = (EditTextPreference) findPreference(Constants.PREF_HTTP_PROXY_ADDRESS);
-            mUseWakelock                    = (CheckBoxPreference) findPreference(Constants.PREF_USE_WAKE_LOCK);
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                /* Wakelocks are only valid on Android 5 or lower. */
-                mUseWakelock.setEnabled(false);
-                mUseWakelock.setChecked(false);
-            }
-
-            mUseWakelock.setOnPreferenceChangeListener(this);
             mUseTor.setOnPreferenceChangeListener(this);
 
             mSocksProxyAddress.setEnabled(!(Boolean) mUseTor.isChecked());
@@ -779,9 +770,6 @@ public class SettingsActivity extends SyncthingActivity {
                             }
                         }
                     }
-                    mPendingConfig = true;
-                    break;
-                case Constants.PREF_USE_WAKE_LOCK:
                     mPendingConfig = true;
                     break;
                 case Constants.PREF_USE_TOR:

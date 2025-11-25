@@ -12,7 +12,6 @@ import android.net.wifi.WifiManager;
 import android.net.wifi.WifiManager.MulticastLock;
 import android.os.Build;
 import android.os.Environment;
-import android.os.PowerManager;
 import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
@@ -134,7 +133,6 @@ public class SyncthingRunnable implements Runnable {
         }
     }
 
-    @SuppressLint("WakelockTimeout")
     public String run(boolean returnStdOut) throws ExecutableNotFoundException {
         Boolean sendStopToService = false;
         Boolean restartSyncthingNative = false;
@@ -144,31 +142,9 @@ public class SyncthingRunnable implements Runnable {
         // Trim Syncthing log.
         trimSyncthingLogFile();
 
-        /**
-         * Keep the CPU running while native binary is running.
-         * Only valid on Android 5 or lower.
-         */
-        PowerManager pm;
-        PowerManager.WakeLock wakeLock = null;
-        Boolean useWakeLock = mPreferences.getBoolean(Constants.PREF_USE_WAKE_LOCK, false);
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M && useWakeLock) {
-            pm = (PowerManager) mContext.getSystemService(Context.POWER_SERVICE);
-            /**
-             * Since gradle 4.6, wakelock tags have to obey "app:component" naming convention.
-             */
-            wakeLock = pm.newWakeLock(
-                    PowerManager.PARTIAL_WAKE_LOCK,
-                    mContext.getString(R.string.app_name) + ":" + TAG
-            );
-        }
-
         MulticastLock multicastLock = null;
         Process process = null;
         try {
-            if (wakeLock != null) {
-                wakeLock.acquire();
-            }
-
             // Android 11 blocks local discovery if we did not acquire MulticastLock.
             WifiManager wifi = (WifiManager) mContext.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
             multicastLock = wifi.createMulticastLock("multicastLock");
@@ -258,9 +234,6 @@ public class SyncthingRunnable implements Runnable {
         } catch (IOException | InterruptedException e) {
             Log.e(TAG, "Failed to execute syncthing binary or read output", e);
         } finally {
-            if (wakeLock != null) {
-                wakeLock.release();
-            }
             if (multicastLock != null) {
                 multicastLock.release();
                 multicastLock = null;
@@ -497,11 +470,9 @@ public class SyncthingRunnable implements Runnable {
         targetEnv.put("SQLITE_TMPDIR", mContext.getCacheDir().getAbsolutePath());
 
         // Workaround SyncthingNativeCode denied to read gatewayIP by Android 14+ restriction.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            final String gatewayIpV4 = getGatewayIpV4(mContext);
-            if (gatewayIpV4 != null) {
-                targetEnv.put("FALLBACK_NET_GATEWAY_IPV4", gatewayIpV4);
-            }
+        final String gatewayIpV4 = getGatewayIpV4(mContext);
+        if (gatewayIpV4 != null) {
+            targetEnv.put("FALLBACK_NET_GATEWAY_IPV4", gatewayIpV4);
         }
 
         if (mPreferences.getBoolean(Constants.PREF_USE_TOR, false)) {
@@ -522,9 +493,7 @@ public class SyncthingRunnable implements Runnable {
 
         // Optimize memory usage for older devices.
         int gogc = 100;         // GO default
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            gogc = 50;
-        } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             gogc = 75;
         }
         LogV("Setting env var: [GOGC]=[" + Integer.toString(gogc) + "]");
@@ -587,7 +556,6 @@ public class SyncthingRunnable implements Runnable {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     public static String getGatewayIpV4(final Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         Network activeNetwork = cm.getActiveNetwork();

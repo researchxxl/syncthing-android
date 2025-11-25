@@ -5,8 +5,9 @@ setlocal enabledelayedexpansion
 :: 	call build && echo OK
 ::
 IF /I "%1" == "clean" SET PARAM_NO_BUILD_CACHE=--no-build-cache
+IF /I "%1" == "oneshot" SET PARAM_NO_BUILD_CACHE=--no-daemon
 ::
-call gradlew --no-daemon %PARAM_NO_BUILD_CACHE% --warning-mode all %* assembledebug
+call gradlew %PARAM_NO_BUILD_CACHE% --warning-mode all %* assembledebug
 SET GRADLEW_ERRORLEVEL=%ERRORLEVEL%
 ::
 call scripts\debug\win\hide-folders-from-notepad++.cmd
