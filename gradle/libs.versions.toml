@@ -8,7 +8,7 @@ target-sdk = "36"
 
 # App version
 version-code = "2001103"
-version-name = "2.0.11.3"
+version-name = "2.0.12.0"
 
 # External SDK versions
 go_version = "1.25.4"
