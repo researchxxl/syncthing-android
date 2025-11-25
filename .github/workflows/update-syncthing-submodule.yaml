@@ -32,6 +32,7 @@ jobs:
         run: |
           LATEST_TAG=$(curl -s https://api.github.com/repos/syncthing/syncthing/releases \
             | jq -r 'map(select(.draft == false)) | .[0].tag_name')
+          echo "tag=${LATEST_TAG}" >> $GITHUB_OUTPUT
           echo "Latest tag: ${LATEST_TAG}"
           LATEST_COMMIT=$(git ls-remote https://github.com/syncthing/syncthing.git refs/tags/${LATEST_TAG}^{} | awk '{print $1}')
           echo "commit=${LATEST_COMMIT}" >> $GITHUB_OUTPUT
@@ -50,11 +51,11 @@ jobs:
         if: ${{ steps.current.outputs.commit != steps.latest.outputs.commit }}
         uses: peter-evans/create-pull-request@v7
         with:
-          branch: "bump-syncthing-${{ steps.latest.outputs.commit }}"
-          commit-message: "Bump syncthing submodule to ${{ steps.latest.outputs.commit }}"
-          title: "Bump syncthing submodule to ${{ steps.latest.outputs.commit }}"
+          branch: "bump-syncthing-${{ steps.latest.outputs.tag }}"
+          commit-message: "Bump syncthing submodule to ${{ steps.latest.outputs.tag }}"
+          title: "Bump syncthing submodule to ${{ steps.latest.outputs.tag }}"
           body: |
-            Update syncthing submodule from ${{ steps.current.outputs.commit }} to ${{ steps.latest.outputs.commit }}
+            Update syncthing submodule to ${{ steps.latest.outputs.tag }}
           labels: dependencies
           author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
           base: main
