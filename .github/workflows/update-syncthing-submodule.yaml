@@ -42,8 +42,8 @@ jobs:
         if: ${{ steps.current.outputs.commit != steps.latest.outputs.commit }}
         run: |
           cd syncthing/src/github.com/syncthing/syncthing
-          git fetch origin "refs/tags/${LATEST_TAG}^{}"
-          git checkout ${LATEST_COMMIT}
+          git fetch origin "refs/tags/${{ steps.latest.outputs.tag }}^{}"
+          git checkout "${{ steps.latest.outputs.tag }}"
           cd -
           git add syncthing/src/github.com/syncthing/syncthing
 
