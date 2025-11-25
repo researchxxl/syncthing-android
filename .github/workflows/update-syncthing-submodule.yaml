@@ -1,0 +1,60 @@
+name: Update Syncthing Submodule
+
+on:
+  schedule:
+    # Run every Wednesday at 19:00 UTC
+    - cron: '0 19 * * 3'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-syncthing:
+    name: Update Syncthing submodule
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+          fetch-depth: 0
+
+      - name: Get current submodule commit
+        id: current
+        run: |
+          CURRENT_COMMIT=$(git ls-tree HEAD syncthing/src/github.com/syncthing/syncthing | awk '{print $3}')
+          echo "commit=${CURRENT_COMMIT}" >> $GITHUB_OUTPUT
+
+      - name: Get latest syncthing release commit
+        id: latest
+        run: |
+          LATEST_TAG=$(curl -s https://api.github.com/repos/syncthing/syncthing/releases \
+            | jq -r 'map(select(.prerelease == false)) | .[0].tag_name')
+          LATEST_COMMIT=$(git ls-remote https://github.com/syncthing/syncthing.git refs/tags/${LATEST_TAG} | awk '{print $1}')
+          echo "commit=${LATEST_COMMIT}" >> $GITHUB_OUTPUT
+
+      - name: Update submodule if newer
+        if: ${{ steps.current.outputs.commit != steps.latest.outputs.commit }}
+        run: |
+          cd syncthing/src/github.com/syncthing/syncthing
+          git fetch origin ${LATEST_TAG}
+          git checkout ${LATEST_COMMIT}
+          cd -
+          git add syncthing/src/github.com/syncthing/syncthing
+
+      - name: Create Pull Request if commit changed
+        if: ${{ steps.current.outputs.commit != steps.latest.outputs.commit }}
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: "bump-syncthing-${{ steps.latest.outputs.commit }}"
+          commit-message: "Bump syncthing submodule to ${{ steps.latest.outputs.commit }}"
+          title: "Bump syncthing submodule to ${{ steps.latest.outputs.commit }}"
+          body: |
+            Update syncthing submodule from ${{ steps.current.outputs.commit }} to ${{ steps.latest.outputs.commit }}
+          labels: dependencies
+          author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
+          base: main
+          add-paths: |
+            syncthing/src/github.com/syncthing/syncthing
+          delete-branch: true
