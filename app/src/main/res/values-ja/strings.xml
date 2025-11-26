@@ -224,7 +224,6 @@
     <string name="install_barcode_scanner_app_message">バーコードスキャナアプリが必要です。F-Droid からアプリ「Binary Eye」をインストールしてみませんか？</string>
     <!-- Shown if no folders are configured -->
     <string name="folders_list_empty">フォルダが設定されていません。タップして新しいフォルダを追加して下さい。。</string>
-    <!-- TipsAndTricks activity -->
     <!-- Title of the Tips and Tricks activity -->
     <string name="tips_and_tricks_title">チップス＆トリック</string>
     <string name="tip_write_to_sdcard_title">外部SDカードへの書き込みの回避策</string>

@@ -262,7 +262,6 @@
     <string name="install_barcode_scanner_app_message">Ehhez vonalkódolvasó alkalmazásra van szükség. Szeretné telepíteni a \'Binary Eye\' alkalmazást az F-Droidról\?</string>
     <!-- Shown if no folders are configured -->
     <string name="folders_list_empty">Nincsenek mappák konfigurálva. Koppintson a gombra új mappa hozzáadásához.</string>
-    <!-- TipsAndTricks activity -->
     <!-- Title of the Tips and Tricks activity -->
     <string name="tips_and_tricks_title">Tippek és trükkök</string>
     <string name="tip_write_to_sdcard_title">Külső SDcard-ra való írás megoldása</string>

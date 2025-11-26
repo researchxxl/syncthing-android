@@ -187,7 +187,6 @@
     <string name="device_name_required">Enhetsnamn får inte vara tomt</string>
     <!-- Content description for device ID qr code icon -->
     <string name="scan_qr_code_description">Skanna QR-kod</string>
-    <!-- TipsAndTricks activity -->
     <!-- Title of the Tips and Tricks activity -->
     <string name="tips_and_tricks_title">Tips &amp; tricks</string>
     <string name="tip_write_to_sdcard_title">Skriv till extert SD-kort-lösning</string>

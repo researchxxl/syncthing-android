@@ -239,7 +239,6 @@
     <string name="scan_qr_code_description">Ler código QR</string>
     <!-- Shown if no folders are configured -->
     <string name="folders_list_empty">Nenhuma pasta configurada. Toque para adicionar uma nova pasta.</string>
-    <!-- TipsAndTricks activity -->
     <!-- Title of the Tips and Tricks activity -->
     <string name="tips_and_tricks_title">Dicas e truques</string>
     <string name="tip_sync_on_local_network_title">Sincronizar apenas usando a rede Wi-Fi local</string>

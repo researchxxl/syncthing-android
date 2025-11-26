@@ -404,7 +404,6 @@
     <string name="folders_list_empty">No folders configured. Tap to add a new folder.</string>
 
 
-    <!-- TipsAndTricks activity -->
 
     <!-- Title of the Tips and Tricks activity -->
     <string name="tips_and_tricks_title">Tips &amp; Tricks</string>

@@ -196,7 +196,6 @@
     <string name="device_name_required">El nom del dispositiu no pot ser buit</string>
     <!-- Content description for device ID qr code icon -->
     <string name="scan_qr_code_description">Escaneja el codi QR</string>
-    <!-- TipsAndTricks activity -->
     <!-- Title of the Tips and Tricks activity -->
     <string name="tips_and_tricks_title">Consells i trucs</string>
     <string name="tip_write_to_sdcard_title">Solució alternativa per escriure a la targeta SD externa</string>
