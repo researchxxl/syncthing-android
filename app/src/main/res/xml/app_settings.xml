@@ -166,14 +166,6 @@
             android:summary="@string/broadcast_service_control_summary"
             android:singleLineTitle="false" />
 
-        <!-- Use root -->
-        <CheckBoxPreference
-            android:key="use_root"
-            android:title="@string/use_root_title"
-            android:summary="@string/use_root_summary"
-            android:singleLineTitle="false"
-            android:defaultValue="false" />
-
         <!-- Allow overwrite of existing files -->
         <CheckBoxPreference
             android:key="allow_overwrite_files"

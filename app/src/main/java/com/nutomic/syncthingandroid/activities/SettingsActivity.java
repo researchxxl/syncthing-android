@@ -68,8 +68,6 @@ import java.util.Set;
 
 import javax.inject.Inject;
 
-import eu.chainfire.libsuperuser.Shell;
-
 public class SettingsActivity extends SyncthingActivity {
 
     private static final String TAG = "SettingsActivity";
@@ -181,7 +179,6 @@ public class SettingsActivity extends SyncthingActivity {
 
         /* Behaviour */
         private CheckBoxPreference mStartServiceOnBoot;
-        private CheckBoxPreference mUseRoot;
 
         /* Syncthing Options */
         private PreferenceScreen   mCategorySyncthingOptions;
@@ -309,9 +306,6 @@ public class SettingsActivity extends SyncthingActivity {
             PreferenceScreen categoryBehaviour = (PreferenceScreen) findPreference("category_behaviour");
             mStartServiceOnBoot =
                     (CheckBoxPreference) findPreference(Constants.PREF_START_SERVICE_ON_BOOT);
-            mUseRoot =
-                    (CheckBoxPreference) findPreference(Constants.PREF_USE_ROOT);
-            setPreferenceCategoryChangeListener(categoryBehaviour, this::onBehaviourPreferenceChange);
 
             /* Syncthing Options */
             mDeviceName             = (EditTextPreference) findPreference("deviceName");
@@ -620,20 +614,6 @@ public class SettingsActivity extends SyncthingActivity {
                         config.updateGui(mRestApi, gui);
                         getAppRestartConfirmationDialog(getActivity())
                                 .show();
-                    }
-                    break;
-            }
-            return true;
-        }
-
-        public boolean onBehaviourPreferenceChange(Preference preference, Object o) {
-            switch (preference.getKey()) {
-                case Constants.PREF_USE_ROOT:
-                    if ((Boolean) o) {
-                        new TestRootTask(this).execute();
-                    } else {
-                        new Thread(() -> Util.fixAppDataPermissions(getActivity())).start();
-                        mPendingConfig = true;
                     }
                     break;
             }
@@ -962,43 +942,6 @@ public class SettingsActivity extends SyncthingActivity {
         }
 
         /**
-         * Enables or disables {@link #mUseRoot} preference depending whether root is available.
-         */
-        private static class TestRootTask extends AsyncTask<Void, Void, Boolean> {
-            private WeakReference<SettingsFragment> refSettingsFragment;
-
-            TestRootTask(SettingsFragment context) {
-                refSettingsFragment = new WeakReference<>(context);
-            }
-
-            @Override
-            protected Boolean doInBackground(Void... params) {
-                return Shell.SU.available();
-            }
-
-            @Override
-            protected void onPostExecute(Boolean haveRoot) {
-                // Get a reference to the fragment if it is still there.
-                SettingsFragment settingsFragment = refSettingsFragment.get();
-                if (settingsFragment == null) {
-                    return;
-                }
-                settingsFragment.mUseRoot.setOnPreferenceChangeListener(null);
-                settingsFragment.mUseRoot.setChecked(haveRoot);
-                if (haveRoot) {
-                    settingsFragment.mPendingConfig = true;
-                } else {
-                    SyncthingActivity syncthingActivity = (SyncthingActivity) settingsFragment.getActivity();
-                    if (syncthingActivity != null && !syncthingActivity.isFinishing()) {
-                        Toast.makeText(syncthingActivity, R.string.toast_root_denied, Toast.LENGTH_SHORT)
-                                .show();
-                    }
-                }
-                settingsFragment.mUseRoot.setOnPreferenceChangeListener(settingsFragment::onBehaviourPreferenceChange);
-            }
-        }
-
-        /**
          * Performs export of settings, config and database in the background.
          */
         private static class ExportConfigTask extends AsyncTask<Void, String, Void> {
@@ -1166,7 +1109,7 @@ public class SettingsActivity extends SyncthingActivity {
          */
         private String getDatabaseSize() {
             String dbPath = Constants.getIndexDbFolder(mContext).getAbsolutePath();
-            String result = Util.runShellCommandGetOutput("/system/bin/du -sh " + dbPath, false);
+            String result = Util.runShellCommandGetOutput("/system/bin/du -sh " + dbPath);
             if (TextUtils.isEmpty(result)) {
                 return "N/A";
             }
@@ -1185,7 +1128,7 @@ public class SettingsActivity extends SyncthingActivity {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
                 shellCommand = "/system/bin/" + shellCommand;
             }
-            String result = Util.runShellCommandGetOutput(shellCommand, false);
+            String result = Util.runShellCommandGetOutput(shellCommand);
             if (TextUtils.isEmpty(result)) {
                 return "N/A";
             }

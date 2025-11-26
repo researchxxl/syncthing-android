@@ -225,7 +225,7 @@ public class ConfigXml {
     }
 
     private void parseConfig() {
-        if (!mConfigFile.canRead() && !Util.fixAppDataPermissions(mContext)) {
+        if (!mConfigFile.canRead()) {
             Log.w(TAG, "Failed to open config file '" + mConfigFile + "'");
             throw new OpenConfigException();
         }
@@ -1257,7 +1257,7 @@ public class ConfigXml {
      * Writes updated mConfig back to file.
      */
     public void saveChanges() {
-        if (!mConfigFile.canWrite() && !Util.fixAppDataPermissions(mContext)) {
+        if (!mConfigFile.canWrite()) {
             Log.w(TAG, "Failed to save updated config. Cannot change the owner of the config file.");
             return;
         }

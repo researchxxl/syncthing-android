@@ -52,7 +52,6 @@ public class Constants {
     // Preferences - Behaviour
     public static final String PREF_START_SERVICE_ON_BOOT       = "always_run_in_background";
     public static final String PREF_BROADCAST_SERVICE_CONTROL   = "broadcast_service_control";
-    public static final String PREF_USE_ROOT                    = "use_root";
     public static final String PREF_ALLOW_OVERWRITE_FILES       = "allow_overwrite_files";
 
     // Preferences - Syncthing Options
