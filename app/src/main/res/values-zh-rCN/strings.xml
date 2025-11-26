@@ -263,7 +263,6 @@
     <string name="install_barcode_scanner_app_message">这需要条形码扫描应用。您想安装 F-Droid 的应用“Binary Eye”吗?</string>
     <!-- Shown if no folders are configured -->
     <string name="folders_list_empty">未配置文件夹。点击以添加新文件夹。</string>
-    <!-- Title of the Tips and Tricks activity -->
     <string name="tips_and_tricks_title">提示和技巧</string>
     <string name="tip_write_to_sdcard_title">写入外部 SD 卡的解决方法</string>
     <string name="tip_write_to_sdcard_text">如果您看到用户界面显示“Android 只授予 Syncthing 对某个文件夹的只读访问权限”，请使用此路径创建一个新文件夹以获得写访问权限：

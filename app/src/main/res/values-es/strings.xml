@@ -261,7 +261,6 @@
     <string name="install_barcode_scanner_app_message">Esto requiere una aplicación de escáner de código de barras. ¿Desea instalar la aplicación \"Binary Eye\" de F-Droid?</string>
     <!-- Shown if no folders are configured -->
     <string name="folders_list_empty">No hay carpetas configuradas. Pulsa para añadir una carpeta nueva.</string>
-    <!-- Title of the Tips and Tricks activity -->
     <string name="tips_and_tricks_title">Consejos y Trucos</string>
     <string name="tip_write_to_sdcard_title">Solución alterna de escribir a la tarjeta SD externa</string>
     <string name="tip_write_to_sdcard_text">Si ves que la interfaz de usuario indica que \"Android solo le otorga a Syncthing acceso de solo lectura\" para una determinada carpeta, crea una nueva carpeta usndo esta ruta para obtener acceso de escritura: \n%1$s/YOUR_FOLDER_NAME \nTen cuidado: Esta carpeta será eliminada por Android si desinstala esta aplicación. Antes de desinstalarla, mueve los datos a un lugar seguro fuera de la carpeta …/Android.</string>

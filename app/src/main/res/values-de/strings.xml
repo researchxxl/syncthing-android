@@ -262,7 +262,6 @@
     <string name="install_barcode_scanner_app_message">Dies erfordert eine Barcodescanner-App. Soll die App „Binary Eye“ von F-Droid installiert werden?</string>
     <!-- Shown if no folders are configured -->
     <string name="folders_list_empty">Keine Ordner konfiguriert. Tippen, um einen neuen Ordner hinzuzufügen.</string>
-    <!-- Title of the Tips and Tricks activity -->
     <string name="tips_and_tricks_title">Tipps und Tricks</string>
     <string name="tip_write_to_sdcard_title">Workaround zum Schreiben auf Speicherkarte</string>
     <string name="tip_write_to_sdcard_text">Falls die Meldung „Android erlaubt nur schreibgeschützten Zugriff“ für einen bestimmten Ordner erscheint, einen neuen Ordner erstellen und diesen Pfad verwenden, um Schreibzugriff zu erhalten:

@@ -263,7 +263,6 @@
     <string name="install_barcode_scanner_app_message">Per questa operazione è necessario un lettore di codice a barre. Vuoi installare l\'app \'Binary Eye\' da F-Droid\?</string>
     <!-- Shown if no folders are configured -->
     <string name="folders_list_empty">Non ci sono cartelle configurate. Tocca per aggiungere una nuova cartella.</string>
-    <!-- Title of the Tips and Tricks activity -->
     <string name="tips_and_tricks_title">Consigli &amp; Suggerimenti</string>
     <string name="tip_write_to_sdcard_title">Soluzione alternativa per scrivere sulla memoria esterna</string>
     <string name="tip_write_to_sdcard_text">Se vedi l\'interfaccia utente che indica che \"Android concede solo la sincronizzazione dell\'accesso in sola lettura\" a una determinata cartella, crea una nuova cartella usando questo percorso per ottenere l\'accesso in scrittura:

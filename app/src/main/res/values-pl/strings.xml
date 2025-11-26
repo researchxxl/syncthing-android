@@ -214,7 +214,6 @@
     <string name="scan_qr_code_description">Skanuj kod QR</string>
     <!-- Dialog message if no compatible barcode scanner app is installed -->
     <string name="install_barcode_scanner_app_message">Wymagany jest skaner kodów QR. Czy chcesz zainstalować aplikację \"Binary Eye\" z F-Droid\?</string>
-    <!-- Title of the Tips and Tricks activity -->
     <string name="tips_and_tricks_title">Wskazówki</string>
     <string name="tip_sync_on_local_network_title">Synchronizuj tylko przy użyciu lokalnej sieci Wi-Fi</string>
     <string name="tip_sync_on_local_network_text">Jeśli chcesz, aby synchronizacja była dokonywana tylko z urządzeniami w lokalnej sieci Wi-Fi lub hotspocie, możesz zmniejszyć zużycie baterii i zapobiec przypadkowej synchronizacji przez dane komórkowe poprzez wyłączenie następujących opcji w Ustawienia Syncthing:

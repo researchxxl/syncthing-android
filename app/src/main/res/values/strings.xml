@@ -405,7 +405,6 @@
 
 
 
-    <!-- Title of the Tips and Tricks activity -->
     <string name="tips_and_tricks_title">Tips &amp; Tricks</string>
 
     <string name="tip_write_to_sdcard_title">Write to external sdcard workaround</string>
