@@ -260,21 +260,6 @@
     <string name="install_barcode_scanner_app_message">Această funcție necesită o aplicație pentru scanarea codurilor de bare. Dorești să instalezi aplicația „Binary Eye” din F-Droid?</string>
     <!-- Shown if no folders are configured -->
     <string name="folders_list_empty">Niciun dosar configurat. Atinge pentru a adăuga un dosar nou.</string>
-    <string name="tips_and_tricks_title">Sfaturi și trucuri</string>
-    <string name="tip_write_to_sdcard_title">Soluția pentru scrierea pe cardul SD extern</string>
-    <string name="tip_write_to_sdcard_text">Dacă vezi un mesaj care afirmă că „Android acordă acces doar în citire pentru syncthing” la un anumit dosar, creează un nou dosar folosind această cale pentru a obține acces la scriere: \n%1$s/NUMELE_DOSARULUI \nFii atent: acest dosar va fi șters de Android dacă dezinstalezi această aplicație. Înainte de a dezinstala aplicația, mută datele într-un loc sigur în afara dosarului …/Android.</string>
-    <string name="tip_sync_on_local_network_title">Sincronizare doar utilizând rețeaua locală WiFi</string>
-    <string name="tip_sync_on_local_network_text">Dacă dorești sincronizarea doar cu dispozitivele localizate în rețeaua WiFi locală sau accesibile prin WiFi hotspot, poți reduce consumul de baterie și poți evita sincronizarea accidentală prin datele mobile, dezactivând următoarele opțiuni în „Setări/Opțiuni Syncthing”: \n- Activare traversare NAT \n- Descoperire globală \n- Activare retransmitere \nLasă doar „Descoperirea locală” activată.</string>
-    <string name="tip_custom_sync_conditions_title">Utilizează condiții de sincronizare personalizate per dosar/dispozitiv</string>
-    <string name="tip_custom_sync_conditions_text">Această caracteristică va fi îmbunătățită în versiunile viitoare. Deocamdată, nu am dorit să modificăm configurațiile existente și comportamentul aplicației. De aceea, condițiile de sincronizare personalizate pentru un anumit tip de rețea pot fi setate numai dacă activezi mai întâi sincronizarea în rețea în condițiile de rulare globală.</string>
-    <string name="tip_ignore_delete_title">Faci copii de rezervă a imaginilor din telefon pe computer?</string>
-    <string name="tip_ignore_delete_text">Dacă dorești ca toate imaginile făcute pe telefon să fie copiate pe un computer, partajează dosarul „Cameră” cu computerul. Deschide Syncthing pe computer, adaugă dosarul și accesează „Acțiuni” &gt; „Avansat” &gt; „Cameră foto”. Activează „Ignorare ștergere” și fă clic pe „Salvează”. Acum poți șterge imaginile din dosarul camerei de pe telefon și acestea vor rămâne copiate pe computer.</string>
-    <string name="tip_huawei_device_disconnected_title">Soluție pentru Huawei: „dispozitiv deconectat”</string>
-    <string name="tip_huawei_device_disconnected_text">Dacă desktop-ul raportează constant că dispozitivul Huawei este deconectat, deschide Syncthing de pe desktop. Accesează „dispozitive de la distanță”, extinde intrarea telefonului, fă clic pe „Editare”, treci la „Avansat”. Introdu adresa IP a telefonului în „Adrese” ca aceasta: \ntcp4://%1$s, dinamic \nA fost confirmată funcționarea pentru: Huawei P10</string>
-    <string name="tip_xiaomi_autostart_title">Xiaomi: aplicația nu rulează la pornire</string>
-    <string name="tip_xiaomi_autostart_text">MIUI de la Xiaomi nu permite aplicațiilor să pornească singure în mod implicit. Din ecranul de pornire, accesează „Setări” &gt; \"Aplicații\" &gt; „Permisiuni” &gt; „Pornire automată” și activează glisorul „Syncthing-Fork”.</string>
-    <string name="tip_xiaomi_battery_saver_title">Xiaomi: aplicația arată în mod repetat ecranul de bun venit</string>
-    <string name="tip_xiaomi_battery_saver_text">Aplicația de sistem pentru economisirea bateriei instalată în MIUI de la Xiaomi revocă permisiunea aplicației „ignoră optimizarea bateriei” la fiecare repornire a telefonului. Acest lucru face ca aplicația să afișeze ecranul de bun venit și să solicite din nou permisiunea obligatorie care lipsește. Soluție: din ecranul de pornire, deschideți sertarul aplicațiilor &gt; apăsați lung „Syncthing-Fork” &gt; „Informații aplicație” &gt; „Economisire baterie” și selectați „Nicio restricție” (MIUI 10.3.2.0+).</string>
     <!-- RecentChangesActivity -->
     <string name="no_recent_changes">Nu există modificări recente.</string>
     <string name="recent_changes_title">Modificări recente</string>
@@ -734,7 +719,6 @@
     <string name="reason_on_metered_nonmetered_wifi">Syncthing are permisiunea să ruleze prin conexiuni WiFi contorizate și nelimitate.</string>
     <string name="reason_location_unavailable">Ai activat „Rulează prin rețelele WiFi selectate” în setări. Serviciile de locație Android sunt în prezent dezactivate. Conform restricțiilor Android, sincronizarea nu poate determina numele actual al rețelei WiFi pentru a decide dacă ar trebui să ruleze. Soluție: Pornește locația, acordă permisiunea locației și reconectează-te la WiFi.</string>
     <string name="config_read_failed">Nu a reușit citirea configurației. Ia în considerare copierea de rezervă a datelor din dosarele de sincronizare, apoi șterge datele acestei aplicații din setările Android și lanseaz-o din nou.</string>
-    <string name="tip_phone_ip_address_syntax">PHONE_IP_ADDRESS</string>
     <string name="executable_not_found">Executabilul de bază \"%s\" lipsește. Verifică jurnalele build și logcat.</string>
     <string name="dialog_confirm_skip_ignore_doze_permission">Atenție: Dacă SyncthingNative este întrerupt și face ceva ciudat, ești de vină. Omite doar în cazul în care dispozitivul nu acceptă acordarea permisiunii. Chiar omiți?</string>
     <string name="toast_notification_permission_required">Syncthing necesită permisiunea de notificare pentru a-și menține serviciul pornit și conectat.</string>

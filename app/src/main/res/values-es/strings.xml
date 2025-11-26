@@ -261,24 +261,6 @@
     <string name="install_barcode_scanner_app_message">Esto requiere una aplicación de escáner de código de barras. ¿Desea instalar la aplicación \"Binary Eye\" de F-Droid?</string>
     <!-- Shown if no folders are configured -->
     <string name="folders_list_empty">No hay carpetas configuradas. Pulsa para añadir una carpeta nueva.</string>
-    <string name="tips_and_tricks_title">Consejos y Trucos</string>
-    <string name="tip_write_to_sdcard_title">Solución alterna de escribir a la tarjeta SD externa</string>
-    <string name="tip_write_to_sdcard_text">Si ves que la interfaz de usuario indica que \"Android solo le otorga a Syncthing acceso de solo lectura\" para una determinada carpeta, crea una nueva carpeta usndo esta ruta para obtener acceso de escritura: \n%1$s/YOUR_FOLDER_NAME \nTen cuidado: Esta carpeta será eliminada por Android si desinstala esta aplicación. Antes de desinstalarla, mueve los datos a un lugar seguro fuera de la carpeta …/Android.</string>
-    <string name="tip_sync_on_local_network_title">Sincronizar solo mediante la red wifi local</string>
-    <string name="tip_sync_on_local_network_text">Si deseas sincronizar sólo con los dispositivos que se encuentran en la red wifi local o accesibles a través de un hotspot de wifi, puedes reducir el uso de la batería y evitar la sincronización accidental a través de datos móviles mediante la desactivación de las siguientes opciones en \"Ajustes/Opciones de Syncthing\": \n- Permitir NAT Traversal \n- Descubrimiento Global \n- Habilitar la Retransmisión \nSolo deja activado el \"Descubrimiento Local\".</string>
-    <string name="tip_custom_sync_conditions_title">Usar condiciones de sincronización personalizadas por carpeta/dispositivo</string>
-    <string name="tip_custom_sync_conditions_text">Esta función se mejorará en futuras versiones. Por ahora, no queríamos romper las configuraciones existentes y el comportamiento de la aplicación. Por eso, las condiciones de sincronización personalizadas para un determinado tipo de red solo pueden establecerse si primero se habilita la sincronización en la red en las condiciones de ejecución globales.</string>
-    <string name="tip_ignore_delete_title">¿Hacer una copia de seguridad de las fotos del teléfono al ordenador\?</string>
-    <string name="tip_ignore_delete_text">Si deseas tener una copia de seguridad de todas las fotos del teléfono en un ordenador, comparte la carpeta \"Cámara\" con el ordenador. Abre Syncthing en el ordenador, añade la carpeta y ve a \"Acciones\" &gt; \"Avanzado\" &gt; Carpeta \"Cámara\". Activa la opción \"Ignorar la eliminación\" y pulsa \"Guardar\". Ahora puedes eliminar las fotos de la carpeta de la cámara del teléfono y se mantendrá la copia de seguridad en el ordenador.</string>
-    <string name="tip_huawei_device_disconnected_title">Huawei: solución alternativa a \"dispositivo desconectado\"</string>
-    <string name="tip_huawei_device_disconnected_text">Si su ordenador informa constantemente a su dispositivo Huawei como desconectado, abra la interfaz de usuario de Syncthing de su escritorio. Vaya a \"dispositivos remotos\", expanda la entrada del teléfono, haga clic en \"Editar\" y cambie a \"Avanzado\". Ponga la dirección IP de su teléfono en \"Direcciones\" así:
-\ntcp4://%1$s, dynamic
-\nConfirmado que funciona para: Huawei P10</string>
-    <string name="tip_phone_ip_address_syntax">PHONE_IP_ADDRESS</string>
-    <string name="tip_xiaomi_autostart_title">Xiaomi: la aplicación no se inicia al arrancar el sistema</string>
-    <string name="tip_xiaomi_autostart_text">Xiaomi MIUI no permite que las aplicaciones se inicien solas por defecto. Desde la pantalla de inicio, ve a \"Ajustes\" &gt; \"Permisos\" &gt; \"Autoinicio\" y activa el control deslizante de \"Syncthing-Fork\".</string>
-    <string name="tip_xiaomi_battery_saver_title">Xiaomi: la aplicación muestra repetidamente la pantalla de bienvenida</string>
-    <string name="tip_xiaomi_battery_saver_text">La aplicación de ahorro de batería del sistema de Xiaomi MIUI revoca el permiso de \"ignorar la optimización de la batería\" de la aplicación en cada reinicio del teléfono. Esto hace que la aplicación muestre la pantalla de bienvenida y pida de nuevo el permiso obligatorio faltante. Solución: Desde la pantalla de inicio, abre las opciones de la aplicaciones &gt; Mantén pulsado \"Syncthing-Fork\" &gt; \"Información de la aplicación\" &gt; \"Ahorro de batería\" y selecciona \"Sin restricciones\" (MIUI 10.3.2.0+).</string>
     <!-- RecentChangesActivity -->
     <string name="no_recent_changes">No hay cambios recientes.</string>
     <string name="recent_changes_title">Cambios recientes</string>

@@ -214,13 +214,6 @@
     <string name="scan_qr_code_description">Skanuj kod QR</string>
     <!-- Dialog message if no compatible barcode scanner app is installed -->
     <string name="install_barcode_scanner_app_message">Wymagany jest skaner kodów QR. Czy chcesz zainstalować aplikację \"Binary Eye\" z F-Droid\?</string>
-    <string name="tips_and_tricks_title">Wskazówki</string>
-    <string name="tip_sync_on_local_network_title">Synchronizuj tylko przy użyciu lokalnej sieci Wi-Fi</string>
-    <string name="tip_sync_on_local_network_text">Jeśli chcesz, aby synchronizacja była dokonywana tylko z urządzeniami w lokalnej sieci Wi-Fi lub hotspocie, możesz zmniejszyć zużycie baterii i zapobiec przypadkowej synchronizacji przez dane komórkowe poprzez wyłączenie następujących opcji w Ustawienia Syncthing:
-\n- Włącz trawersowanie NAT
-\n- Odnajdywanie globalne
-\n- Włącz przekazywanie
-\nPozostaw opcję „Odnajdywanie lokalne” włączoną.</string>
     <!-- WebGuiActivity -->
     <!-- Title of the web gui activity -->
     <string name="web_gui_title">Interfejs sieciowy</string>
@@ -451,7 +444,6 @@
     <string name="reason_location_unavailable">W ustawieniach włączono opcję „Uruchom w wybranych sieciach Wi-Fi”. Usługi lokalizacyjne w systemie Android są obecnie wyłączone. Zgodnie z ograniczeniami systemu Android, Syncthing nie może określić bieżącej nazwy sieci Wi-Fi, aby zdecydować, czy powinna działać. Rozwiązanie: włącz lokalizację, udziel pozwolenia na lokalizację i ponownie podłącz Wi-Fi.</string>
     <string name="pull_order_type_smallestFirst_description">Pobierz pliki według rozmiaru. Najpierw najmniejsze.</string>
     <string name="run_in_flight_mode_title">Uruchom bez połączenia sieciowego</string>
-    <string name="tip_huawei_device_disconnected_title">Huawei: obejście „urządzenia odłączonego”</string>
     <string name="use_proxy">Połącz przez proxy</string>
     <string name="security_notice">Uwaga dotycząca bezpieczeństwa</string>
     <plurals name="device_online_up_to_date">
@@ -495,18 +487,15 @@
 \n
 \nWszelkie problemy, które napotkasz, prosimy zgłaszać za pośrednictwem serwisu GitHub.</string>
     <string name="notification_permission_desc">Wymagane do wyświetlania powiadomień dotyczących nowych połączeń urządzeń, żądań udostępnienia folderów oraz do utrzymywania działania usługi i połączenia.</string>
-    <string name="tip_custom_sync_conditions_title">Użyj niestandardowych warunków synchronizacji dla folderu/urządzenia</string>
     <string name="download_support_bundle_failed">Pobieranie pakietu obsługi nie powiodło się. Sprawdź dzienniki.</string>
     <string name="app_version_title">Wersja nakładki Syncthing-Fork</string>
     <string name="folder_type_sendreceive_description">Zawartość tego folderu będzie zarówno wysyłana jak i odbierana z innych urządzeń.</string>
-    <string name="tip_write_to_sdcard_title">Obejście problemu: zapis na zewnętrznej karcie SD</string>
     <string name="download_support_bundle_succeeded">Pakiet obsługi został pomyślnie pobrany do %s.</string>
     <string name="dialog_settings_restart_app_question">Zmiana tej opcji wymaga natychmiastowego ponownego uruchomienia aplikacji. Wszystkie inne zmiany zostaną odrzucone. Kontynuować?</string>
     <string name="reason_not_while_power_saving">Syncthing nie jest uruchomiony, ponieważ telefon jest obecnie w trybie oszczędzania energii.</string>
     <string name="download_support_bundle_in_progress">Przygotowywanie pobrania pakietu obsługi…</string>
     <string name="pull_order_type_newestFirst">Od najnowszych</string>
     <string name="webui_tcp_port_title">Port TCP interfejsu webowego</string>
-    <string name="tip_xiaomi_autostart_title">Xiaomi: aplikacja nie uruchamia się po rozruchu</string>
     <string name="reason_on_roaming_nonroaming_mobile_data">Syncthing może działać w przypadku mobilnych połączeń danych w roamingu i poza nim.</string>
     <string name="state_sync_waiting">Oczekiwanie na synchronizację</string>
     <string name="pull_order_type_oldestFirst">Od najstarszych</string>
@@ -548,14 +537,12 @@
     <string name="pull_order_type_alphabetic_description">Pobierz pliki w kolejności alfabetycznej według nazwy.</string>
     <string name="state_syncing_general">Synchronizowanie</string>
     <string name="notifications_persistent_channel">Syncthing jest aktywny</string>
-    <string name="tip_xiaomi_autostart_text">Xiaomi MIUI domyślnie nie pozwala aplikacjom na samodzielne uruchamianie. Na ekranie głównym przejdź do „Ustawienia” &gt; „Uprawnienia” &gt; „Autostart” i włącz suwak „Syncthing-Fork”.</string>
     <string name="open_issue_tracker_summary">Otwórz narzędzie do śledzenia problemów Syncthing-Fork pod adresem %1$s</string>
     <string name="folders">Foldery</string>
     <string name="preference_app_theme_follow_light">Jasny</string>
     <string name="discovered_device_list_empty">Wykrywanie lokalne nie znalazło żadnych urządzeń w sieci lokalnej. Uruchom tę aplikację na drugim telefonie. Pliki instalacyjne dla komputerów są dostępne pod adresem: %1$s</string>
     <string name="dialog_settings_restart_app_title">Wymagane ponowne uruchomienie</string>
     <string name="state_failed_items">Elementy nieudane (%1$d)</string>
-    <string name="tip_xiaomi_battery_saver_text">Aplikacja systemowa oszczędzania baterii Xiaomi MIUI cofa zgodę aplikacji na „ignorowanie optymalizacji baterii” przy każdym ponownym uruchomieniu telefonu. Spowoduje to, że aplikacja wyświetli ekran powitalny i ponownie poprosi o brakujące obowiązkowe pozwolenie. Rozwiązanie: na ekranie głównym otwórz szufladę aplikacji &gt; Naciśnij długo „Syncthing-Fork” &gt; „Informacje o aplikacji” &gt; „Oszczędzanie baterii” i wybierz „Bez ograniczeń” (MIUI 10.3.2.0+).</string>
     <string name="executable_not_found">Brak podstawowego pliku wykonywalnego „%s”. Sprawdź dane wyjściowe kompilacji i logcat.</string>
     <string name="recent_changes_title">Ostatnie zmiany</string>
     <string name="sync_only_wifi_ssids_need_to_grant_location_permission">Musisz przyznać uprawnienia dostępu do lokalizacji, aby używać tej funkcji.</string>
@@ -589,9 +576,6 @@
     <string name="suggest_file_manager_app_dialog_text">Zalecamy zainstalowanie aplikacji do zarządzania plikami typu open source „Material Files”. Czy chcesz otworzyć stronę sklepu z aplikacjami?</string>
     <string name="syncthing_active_details">Uruchomiony: %1$s</string>
     <string name="photo_shoot_launcher_title">Aparat Sync.</string>
-    <string name="tip_huawei_device_disconnected_text">Jeśli komputer stale zgłasza, że urządzenie Huawei jest odłączone, otwórz interfejs Syncthing na pulpicie. Przejdź do „Urządzenia zdalne”, rozwiń wpis dotyczący telefonu, kliknij „Edytuj”, przejdź do „Zaawansowane”. Wpisz adres IP swojego telefonu w „Adresach” w następujący sposób:
-\ntcp4://%1$s, dynamic
-\nPotwierdzone działanie: Huawei P10</string>
     <string name="folder_type_sendonly_description">Pliki są zabezpieczone przed zmianami dokonanymi na innych urządzeniach, ale zmiany dokonane na tym urządzeniu będą wysyłane do pozostałych urządzeń.</string>
     <string name="deviceEncryptionPasswordHint">Jeżeli folder jest niezaufany, wprowadź szyfrujące hasło</string>
     <string name="sync_only_wifi_ssids_location_permission_rejected_dialog_title">Wymagane uprawnienie</string>
@@ -603,7 +587,6 @@
     <string name="pull_order_type_random">Losowo</string>
     <string name="state_cleaning">Czyszczenie wersji</string>
     <string name="photo_shoot_intro_welcome_title">Witamy w Aparacie Syncthing</string>
-    <string name="tip_phone_ip_address_syntax">ADRES_IP_TELEFONU</string>
     <string name="notification_out_of_disk_space">Karta SD jest pełna. Plik %1$s</string>
     <string name="photo_shoot_take_picture_failure">Nie udało się zrobić zdjęcia lub anulowano.</string>
     <string name="pull_order_type_smallestFirst">Od najmniejszych</string>
@@ -614,10 +597,8 @@
     <string name="reason_on_nonroaming_mobile_data">Syncthing może działać w przypadku mobilnych połączeń danych innych niż roaming. Aktywne połączenie nie jest w roamingu.</string>
     <string name="preference_app_theme_follow_system">Dopasuj do systemu</string>
     <string name="custom_wifi_ssid_whitelist_empty">Brak identyfikatora SSID Wi-Fi na białej liście. Określ niektóre w ustawieniach.</string>
-    <string name="tip_xiaomi_battery_saver_title">Xiaomi: aplikacja wielokrotnie wyświetla ekran powitalny</string>
     <string name="run_on_metered_wifi_title">Działaj na taryfowych sieciach Wi-Fi</string>
     <string name="reason_not_on_battery_power">Telefon nie jest uruchomiony na zasilaniu bateryjnym.</string>
-    <string name="tip_custom_sync_conditions_text">Ta funkcja będzie nadal udoskonalana w przyszłych wersjach. Na razie nie chcieliśmy psuć istniejących konfiguracji i zachowania aplikacji. Dlatego niestandardowe warunki synchronizacji dla określonego typu sieci można ustawić tylko wtedy, gdy najpierw włączysz synchronizację w sieci w globalnych warunkach działania.</string>
     <string name="qs_forced_to_run">Wymuszone uruchomienie</string>
     <string name="toast_invalid_folder_selected">Przepraszamy, wybrany folder nie może zostać użyty. Proszę wybrać folder znajdujący się na wewnętrznym lub zewnętrznym magazynie pamięci.</string>
     <string name="st_reset_deltas_done">Pomyślnie zresetowano indeksy różnicowe Syncthing</string>
@@ -638,7 +619,6 @@
     <string name="folder_type_receiveonly_description">Pliki są synchronizowane z pozostałych urządzeń, ale wszelkie zmiany dokonane lokalnie nie będą wysyłanie do innych urządzeń.</string>
     <string name="default_syncthing_camera_folder_label">Aparat Syncthing</string>
     <string name="category_debug">Diagnozowanie błędów</string>
-    <string name="tip_ignore_delete_text">Jeśli chcesz mieć kopię zapasową wszystkich zdjęć zrobionych telefonem na komputerze, udostępnij komputerowi folder „Aparat”. Otwórz Syncthing na komputerze, dodaj folder i przejdź do „Akcje” &gt; „Zaawansowane” &gt; „Aparat”. Włącz opcję „Ignoruj usuwanie” i kliknij „Zapisz”. Możesz teraz usuwać zdjęcia z folderu aparatu w telefonie, a ich kopia zapasowa pozostanie na komputerze.</string>
     <string name="reason_not_within_time_frame_0_min">mniej niż minutę</string>
     <string name="toast_notification_permission_required">Syncthing wymaga zezwolenia na powiadomienia, aby usługa działała i była połączona.</string>
     <string name="reason_not_while_auto_sync_data_disabled">Syncthing nie jest uruchomiony, ponieważ w systemie Android jest obecnie wyłączona funkcja „Autosynchronizacja danych”.</string>
@@ -657,10 +637,6 @@
     <string name="modification_time">Godzina: %1$s</string>
     <string name="folder_go_up">W górę</string>
     <string name="socks_proxy_address_title">Proxy SOCKS5</string>
-    <string name="tip_ignore_delete_title">Utworzyć kopię zapasową zdjęć z telefonu na komputer?</string>
-    <string name="tip_write_to_sdcard_text">Jeśli w interfejsie użytkownika pojawi się informacja, że „Android przyznaje Syncthing dostęp tylko do odczytu” do określonego folderu, utwórz nowy folder, korzystając z tej ścieżki, aby uzyskać dostęp do zapisu:
-\n%1$s/TWOJA_NAZWA_FOLDERU
-\nUważaj: ten folder zostanie usunięty przez system Android, jeśli odinstalujesz tę aplikację. Przed odinstalowaniem aplikacji przenieś dane w bezpieczne miejsce poza folderem …/Android.</string>
     <string name="st_reset_deltas_question">Ta akcja powinna być przeprowadzana tylko w wyniku zalecenia zespołu wsparcia.
 \nCzy na pewno chcesz wyczyścić indeksy różnicowe Syncthing?</string>
     <string name="broadcast_service_control_summary">Domyślnie: wyłączone. Włącz, aby umożliwić adb lub aplikacjom innych dostawców (np. aplikacjom automatyzacji) instruowanie Syncthing, aby przestrzegał warunków uruchomienia, wymuszał start lub wymuszał zatrzymanie.</string>

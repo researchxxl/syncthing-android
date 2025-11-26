@@ -416,9 +416,6 @@
     <string name="untrusted_device">Niet-vertrouwd apparaat</string>
     <string name="device_name_required">De apparaatnaam mag niet leeg zijn</string>
     <string name="folders_list_empty">Geen mappen geconfigureerd. Tik om een nieuwe map toe te voegen.</string>
-    <string name="tip_sync_on_local_network_title">Synchroniseer alleen via het lokale WiFi-netwerk</string>
-    <string name="tip_custom_sync_conditions_title">Gebruik per map/apparaat aangepaste synchronisatievoorwaarden</string>
-    <string name="tip_phone_ip_address_syntax">TELEFOON_IP_ADRES</string>
     <string name="no_recent_changes">Er zijn geen recente wijzigingen.</string>
     <string name="recent_changes_title">Recente wijzigingen</string>
     <string name="this_device">Dit apparaat</string>
@@ -459,10 +456,7 @@
     <string name="syncthing_has_crashed">Syncthing is vastgelopen.</string>
     <string name="untrusted_device_explanation">Alle mappen die worden gedeeld met dit apparaat moeten worden beveiligd met een wachtwoord, zodat alle verzonden gegevens onleesbaar zijn zonder het opgegeven wachtwoord.</string>
     <string name="discovered_device_list_empty">Lokale detectie heeft geen apparaten gevonden op het lokale netwerk. Voer deze app uit op een tweede telefoon. Installatiebestanden voor computers zijn beschikbaar op: %1$s</string>
-    <string name="tip_custom_sync_conditions_text">Deze functie zal nog worden verbeterd in toekomstige releases. Voor nu wilden we bestaande configuraties en app-gedrag niet verbreken. Daarom kunnen aangepaste synchronisatievoorwaarden voor een bepaald type netwerk alleen worden ingesteld als je synchronisatie op het netwerk eerst inschakelt in de globale run conditions.</string>
-    <string name="tip_ignore_delete_title">Foto\'s back-uppen van telefoon naar computer?</string>
     <string name="advanced_directory_selection">Geavanceerde mappenselectie</string>
-    <string name="tip_ignore_delete_text">Als je een back-up van alle foto\'s op je telefoon op een computer wilt hebben, deel dan de map ‘Camera’ met de computer. Open Syncthing op de computer, voeg de map toe en ga naar ‘Acties’ &gt; ‘Geavanceerd’ &gt; map ‘Camera’. Schakel ‘Delete negeren’ in en klik op ‘Opslaan’. U kunt nu foto\'s verwijderen uit uw cameramap op de telefoon en er wordt een back-up van gemaakt op de computer.</string>
     <string name="folder_ignore_delete_description">Expertoptie die de afhandeling van inkomende indexupdates beïnvloedt. Als deze optie is ingeschakeld, worden inkomende updates met de verwijdervlag genegeerd. Zie https://docs.syncthing.net/advanced/folder-ignoredelete.html</string>
     <string name="install_barcode_scanner_app_message">Hiervoor heb je een barcodescanner-app nodig. Wil je de app ‘Binary Eye’ van F-Droid installeren?</string>
     <string name="folder_label_required">Het maplabel mag niet leeg zijn</string>
@@ -472,10 +466,6 @@
     <string name="run_on_wifi_title">Uitvoeren via Wi-Fi</string>
     <string name="run_on_mobile_data_summary">Uitvoeren wanneer het apparaat is verbonden via het mobiele datanetwerk. Waarschuwing: Dit kan veel gegevens verbruiken van het data-abonnement van je mobiele provider als je grote hoeveelheden gegevens synchroniseert.</string>
     <string name="run_on_roaming_summary">Syncthing toestaan om mobiele data te gebruiken tijdens roaming. (!) Plaats alsjeblieft feedback op GitHub als dit goed werkt.</string>
-    <string name="tips_and_tricks_title">Tips &amp; Trucs</string>
-    <string name="tip_write_to_sdcard_title">Schrijven naar externe sd kaart workaround</string>
-    <string name="tip_huawei_device_disconnected_title">Huawei: ‘apparaat losgekoppeld’ workaround</string>
-    <string name="tip_huawei_device_disconnected_text">Als uw bureaublad voortdurend meldt dat uw Huawei apparaat geen verbinding heeft, open dan de Syncthing UI van uw bureaublad. Ga naar ‘externe apparaten’, vouw het item van de telefoon uit, klik op ‘Bewerken’, schakel over naar ‘Geavanceerd’. Zet het IP-adres van uw telefoon in \'Adressen\' als volgt: \ntcp4://%1$s, dynamisch \nWerkt bevestigd voor: Huawei P10</string>
     <string name="modification_time">Tijd: %1$s</string>
     <string name="category_syncthing_options_summary">Dit menu is alleen beschikbaar als Syncthing actief is.</string>
     <string name="preference_app_theme_title">Thema</string>

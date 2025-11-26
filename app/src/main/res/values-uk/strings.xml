@@ -255,7 +255,6 @@
     <string name="folder_path_readwrite">Ваша версія Android надає Syncthing дозвіл на читання і запис до вибраної теки.</string>
     <string name="folder_type_switch_to_receive_encrypted_not_allowed">Перемикання «Отримувати зашифровані» не підтримується в наявних теках.</string>
     <string name="discovered_devices_title">Виявлені пристрої - торкніться, щоб вибрати</string>
-    <string name="tip_sync_on_local_network_title">Синхронізація тільки через локальну мережу WiFi</string>
     <string name="category_user_interface">Інтерфейс користувача</string>
     <string name="category_debug">Усунення несправностей</string>
     <string name="page_x_of_y">Сторінка %1$s з %2$s</string>
@@ -317,7 +316,6 @@
     </plurals>
     <string name="button_force_start">ПРИМУСОВИЙ ЗАПУСК \nІГНОРУВАТИ УМОВИ ЗАПУСКУ</string>
     <string name="button_force_stop">ПРИМУСОВО ЗУПИНИТИ\nІГНОРУВАТИ УМОВИ ЗАПУСКУ</string>
-    <string name="tip_write_to_sdcard_text">Якщо ви бачите в інтерфейсі, що «Android надає Syngthing доступ лише для читання» до певного каталогу створіть новий каталог використовуючи цей шлях, щоб отримати доступ для запису: \n%1$s/ІМ\'Я_ВАШОЇ_ТЕКИ \nБудьте обережні: Ця тека буде знищена Android, якщо ви видалите цю програму. Перед видаленням програми перемістіть дані в безпечне місце за межами теки.../Android.</string>
     <string name="transfer_rate_unit_TiB_s">ТБ/с</string>
     <string name="location_permission_desc">Syncthing можна налаштувати для роботи у вибраних мережах Wi-Fi. Android вимагає, щоб програма мала дозвіл на визначення місцезнаходження, щоб зчитувати ім\'я активної мережі Wi-Fi. Якщо ви хочете скористатися цією функцією, натисніть кнопку вище. Ви можете пропустити цей крок. Дивіться нашу політику конфіденційності для більш детальної інформації.</string>
     <string name="exception_known_bug_notice">Виявлено відому помилку, яку ще не вирішено. Дивіться %1$s/%2$s для отримання додаткової інформації. Будь ласка, залиште нам точний опис того, що сталося, перед цим.</string>
@@ -328,13 +326,9 @@
     <string name="local_discovery_disabled">Ви вимкнули локальне виявлення у «Налаштування» &gt; «Параметри синхронізації» &gt; «Локальне виявлення». Увімкніть пошук пристроїв у локальній мережі.</string>
     <string name="introducer">Представник</string>
     <string name="device_addresses_invalid">Адреси пристроїв відформатовано неправильно. Будь ласка, спробуйте ще раз. Докладнішу інформацію див. у документації з Syncthing.</string>
-    <string name="tips_and_tricks_title">Поради та підказки</string>
-    <string name="tip_write_to_sdcard_title">Обхідний шлях запису на зовнішню sd-карту</string>
     <string name="folders_list_empty">Немає налаштованих тек. Торкніться, щоб додати нову теку.</string>
     <string name="install_barcode_scanner_app_message">Для цього потрібен додаток сканування штрих-коду. Бажаєте встановити додаток «Binary Eye» з F-Droid?</string>
-    <string name="tip_custom_sync_conditions_text">Ця функція буде покращена в майбутніх випусках. На даний момент ми не хотіли порушувати існуючі налаштування та поведінку додатку. Тому власні умови синхронізації для певного типу мережі можна встановити тільки після того, як ви увімкнете синхронізацію в мережі в глобальних умовах виконання.</string>
     <string name="modification_time">Час: %1$s</string>
-    <string name="tip_custom_sync_conditions_title">Використовуйте власні умови синхронізації для кожної теки/пристрою</string>
     <string name="ssl_cert_invalid_text">Вебсайт за адресою %1$s має недійсний сертифікат для SSL-шифрування. Що робити далі?</string>
     <string name="security_notice">Повідомлення про безпеку</string>
     <string name="open_in_browser">Відкрити в переглядачі</string>
@@ -366,18 +360,13 @@
     <string name="no_recent_changes">Останнім часом змін немає.</string>
     <string name="web_page_loading">Завантаження вебсторінки:\n%1$s…</string>
     <string name="announce_server">Налаштований сервер оголошень</string>
-    <string name="tip_ignore_delete_title">Резервне копіювання фотографій з телефону на комп\'ютер?</string>
     <string name="expert_mode_title">Режим експерта</string>
     <string name="run_on_time_schedule_summary">Увімкнення цієї опції спробує синхронізуватися протягом заданого часу, якщо виконані умови запуску та якщо пройшов вказаний інтервал часу з моменту останньої синхронізації. Це може заощадити багато батареї, але вимагає, щоб партнери по синхронізації були онлайн. Зверніть увагу: це може залишати неповні тимчасові файли до наступної запланованої синхронізації.</string>
     <string name="run_in_flight_mode_summary">Увімкнення цієї опції дозволить Syncthing працювати навіть коли ви офлайн. Увімкніть, якщо ваш пристрій має проблеми з виявленням вручну підключених Wi-Fi мереж під час режиму польоту.</string>
-    <string name="tip_phone_ip_address_syntax">PHONE_IP_ADDRESS</string>
-    <string name="tip_xiaomi_autostart_title">Xiaomi: додаток не запускається при завантаженні</string>
     <string name="respect_master_sync_summary">Вимкнути Syncthing, коли швидке налаштування \'Автоматична синхронізація даних\' вимкнено.</string>
     <string name="respect_master_sync_title">Поважати налаштування Android \'Автоматична синхронізація даних\'</string>
     <string name="photo_shoot_launcher_title">Sync. Камера</string>
     <string name="photo_shoot_activity_title">Syncthing-Fork Камера</string>
-    <string name="tip_huawei_device_disconnected_title">Huawei: обхід помилки \'пристрій відключено\'</string>
-    <string name="tip_xiaomi_battery_saver_title">Xiaomi: додаток постійно показує екран привітання</string>
     <string name="run_in_flight_mode_title">Працювати без мережі</string>
     <string name="run_on_time_schedule_title">Працювати за розкладом</string>
     <string name="sync_duration_minutes_title">Тривалість циклу синхронізації</string>
@@ -396,13 +385,8 @@
     <string name="pull_order_newest_first">Спочатку найновіші</string>
     <string name="versioning_type_none">Вимкнути</string>
     <string name="versioning_type_trashcan">Кошик</string>
-    <string name="tip_sync_on_local_network_text">Якщо ви хочете синхронізувати лише з пристроями, які знаходяться в межах локальної WiFi мережі або доступні через WiFi точку доступу, ви можете знизити використання батареї та уникнути випадкової синхронізації через мобільні дані, вимкнувши наступні параметри в розділі \'Налаштування/Опції Syncthing\':\n- Увімкнути обхід NAT\n- Глобальне виявлення\n- Увімкнути ретрансляцію\nЗалиште увімкненим тільки \'Локальне виявлення\'.</string>
     <string name="expert_mode_summary">Увімкнення цієї опції покаже розширені налаштування конфігурації. Спочатку ознайомтесь з документацією Syncthing, щоб переконатися, що ви знаєте, як правильно їх використовувати. Неправильні налаштування можуть призвести до витрати батареї, виснаження системних ресурсів або неповної синхронізації.</string>
-    <string name="tip_ignore_delete_text">Якщо ви хочете, щоб всі фотографії, зроблені на вашому телефоні, були збережені на комп\'ютері, поділіться папкою \'Camera\' з комп\'ютером. Відкрийте Syncthing на комп\'ютері, додайте папку і перейдіть до \'Дії\' &gt; \'Розширено\' &gt; \'Папка Camera\'. Увімкніть \'Ігнорувати видалення\' та натисніть \'Зберегти\'. Тепер ви можете видаляти фотографії з папки камери на телефоні, і вони залишатимуться збереженими на комп\'ютері.</string>
     <string name="behaviour_autostart_summary">Автоматичний запуск додатка при старті операційної системи.</string>
-    <string name="tip_xiaomi_autostart_text">MIUI на пристроях Xiaomi за замовчуванням не дозволяє додаткам запускатися самостійно. З головного екрану перейдіть до \'Налаштування\' &gt; \'Дозволи\' &gt; \'Автозапуск\' і увімкніть перемикач для \'Syncthing-Fork\'.</string>
-    <string name="tip_xiaomi_battery_saver_text">Система заощадження батареї MIUI на пристроях Xiaomi відкликає дозвіл на \'ігнорування оптимізації батареї\' для додатків після кожного перезавантаження телефону. Це призводить до того, що додаток знову показує екран привітання та запитує відсутній обов\'язковий дозвіл. Рішення: З головного екрану відкрийте список додатків &gt; довго натисніть на \'Syncthing-Fork\' &gt; \'Інформація про додаток\' &gt; \'Заощаджувач батареї\' і виберіть \'Без обмежень\' (MIUI 10.3.2.0+).</string>
-    <string name="tip_huawei_device_disconnected_text">Якщо ваш комп\'ютер постійно повідомляє, що ваш пристрій Huawei відключений, відкрийте інтерфейс Syncthing на вашому комп\'ютері. Перейдіть до \'віддалених пристроїв\', розгорніть запис телефону, натисніть \'Редагувати\', перейдіть на вкладку \'Розширено\'. Введіть IP-адресу вашого телефону в поле \'Адреси\' ось так:\ntcp4://%1$s, dynamic\nПідтверджено, що працює для: Huawei P10</string>
     <string name="listen_address">Прослуховувані адреси для синхронізації</string>
     <string name="webui_username_title">Ім\'я користувача вебінтерфейсу</string>
     <string name="webui_password_title">Пароль вебінтерфейсу</string>

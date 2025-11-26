@@ -262,30 +262,6 @@
     <string name="install_barcode_scanner_app_message">Ehhez vonalkódolvasó alkalmazásra van szükség. Szeretné telepíteni a \'Binary Eye\' alkalmazást az F-Droidról\?</string>
     <!-- Shown if no folders are configured -->
     <string name="folders_list_empty">Nincsenek mappák konfigurálva. Koppintson a gombra új mappa hozzáadásához.</string>
-    <string name="tips_and_tricks_title">Tippek és trükkök</string>
-    <string name="tip_write_to_sdcard_title">Külső SDcard-ra való írás megoldása</string>
-    <string name="tip_write_to_sdcard_text">Ha a felhasználói felület azt jelzi, hogy \"Az Android csak olvasási hozzáférést biztosít a szinkronizáláshoz\" egy bizonyos mappához, hozzon létre egy új mappát az alábbi elérési útvonalon, hogy írási hozzáférést kapjon:
-\n%1$s/MAPPA_NEVE
-\nLegyen óvatos: Ezt a mappát az Android törölni fogja, ha eltávolítja ezt az alkalmazást. Az alkalmazás eltávolítása előtt helyezze át az adatokat egy biztonságos helyre a …/Android mappán kívülre.</string>
-    <string name="tip_sync_on_local_network_title">Szinkronizálás csak a helyi WiFi hálózaton</string>
-    <string name="tip_sync_on_local_network_text">Ha csak olyan eszközökkel szeretne szinkronizálni, amelyek a helyi WiFi hálózaton vagy WiFi hotspoton keresztül elérhetőek, csökkentheti az akkumulátor-használatot és elkerülheti a véletlen szinkronizálást mobiladatokon keresztül, ha kikapcsolja a következő beállításokat a \"Beállítások/Szinkronizálási beállítások\" alatt:
-\n- NAT áthaladás engedélyezése
-\n- Globális felfedezés
-\n- Továbbítás engedélyezése
-\nCsak a \"Helyi felfedezés\" opciót hagyja engedélyezve.</string>
-    <string name="tip_custom_sync_conditions_title">Mappánként/eszközönként egyéni szinkronizálási feltételek használata</string>
-    <string name="tip_custom_sync_conditions_text">Ezt a funkciót a jövőbeni kiadásokban még javítani fogják. Egyelőre nem akartuk tönkretenni a meglévő konfigurációkat és az alkalmazás viselkedését. Ezért az egyéni szinkronizálási feltételek egy adott hálózattípushoz csak akkor állíthatók be, ha a globális futtatási feltételekben először engedélyezi a hálózaton történő szinkronizálást.</string>
-    <string name="tip_ignore_delete_title">Képek biztonsági mentése a telefonról a számítógépre\?</string>
-    <string name="tip_ignore_delete_text">Ha szeretné, hogy a telefonon készült képekről biztonsági másolat készüljön a számítógépre, ossza meg a \"Kamera\" mappát a számítógéppel. Nyissa meg a Syncthinget a számítógépen, adja hozzá a mappát, és lépjen a \'Műveletek\' &gt; \'Speciális\' &gt; \'Kamera\' mappa menüpontra. Kapcsolja be a \'Törlés figyelmen kívül hagyása\' opciót, és kattintson a \'Mentés\' gombra. Most már törölhet képeket a telefonon lévő kamera mappából, és azok a számítógépen mentve maradnak.</string>
-    <string name="tip_huawei_device_disconnected_title">Huawei: \"eszköz lekapcsolva\" megoldása</string>
-    <string name="tip_huawei_device_disconnected_text">Ha az asztali számítógép folyamatosan leválasztottnak jelzi a Huawei készüléket, nyissa meg az asztali számítógép Syncthing felhasználói felületét. Menjen a \'távoli eszközök\' menüpontra, bontsa ki a telefon bejegyzését, kattintson a \'Szerkesztés\' gombra, majd váltson a \'Speciális\' menüpontra. Írja be a telefon IP-címét a \'Címek\' mezőbe, így:
-\ntcp4://%1$s, dynamic
-\nConfirmed working for: Huawei P10</string>
-    <string name="tip_phone_ip_address_syntax">PHONE_IP_ADDRESS</string>
-    <string name="tip_xiaomi_autostart_title">Xiaomi: az alkalmazás nem indul el a rendszerindításkor</string>
-    <string name="tip_xiaomi_autostart_text">A Xiaomi MIUI alapértelmezés szerint tiltja az alkalmazások önálló indítását. A kezdőképernyőről lépjen a \'Beállítások\' &gt; \'Engedélyek\' &gt; \'Automatikus indítás\' menüpontra, és kapcsolja be a \'Syncthing-Fork\' csúszkát.</string>
-    <string name="tip_xiaomi_battery_saver_title">Xiaomi: az alkalmazás ismételten üdvözlő képernyőt mutat</string>
-    <string name="tip_xiaomi_battery_saver_text">A Xiaomi MIUI akkumulátorkímélő rendszeralkalmazás minden egyes telefon újraindításakor visszavonja az alkalmazás \"akkumulátor-optimalizálás figyelmen kívül hagyása\" engedélyét. Ennek hatására az alkalmazás megjeleníti az üdvözlő képernyőt, és újra kéri a hiányzó kötelező engedélyt. Megoldás: A kezdőképernyőről nyissa meg az alkalmazásfiókot &gt; nyomja meg hosszan a \'Syncthing-Fork\' &gt; \'App info\' &gt; \'Battery saver\'-t és válassza a \'No restrictions\' lehetőséget (MIUI 10.3.2.0+).</string>
     <!-- RecentChangesActivity -->
     <string name="no_recent_changes">A közelmúltban nem történt változás.</string>
     <string name="recent_changes_title">Legutóbbi változások</string>

@@ -399,14 +399,8 @@
     <string name="device_id_invalid">기기 ID 형식이 올바르지 않습니다. 올바른 ID를 재입력하세요.</string>
     <string name="device_name_required">기기 이름은 비워둘 수 없습니다</string>
     <string name="device_addresses_invalid">기기 주소 형식이 올바르지 않습니다. 다시 시도해 주세요. 자세한 내용은 Syncthing 문서를 참조하세요.</string>
-    <string name="tip_phone_ip_address_syntax">휴대폰 IP 주소</string>
-    <string name="tip_huawei_device_disconnected_text">데스크탑에서 Huawei 기기가 계속해서 연결이 끊어졌다고 보고되면, 데스크탑의 Syncthing UI를 엽니다. \'원격 기기\'로 이동하여 휴대폰 항목을 확장하고, \'편집\'을 클릭한 다음 \'고급\'으로 전환합니다. \'주소\'에 휴대폰 IP 주소를 다음과 같이 입력하세요:
-\ntcp4://%1$s, dynamic
-\nHuawei P10에서 작동 확인됨</string>
-    <string name="tip_xiaomi_autostart_title">Xiaomi: 부팅 시 앱이 시작되지 않음</string>
     <string name="web_page_loading">웹페이지 로딩중:
 \n%1$s …</string>
-    <string name="tip_xiaomi_autostart_text">Xiaomi MIUI는 기본적으로 앱이 자동으로 시작되는 것을 허용하지 않습니다. 홈 화면에서 \'설정\' &gt; \'권한\' &gt; \'자동 시작\'으로 이동하여 \'Syncthing-Fork\' 슬라이더를 활성화하세요.</string>
     <string name="open_in_browser">브라우저에서 열기</string>
     <string name="category_user_interface">사용자 인터페이스</string>
     <string name="preference_app_theme_title">테마</string>
@@ -424,7 +418,6 @@
     <string name="run_on_metered_wifi_title">미터 와이파이에서 실행</string>
     <string name="local_discovery_disabled">\'설정\' &gt; \'Syncthing 옵션\' &gt; \'로컬 검색\'에서 로컬 검색을 비활성화했습니다. 로컬 네트워크에서 기기를 검색하려면 이를 활성화하십시오.</string>
     <string name="untrusted_device_explanation">이 기기와 공유된 모든 폴더는 비밀번호로 보호되어야 하며, 제공된 비밀번호 없이는 모든 전송된 데이터를 읽을 수 없습니다.</string>
-    <string name="tip_huawei_device_disconnected_title">Huawei: \'기기 연결 끊김\' 문제 해결 방법</string>
     <string name="folder_fileWatcherDescription">운영 체제에 파일 변경 사항을 알리도록 요청합니다. 이 기능이 비활성화되면 매시간 주기적인 스캔을 수행합니다.</string>
     <string name="folder_ignore_delete_caption">삭제 요청 무시</string>
     <string name="folder_ignore_delete_description">수신 인덱스 업데이트 처리를 관리하는 전문가용 옵션입니다. 이 옵션을 설정하면 삭제 플래그가 설정된 수신 업데이트가 무시됩니다. 자세한 내용은 https://docs.syncthing.net/advanced/folder-ignoredelete.html을 참조하세요</string>
@@ -433,7 +426,6 @@
     <string name="preference_app_theme_follow_dark">어두운 색</string>
     <string name="run_on_metered_wifi_summary">기기가 미터 와이파이 네트워크(예: 핫스팟 또는 테더링 네트워크)에 연결되었을 때 실행합니다. 주의: 많은 양의 데이터를 동기화할 경우 데이터 요금제의 상당 부분을 소모할 수 있습니다.</string>
     <string name="folder_label_required">폴더 라벨 항목은 빈칸으로 둘 수 없습니다</string>
-    <string name="tip_xiaomi_battery_saver_title">Xiaomi: 앱이 반복적으로 초기 화면을 표시함</string>
     <string name="no_recent_changes">최근 변경된 사항이 없습니다.</string>
     <string name="recent_changes_title">최근 변경사항</string>
     <string name="modified_by_device">기기: %1$s</string>
@@ -443,7 +435,6 @@
     <string name="ssl_cert_invalid_text">%1$s의 웹사이트에 SSL 암호화를 위한 유효하지 않은 인증서가 있는 것 같습니다. 계속하시겠습니까?</string>
     <string name="run_on_roaming_title">로밍 중에 실행</string>
     <string name="devices_list_empty">설정된 기기가 없습니다. 새 기기를 추가하려면 탭하세요.</string>
-    <string name="tip_xiaomi_battery_saver_text">Xiaomi MIUI의 배터리 절약 시스템 앱은 기기가 재부팅될 때 앱의 \'배터리 최적화 무시\' 권한을 취소합니다. 이로 인해 앱이 초기 화면을 표시하고 누락된 필수 권한을 다시 요청하게 됩니다. 해결 방법: 홈 화면에서 앱 서랍을 엽니다 &gt; \'Syncthing-Fork\'를 길게 누릅니다 &gt; \'앱 정보\' &gt; \'배터리 절약\'을 선택하고 \'제한 없음\'을 선택합니다 (MIUI 10.3.2.0+).</string>
     <string name="use_tor_summary">개인 정보 보호를 위해 모든 트래픽을 Tor를 통하도록 강제합니다. Orbot이 필요합니다. 프록시 옵션을 비활성화합니다.</string>
     <string name="toast_invalid_socks_proxy_address">입력이 프록시 문법 \'socks5://[IP/호스트이름]:[포트]\'를 위반합니다</string>
     <string name="broadcast_service_control_summary">기본값: 비활성화. 이 옵션을 활성화하면 방송을 보내는 것으로 서비스(예시 : 서드파티 자동화 앱)를 시작하고 중지할 수 있습니다 참고: 이 옵션을 변경한 후에는 앱을 수동으로 다시 시작해야 합니다.</string>
@@ -478,11 +469,6 @@
     <string name="broadcast_service_control_title">브로드캐스트를 통한 서비스 제어</string>
     <string name="toast_invalid_folder_selected">죄송합니다. 선택한 폴더는 사용할 수 없습니다. 내부 또는 외부 저장소에 있는 폴더를 선택해 주세요.</string>
     <string name="notification_persistent_waiting_channel">실행 조건 모니터링 중</string>
-    <string name="tip_sync_on_local_network_text">로컬 WiFi 네트워크나 WiFi 핫스팟을 통해 연결된 기기와만 동기화하려면, \'설정/Syncthing 옵션\'에서 다음 옵션을 끄는 것으로 배터리 사용량을 줄이고 실수로 모바일 데이터를 이용해 동기화되는 것을 방지할 수 있습니다:
-\n- NAT 순회 활성화
-\n- 전역 검색
-\n- 릴레이 활성화
-\n\'로컬 검색\'만 활성화 상태로 두세요.</string>
     <string name="folder_type_switch_to_receive_encrypted_not_allowed">기존 폴더를 \'암호화된 수신\'으로 전환하는 것은 지원되지 않습니다.</string>
     <string name="sync_only_wifi_ssids_need_to_grant_location_permission">이 기능을 사용하려면 위치 권한을 부여해야 합니다.</string>
     <string name="sync_only_wifi_ssids_location_permission_rejected_dialog_title">권한 필요</string>
@@ -498,7 +484,6 @@
     <string name="discovered_devices_title">발견된 기기 - 선택하려면 누르세요</string>
     <string name="discovered_device_list_empty">로컬 검색에서 로컬 네트워크에 있는 기기를 찾지 못했습니다. 두 번째 휴대폰에서 이 응용 프로그램을 실행하세요. 컴퓨터용 설치 파일은 여기에서 다운로드할 수 있습니다: %1$s</string>
     <string name="folders_list_empty">구성된 폴더가 없습니다. 새 폴더를 추가하려면 탭하세요.</string>
-    <string name="tips_and_tricks_title">팁 &amp; 요령</string>
     <string name="power_source_ac_and_battery_power">AC 전원 및 배터리 전원.</string>
     <string name="power_source_ac_power">AC 전원.</string>
     <string name="power_source_battery_power">배터리 전원.</string>
@@ -516,14 +501,9 @@
     <string name="syncthing_database_size">Syncthing 데이터베이스 크기</string>
     <string name="os_open_file_limit">Android 파일 열기 제한</string>
     <string name="folder_go_up">위로 이동</string>
-    <string name="tip_write_to_sdcard_text">UI에서 특정 폴더에 대해 \'Android는 Syncthing에 읽기 전용 접근 권한만 부여합니다\'라는 메시지가 표시되면, 쓰기 권한을 얻기 위해 이 경로를 사용하는 새 폴더를 생성하세요:
-\n%1$s/YOUR_FOLDER_NAME
-\n주의: 이 폴더는 이 앱을 제거하면 Android에 의해 삭제됩니다. 앱을 제거하기 전에는, 데이터를 …/Android 폴더 외부의 안전한 장소로 이동시키세요.</string>
     <string name="run_on_time_schedule_summary">이 옵션을 활성화하면 실행 조건이 충족되고 마지막 동기화가 1시간 이상 전일 경우 설정된 기간 동안 동기화를 시도합니다. 이는 많은 배터리를 절약할 수 있지만 동기화 파트너가 온라인 상태여야 합니다. 참고: 다음 예약된 동기화가 이루어질 때까지 불완전한 임시 파일이 남을 수 있습니다.</string>
     <string name="reason_not_while_auto_sync_data_disabled">Android에서 현재 \'데이터 자동 동기화\'가 비활성화되어 있어 Syncthing이 실행되지 않습니다.</string>
     <string name="reason_mobile_data_disallowed">Syncthing은 모바일 데이터 연결에서 실행되도록 설정되지 않았습니다.</string>
-    <string name="tip_ignore_delete_title">휴대폰에서 컴퓨터로 사진들을 백업하시겠습니까?</string>
-    <string name="tip_ignore_delete_text">휴대폰으로 찍은 모든 사진을 컴퓨터에 백업하고 싶다면 \'Camera\' 폴더를 컴퓨터와 공유하세요. 컴퓨터에서 Syncthing을 열고 폴더를 추가한 다음 \'작업\' &gt; \'고급\' &gt; \'Camera\' 폴더로 이동합니다. \'삭제 무시\'를 활성화하고 \'저장\'을 클릭합니다. 이제 휴대폰의 카메라 폴더에서 사진을 삭제해도 컴퓨터에 백업된 상태로 유지됩니다.</string>
     <string name="run_on_whitelisted_wifi_title">지정된 Wi-Fi 네트워크에서 실행</string>
     <string name="sync_duration_minutes_title">동기화 주기</string>
     <string name="behaviour_autostart_summary">운영 체제 시작 시 응용 프로그램을 자동으로 시작합니다.</string>
@@ -540,9 +520,6 @@
     <string name="reason_not_within_time_frame_0_min">1분 미만</string>
     <string name="run_in_flight_mode_summary">이 옵션을 활성화하면 오프라인 상태에서도 Syncthing이 실행됩니다. 기기가 비행 모드에서 수동 Wi-Fi 연결을 감지하는 데 문제가 있는 경우 이 옵션을 활성화하세요.</string>
     <string name="run_on_time_schedule_title">시간 일정에 따라 실행</string>
-    <string name="tip_sync_on_local_network_title">로컬 WiFi 네트워크만 사용하여 동기화</string>
-    <string name="tip_custom_sync_conditions_title">폴더/기기별 사용자 지정 동기화 조건 사용</string>
-    <string name="tip_custom_sync_conditions_text">이 기능은 향후 출시에서 더욱 개선될 예정입니다. 현재로서는 기존 설정 및 앱 동작이 변경되는 것을 원치 않았습니다. 따라서 특정 네트워크 유형에 대한 사용자 지정 동기화 조건은 먼저 글로벌 실행 조건을 가진 네트워크 동기화를 허용해야만 설정될 수 있습니다.</string>
     <string name="run_on_whitelisted_wifi_networks">선택된 Wi-Fi 네트워크: %1$s</string>
     <string name="wifi_ssid_whitelist_empty">지정된 Wi-Fi 네트워크가 없습니다. 네트워크를 지정하려면 클릭하세요.</string>
     <string name="sync_only_wifi_ssids_wifi_turn_on_location">네트워크를 선택하려면 위치 기능을 켜 주세요.</string>
@@ -556,7 +533,6 @@
     <string name="reason_not_charging">휴대폰이 충전 상태가 아닙니다.</string>
     <string name="reason_not_on_battery_power">휴대폰이 배터리 전원으로 작동하지 않습니다.</string>
     <string name="reason_not_while_power_saving">전화기가 현재 절전 모드에 있어 Syncthing이 실행되지 않습니다.</string>
-    <string name="tip_write_to_sdcard_title">외부 sd카드를 사용하기 위한 방법</string>
     <string name="log_to_file_summary">SyncthingNative의 출력이 파일에 기록됩니다.</string>
     <string name="st_reset_deltas_title">델타 인덱스 초기화</string>
     <string name="st_reset_deltas_done">Syncthing의 델타 인덱스 초기화에 성공했습니다</string>

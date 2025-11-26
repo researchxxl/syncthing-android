@@ -263,30 +263,6 @@
     <string name="install_barcode_scanner_app_message">这需要条形码扫描应用。您想安装 F-Droid 的应用“Binary Eye”吗?</string>
     <!-- Shown if no folders are configured -->
     <string name="folders_list_empty">未配置文件夹。点击以添加新文件夹。</string>
-    <string name="tips_and_tricks_title">提示和技巧</string>
-    <string name="tip_write_to_sdcard_title">写入外部 SD 卡的解决方法</string>
-    <string name="tip_write_to_sdcard_text">如果您看到用户界面显示“Android 只授予 Syncthing 对某个文件夹的只读访问权限”，请使用此路径创建一个新文件夹以获得写访问权限：
-\n%1$s/YOUR_FOLDER_NAME
-\n请注意：如果您卸载此应用，此文件夹将被 Android 清除。卸载应用之前，请将数据移动到 …/Android 文件夹外的安全位置。</string>
-    <string name="tip_sync_on_local_network_title">仅使用本地 WiFi 网络进行同步</string>
-    <string name="tip_sync_on_local_network_text">如果您只想与位于本地 WiFi 网络上或可通过 WiFi 热点访问的设备同步，您可以通过关闭“设置/Syncthing 选项”下的以下选项来降低电池的用量，避免意外的移动数据同步。这些选项是：
-\n–启用 NAT 穿透
-\n–全局发现
-\n–启用中继
-\n仅启用“本地发现”。</string>
-    <string name="tip_custom_sync_conditions_title">使用每个文件夹/设备的自定义同步条件</string>
-    <string name="tip_custom_sync_conditions_text">在未来的版本中，此功能仍将得到改进。目前，我们不想破坏现有的配置和应用程序行为。这就是为什么只有首先在全局运行条件中启用该网络上的同步后，才能设置特定网络类型的自定义同步条件。</string>
-    <string name="tip_ignore_delete_title">将照片从手机备份到电脑？</string>
-    <string name="tip_ignore_delete_text">如果您想将手机上拍摄的所有照片备份到计算机上，请与计算机共享“Camera”文件夹。在计算机上打开 Syncthing，添加文件夹，然后转到“操作”&gt;“高级”&gt;“Camera”文件夹。启用“忽略删除”，然后单击“保存”。现在，您可以从手机上的相机文件夹中删除图片，它们将保留在计算机上。</string>
-    <string name="tip_huawei_device_disconnected_title">华为：“设备断开连接”解决方法</string>
-    <string name="tip_huawei_device_disconnected_text">如果您的桌面不断报告您的华为设备已断开连接，请打开桌面的 Syncthing UI。转到“远程设备”，展开手机的条目，单击“编辑”，切换到“高级”。将您的手机 IP 地址放入“地址”中，如下所示：
-\ntcp4://%1$s, dynamic
-\n确认工作：华为 P10</string>
-    <string name="tip_phone_ip_address_syntax">PHONE_IP_ADDRESS</string>
-    <string name="tip_xiaomi_autostart_title">小米：开机时应用无法启动</string>
-    <string name="tip_xiaomi_autostart_text">默认情况下，小米 MIUI 不允许应用自启动。请在主屏幕中，请到“设置 &gt; 权限 &gt; 应用自启动”并开启“Syncthing-Fork”滑块。</string>
-    <string name="tip_xiaomi_battery_saver_title">小米：应用反复显示欢迎屏幕</string>
-    <string name="tip_xiaomi_battery_saver_text">小米 MIUI 的电池保护系统应用会在每次重启手机时撤销该应用的“忽略电池优化”权限。这将导致应用程序显示欢迎界面，并再次请求丢失的必需权限。解决方案：从主屏幕打开应用抽屉 &gt; 长按“Syncthing-Fork”&gt; “应用信息”&gt;“电池保护”，选择“无限制”（MIUI 10.3.2.0+）。</string>
     <!-- RecentChangesActivity -->
     <string name="no_recent_changes">没有最近的更改。</string>
     <string name="recent_changes_title">最近的更改</string>

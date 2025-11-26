@@ -411,14 +411,6 @@
     <string name="device_name_required">Le nom de l\'appareil ne doit pas être vide</string>
     <string name="device_addresses_invalid">Les adresses de l\'appareil ne sont pas formatées correctement. Merci de réessayer. Consultez la documentation de Syncthing sur le site officiel.</string>
     <string name="install_barcode_scanner_app_message">Ceci nécessite une application de lecture de codes-barre. Souhaitez-vous installer \'Binary Eye\' depuis F-Droid ?</string>
-    <string name="tips_and_tricks_title">Trucs &amp; astuces</string>
-    <string name="tip_write_to_sdcard_title">Contournement pour écrire sur une SDCard externe</string>
-    <string name="tip_sync_on_local_network_title">Synchroniser seulement par Wi-Fi</string>
-    <string name="tip_ignore_delete_title">Sauvegarder les photos de téléphone à ordinateur ?</string>
-    <string name="tip_huawei_device_disconnected_title">Huawei : contournement du problème \'appareil déconnecté\'</string>
-    <string name="tip_xiaomi_autostart_title">Xiaomi : l\'application ne démarre pas au boot</string>
-    <string name="tip_xiaomi_autostart_text">L\'interface MIUI de Xiaomi empêche par défaut les applications de démarrer de leur propre chef. Dans les \'Paramètres du téléphone\'&gt;\'Permissions\'&gt;\'Démarrage automatique\' et activez \'Syncthing-Fork\'.</string>
-    <string name="tip_xiaomi_battery_saver_title">Xiaomi : l\'application boucle sur l\'écran de bienvenue</string>
     <string name="no_recent_changes">Pas de changements récents.</string>
     <string name="recent_changes_title">Changement récents</string>
     <string name="modified_by_device">Appareil : %1$s</string>
@@ -524,10 +516,6 @@
     <string name="discovered_devices_title">Appareils découverts - Tapez pour sélectionner</string>
     <string name="folders">Partages</string>
     <string name="autoAcceptFolders">Accepter automatiquement</string>
-    <string name="tip_huawei_device_disconnected_text">Si votre PC indique tout le temps que votre appareil Huawei est déconnecté, ouvrez Syncthing sur le PC. Cliquez sur l\'appareil Huawei&gt;\'Gérer\'&gt;\'Avancé\'. Remplacez le contenu du champ \'Adresses\' comme suit :
-\ntcp4://%1$s, dynamic
-\nTesté OK pour  : Huawei P10</string>
-    <string name="tip_phone_ip_address_syntax">PHONE_IP_ADDRESS</string>
     <string name="preference_app_theme_follow_dark">Sombre</string>
     <string name="run_on_mobile_data_summary">Exécuter quand l\'appareil est connecté au réseau de données mobiles. Attention : ceci peut rapidement consommer un gros volume de données de votre forfait si vous avez beaucoup de données.</string>
     <string name="run_on_roaming_title">Exécuter en itinérance</string>
@@ -589,7 +577,6 @@
     <string name="advanced_directory_selection">Choix avancé du répertoire</string>
     <string name="folder_ignore_delete_caption">Ignorer les suppressions</string>
     <string name="discovered_device_list_empty">La découverte locale n\'a trouvé aucun appareil sur le réseau local. Exécutez cette application sur un second appareil. Les fichiers d\'installation pour la version PC sont disponibles ici : %1$s</string>
-    <string name="tip_custom_sync_conditions_title">Utiliser des conditions de synchronisation personnalisées par partages/appareils</string>
     <string name="run_on_mobile_data_title">Exécutez sur les données mobiles</string>
     <string name="webui_tcp_port_title">Port TCP du GUI</string>
     <string name="invalid_port_number" tools:ignore="PluralsCandidate">Numéro de port invalide. Entrez un nombre entre %1$d et %2$d.</string>
@@ -616,17 +603,8 @@
     <string name="revert_local_changes">Remettre les données locales conformes à leur version distantes</string>
     <string name="local_discovery_disabled">Vous avez désactivé la découverte locale dans les \'Paramètres\'&gt;\'Options Syncthing\'&gt;\'Découverte locale\'. Activez-là pour trouver automatiquement des appareils qui exécutent déjà Syncthing sur votre réseau local.</string>
     <string name="folders_list_empty">Aucun partage configuré. Tapez pour en ajouter un.</string>
-    <string name="tip_xiaomi_battery_saver_text">L\'économiseur de batterie du Xiaomi MIUI retire l\'autorisation \'Ignorer l\'optimisation de batterie\' à l\'application à chaque reboot. Cela provoque l\'affichage systématique de l\'écran de bienvenue et la demande pour la permission manquante. Appuyez longuement sur l\'icône \'Syncthing-Fork\'&gt;\'App info\'&gt;\'Économiseur de batterie\' et choisissez \'Aucune restrictions\' (MIUI 10.3.2.0+).</string>
     <string name="preference_app_theme_follow_light">Clair</string>
     <string name="run_on_metered_wifi_summary">Exécuter sur les réseaux Wi-Fi avec quota, c\'est à dire les hotspots ou via un partage de connexion. Attention : ceci peut rapidement consommer une grosse partie du quota, le votre sur un hotspot, ou celui du partageur de connexion.</string>
-    <string name="tip_write_to_sdcard_text">Si vous voyez que l\'interface graphique indique que \'Android n\'accorde que la lecture seule\' à un partage particulier, créez un nouveau partage en utilisant le chemin suivant pour obtenir aussi l\'accès en écriture : \n%1$s/Votre-nom-de-répertoire \nSoyez vigilant : ce répertoire sera détruit par Android si vous désinstallez cette application. Avant de désinstaller Syncthing, déplacez ce répertoire en dehors du répertoire .../Android.</string>
-    <string name="tip_sync_on_local_network_text">Si vous souhaitez ne synchroniser avec d\'autres appareils du réseau local ou accessibles via votre connexion Wi-Fi, vous pouvez diminuer l\'usage de la batterie et/ou empêcher l\'utilisation des \'données mobiles\' de votre forfait en désactivant les options suivantes dans les \'Paramètres\' :
-\n- Activer la traversée NAT
-\n- Découverte globale
-\n- Activer le relayage
-\nConservez seulement l\'option \'Découverte locale\' activée.</string>
-    <string name="tip_custom_sync_conditions_text">Cette fonctionnalité sera toujours améliorée dans de futures versions. Pour l\'instant, nous ne voulons pas casser les configurations existantes et le comportement de l\'application. C\'est pourquoi les conditions personnalisées de synchronisation pour certains types de réseaux ne peuvent être définies que si vous activez d\'abord la synchro sur le réseau dans les conditions globales d\'exécution.</string>
-    <string name="tip_ignore_delete_text">Si vous souhaitez que toutes vos photos du téléphone soient synchronisées vers un PC, partagez le répertoire \'Camera\' avec le PC. Ouvrez Syncthing sur le PC, ajoutez le partage puis allez dans \'Actions\'&gt;\'Avancé\'&gt;\'Partages\'&gt;\'Nom-du-partage\' et cochez la case \'Ignore Delete\'. Cliquez sur \'Enregistrer\' tout en bas. Vous pouvez maintenant effacer les photos dans le téléphone sans qu\'elles soient aussi supprimées du PC.</string>
     <string name="run_on_time_schedule_summary">Quand cette option est activée, Syncthing tente de synchroniser pendant la durée configurée si les condition d\'exécution sont remplies et que la dernière synchro a eu lieu depuis plus de l\'intervalle spécifié. Ceci peut économiser beaucoup la batterie mais nécessite que les pairs soient en ligne. Notez que cela peut laisser des fichiers temporaires incomplets jusqu\'à la synchro suivante.</string>
     <string name="folder_type_send_receive">Envoyer et recevoir</string>
     <string name="webui_remote_access_summary">Permettre l\'accès au GUI depuis un autre appareil. Si activé, vous pourrez vous connecter avec l\'utilisateur \'syncthing\' et la clé d\'API comme mot de passe. Désactivé par défaut (plus sécurisé)</string>

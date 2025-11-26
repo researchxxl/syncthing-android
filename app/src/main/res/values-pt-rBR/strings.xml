@@ -239,14 +239,6 @@
     <string name="scan_qr_code_description">Ler código QR</string>
     <!-- Shown if no folders are configured -->
     <string name="folders_list_empty">Nenhuma pasta configurada. Toque para adicionar uma nova pasta.</string>
-    <string name="tips_and_tricks_title">Dicas e truques</string>
-    <string name="tip_sync_on_local_network_title">Sincronizar apenas usando a rede Wi-Fi local</string>
-    <string name="tip_sync_on_local_network_text">Se você deseja sincronizar apenas com dispositivos localizados na rede Wi-Fi local ou acessíveis via ponto de acesso Wi-Fi, você pode reduzir o uso da bateria e evitar a sincronização acidental por dados móveis desativando as seguintes opções em \'Configurações/Opções de sincronização\': \n- Ativar travessia de NAT \n- Descoberta global \n- Ativar retransmissão \nDeixe apenas a \'Descoberta local\' ativada.</string>
-    <string name="tip_custom_sync_conditions_title">Usar condições personalizadas de sincronização por pasta/dispositivo</string>
-    <string name="tip_custom_sync_conditions_text">Este recurso será melhorada em versões futuras. Por enquanto, nós não queríamos quebrar configurações existentes e o comportamento do app. É por isso que condições de sincronização personalizadas para um certo tipo de rede só podem ser definidas se você ativar primeiro a sincronização na rede nas condições de execução global.</string>
-    <string name="tip_ignore_delete_title">Fazer backup das fotos do celular no computador?</string>
-    <string name="tip_xiaomi_autostart_title">Xiaomi: o app não inicia com o dispositivo</string>
-    <string name="tip_xiaomi_battery_saver_text">O aplicativo do sistema de economia de bateria da Xiaomi MIUI revoga a permissão \'ignorar otimização da bateria\' do aplicativo em cada reinicialização do telefone. Isto faz com que o aplicativo mostre a tela de boas-vindas e peça novamente a permissão obrigatória ausente. Solução: na tela inicial, abra a gaveta de aplicativos&gt; Pressione e segure \'Syncthing-Fork\' &gt; \'Informações do aplicativo\' &gt; \'Economia de bateria\' e selecione \'Sem restrições\' (MIUI 10.3.2.0+).</string>
     <!-- RecentChangesActivity -->
     <string name="no_recent_changes">Não há alterações recentes.</string>
     <string name="recent_changes_title">Alterações recentes</string>
@@ -601,18 +593,10 @@
     <string name="sync_only_wifi_ssids_wifi_turn_on_location">Por favor, ative a localização para selecionar as redes.</string>
     <string name="respect_battery_saving_summary">Desative o Syncthing se a economia de bateria estiver ativa.</string>
     <string name="folder_run_script_caption">Executar script</string>
-    <string name="tip_xiaomi_autostart_text">A MIUI da Xiaomi não permite que aplicativos iniciem sozinhos por padrão. Na tela inicial, acesse \"Configurações\" &gt; \"Permissões\" &gt; \"Inicialização Automática\" e ative o controle deslizante \"Syncthing-Fork\".</string>
-    <string name="tip_huawei_device_disconnected_title">Huawei: solução alternativa para \'dispositivo desconectado\'</string>
     <string name="device_addresses_invalid">Os endereços do dispositivo não estão formatados corretamente. Tente novamente. Consulte a documentação do Syncthing para mais informações.</string>
     <string name="install_barcode_scanner_app_message">Isto requer um aplicativo de leitura de código de barras. Gostaria de instalar o aplicativo \"Binary Eye\" do F-Droid?</string>
-    <string name="tip_write_to_sdcard_title">Solução alternativa para gravação em cartão SD externo</string>
-    <string name="tip_write_to_sdcard_text">Se a interface do usuário informar que \"O Android concede apenas acesso de leitura ao Syncthing\" para uma determinada pasta, crie uma nova pasta usando este caminho para obter acesso de gravação:\n%1$s/NOME_DA_SUA_PASTA\nAtenção: esta pasta será apagada pelo Android se você desinstalar este aplicativo. Antes de desinstalar o aplicativo, mova os dados para um local seguro fora da pasta …/Android.</string>
-    <string name="tip_phone_ip_address_syntax">ENDEREÇO_IP_DO_TELEFONE</string>
-    <string name="tip_xiaomi_battery_saver_title">Xiaomi: aplicativo mostra tela de boas-vindas repetidamente</string>
     <string name="power_source_title">Executar enquanto alimentado por</string>
     <string name="folder_run_script_description">Opção avançada para executar scripts após uma pasta alterar seu estado de sincronização. Scripts em \'.stfolder/*.sh\' serão executados; outros locais não são suportados por questões de segurança.\nExemplo de chamada de script: \'.stfolder/rename-files.sh sync_complete\'</string>
-    <string name="tip_ignore_delete_text">Se quiser fazer backup de todas as fotos tiradas no seu celular em um computador, compartilhe a pasta \"Câmera\" com o computador. Abra o Syncthing no computador, adicione a pasta e vá em \"Ações\" &gt; \"Avançado\" e na pasta \"Câmera\". Ative \"Ignorar apagamento\" e clique em \"Salvar\". Agora você pode apagar fotos da pasta da câmera do celular e elas permanecerão armazenadas no computador.</string>
-    <string name="tip_huawei_device_disconnected_text">Se o seu computador relata constantemente que o seu dispositivo Huawei está desconectado, abra a interface do Syncthing no seu computador. Vá para \"Dispositivos remotos\", expanda a entrada do celular, clique em \"Editar\" e vá para \"Avançado\". Digite o endereço IP do seu telefone em \"Endereços\" como este:\ntcp4://%1$s, dinâmico\nFuncionamento confirmado para: Huawei P10</string>
     <string name="privacy_title">Política de privacidade</string>
     <string name="open_source_licenses_title">Licenças de código aberto</string>
     <string name="open_source_licenses_summary">Mostre as licenças de código aberto usadas</string>

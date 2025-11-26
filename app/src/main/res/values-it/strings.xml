@@ -263,24 +263,6 @@
     <string name="install_barcode_scanner_app_message">Per questa operazione è necessario un lettore di codice a barre. Vuoi installare l\'app \'Binary Eye\' da F-Droid\?</string>
     <!-- Shown if no folders are configured -->
     <string name="folders_list_empty">Non ci sono cartelle configurate. Tocca per aggiungere una nuova cartella.</string>
-    <string name="tips_and_tricks_title">Consigli &amp; Suggerimenti</string>
-    <string name="tip_write_to_sdcard_title">Soluzione alternativa per scrivere sulla memoria esterna</string>
-    <string name="tip_write_to_sdcard_text">Se vedi l\'interfaccia utente che indica che \"Android concede solo la sincronizzazione dell\'accesso in sola lettura\" a una determinata cartella, crea una nuova cartella usando questo percorso per ottenere l\'accesso in scrittura:
-\n%1$s/YOUR_FOLDER_NAME
-\nAttenzione: questa cartella verrà cancellata da Android se disinstalli questa app. Prima di disinstallare l\'app, spostare i dati in un luogo sicuro fuori dalla cartella … /Android.</string>
-    <string name="tip_sync_on_local_network_title">Sincronizza solo usando la rete WiFi locale</string>
-    <string name="tip_sync_on_local_network_text">Se vuoi effettuare la sincronizzazione solo con i dispositivi che sono nella rete WiFi locale o hotspot, puoi abbassare il consumo di batteria ed evitare che la sincronizzazione avvenga consumando dati mobili disabilitando queste opzioni in \'Impostazioni/Opzioni di Syncthing\': \n- Abilita NAT traversal \n- Individuazione Globale \n- Abilita Reindirizzamento \nLascia abilitato solo \'Individuazione Locale\'.</string>
-    <string name="tip_custom_sync_conditions_title">Usa condizioni di sincronizzazione personalizzate per cartella/dispositivo</string>
-    <string name="tip_custom_sync_conditions_text">Questa funzione verrà migliorata in versioni future. Per ora non abbiamo voluto alterare le configurazioni esistenti e il comportamento dell\'app. Per questo motivo le condizioni di sincronizzazione personalizzate per un tipo di rete possono essere attivate solo se attivi la sincronizzazione su questa rete nelle condizioni generali di esecuzione.</string>
-    <string name="tip_ignore_delete_title">Vuoi salvare le foto dal cellulare al computer\?</string>
-    <string name="tip_ignore_delete_text">Se vuoi che tutte le foto fatte dal tuo cellulare siano salvate su un computer, condividi la cartella \'Camera\' con il computer. Apri Syncthing sul computer, aggiungi la cartella e vai a \'Azioni\' &gt; \'Avanzato\' &gt; Cartella \'Camera\'. Abilita \'Ignore Delete\' e clicca \'Salva\'. Ora potrai eliminare foto dal tuo cellulare, lasciandole salvate sul computer.</string>
-    <string name="tip_huawei_device_disconnected_title">Huawei: soluzione alternativa a \'dispositivo disconnesso\'</string>
-    <string name="tip_huawei_device_disconnected_text">Se il desktop segnala costantemente il dispositivo Huawei come disconnesso, aprire l\'interfaccia utente Syncthing del desktop. Andare su \'Dispositivi remoti\', espandere la voce del telefono, fare clic su \'Modifica\' e passare ad \'Avanzate\'. Inserire l\'indirizzo IP del telefono in \'Indirizzi\' in questo modo: \ntcp4://%1$s, dynamic \nConfermato il funzionamento per: Huawei P10</string>
-    <string name="tip_phone_ip_address_syntax">PHONE_IP_ADDRESS</string>
-    <string name="tip_xiaomi_autostart_title">Xiaomi: l\'app non parte all\'avvio del dispositivo</string>
-    <string name="tip_xiaomi_autostart_text">Xiaomi MIUI impedisce in maniera predefinita che le app si avviino automaticamente. Dalla schermata home, vai in \'Impostazioni\'&gt;\'Permessi\'&gt;\'Avvio automatico\' e attiva l\'opzione per \'Syncthing-Fork\'.</string>
-    <string name="tip_xiaomi_battery_saver_title">Xiaomi: l\'app mostra continuamente la schermata di benvenuto</string>
-    <string name="tip_xiaomi_battery_saver_text">L\'app di sistema di risparmio batteria di Xiaomi MIUI revoca l\'autorizzazione \"ignora ottimizzazione batteria\" su ogni riavvio del telefono. Questo fa sì che l\'app mostri la schermata di benvenuto e richieda nuovamente l\'autorizzazione obbligatoria mancante. Soluzione: dalla schermata principale, aprire il cassetto delle app&gt; Premere a lungo \'Syncthing-Fork\'&gt; \'Informazioni app\'&gt; \'Risparmio batteria\' e selezionare \'Nessuna restrizione\' (MIUI 10.3.2.0+).</string>
     <!-- RecentChangesActivity -->
     <string name="no_recent_changes">Non ci sono cambiamenti recenti.</string>
     <string name="recent_changes_title">Cambiamenti recenti</string>

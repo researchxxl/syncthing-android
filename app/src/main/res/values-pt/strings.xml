@@ -240,10 +240,6 @@
     <string name="folders">Pastas</string>
     <string name="untrusted_device">Dispositivo não confiável</string>
     <string name="folders_list_empty">Nenhuma pasta configurada. Toque para adicionar uma nova pasta.</string>
-    <string name="tips_and_tricks_title">Dicas e truques</string>
-    <string name="tip_sync_on_local_network_title">Sincronizar apenas usando a rede WiFi local</string>
-    <string name="tip_custom_sync_conditions_title">Usar condições personalizadas de sincronização por pasta/dispositivo</string>
-    <string name="tip_xiaomi_autostart_title">Xiaomi: o app não inicia na inicialização</string>
     <string name="modification_time">Tempo: %1$s</string>
     <string name="this_device">Este dispositivo</string>
     <string name="ssl_cert_invalid_text">O site em %1$s parece ter um certificado inválido para criptografia SSL. Proceder?</string>
@@ -349,14 +345,6 @@
     <string name="folder_ignore_delete_caption">Ignorar exclusão</string>
     <string name="folder_ignore_delete_description">Opção avançada que afeta o tratamento das atualizações de índice recebidas. Quando definida, as atualizações recebidas com o sinalizador de exclusão definido são ignoradas. Veja https://docs.syncthing.net/advanced/folder-ignoredelete.html</string>
     <string name="pause_device">Pausar Dispositivo</string>
-    <string name="tip_sync_on_local_network_text">Se deseja sincronizar apenas com aparelhos localizados na rede Wi-Fi local ou acessíveis via hotspot Wi-Fi, pode reduzir o uso da pilha e evitar a sincronização acidental por dados móveis desativando as seguintes opções em \'Configurações/Opções de sincronização\':
-\n- Ativar travessia de NAT
-\n- Descoberta Global
-\n- Ativar Relaying
-\nApenas deixe \'Descoberta local\' ativada.</string>
-    <string name="tip_custom_sync_conditions_text">Esse recurso será melhorada em versões futuras. Por enquanto, não queríamos quebrar configurações existentes e o comportamento do app. É por isso que condições de sincronização personalizadas para um certo tipo de rede só podem ser definidas se ativar primeiro a sincronização na rede nas condições execução global.</string>
-    <string name="tip_ignore_delete_title">Fazer backups das fotos do telemóvel para o computador?</string>
-    <string name="tip_xiaomi_battery_saver_text">A app do sistema de economia de pilha da Xiaomi MIUI revoga a permissão \'ignorar otimização da pilha\' da app em cada reinicialização do telefone. Isso faz com que a app mostre o ecrã de boas-vindas e peça novamente a permissão obrigatória ausente. Solução: no ecrã inicial, abra a gaveta de apps&gt; Pressione e segure \'Syncthing-Fork\' &gt; \'Informações da app\' &gt; \'Economia de pilha\' e selecione \'Sem restrições\' (MIUI 10.3.2.0+).</string>
     <string name="preference_app_theme_title">Tema</string>
     <string name="preference_app_theme_follow_dark">Escuro</string>
     <string name="run_on_metered_wifi_summary">Executar quando o dispositivo estiver conectado a uma rede Wi-Fi limitado, por exemplo, um ponto de acesso ou uma rede com fio. Atenção: Isso pode consumir grande parte do seu plano de dados se sincronizar muitos dados.</string>
@@ -518,7 +506,6 @@
     <string name="toast_invalid_folder_selected">Lamentamos, mas a pasta escolhida não pode ser usada. Escolha uma pasta localizada no armazenamento interno ou externo.</string>
     <string name="untrusted_device_explanation">Todas as pastas partilhadas com este dispositivo têm de estar protegidas com uma senha, por forma a que todos os dados enviados sejam ilegíveis sem a senha dada.</string>
     <string name="install_barcode_scanner_app_message">Isto requer uma aplicação leitora de códigos de barras. Gostaria de instalar a aplicação \'Binary Eye\' a partir do F-Droid?</string>
-    <string name="tip_write_to_sdcard_title">Alternativa à escrita no cartão SD externo</string>
     <string name="photo_shoot_take_picture_success">Imagem guardada na pasta Syncthing Camera com sucesso.</string>
     <string name="discovered_device_list_empty">A descoberta local não encontrou quaisquer dispositivos na rede local. Corra esta aplicação num segundo telemóvel. Os ficheiros de instalação para computadores estão disponíveis em: %1$s</string>
     <string name="autoAcceptFolders">Aceitar automaticamente</string>

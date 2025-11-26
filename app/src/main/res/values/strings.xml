@@ -403,40 +403,6 @@
     <!-- Shown if no folders are configured -->
     <string name="folders_list_empty">No folders configured. Tap to add a new folder.</string>
 
-
-
-    <string name="tips_and_tricks_title">Tips &amp; Tricks</string>
-
-    <string name="tip_write_to_sdcard_title">Write to external sdcard workaround</string>
-    <string name="tip_write_to_sdcard_text">If you see the UI stating that \'Android only grants syncthing read-only access\' to a certain folder, create a new folder using this path to gain write access:
-\n%1$s/YOUR_FOLDER_NAME
-\nBe careful: This folder will get wiped out by Android if you uninstall this app. Before uninstalling the app, move the data to a safe place outside the …/Android folder.</string>
-
-    <string name="tip_sync_on_local_network_title">Sync only using the local WiFi network</string>
-    <string name="tip_sync_on_local_network_text">If you\'d like to sync only with devices that are located on the local WiFi network or reachable via WiFi hotspot, you can lower battery usage and avoid accidentially syncing over mobile data by turning off the following options under \'Settings/Syncthing Options\':
-\n- Enable NAT traversal
-\n- Global Discovery
-\n- Enable Relaying
-\nOnly leave \'Local discovery\' enabled.</string>
-
-    <string name="tip_custom_sync_conditions_title">Use per folder/device custom sync conditions</string>
-    <string name="tip_custom_sync_conditions_text">This feature will still be improved in future releases. For now, we didn\'t want to break existing configs and app behaviour. That\'s why custom sync conditions for a certain network type can only be set if you enable syncing on the network in the global run conditions first.</string>
-
-    <string name="tip_ignore_delete_title">Backup pictures from phone to computer\?</string>
-    <string name="tip_ignore_delete_text">If you\'d like to have all pictures made on your phone backed up to a computer, share the \'Camera\' folder with the computer. Open Syncthing on the computer, add the folder and go to \'Actions\' &gt; \'Advanced\' &gt; \'Camera\' folder. Enable \'Ignore Delete\' and click \'Save\'. You can now delete pictures from your camera folder on the phone and they will stay backed up on the computer.</string>
-
-    <string name="tip_huawei_device_disconnected_title">Huawei: \'device disconnected\' workaround</string>
-    <string name="tip_huawei_device_disconnected_text">If your desktop constantly reports your Huawei device as disconnected, open Syncthing UI of your desktop. Go to \'remote devices\', expand the phone\'s entry, click \'Edit\', switch to \'Advanced\'. Put your phone IP address into \'Addresses\' like this:
-\ntcp4://%1$s, dynamic
-\nConfirmed working for: Huawei P10</string>
-    <string name="tip_phone_ip_address_syntax">PHONE_IP_ADDRESS</string>
-
-    <string name="tip_xiaomi_autostart_title">Xiaomi: app does not start on boot</string>
-    <string name="tip_xiaomi_autostart_text">Xiaomi MIUI disallows apps to start on their own by default. From home screen, go to \'Settings\' &gt; \'Permissions\' &gt; \'Autostart\' and enable the \'Syncthing-Fork\' slider.</string>
-
-    <string name="tip_xiaomi_battery_saver_title">Xiaomi: app repeatedly shows welcome screen</string>
-    <string name="tip_xiaomi_battery_saver_text">Xiaomi MIUI\'s battery saver system app revokes the app\'s \'ignore battery optimization\' permission on every phone reboot. This causes the app to show the welcome screen and ask for the missing mandatory permission again. Solution: From home screen, open the app drawer &gt; Long press \'Syncthing-Fork\' &gt; \'App info\' &gt; \'Battery saver\' and select \'No restrictions\' (MIUI 10.3.2.0+).</string>
-
     <!-- RecentChangesActivity -->
 
     <string name="no_recent_changes">There are no recent changes.</string>

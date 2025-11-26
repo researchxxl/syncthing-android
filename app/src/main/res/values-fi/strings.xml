@@ -229,14 +229,6 @@
     <string name="device_id_invalid">Laitteen ID on väärin muotoiltu. Ole hyvä ja yritä uudelleen.</string>
     <!-- Content description for device ID qr code icon -->
     <string name="scan_qr_code_description">Lue QR-koodi</string>
-    <string name="tip_sync_on_local_network_text">Jos haluaisit synkronoida vain laitteiden kanssa, jotka ovat paikallisessa WiFi-verkossa tai saatavilla WiFi-tukiaseman kautta, voit alentaa akun käyttöä ja välttää vahingossa mobiilidatalla synkronoinnin ottamalla pois käytöstä seuraavat asetukset kohdassa \'Asetukset/Syncthing-asetukset\':
-\n- Aktivoi osoitteenmuunnoksen kierto
-\n- Globaali etsintä
-\n- Aktivoi yhteyden välitys
-\nJätä vain \'Paikallinen etsintä\' käyttöön.</string>
-    <string name="tip_custom_sync_conditions_text">Tätä ominaisuutta parannetaan vielä tulevissa sovellusversioissa. Toistaiseksi emme halunneet rikkoa olemassa olevia asetuksia ja sovelluksen käyttäytymistä. Tästä syystä räätälöidyt käyntiehdot tietylle verkkotyypille voidaan asettaa vain, jos otat ensin käyttöön verkossa synkronoinnin globaaleista käyntiehdoista.</string>
-    <string name="tip_xiaomi_autostart_text">Xiaomi MIUI estää oletuksena sovellusten käynnistymisen itsestään. Mene kotinäytöltä \'Asetukset\' &gt; \'Käyttöoikeudet\' &gt; \'Autostart\' ja kytke päälle \'Syncthing-Fork\':n valitsin.</string>
-    <string name="tip_xiaomi_battery_saver_text">Xiaomi MIUI:n virransäästöjärjestelmäsovellus poistaa jokaisen uudelleenkäynnistyksen yhteydessä sovelluksen oikeuden ohittaa akun käytön optimointi. Tämä aiheuttaa sovelluksen näkymisen alkutervehdysruudulla ja puuttuvan käyttöoikeuden kysymisen uudestaan. Ratkaisu: avaaa kotinäytöllä sovellusvalitsin &gt; paina pitkään \'Syncthing-Fork\' &gt; \'Sovellustiedot\' &gt; \'Virransäästö\' ja valitse \'Ei rajoituksia\' (MIUI 10.3.2.0+).</string>
     <!-- WebGuiActivity -->
     <!-- Title of the web gui activity -->
     <string name="web_gui_title">Web käyttöliittymä</string>
@@ -441,11 +433,9 @@
     <string name="pull_order_oldest_first">Vanhin ensin</string>
     <string name="pull_order_newest_first">Uusin ensin</string>
     <string name="autoAcceptFolders">Hyväksy automaattisesti</string>
-    <string name="tips_and_tricks_title">Vinkit &amp; Vihjeet</string>
     <string name="untrusted_device">Ei-luotettu laite</string>
     <string name="device_name_required">Laitteen nimi ei voi olla tyhjä</string>
     <string name="folders">Kansiot</string>
-    <string name="tip_ignore_delete_title">Varmuuskopioidaanko puhelimen kuvat tietokoneelle?</string>
     <plurals name="syncthing_active_syncing_device_online">
         <item quantity="one">Synkronointi: %1$d %% valmis, %2$d laite verkossa</item>
         <item quantity="other">Synkronointi: %1$d %% valmis, %2$d laitetta verkossa</item>

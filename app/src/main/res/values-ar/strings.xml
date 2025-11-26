@@ -122,11 +122,6 @@
     <string name="device_id_invalid">معرّف الجهاز غير منسق بشكل صحيح. يرجى إعادة المحاولة وإدخال المعرّف الصحيح.</string>
     <string name="install_barcode_scanner_app_message">يتطلب هذا تطبيق ماسح ضوئي للرموز الشريطية. هل ترغب في تثبيت تطبيق Binary Eye من F-Droid؟</string>
     <string name="folders_list_empty">لا توجد مجلدات مكوّنة. انقر لإضافة مجلد جديد.</string>
-    <string name="tip_write_to_sdcard_title">حل بديل للكتابة على بطاقة SD خارجية</string>
-    <string name="tip_custom_sync_conditions_title">استخدام شروط مزامنة مخصصة لكل مجلد/جهاز</string>
-    <string name="tip_ignore_delete_title">نسخ احتياطي للصور من الهاتف إلى الكمبيوتر؟</string>
-    <string name="tip_huawei_device_disconnected_title">Huawei: حل بديل لمشكلة الجهاز غير متصل</string>
-    <string name="tip_phone_ip_address_syntax">PHONE_IP_ADDRESS</string>
     <string name="category_behaviour">السلوك</string>
     <string name="category_syncthing_options">خيارات Syncthing</string>
     <string name="category_syncthing_options_summary">هذه القائمة متاحة فقط إذا كان Syncthing قيد التشغيل.</string>
@@ -220,7 +215,6 @@
     <string name="local_discovery_disabled">لقد قمت بتعطيل الاكتشاف المحلي في الإعدادات &gt; خيارات Syncthing &gt; الاكتشاف المحلي. قم بتمكينه للبحث عن الأجهزة على الشبكة المحلية.</string>
     <string name="folders">المجلدات</string>
     <string name="addresses">العناوين</string>
-    <string name="tip_huawei_device_disconnected_text">إذا كان سطح المكتب الخاص بك يُبلغ باستمرار عن أن جهاز Huawei الخاص بك غير متصل، فافتح واجهة مستخدم Syncthing لسطح المكتب. انتقل إلى الأجهزة البعيدة، قم بتوسيع إدخال الهاتف، انقر على تعديل، انتقل إلى متقدم. ضع عنوان IP الخاص بهاتفك في العناوين مثل هذا: \ntcp4://%1$s, dynamic \nتم التأكد من عمله لـ: Huawei P10</string>
     <string name="modification_time">الوقت: %1$s</string>
     <string name="run_on_mobile_data_summary">التشغيل عندما يكون الجهاز متصلاً عبر شبكة بيانات الجوال. تحذير: يمكن أن يستهلك هذا الكثير من البيانات من باقة بيانات مشغل الهاتف المحمول الخاص بك إذا قمت بمزامنة كميات كبيرة من البيانات.</string>
     <string name="run_on_roaming_title">التشغيل أثناء التجوال</string>
@@ -283,7 +277,6 @@
     <string name="discovered_device_list_empty">لم يعثر الاكتشاف المحلي على أي أجهزة على الشبكة المحلية. قم بتشغيل هذا التطبيق على هاتف ثانٍ. تتوفر ملفات التثبيت لأجهزة الكمبيوتر على: %1$s</string>
     <string name="compress_metadata">البيانات الوصفية</string>
     <string name="compress_always">دائمًا</string>
-    <string name="tip_xiaomi_autostart_title">Xiaomi: التطبيق لا يبدأ عند الإقلاع</string>
     <string name="preference_language_title">اللغة</string>
     <string name="folder_type_send_receive">إرسال واستقبال</string>
     <string name="folder_type_send_only">إرسال فقط</string>
@@ -344,7 +337,6 @@
     <string name="autoAcceptFolders">القبول التلقائي</string>
     <string name="pause_device">إيقاف الجهاز مؤقتًا</string>
     <string name="untrusted_device">جهاز غير موثوق به</string>
-    <string name="tip_xiaomi_battery_saver_title">Xiaomi: التطبيق يعرض شاشة الترحيب بشكل متكرر</string>
     <string name="recent_changes_title">التغييرات الحديثة</string>
     <string name="sync_only_wifi_ssids_wifi_turn_on_location">يرجى تشغيل الموقع لتحديد الشبكات.</string>
     <string name="sync_only_wifi_ssids_need_to_grant_location_permission">تحتاج إلى منح إذن الموقع لاستخدام هذه الميزة.</string>
@@ -455,8 +447,6 @@
     <string name="folder_fileWatcherDescription">يطلب من نظام التشغيل الإشعار بالتغييرات التي تطرأ على الملفات. إذا تم تعطيله، فإنه يعود إلى عمليات فحص دورية كل ساعة.</string>
     <string name="folder_run_script_description">خيار متقدم لتشغيل برامج نصية بعد تغيير مجلد لحالة المزامنة الخاصة به. سيتم تنفيذ البرامج النصية في \'.stfolder/*.sh\'، ولا يتم دعم المواقع الأخرى لاعتبارات أمنية.\nمثال على استدعاء البرنامج النصي: \'.stfolder/rename-files.sh sync_complete\'</string>
     <string name="scan_qr_code_description">مسح رمز الاستجابة السريعة (QR)</string>
-    <string name="tips_and_tricks_title">نصائح وحيل</string>
-    <string name="tip_write_to_sdcard_text">إذا رأيت واجهة المستخدم تشير إلى أن أندرويد يمنح Syncthing حق الوصول للقراءة فقط إلى مجلد معين، فأنشئ مجلدًا جديدًا باستخدام هذا المسار للحصول على حق الوصول للكتابة: \n%1$s/YOUR_FOLDER_NAME \nكن حذرًا: سيقوم أندرويد بمسح هذا المجلد إذا قمت بإلغاء تثبيت هذا التطبيق. قبل إلغاء تثبيت التطبيق، انقل البيانات إلى مكان آمن خارج مجلد …/Android.</string>
     <string name="create_folder">إنشاء مجلد</string>
     <string name="edit_folder">تعديل المجلد</string>
     <string name="create">إنشاء</string>
@@ -472,12 +462,6 @@
     <string name="device_name_required">يجب ألا يكون اسم الجهاز فارغًا</string>
     <string name="device_addresses_invalid">عناوين الجهاز غير منسقة بشكل صحيح. يرجى إعادة المحاولة. انظر إلى وثائق Syncthing لمزيد من المعلومات.</string>
     <string name="web_page_loading">جاري تحميل صفحة الويب: \n%1$s …</string>
-    <string name="tip_sync_on_local_network_title">المزامنة فقط باستخدام شبكة Wi-Fi المحلية</string>
-    <string name="tip_sync_on_local_network_text">إذا كنت ترغب في المزامنة فقط مع الأجهزة الموجودة على شبكة Wi-Fi المحلية أو التي يمكن الوصول إليها عبر نقطة اتصال Wi-Fi، يمكنك تقليل استهلاك البطارية وتجنب المزامنة عن طريق الخطأ عبر بيانات الجوال عن طريق إيقاف الخيارات التالية ضمن الإعدادات/خيارات Syncthing: \n- تمكين اجتياز NAT \n- الاكتشاف العالمي \n- تمكين الترحيل \nاترك الاكتشاف المحلي ممكّنًا فقط.</string>
-    <string name="tip_custom_sync_conditions_text">سيتم تحسين هذه الميزة في الإصدارات المستقبلية. في الوقت الحالي، لم نرغب في كسر التكوينات الحالية وسلوك التطبيق. لهذا السبب، لا يمكن تعيين شروط مزامنة مخصصة لنوع شبكة معين إلا إذا قمت بتمكين المزامنة على الشبكة في شروط التشغيل العامة أولاً.</string>
-    <string name="tip_ignore_delete_text">إذا كنت ترغب في نسخ جميع الصور الملتقطة على هاتفك احتياطيًا إلى جهاز كمبيوتر، شارك مجلد الكاميرا مع الكمبيوتر. افتح Syncthing على الكمبيوتر، أضف المجلد وانتقل إلى الإجراءات &gt; متقدم &gt; مجلد الكاميرا. قم بتمكين تجاهل الحذف وانقر على حفظ. يمكنك الآن حذف الصور من مجلد الكاميرا على الهاتف وستبقى منسوخة احتياطيًا على الكمبيوتر.</string>
-    <string name="tip_xiaomi_autostart_text">يمنع Xiaomi MIUI التطبيقات من البدء من تلقاء نفسها بشكل افتراضي. من الشاشة الرئيسية، انتقل إلى الإعدادات &gt; الأذونات &gt; التشغيل التلقائي وقم بتمكين شريط تمرير Syncthing-Fork.</string>
-    <string name="tip_xiaomi_battery_saver_text">يقوم تطبيق نظام توفير البطارية في Xiaomi MIUI بإلغاء إذن تجاهل تحسين البطارية للتطبيق عند كل إعادة تشغيل للهاتف. يؤدي هذا إلى عرض التطبيق لشاشة الترحيب وطلب الإذن الإلزامي المفقود مرة أخرى. الحل: من الشاشة الرئيسية، افتح درج التطبيقات &gt; اضغط مطولاً على Syncthing-Fork &gt; معلومات التطبيق &gt; توفير البطارية وحدد بلا قيود (MIUI 10.3.2.0+).</string>
     <string name="security_notice">إشعار أمني</string>
     <string name="ssl_cert_invalid_text">يبدو أن موقع الويب %1$s يحتوي على شهادة غير صالحة لتشفير SSL. متابعة؟</string>
     <string name="open_in_browser">فتح في المتصفح</string>
