@@ -120,7 +120,6 @@
     <string name="device_id_required">기기명을 공백으로 둘 수 없습니다</string>
     <!-- Content description for device ID qr code icon -->
     <string name="scan_qr_code_description">QR 코드 스캔</string>
-    <!-- Toast show if we could not get root permissions -->
     <!-- WebGuiActivity -->
     <!-- Title of the web gui activity -->
     <string name="web_gui_title">웹 GUI</string>

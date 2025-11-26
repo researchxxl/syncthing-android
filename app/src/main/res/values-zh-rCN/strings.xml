@@ -263,7 +263,6 @@
     <string name="install_barcode_scanner_app_message">这需要条形码扫描应用。您想安装 F-Droid 的应用“Binary Eye”吗?</string>
     <!-- Shown if no folders are configured -->
     <string name="folders_list_empty">未配置文件夹。点击以添加新文件夹。</string>
-    <!-- Toast show if we could not get root permissions -->
     <!-- TipsAndTricks activity -->
     <!-- Title of the Tips and Tricks activity -->
     <string name="tips_and_tricks_title">提示和技巧</string>

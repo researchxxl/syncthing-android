@@ -260,7 +260,6 @@
     <string name="install_barcode_scanner_app_message">Această funcție necesită o aplicație pentru scanarea codurilor de bare. Dorești să instalezi aplicația „Binary Eye” din F-Droid?</string>
     <!-- Shown if no folders are configured -->
     <string name="folders_list_empty">Niciun dosar configurat. Atinge pentru a adăuga un dosar nou.</string>
-    <!-- Toast show if we could not get root permissions -->
     <!-- TipsAndTricks activity -->
     <!-- Title of the Tips and Tricks activity -->
     <string name="tips_and_tricks_title">Sfaturi și trucuri</string>

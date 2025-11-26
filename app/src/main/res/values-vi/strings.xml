@@ -264,7 +264,6 @@
     <string name="install_barcode_scanner_app_message">Việc này yêu cầu phải có ứng dụng quét mã vạch. Bạn có muốn cài đặt ứng dụng \'Binary Eye\' từ F-Droid không\?</string>
     <!-- Shown if no folders are configured -->
     <string name="folders_list_empty">Không có thư mục nào được thiết lập. Nhấn để thêm thư mục mới.</string>
-    <!-- Toast show if we could not get root permissions -->
     <!-- TipsAndTricks activity -->
     <!-- Title of the Tips and Tricks activity -->
     <string name="tips_and_tricks_title">Mẹo vặt</string>

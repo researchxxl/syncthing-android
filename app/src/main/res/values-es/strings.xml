@@ -261,7 +261,6 @@
     <string name="install_barcode_scanner_app_message">Esto requiere una aplicación de escáner de código de barras. ¿Desea instalar la aplicación \"Binary Eye\" de F-Droid?</string>
     <!-- Shown if no folders are configured -->
     <string name="folders_list_empty">No hay carpetas configuradas. Pulsa para añadir una carpeta nueva.</string>
-    <!-- Toast show if we could not get root permissions -->
     <!-- TipsAndTricks activity -->
     <!-- Title of the Tips and Tricks activity -->
     <string name="tips_and_tricks_title">Consejos y Trucos</string>

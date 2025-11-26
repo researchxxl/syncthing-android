@@ -92,7 +92,6 @@
     <string name="device_id_required">ID пристрою не може бути пустим</string>
     <!-- Content description for device ID qr code icon -->
     <string name="scan_qr_code_description">Сканувати QR код</string>
-    <!-- Toast show if we could not get root permissions -->
     <!-- WebGuiActivity -->
     <!-- Title of the web gui activity -->
     <string name="web_gui_title">Веб-інтерфейс</string>

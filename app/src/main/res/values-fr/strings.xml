@@ -154,7 +154,6 @@
     <string name="device_id_required">L\'ID d\'appareil ne peut pas être vide</string>
     <!-- Content description for device ID qr code icon -->
     <string name="scan_qr_code_description">Scanner un QR Code</string>
-    <!-- Toast show if we could not get root permissions -->
     <!-- WebGuiActivity -->
     <!-- Title of the web gui activity -->
     <string name="web_gui_title">Interface WEB</string>

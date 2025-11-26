@@ -185,7 +185,6 @@
     <string name="device_id_required">Enheds-ID må ikke være tomt</string>
     <!-- Content description for device ID qr code icon -->
     <string name="scan_qr_code_description">Scan QR Code</string>
-    <!-- Toast show if we could not get root permissions -->
     <!-- TipsAndTricks activity -->
     <!-- Title of the Tips and Tricks activity -->
     <string name="tips_and_tricks_title">Tips &amp; Tricks</string>

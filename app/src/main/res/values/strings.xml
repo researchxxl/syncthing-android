@@ -403,7 +403,6 @@
     <!-- Shown if no folders are configured -->
     <string name="folders_list_empty">No folders configured. Tap to add a new folder.</string>
 
-    <!-- Toast show if we could not get root permissions -->
 
     <!-- TipsAndTricks activity -->
 

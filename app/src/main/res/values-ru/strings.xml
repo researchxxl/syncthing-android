@@ -226,7 +226,6 @@ Android требует разрешение доступа к геолокаци
     <string name="scan_qr_code_description">Сканировать QR Код</string>
     <!-- Shown if no folders are configured -->
     <string name="folders_list_empty">Папки не заданы. Нажмите для добавления новой.</string>
-    <!-- Toast show if we could not get root permissions -->
     <!-- TipsAndTricks activity -->
     <!-- Title of the Tips and Tricks activity -->
     <string name="tips_and_tricks_title">Советы</string>

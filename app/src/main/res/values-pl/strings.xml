@@ -214,7 +214,6 @@
     <string name="scan_qr_code_description">Skanuj kod QR</string>
     <!-- Dialog message if no compatible barcode scanner app is installed -->
     <string name="install_barcode_scanner_app_message">Wymagany jest skaner kodów QR. Czy chcesz zainstalować aplikację \"Binary Eye\" z F-Droid\?</string>
-    <!-- Toast show if we could not get root permissions -->
     <!-- TipsAndTricks activity -->
     <!-- Title of the Tips and Tricks activity -->
     <string name="tips_and_tricks_title">Wskazówki</string>

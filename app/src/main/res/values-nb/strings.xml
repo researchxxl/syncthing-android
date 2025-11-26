@@ -109,7 +109,6 @@
     <string name="device_id_required">Enhets-ID kan ikke være tom</string>
     <!-- Content description for device ID qr code icon -->
     <string name="scan_qr_code_description">Skann QR-kode</string>
-    <!-- Toast show if we could not get root permissions -->
     <!-- WebGuiActivity -->
     <!-- Title of the web gui activity -->
     <string name="web_gui_title">Webgrensesnitt</string>
