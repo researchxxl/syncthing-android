@@ -1,1 +1,2 @@
+Removed libsuperuser dependency for security reasons.
 Due to minimum requirements of Androidx dependencies minimum Android version was raised to 6.
