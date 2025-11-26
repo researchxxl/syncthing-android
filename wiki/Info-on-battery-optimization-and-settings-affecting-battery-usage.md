@@ -24,3 +24,13 @@ Short summary:
   * Cons:
     * Good for beginner users.
     * Because of discovery mechnisms active by default, you'll have open connections all the time even if no partner device is available to sync data with. Those connections, especially WAN connections, keep your modem active and therefore permanently consume battery.
+
+You should not attempt to sync the following files or folders:
+- `/data` *1)
+- `/storage/emulated/0/Android/data` *1)
+- `/storage/emulated/0/Android/media` *2)
+- `/storage/emulated/0/WhatsApp` *2)
+
+*1) If you'd like to backup apps or app data, you can use third-party apps like e.g. "App Manager". Syncthing is not designed to replace an os specific backup utility.
+
+*2) Syncing constantly changing files like logs or databases is not supported. It may cause massive battery drain.
