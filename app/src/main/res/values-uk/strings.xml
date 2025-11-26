@@ -93,7 +93,6 @@
     <!-- Content description for device ID qr code icon -->
     <string name="scan_qr_code_description">Сканувати QR код</string>
     <!-- Toast show if we could not get root permissions -->
-    <string name="toast_root_denied">Права root не отримано</string>
     <!-- WebGuiActivity -->
     <!-- Title of the web gui activity -->
     <string name="web_gui_title">Веб-інтерфейс</string>
@@ -369,7 +368,6 @@
     <string name="web_page_loading">Завантаження вебсторінки:\n%1$s…</string>
     <string name="announce_server">Налаштований сервер оголошень</string>
     <string name="tip_ignore_delete_title">Резервне копіювання фотографій з телефону на комп\'ютер?</string>
-    <string name="use_root_summary">Запуск Syncthing з правами root дозволяє йому записувати в папки, до яких Android зазвичай обмежує доступ лише для читання. Використовуйте цю функцію з обережністю.</string>
     <string name="expert_mode_title">Режим експерта</string>
     <string name="run_on_time_schedule_summary">Увімкнення цієї опції спробує синхронізуватися протягом заданого часу, якщо виконані умови запуску та якщо пройшов вказаний інтервал часу з моменту останньої синхронізації. Це може заощадити багато батареї, але вимагає, щоб партнери по синхронізації були онлайн. Зверніть увагу: це може залишати неповні тимчасові файли до наступної запланованої синхронізації.</string>
     <string name="run_in_flight_mode_summary">Увімкнення цієї опції дозволить Syncthing працювати навіть коли ви офлайн. Увімкніть, якщо ваш пристрій має проблеми з виявленням вручну підключених Wi-Fi мереж під час режиму польоту.</string>
@@ -377,7 +375,6 @@
     <string name="tip_xiaomi_autostart_title">Xiaomi: додаток не запускається при завантаженні</string>
     <string name="respect_master_sync_summary">Вимкнути Syncthing, коли швидке налаштування \'Автоматична синхронізація даних\' вимкнено.</string>
     <string name="respect_master_sync_title">Поважати налаштування Android \'Автоматична синхронізація даних\'</string>
-    <string name="use_root_title">Запустити Syncthing з root-правами</string>
     <string name="photo_shoot_launcher_title">Sync. Камера</string>
     <string name="photo_shoot_activity_title">Syncthing-Fork Камера</string>
     <string name="tip_huawei_device_disconnected_title">Huawei: обхід помилки \'пристрій відключено\'</string>

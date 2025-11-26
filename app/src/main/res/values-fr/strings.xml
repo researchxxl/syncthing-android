@@ -155,7 +155,6 @@
     <!-- Content description for device ID qr code icon -->
     <string name="scan_qr_code_description">Scanner un QR Code</string>
     <!-- Toast show if we could not get root permissions -->
-    <string name="toast_root_denied">Échec d\'obtention des droits root (superviseur)</string>
     <!-- WebGuiActivity -->
     <!-- Title of the web gui activity -->
     <string name="web_gui_title">Interface WEB</string>
@@ -174,7 +173,6 @@
     <string name="sync_only_wifi_ssids_location_permission_rejected_dialog_title">Permission requise</string>
     <string name="sync_only_wifi_ssids_location_permission_rejected_dialog_content">À partir d\'Android 8.1, l\'accès à la localisation est nécessaire pour pouvoir lire le nom du WiFi. Vous pouvez utiliser cette fonctionnalité uniquement si vous accordez cette autorisation.</string>
     <string name="respect_battery_saving_title">Sauvegarde batterie selon les réglages Android</string>
-    <string name="use_root_title">Faire fonctionner syncthing en super-utilisateur</string>
     <string name="preference_language_title">Langue</string>
     <string name="preference_language_summary">Changer la langue de l\'application</string>
     <string name="pref_language_default">Langue par défaut</string>
@@ -543,7 +541,6 @@
     <string name="power_source_ac_and_battery_power">Chargeur et batterie.</string>
     <string name="power_source_ac_power">Chargeur.</string>
     <string name="power_source_battery_power">Batterie.</string>
-    <string name="use_root_summary">Exécuter Synching en root (=admin) lui permet d\'écrire dans des répertoires normalement restreints en lecture seule par Android. Utiliser avec précaution.</string>
     <string name="expert_mode_summary">Permet d\'afficher plus d\'options. Consulter la documentation avant. De mauvais réglages peuvent provoquer une consommation électrique ou ressources système excessives, ou des synchronisations incomplètes.</string>
     <string name="folder_type_send_only">Envoyer seulement</string>
     <string name="folder_type_receive_only">Recevoir seulement</string>

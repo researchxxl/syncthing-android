@@ -263,7 +263,6 @@
     <!-- Shown if no folders are configured -->
     <string name="folders_list_empty">Nincsenek mappák konfigurálva. Koppintson a gombra új mappa hozzáadásához.</string>
     <!-- Toast show if we could not get root permissions -->
-    <string name="toast_root_denied">Nem lett megadva root jogosultság</string>
     <!-- TipsAndTricks activity -->
     <!-- Title of the Tips and Tricks activity -->
     <string name="tips_and_tricks_title">Tippek és trükkök</string>
@@ -362,8 +361,6 @@
     <!-- Preferences - Behaviour -->
     <string name="behaviour_autostart_title">Autostart</string>
     <string name="behaviour_autostart_summary">Az alkalmazás automatikus elindítása az operációs rendszer indításakor.</string>
-    <string name="use_root_title">Syncthing futtatása Superuser-ként</string>
-    <string name="use_root_summary">A Syncthing root felhasználóként történő futtatása lehetővé teszi, hogy írjon az Android által általában olvasásra korlátozott mappákba. Körültekintően használja ezt a funkciót.</string>
     <string name="expert_mode_title">Szakértői mód</string>
     <string name="expert_mode_summary">Ha engedélyezi ezt az opciót, akkor megjelennek a speciális konfigurációs lehetőségek. Először érdemes átnézni a Syncthing dokumentációt, hogy megbizonyosodjon arról, hogyan kell ezeket helyesen használni. A helytelen beállítások az akkumulátor lemerülését, a rendszer erőforrásainak elfogyását vagy hiányos szinkronizálást okozhatnak.</string>
     <string name="preference_language_title">Nyelv</string>

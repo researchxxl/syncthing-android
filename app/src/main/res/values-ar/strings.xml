@@ -307,7 +307,6 @@
     <string name="restart">إعادة التشغيل</string>
     <string name="compress_never">أبدًا</string>
     <string name="delete_device">حذف الجهاز</string>
-    <string name="toast_root_denied">لم يتم الحصول على أذونات الجذر (root)</string>
     <string name="this_device">هذا الجهاز</string>
     <string name="preference_app_theme_follow_dark">داكن</string>
     <string name="run_conditions_summary">استخدم الخيارات التالية لتحديد متى سيتم تشغيل Syncthing.</string>
@@ -376,8 +375,6 @@
         <item quantity="many">%1$d / %2$d ملف</item>
         <item quantity="other">%1$d / %2$d ملف</item>
     </plurals>
-    <string name="use_root_title">تشغيل Syncthing كمستخدم خارق (Superuser)</string>
-    <string name="use_root_summary">يسمح تشغيل Syncthing بصلاحيات الجذر (root) بالكتابة في المجلدات التي يقيدها أندرويد عادةً للوصول للقراءة فقط. استخدم هذه الميزة بحذر.</string>
     <string name="versioning_type_none">لا شيء</string>
     <string name="versioning_type_trashcan">سلة المهملات</string>
     <string name="config_export_failed">فشل تصدير التكوين. انتقل إلى الإعدادات-استكشاف الأخطاء وإصلاحها-افتح السجل لمعرفة التفاصيل.</string>

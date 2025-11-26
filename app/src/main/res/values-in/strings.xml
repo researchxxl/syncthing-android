@@ -115,7 +115,6 @@
     <!-- Content description for device ID qr code icon -->
     <string name="scan_qr_code_description">Pindai Kode QR</string>
     <!-- Toast show if we could not get root permissions -->
-    <string name="toast_root_denied">Tidak mendapat kewenangan root</string>
     <!-- WebGuiActivity -->
     <!-- Title of the web gui activity -->
     <string name="web_gui_title">Web GUI</string>
@@ -131,7 +130,6 @@
     <string name="run_conditions_title">Syarat Operasi</string>
     <string name="sync_only_wifi_ssids_wifi_turn_on_wifi">Mohon aktifkan WiFi untuk memilih jaringan.</string>
     <string name="respect_battery_saving_title">Ikuti pengaturan penghematan baterai Android</string>
-    <string name="use_root_title">Jalankan Syncthing sebagai Superuser</string>
     <string name="preference_language_title">Bahasa</string>
     <string name="preference_language_summary">Ganti bahasa dalam aplikasi</string>
     <string name="pref_language_default">Bahasa Standar</string>

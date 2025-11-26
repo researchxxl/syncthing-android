@@ -114,7 +114,6 @@
     <!-- Content description for device ID qr code icon -->
     <string name="scan_qr_code_description">QR Kodu Tara</string>
     <!-- Toast show if we could not get root permissions -->
-    <string name="toast_root_denied">Root izinleri alınamadı</string>
     <!-- WebGuiActivity -->
     <!-- Title of the web gui activity -->
     <string name="web_gui_title">Web GKA</string>
@@ -129,7 +128,6 @@
     <!-- Preference screen - Run conditions -->
     <string name="run_conditions_title">Çalıştırma Koşulları</string>
     <string name="sync_only_wifi_ssids_wifi_turn_on_wifi">Ağları seçmek için lütfen kablosuzu (Wi-Fi) açın.</string>
-    <string name="use_root_title">Syncthing\'i Süper Kullanıcı olarak çalıştır</string>
     <string name="device_name">Cihaz Adı</string>
     <string name="listen_address">Eşitleme Protokolü Dinleme Adresleri</string>
     <string name="max_recv_kbps">Gelen Hız Sınırı (KiB/s)</string>
@@ -343,7 +341,6 @@
     <string name="notification_crash_text">Günlükler için tıklayın (%1$s)</string>
     <string name="pull_order">Dosya Çekme Sırası</string>
     <string name="toast_invalid_socks_proxy_address">Girdi, \'socks5://[IP/ANAMAKİNEADI]:[B.NOKTASI]\' proksi sözdizimini ihlal ediyor</string>
-    <string name="use_root_summary">Syncthing\'i root olarak çalıştırmak, Android\'in normalde salt okunur erişime izin verdiği klasörlere yazmasını sağlar. Bu özelliği dikkatli kullanın.</string>
     <string name="device_paused">Duraklatıldı</string>
     <string name="folder_path_readonly">Android sürümünüz, Syncthing\'e seçilen klasöre yalnızca salt okunur erişimi verir.</string>
     <string name="invalid_integer_value" tools:ignore="PluralsCandidate">Giriş değeri geçerli değil. Lütfen %1$d ile %2$d arasında bir değer girin.</string>

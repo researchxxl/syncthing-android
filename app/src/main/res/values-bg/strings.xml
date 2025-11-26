@@ -113,7 +113,6 @@
     <!-- Content description for device ID qr code icon -->
     <string name="scan_qr_code_description">Сканиране на QR</string>
     <!-- Toast show if we could not get root permissions -->
-    <string name="toast_root_denied">Достъп до суперпотребителя е отказан</string>
     <!-- WebGuiActivity -->
     <!-- Title of the web gui activity -->
     <string name="web_gui_title">Уеб интерфейс</string>
@@ -128,7 +127,6 @@
     <!-- Preference screen - Run conditions -->
     <string name="run_conditions_title">Условия за работа</string>
     <string name="sync_only_wifi_ssids_wifi_turn_on_wifi">За да изберете мрежи, включете безжичната връзка.</string>
-    <string name="use_root_title">Даване на Syncthing права на суперпотребител</string>
     <string name="device_name">Име на устройството</string>
     <string name="listen_address">Адрес, на който слуша синхронизиращия протокол</string>
     <string name="max_recv_kbps">Ограничение при изтегляне (КиБ/с)</string>
@@ -571,7 +569,6 @@
     <string name="tip_ignore_delete_text">Ако желаете всички снимки, направени с мобилното устройство, да бъдат копирани на компютър, споделете папката „Camera“ с него. Отворете Syncthing на компютъра, добавете папката и отворете от главното меню: Действия → Разширени → Папки → Папка „Camera“. Отметнете „Ignore Delete“ и натиснете „Запазване“. Вече можете да изтривате снимки от папката на камерата на мобилното устройство, като те ще останат на компютъра.</string>
     <string name="run_on_roaming_summary">Разрешаване на Syncthing да използва мобилни данни в чужбина.</string>
     <string name="run_in_flight_mode_summary">Когато е отметнато Syncthing ще работи дори и когато няма връзка. Отметнете и ако в самолетен режим не се открива ръчно включената безжична връзка.</string>
-    <string name="use_root_summary">Използването на Syncthing с права на суперпотребител дава възможност на приложението за запис в папки, до които Андроид обикновено предоставя достъп само за четене. Използвайте с повишено внимание.</string>
     <string name="reason_run_condition_monitor_not_instantiated">RunConditionMonitor не е подготвен. Рестартирайте приложението и ако грешката не изчезне след рестарта докладвайте за нея.</string>
     <string name="executable_not_found">Основният изпълним файл „%s“ липсва. Проверете изведеното при компилацията и системния дневник.</string>
     <string name="pull_order">Ред на изтегляне</string>

@@ -215,7 +215,6 @@
     <!-- Dialog message if no compatible barcode scanner app is installed -->
     <string name="install_barcode_scanner_app_message">Wymagany jest skaner kodów QR. Czy chcesz zainstalować aplikację \"Binary Eye\" z F-Droid\?</string>
     <!-- Toast show if we could not get root permissions -->
-    <string name="toast_root_denied">Nie otrzymano uprawnień root.</string>
     <!-- TipsAndTricks activity -->
     <!-- Title of the Tips and Tricks activity -->
     <string name="tips_and_tricks_title">Wskazówki</string>
@@ -244,7 +243,6 @@
     <string name="run_conditions_title">Warunki działania</string>
     <string name="sync_only_wifi_ssids_wifi_turn_on_wifi">Włącz Wi-Fi dla wybranych sieci.</string>
     <string name="respect_battery_saving_title">Uszanuj ustawienia oszczędzania baterii systemu Android</string>
-    <string name="use_root_title">Uruchamiaj Syncthing jako superużytkownik</string>
     <string name="preference_language_title">Język</string>
     <string name="preference_language_summary">Zmień język aplikacji</string>
     <string name="pref_language_default">Domyślny język</string>
@@ -482,7 +480,6 @@
     <string name="notification_crash_text">Kliknij, aby wyświetlić dzienniki (%1$s)</string>
     <string name="pull_order">Kolejność pobierania plików</string>
     <string name="toast_invalid_socks_proxy_address">Podana wartość nie zgadza się ze składnią: \'socks5://[IP/HOSTNAME]:[PORT]\'</string>
-    <string name="use_root_summary">Uruchomienie Syncthing jako root umożliwia zapisywanie w folderach, do których system Android zwykle ogranicza dostęp tylko do odczytu. Używaj tej funkcji ostrożnie.</string>
     <string name="folder_path_readonly">Twoja wersja systemu Android pozwala Syncthing jedynie na dostęp tylko do odczytu do wskazanego folderu.</string>
     <string name="invalid_integer_value" tools:ignore="PluralsCandidate">Podana wartość jest nieprawidłowa. Podaj wartość z zakresu od %1$d do %2$d.</string>
     <string name="preference_app_theme_follow_dark">Ciemny</string>

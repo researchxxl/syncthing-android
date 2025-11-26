@@ -117,7 +117,6 @@
     <!-- Content description for device ID qr code icon -->
     <string name="scan_qr_code_description">Ler código QR</string>
     <!-- Toast show if we could not get root permissions -->
-    <string name="toast_root_denied">Não foi possível obter permissões de root</string>
     <!-- WebGuiActivity -->
     <!-- Title of the web gui activity -->
     <string name="web_gui_title">Interface Web</string>
@@ -132,7 +131,6 @@
     <!-- Preference screen - Run conditions -->
     <string name="run_conditions_title">Condições de execução</string>
     <string name="sync_only_wifi_ssids_wifi_turn_on_wifi">Ligue o WiFi para seleccionar redes.</string>
-    <string name="use_root_title">Correr o Syncthing como superutilizador</string>
     <string name="device_name">Nome do dispositivo</string>
     <string name="listen_address">Endereços de escuta do protocolo de sincronização</string>
     <string name="max_recv_kbps">Limite de velocidade de recepção (KiB/s)</string>

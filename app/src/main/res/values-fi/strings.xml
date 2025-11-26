@@ -230,7 +230,6 @@
     <!-- Content description for device ID qr code icon -->
     <string name="scan_qr_code_description">Lue QR-koodi</string>
     <!-- Toast show if we could not get root permissions -->
-    <string name="toast_root_denied">Pääkäyttäjän oikeuksien saaminen epäonnistui</string>
     <string name="tip_sync_on_local_network_text">Jos haluaisit synkronoida vain laitteiden kanssa, jotka ovat paikallisessa WiFi-verkossa tai saatavilla WiFi-tukiaseman kautta, voit alentaa akun käyttöä ja välttää vahingossa mobiilidatalla synkronoinnin ottamalla pois käytöstä seuraavat asetukset kohdassa \'Asetukset/Syncthing-asetukset\':
 \n- Aktivoi osoitteenmuunnoksen kierto
 \n- Globaali etsintä
@@ -272,7 +271,6 @@
     <string name="run_in_flight_mode_summary">Tämän valitseminen ottaa Synthingin käyttöön ollessasi offline-tilassa. Valitse, jos laitteellasi on ongelmia havaita manuaalinen WiFi-yhteys lentotilassa.</string>
     <string name="run_on_time_schedule_title">Käytä aikataulun mukaisesti</string>
     <string name="behaviour_autostart_summary">Käynnistä sovellus automaattisesti käyttöjärjestelmän käynnistyessä.</string>
-    <string name="use_root_title">Käynnistä Syncthing pääkäyttäjän oikeuksin.</string>
     <string name="preference_language_title">Kieli</string>
     <string name="preference_language_summary">Muuta sovelluksen kieli</string>
     <string name="pref_language_default">Oletuskieli</string>

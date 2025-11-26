@@ -264,7 +264,6 @@
     <!-- Shown if no folders are configured -->
     <string name="folders_list_empty">未配置文件夹。点击以添加新文件夹。</string>
     <!-- Toast show if we could not get root permissions -->
-    <string name="toast_root_denied">未获得 Root 权限</string>
     <!-- TipsAndTricks activity -->
     <!-- Title of the Tips and Tricks activity -->
     <string name="tips_and_tricks_title">提示和技巧</string>
@@ -363,8 +362,6 @@
     <!-- Preferences - Behaviour -->
     <string name="behaviour_autostart_title">自动启动</string>
     <string name="behaviour_autostart_summary">操作系统启动时自动启动应用。</string>
-    <string name="use_root_title">使用超级用户运行 Syncthing</string>
-    <string name="use_root_summary">以 Root 运行 Syncthing 允许它写入 Android 通常限制为只读访问的文件夹。请谨慎使用此功能。</string>
     <string name="expert_mode_title">专家模式</string>
     <string name="expert_mode_summary">启用此选项将显示高级配置选项。您应该先查看 Syncthing 文档，以确保您知道如何正确使用它们。不正确的设置可能会导致电池耗尽、系统资源耗尽或同步不完整。</string>
     <string name="preference_language_title">语言</string>

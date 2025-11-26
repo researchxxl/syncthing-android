@@ -188,7 +188,6 @@
     <!-- Content description for device ID qr code icon -->
     <string name="scan_qr_code_description">Skanna QR-kod</string>
     <!-- Toast show if we could not get root permissions -->
-    <string name="toast_root_denied">Fick inte root behörigheter</string>
     <!-- TipsAndTricks activity -->
     <!-- Title of the Tips and Tricks activity -->
     <string name="tips_and_tricks_title">Tips &amp; tricks</string>
@@ -250,7 +249,6 @@
     <!-- Preferences - Behaviour -->
     <string name="behaviour_autostart_title">Starta automatiskt</string>
     <string name="behaviour_autostart_summary">Starta appen automatiskt med operativsystemet.</string>
-    <string name="use_root_title">Kör som superanvändare</string>
     <string name="preference_language_title">Språk</string>
     <string name="preference_language_summary">Ändra appens språk</string>
     <string name="pref_language_default">Standardspråk</string>
@@ -593,7 +591,6 @@
     <string name="tip_sync_on_local_network_text">Om du bara vill synkronisera med enheter som finns på det lokala WiFi-nätverket eller nås via WiFi-hotspot, kan du sänka batterianvändningen och undvika oavsiktlig synkronisering över mobildata genom att stänga av följande alternativ under \"Inställningar/synkroniseringsalternativ\":\n- Aktivera NAT-traversering\n- Global upptäckt\n- Aktivera relä\nLämna bara \"Lokal upptäckt\" aktiverat.</string>
     <string name="run_on_time_schedule_summary">Aktivering av det här alternativet kommer att försöka synkronisera under en konfigurerad varaktighet om körvillkoren är uppfyllda och om någon angiven intervallperiod har förflutit sedan den senaste synkroniseringen. Detta kan spara mycket batteri men kräver att synkroniseringspartners är uppkopplade. Observera: Detta kan lämna kvar ofullständiga temporära filer tills nästa schemalagda synkronisering äger rum.</string>
     <string name="sleep_interval_minutes_title">Varaktigheten av synkroniseringspausintervallet</string>
-    <string name="use_root_summary">Genom att köra Syncthing som root kan den skriva till mappar som Android normalt begränsar till att vara skrivskyddad. Använd denna funktion med försiktighet.</string>
     <string name="webui_remote_access_title">Fjärråtkomst för webbgränssnittet</string>
     <string name="broadcast_service_control_title">Tjänstekontroll genom sändning</string>
     <string name="verbose_log_summary">Om du aktiverar detta alternativ kommer du att skapa felsökningsloggar på en mycket detaljerad nivå.</string>

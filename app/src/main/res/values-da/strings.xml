@@ -186,7 +186,6 @@
     <!-- Content description for device ID qr code icon -->
     <string name="scan_qr_code_description">Scan QR Code</string>
     <!-- Toast show if we could not get root permissions -->
-    <string name="toast_root_denied">Fik ikke root rettigheder</string>
     <!-- TipsAndTricks activity -->
     <!-- Title of the Tips and Tricks activity -->
     <string name="tips_and_tricks_title">Tips &amp; Tricks</string>
@@ -255,7 +254,6 @@
     <!-- Preferences - Behaviour -->
     <string name="behaviour_autostart_title">Autostart</string>
     <string name="behaviour_autostart_summary">Start app automatisk ved operativsystem start.</string>
-    <string name="use_root_title">Kør Syncthing som Superuser</string>
     <string name="preference_language_title">Sprog</string>
     <string name="preference_language_summary">Ændr app sproget</string>
     <string name="pref_language_default">Default Sprog</string>

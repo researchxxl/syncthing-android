@@ -151,7 +151,6 @@
     <!-- Content description for device ID qr code icon -->
     <string name="scan_qr_code_description">QR-code scannen</string>
     <!-- Toast show if we could not get root permissions -->
-    <string name="toast_root_denied">Geen roottoegang</string>
     <!-- WebGuiActivity -->
     <!-- Title of the web gui activity -->
     <string name="web_gui_title">Web-interface</string>
@@ -170,7 +169,6 @@
     <string name="sync_only_wifi_ssids_location_permission_rejected_dialog_title">Toestemming vereist</string>
     <string name="sync_only_wifi_ssids_location_permission_rejected_dialog_content">Vanaf Android 8.1 wordt toegang tot de locatie vereist om de naam van het wifinetwerk te kunnen lezen. Deze functie kan enkel gebruikt worden als je deze toestemming geeft.</string>
     <string name="respect_battery_saving_title">Eerbiedig de batterijbesparingsinstellingen van Android</string>
-    <string name="use_root_title">Syncthing uitvoeren als superuser</string>
     <string name="preference_language_title">Taal</string>
     <string name="preference_language_summary">Wijzig de taal van de app</string>
     <string name="pref_language_default">Standaardtaal</string>

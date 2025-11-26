@@ -32,7 +32,6 @@
     <string name="pull_order_random">Случајно</string>
     <string name="deviceEncryptionPasswordHint">Ако немате поверења, унесите лозинку за енкрипцију</string>
     <string name="delete_device">Обриши Уређај</string>
-    <string name="toast_root_denied">Нисам добио коренске дозволе</string>
     <string name="category_run_conditions">Услови рада</string>
     <string name="folder_type_receiveonly">Само прими</string>
     <string name="versioning_type_none">Нема</string>
@@ -325,7 +324,6 @@
     <string name="respect_master_sync_title">Поштуј подешавање \'Аутоматска синхронизација података\' на Android-у</string>
     <string name="run_in_flight_mode_summary">Омогућавање ове опције ће узроковати да Syncthing ради чак и када сте офлајн. Омогућите ако ваш уређај има проблема са детекцијом ручних Wi-Fi веза током режима лета.</string>
     <string name="behaviour_autostart_summary">Аутоматски покрени апликацију при покретању оперативног система.</string>
-    <string name="use_root_title">Покрени Syncthing као суперкорисник</string>
     <string name="preference_language_title">Језик</string>
     <string name="config_export_failed">Извоз конфигурације није успео, проверите лог излаз.</string>
     <string name="import_config">Увоз конфигурације</string>
@@ -429,7 +427,6 @@
     <string name="status_outofsync">Изван синхронизације</string>
     <string name="file_size_unit_B">Б</string>
     <string name="log_to_file_title">Лог у фајл</string>
-    <string name="use_root_summary">Покретање Syncthing-а као root омогућава му да пише у фасцикле које Android обично ограничава само на читање. Користите ову функцију са опрезом.</string>
     <string name="state_paused">Пауза</string>
     <string name="folder_ignore_delete_description">Експертска опција која утиче на обраду долазних ажурирања индекса. Када је постављена, долазна ажурирања са постављеном заставицом за брисање се игноришу. Види https://docs.syncthing.net/advanced/folder-ignoredelete.html</string>
     <string name="file_size_unit_TiB">ТБ</string>

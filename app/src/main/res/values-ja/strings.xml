@@ -225,7 +225,6 @@
     <!-- Shown if no folders are configured -->
     <string name="folders_list_empty">フォルダが設定されていません。タップして新しいフォルダを追加して下さい。。</string>
     <!-- Toast show if we could not get root permissions -->
-    <string name="toast_root_denied">root アクセス許可を取得できませんでした</string>
     <!-- TipsAndTricks activity -->
     <!-- Title of the Tips and Tricks activity -->
     <string name="tips_and_tricks_title">チップス＆トリック</string>
@@ -294,7 +293,6 @@
     <!-- Preferences - Behaviour -->
     <string name="behaviour_autostart_title">自動起動</string>
     <string name="behaviour_autostart_summary">OS起動時に自動的にアプリを起動します。</string>
-    <string name="use_root_title">スーパーユーザーとして実行</string>
     <string name="expert_mode_title">エキスパートモード</string>
     <string name="preference_language_title">言語</string>
     <string name="preference_language_summary">アプリの言語を変更します</string>

@@ -125,7 +125,6 @@
     <!-- Content description for device ID qr code icon -->
     <string name="scan_qr_code_description">Načíst QR kód</string>
     <!-- Toast show if we could not get root permissions -->
-    <string name="toast_root_denied">Práva uživatele root nejsou dostupná</string>
     <!-- WebGuiActivity -->
     <!-- Title of the web gui activity -->
     <string name="web_gui_title">Syncthing GUI</string>
@@ -141,7 +140,6 @@
     <string name="run_conditions_title">Podmínky spuštění</string>
     <string name="sync_only_wifi_ssids_wifi_turn_on_wifi">Pro výběr sítí zapněte Wi-Fi.</string>
     <string name="respect_battery_saving_title">Dodržovat nastavení úspory baterie z Androidu</string>
-    <string name="use_root_title">Spustit Syncthing jako superuživatel</string>
     <string name="preference_language_title">Jazyk</string>
     <string name="preference_language_summary">Změnit jazyk aplikace</string>
     <string name="pref_language_default">Výchozí jazyk</string>
@@ -586,7 +584,6 @@
     <string name="download_support_bundle_in_progress">Příprava stažení podpůrného balíčku …</string>
     <string name="behaviour_autostart_summary">Spustit aplikaci automaticky při spuštění systému.</string>
     <string name="run_in_flight_mode_summary">Povolení této možnosti způsobí, že Syncthing poběží, i když budete offline. Aktivujte, pokud má vaše zařízení problémy s detekcí ručních připojení Wi-Fi během letového režimu.</string>
-    <string name="use_root_summary">Spuštění Syncthing jako root umožňuje zapisovat do složek, které Android normálně omezuje na přístup pouze pro čtení. Tuto funkci používejte opatrně.</string>
     <string name="qs_forced_to_stop">Vynuceno zastavení</string>
     <string name="folder_go_up">Přejít nahoru</string>
     <string name="tip_xiaomi_battery_saver_text">Systémová aplikace spořiče baterie Xiaomi MIUI ruší oprávnění aplikace „ignorovat optimalizaci baterie“ při každém restartu telefonu. To způsobí, že aplikace zobrazí uvítací obrazovku a znovu požádá o chybějící oprávnění. Řešení: Na domovské obrazovce otevřete seznam aplikací &gt; dlouze stiskněte \'Syncthing-Fork\' &gt; \'O aplikaci\' &gt; \'Spořič baterie\' a vyberte \'Bez omezení\' (MIUI 10.3.2.0+).</string>

@@ -110,7 +110,6 @@
     <!-- Content description for device ID qr code icon -->
     <string name="scan_qr_code_description">Skann QR-kode</string>
     <!-- Toast show if we could not get root permissions -->
-    <string name="toast_root_denied">Fikk ikke root-rettigheter</string>
     <!-- WebGuiActivity -->
     <!-- Title of the web gui activity -->
     <string name="web_gui_title">Webgrensesnitt</string>
@@ -121,7 +120,6 @@
     <string name="category_syncthing_options">Valg for Syncthing</string>
     <string name="category_experimental">Eksperimentelt</string>
     <string name="sync_only_wifi_ssids_wifi_turn_on_wifi">Vennligst slå på wifi for å velge nettverk.</string>
-    <string name="use_root_title">Kjør Syncthing som superbruker</string>
     <string name="device_name">Enhetsnavn</string>
     <string name="listen_address">Lytteadresser for synkeprotokoll</string>
     <string name="max_recv_kbps">Grense for innkommende trafikk (KiB/s)</string>

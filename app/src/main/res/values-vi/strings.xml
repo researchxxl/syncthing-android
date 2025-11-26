@@ -265,7 +265,6 @@
     <!-- Shown if no folders are configured -->
     <string name="folders_list_empty">Không có thư mục nào được thiết lập. Nhấn để thêm thư mục mới.</string>
     <!-- Toast show if we could not get root permissions -->
-    <string name="toast_root_denied">Không nhận được quyền root</string>
     <!-- TipsAndTricks activity -->
     <!-- Title of the Tips and Tricks activity -->
     <string name="tips_and_tricks_title">Mẹo vặt</string>
@@ -363,8 +362,6 @@
     <!-- Preferences - Behaviour -->
     <string name="behaviour_autostart_title">Tự động khởi động</string>
     <string name="behaviour_autostart_summary">Tự động khởi động ứng dụng khi khởi động hệ điều hành.</string>
-    <string name="use_root_title">Chạy Syncthing với quyền Superuser</string>
-    <string name="use_root_summary">Việc chạy Syncthing với tư cách root cho phép nó ghi vào các thư mục mà Android thông thường giới hạn truy cập chỉ đọc. Hãy sử dụng tính năng này một cách thận trọng.</string>
     <string name="expert_mode_title">Chế độ chuyên gia</string>
     <string name="expert_mode_summary">Việc bật tùy chọn này sẽ hiện các tùy chọn thiết lập nâng cao. Bạn nên đọc Tài liệu Syncthing trước để chắc chắn là bạn biết cách sử dụng chúng đúng cách. Các cài đặt không đúng có thể sẽ gây ra hao pin, hết tài nguyên hệ thống hoặc đồng bộ hóa không hoàn thiện.</string>
     <string name="preference_language_title">Ngôn ngữ</string>

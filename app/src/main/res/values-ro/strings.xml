@@ -261,7 +261,6 @@
     <!-- Shown if no folders are configured -->
     <string name="folders_list_empty">Niciun dosar configurat. Atinge pentru a adăuga un dosar nou.</string>
     <!-- Toast show if we could not get root permissions -->
-    <string name="toast_root_denied">Nu s-a obținut acces root</string>
     <!-- TipsAndTricks activity -->
     <!-- Title of the Tips and Tricks activity -->
     <string name="tips_and_tricks_title">Sfaturi și trucuri</string>
@@ -351,8 +350,6 @@
     <!-- Preferences - Behaviour -->
     <string name="behaviour_autostart_title">Pornire automată</string>
     <string name="behaviour_autostart_summary">Se pornește aplicația în mod automat la pornirea sistemului de operare.</string>
-    <string name="use_root_title">Rulează ca root</string>
-    <string name="use_root_summary">Rularea Syncthing ca root îi permite să scrie în dosarele în care Android restricționează accesul doar citire. Utilizați această funcție cu precauție.</string>
     <string name="expert_mode_title">Modul expert</string>
     <string name="expert_mode_summary">Activarea acestei opțiuni va afișa opțiuni de configurare avansate. Ar trebui să aruncați o privire mai întâi la Documentele Syncthing pentru a vă asigura că știți cum să le utilizați corect. Setările incorecte pot cauza descărcarea bateriei, epuizarea resurselor sistemului sau sincronizarea incompletă.</string>
     <string name="preference_language_title">Limbă</string>

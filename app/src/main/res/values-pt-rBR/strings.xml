@@ -240,7 +240,6 @@
     <!-- Shown if no folders are configured -->
     <string name="folders_list_empty">Nenhuma pasta configurada. Toque para adicionar uma nova pasta.</string>
     <!-- Toast show if we could not get root permissions -->
-    <string name="toast_root_denied">Não foi possível obter permissões de root</string>
     <!-- TipsAndTricks activity -->
     <!-- Title of the Tips and Tricks activity -->
     <string name="tips_and_tricks_title">Dicas e truques</string>
@@ -306,7 +305,6 @@
     <string name="power_source_battery_power">Bateria.</string>
     <string name="respect_battery_saving_title">Respeitar a configuração de economia de bateria do Android</string>
     <string name="run_in_flight_mode_summary">Ao ativar esta opção, o Syncthing será executado mesmo quando desconectado. Ative isto se o seu dispositivo tem problemas detectando conexões Wi-Fi durante o modo avião.</string>
-    <string name="use_root_title">Executar como Superusuário</string>
     <string name="expert_mode_title">Modo de especialista</string>
     <string name="expert_mode_summary">Ao ativar esta opção, opções de configurações avançadas serão exibidas. Você deve dar uma olhada na documentação do Syncthing primeiro para se certificar de que sabe como usá-las corretamente. Configurações incorretas podem causar drenagem de bateria, esgotamento dos recursos do sistema ou sincronização incompleta.</string>
     <string name="preference_language_title">Idioma</string>
@@ -636,7 +634,6 @@
     <string name="sleep_interval_minutes_title">Duração do intervalo de pausa da sincronização</string>
     <string name="behaviour_autostart_title">Início automático</string>
     <string name="behaviour_autostart_summary">Inicie o app automaticamente junto com o sistema.</string>
-    <string name="use_root_summary">Ao executar o Syncthing como superusuário, é possível a gravação em pastas que o Android normalmente restringe como pastas de somente leitura. Use este recurso com cautela.</string>
     <string name="start_into_web_gui_title">Iniciar diretamente na interface web</string>
     <string name="start_into_web_gui_summary">Ao iniciar o app, abra a interface web em vez na tela principal</string>
     <string name="webui_username_title">Nome de usuário da interface web</string>

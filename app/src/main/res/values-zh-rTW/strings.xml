@@ -151,7 +151,6 @@
     <!-- Content description for device ID qr code icon -->
     <string name="scan_qr_code_description">掃描 QR Code</string>
     <!-- Toast show if we could not get root permissions -->
-    <string name="toast_root_denied">無法取得 root 權限</string>
     <!-- WebGuiActivity -->
     <!-- Title of the web gui activity -->
     <string name="web_gui_title">網頁 GUI</string>
@@ -168,7 +167,6 @@
     <string name="run_conditions_title">執行條件</string>
     <string name="sync_only_wifi_ssids_wifi_turn_on_wifi">請開啟 Wi-Fi 來選擇網路</string>
     <string name="respect_battery_saving_title">遵守 Android 節省電池設定</string>
-    <string name="use_root_title">以超級使用者執行 Syncthing</string>
     <string name="preference_language_title">語言</string>
     <string name="preference_language_summary">選擇應用程式語言</string>
     <string name="pref_language_default">預設語言</string>

@@ -100,7 +100,6 @@
     <!-- Content description for device ID qr code icon -->
     <string name="scan_qr_code_description">Skenovať QR kód</string>
     <!-- Toast show if we could not get root permissions -->
-    <string name="toast_root_denied">Nepodarilo sa získať root práva</string>
     <!-- WebGuiActivity -->
     <!-- Title of the web gui activity -->
     <string name="web_gui_title">Webové GUI</string>
@@ -109,7 +108,6 @@
     <!-- SettingsFragment -->
     <string name="settings_title">Nastavenia</string>
     <string name="category_syncthing_options">Nastavenia Syncthing</string>
-    <string name="use_root_title">Spúšťať Syncthing s root oprávneniami</string>
     <string name="device_name">Názov Zariadenia</string>
     <string name="listen_address">Adresa pre Sync Protokol</string>
     <string name="max_recv_kbps">Limit Rýchlosti Sťahovania (KiB/s)</string>

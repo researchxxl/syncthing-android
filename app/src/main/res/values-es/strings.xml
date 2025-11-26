@@ -262,7 +262,6 @@
     <!-- Shown if no folders are configured -->
     <string name="folders_list_empty">No hay carpetas configuradas. Pulsa para añadir una carpeta nueva.</string>
     <!-- Toast show if we could not get root permissions -->
-    <string name="toast_root_denied">No se obtuvieron permisos de root</string>
     <!-- TipsAndTricks activity -->
     <!-- Title of the Tips and Tricks activity -->
     <string name="tips_and_tricks_title">Consejos y Trucos</string>
@@ -355,8 +354,6 @@
     <!-- Preferences - Behaviour -->
     <string name="behaviour_autostart_title">Iniciar automáticamente</string>
     <string name="behaviour_autostart_summary">Inicia la aplicación al arrancar el sistema operativo.</string>
-    <string name="use_root_title">Ejecutar Syncthing como Superusuario</string>
-    <string name="use_root_summary">Permite a Syncthing escribir en las carpetas que Android normalmente restringe como de solo lectura. Usa esta función con precaución.</string>
     <string name="expert_mode_title">Modo experto</string>
     <string name="expert_mode_summary">Muestra las opciones de configuración avanzadas. Antes de nada revisa la Documentación de Syncthing para asegurarte que sabes usarlas correctamente. La configuración incorrecta puede provocar el consumo de la batería, agotamiento de los recursos del sistema o una sincronización incompleta.</string>
     <string name="preference_language_title">Idioma</string>

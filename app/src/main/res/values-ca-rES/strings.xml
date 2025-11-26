@@ -197,7 +197,6 @@
     <!-- Content description for device ID qr code icon -->
     <string name="scan_qr_code_description">Escaneja el codi QR</string>
     <!-- Toast show if we could not get root permissions -->
-    <string name="toast_root_denied">No s\'han obtingut permisos de superusuari</string>
     <!-- TipsAndTricks activity -->
     <!-- Title of the Tips and Tricks activity -->
     <string name="tips_and_tricks_title">Consells i trucs</string>
@@ -265,7 +264,6 @@
     <!-- Preferences - Behaviour -->
     <string name="behaviour_autostart_title">Inici automàtic</string>
     <string name="behaviour_autostart_summary">Inicia l\'aplicació automàticament durant l\'arrencada del sistema operatiu</string>
-    <string name="use_root_title">Executa el Syncthing com a Superusuari</string>
     <string name="expert_mode_title">Mode expert</string>
     <string name="preference_language_title">Idioma</string>
     <string name="preference_language_summary">Canvieu l\'idioma de l\'aplicació</string>
@@ -683,7 +681,6 @@
     <string name="tip_write_to_sdcard_text">Si veieu que la interfície d\'usuari indica que \"Android només concedeix accés de només lectura a Synchronization\" a una carpeta determinada, creeu una carpeta nova utilitzant aquesta ruta per obtenir accés d\'escriptura:\n%1$s/YOUR_FOLDER_NAME \nAtenció: Android esborrarà aquesta carpeta si desinstal·leu aquesta aplicació. Abans de desinstal·lar l\'aplicació, moveu les dades a un lloc segur fora de la carpeta …/Android.</string>
     <string name="tip_huawei_device_disconnected_text">Si l\'escriptori informa constantment que el dispositiu Huawei està desconnectat, obriu la interfície d\'usuari de Syncthing de l\'escriptori. Aneu a \"dispositius remots\", expandiu l\'entrada del telèfon, feu clic a \"Edita\" i canvieu a \"Avançat\". Introduïu l\'adreça IP del vostre telèfon a \"Adreces\" així:\ntcp4://%1$s, dinàmic\nConfirmat que funciona per a: Huawei P10</string>
     <string name="sleep_interval_minutes_title">Durada de l\'interval de pausa de sincronització</string>
-    <string name="use_root_summary">Executar Syncthing com a root permet escriure a carpetes que Android normalment restringeix a l\'accés de només lectura. Feu servir aquesta funció amb precaució.</string>
     <string name="reason_mobile_data_disallowed">Syncthing no està configurat per executar-se amb una connexió de dades mòbil.</string>
     <plurals name="device_online_up_to_date">
         <item quantity="one">%1$d dispositiu en línia i actualitzat</item>

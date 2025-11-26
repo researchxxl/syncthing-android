@@ -227,7 +227,6 @@ Android требует разрешение доступа к геолокаци
     <!-- Shown if no folders are configured -->
     <string name="folders_list_empty">Папки не заданы. Нажмите для добавления новой.</string>
     <!-- Toast show if we could not get root permissions -->
-    <string name="toast_root_denied">Root-права не получены</string>
     <!-- TipsAndTricks activity -->
     <!-- Title of the Tips and Tricks activity -->
     <string name="tips_and_tricks_title">Советы</string>
@@ -266,7 +265,6 @@ Android требует разрешение доступа к геолокаци
     <string name="respect_battery_saving_title">Учитывать настройки энергосбережения Android</string>
     <!-- Preferences - Behaviour -->
     <string name="behaviour_autostart_title">Автозапуск</string>
-    <string name="use_root_title">Запуск Syncthing с root-правами</string>
     <string name="preference_language_title">Язык</string>
     <string name="preference_language_summary">Изменить язык приложения</string>
     <string name="pref_language_default">Язык по умолчанию</string>
@@ -567,7 +565,6 @@ Android требует разрешение доступа к геолокаци
     <string name="sync_only_wifi_ssids_wifi_turn_on_location">Включите функцию определения местоположения для выбора сетей.</string>
     <string name="power_source_title">Работать при питании</string>
     <string name="expert_mode_title">Режим эксперта</string>
-    <string name="use_root_summary">Запуск Syncthing с root-правами позволяет ему писать в папки, доступ к которым Android обычно ограничивает только чтением. Используйте эту функцию с осторожностью.</string>
     <string name="webui_password_title">Пароль для веб-интерфейса</string>
     <string name="download_support_bundle_title">Загрузить пакет поддержки</string>
     <string name="download_support_bundle_in_progress">Подготовка загрузки пакета поддержки …</string>
