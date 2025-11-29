@@ -2,20 +2,30 @@
 
 Switching is easier than you may think!
 
-- Preparation
+- Legacy App Export
   - In the official Syncthing app, go to the settings screen and export your config.
   - Now stop the official app entirely using the system app settings for Syncthing.
     -  Force stop the app basically. We need to ensure it's not running.
   - Confirm you can see the config export by using a file browser.
     - Default folder location: e.g. `/storage/emulated/0/backups/syncthing`
-  - Create a new file called `config.zip` comprised of the following files:
+- Config Zip Creation
+  - Install our [latest release](https://github.com/researchxxl/syncthing-android/releases/latest) from GitHub or F-Droid.
+  - Start Syncthing-Fork.
+  - Complete the welcome slides.
+  - In the Syncthing-Fork settings, go to "Import & Export".
+    - Hit "Export config"
+    - Extract the `config.zip` file that has been created and locate the file `sharedpreferences.dat`
+    - Copy `sharedpreferences.dat` into the same folder as the exported files from the legacy app
+    - Remove `config.zip` and the files extracted from it (except the copied `sharedpreferences.dat`)  
+  - Create a new file called `config.zip` comprised of the following files from the legacy-app export:
     - cert.pem
     - https-cert.pem
     - https-key.pem
     - key.pem
     - config.xml
+    - sharedpreferences.dat (this one being from the syncthing-fork release)
       - Tip: Use the [Material Files app](https://f-droid.org/packages/me.zhanghai.android.files/) to create the zip file.
-  - You can remove the original *.pem and *.xml files after creating the `config.zip` file.
+  - You can remove the original *.pem, *.xml and `sharedpreferences.dat` files after creating the `config.zip` file.
   - Syncthing-Fork will require the `config.zip` to restore your config.
 
 - Migration
