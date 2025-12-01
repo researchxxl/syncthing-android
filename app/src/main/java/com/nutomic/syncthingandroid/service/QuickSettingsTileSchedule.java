@@ -1,7 +1,11 @@
 package com.nutomic.syncthingandroid.service;
 
 import android.app.ActivityManager;
-import android.content.*;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.IBinder;
