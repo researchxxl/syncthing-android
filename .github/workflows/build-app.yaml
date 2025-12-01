@@ -201,8 +201,6 @@ jobs:
           
           if [ -n "${{ secrets.DEBUG_KEYSTORE_B64 }}" ]; then
             echo '${{ secrets.DEBUG_KEYSTORE_B64 }}' | base64 -d > "${{ runner.temp }}/.android/debug.keystore"
-          else
-            exit 1
           fi
 
       - name: Build app
