@@ -1,2 +1,4 @@
+Show state changes in QuickSettingsTileSchedule (thanks @normanre)
 Removed libsuperuser dependency for security reasons.
+Dropped wakelock and write secure system settings permission.
 Due to minimum requirements of Androidx dependencies minimum Android version was raised to 6.
