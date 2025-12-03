@@ -63,7 +63,7 @@ jobs:
             ${{ runner.temp }}/.gradle/caches
             ${{ runner.temp }}/.gradle/wrapper
             ${{ runner.temp }}/.android
-          key: ${{ runner.os }}-gradle-android-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          key: ${{ runner.os }}-gradle-android-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties', '**/libs.versions.toml') }}
           restore-keys: |
             ${{ runner.os }}-gradle-android-
 
