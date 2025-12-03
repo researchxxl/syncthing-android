@@ -185,30 +185,6 @@
     <string name="device_id_required">Enheds-ID må ikke være tomt</string>
     <!-- Content description for device ID qr code icon -->
     <string name="scan_qr_code_description">Scan QR Code</string>
-    <!-- Toast show if we could not get root permissions -->
-    <string name="toast_root_denied">Fik ikke root rettigheder</string>
-    <!-- TipsAndTricks activity -->
-    <!-- Title of the Tips and Tricks activity -->
-    <string name="tips_and_tricks_title">Tips &amp; Tricks</string>
-    <string name="tip_write_to_sdcard_title">Skriv til ekstern sd kort omvej</string>
-    <string name="tip_write_to_sdcard_text">Hvis du ser at UI\'en siger at \'Android only grants syncthing read-only access\' til visse mapper, så lav en ny mappe ved at bruge denne sti til at få adgang til at skrive:
-\n%1$s/YOUR_FOLDER_NAME
-\nVær forsigtig: Denne mappe vil blive slettet af android hvis du afinstallere denne app. Før du afinstallere appen bør du flytte dine data til en sikkert sted udenfor …/Android mappen.</string>
-    <string name="tip_sync_on_local_network_title">Synkronisering bruger kun det lokale WiFi netværk</string>
-    <string name="tip_sync_on_local_network_text">Hvis du gerne vil synkronisere med enheder der er placerede på lokale WiFi netværk eller som kan nås via WiFi hotspot kan du mindske batteriforbruget og undgå synkronisering over mobildata ved at slå følgende muligheder til under \'Settings/Syncthing Options\':
-\n- Enable NAT traversal
-\n- Global Discovery
-\n- Enable Relaying
-\nOnly leave \'Local discovery\'.</string>
-    <string name="tip_custom_sync_conditions_title">Brug per mappe/enhed brugerdefinerede synkroniseringsbetingelser</string>
-    <string name="tip_custom_sync_conditions_text">Denne funktion vil stadigvæk blive forbedret i fremtidige udgivelser. For nu vil vi ikke smadre eksisterende konfigureringer og app opførsel. Det er derfor brugerdefinerede betingelser til et bestemt netværkstyper kun kan blive sat hvis du slå synkronisering til på netværk i de globale kørebetingelser først.</string>
-    <string name="tip_huawei_device_disconnected_title">Huawei: \'enhed afbrudt\' omvej</string>
-    <string name="tip_huawei_device_disconnected_text">Hvis din stationær konstant reportere din Huawei enhed som afbrudt, så åben Syncthing UI på din stationær. Gå til \'remote devices\', udvid telefonens indgang, klik \'Edit\', skift til \'Advanced\'. Indtast din IP-adresse i \'Addresses\' ligesom her:
-\ntcp4://%1$s, dynamic
-\nBekræftet for at virke til: Huawei P10</string>
-    <string name="tip_phone_ip_address_syntax">TELEFON_IP_ADRESSE</string>
-    <string name="tip_xiaomi_autostart_title">Xiaomi: app starter ikke ved systemstart</string>
-    <string name="tip_xiaomi_autostart_text">Xiaomi MIUI tillader ikke apps til at starte på deres egne default. Fra hjemmeskærmen, gå til \'Settings\' &gt; \'Permissions\' &gt; \'Autostart\' og slå \'Syncthing-Fork\' til.</string>
     <string name="recent_changes_title">Nylige ændringer</string>
     <string name="modified_by_device">Enhed: %1$s</string>
     <string name="modification_time">Tid: %1$s</string>
@@ -255,7 +231,6 @@
     <!-- Preferences - Behaviour -->
     <string name="behaviour_autostart_title">Autostart</string>
     <string name="behaviour_autostart_summary">Start app automatisk ved operativsystem start.</string>
-    <string name="use_root_title">Kør Syncthing som Superuser</string>
     <string name="preference_language_title">Sprog</string>
     <string name="preference_language_summary">Ændr app sproget</string>
     <string name="pref_language_default">Default Sprog</string>
@@ -293,8 +268,6 @@
     <!-- Experimental options -->
     <string name="use_proxy">Forbind gennem en proxy</string>
     <string name="do_not_use_proxy">Ingen proxy er konfigurerede.</string>
-    <string name="keep_wakelock_while_binary_running">Lad CPU\'en køre imens Syncthing kører</string>
-    <string name="keep_wakelock_while_binary_running_summary">Kun for Android 5 eller lavere. Brug denne indstilling hvis du oplever uventet afbrydelser mens batteriet bliver brugt. Dette vil resultere i et større batteriforbrug.</string>
     <string name="use_tor_title">Brug Tor</string>
     <string name="use_tor_summary">Gennemtving alt trafik gennem Tor til forhøjet privatliv. Kræver Orbot. Afbryder proxy muligheder.</string>
     <string name="socks_proxy_address_title">SOCKS5 proxy</string>

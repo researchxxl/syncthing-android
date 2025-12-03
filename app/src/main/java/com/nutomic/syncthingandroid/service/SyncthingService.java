@@ -1094,6 +1094,8 @@ public class SyncthingService extends Service {
                         case "use_legacy_hashing":
                         case "pref_current_language":
                         case "restartOnWakeup":
+                        case "wakelock_while_binary_running":
+                        case "use_root":
                             LogV("importConfig: Ignoring deprecated pref \"" + prefKey + "\".");
                             break;
                         // Cached information which is not available on SettingsActivity.

@@ -2,24 +2,24 @@
 # Android SDK versions
 android-cmdline-tools = "11076708"
 compile-sdk = "36"
-min-sdk = "21"
-ndk-version = "28.2.13676358"
+min-sdk = "23"
+ndk-version = "29.0.14206865"
 target-sdk = "36"
 
 # App version
-version-code = "2001102"
-version-name = "2.0.11.2"
+version-code = "2001201"
+version-name = "2.0.12.1"
 
 # External SDK versions
-go_version = "1.25.4"
+go_version = "1.25.5"
 
 aboutLibraries = "13.1.0"
-activity = "1.11.0"
+activity = "1.12.0"
 android-material = "1.13.0"
 android-gradle-plugin = "8.13.1"
 compose-material3 = "1.4.0"
 compose-material-icons = "1.7.8"
-compose-ui = "1.9.4"
+compose-ui = "1.9.5"
 constraintlayout = "2.2.1"
 core-ktx = "1.17.0"
 dagger = "2.57.2"
@@ -29,8 +29,7 @@ gson = "2.13.2"
 guava = "33.5.0-android"
 jbcrypt = "0.4"
 kotlin = "2.2.21"
-ksp = "2.3.2"
-libsuperuser = "1.1.1"
+ksp = "2.3.3"
 lingala-zip4j = "2.11.5"
 localbroadcastmanager = "1.1.0"
 preference-ktx = "1.2.1"
@@ -60,7 +59,6 @@ fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragm
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 guava = { module = "com.google.guava:guava", version.ref = "guava" }
 jbcrypt = { module = "org.mindrot:jbcrypt", version.ref = "jbcrypt" }
-libsuperuser = { module = "eu.chainfire:libsuperuser", version.ref = "libsuperuser" }
 lingala-zip4j = { module = "net.lingala.zip4j:zip4j", version.ref = "lingala-zip4j" }
 localbroadcastmanager = { module = "androidx.localbroadcastmanager:localbroadcastmanager", version.ref = "localbroadcastmanager" }
 preference-ktx = { module = "androidx.preference:preference-ktx", version.ref = "preference-ktx" }

@@ -12,7 +12,6 @@ import android.net.wifi.WifiManager;
 import android.net.wifi.WifiManager.MulticastLock;
 import android.os.Build;
 import android.os.Environment;
-import android.os.PowerManager;
 import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
@@ -48,8 +47,6 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import javax.inject.Inject;
 
-import eu.chainfire.libsuperuser.Shell;
-
 import static com.nutomic.syncthingandroid.service.SyncthingService.EXTRA_STOP_AFTER_CRASHED_NATIVE;
 
 /**
@@ -72,7 +69,6 @@ public class SyncthingRunnable implements Runnable {
     private final File mSyncthingBinary;
     private String[] mCommand;
     private final File mSyncthingLogFile;
-    private final boolean mUseRoot;
 
     @Inject
     SharedPreferences mPreferences;
@@ -103,7 +99,6 @@ public class SyncthingRunnable implements Runnable {
         mSyncthingLogFile = Constants.getSyncthingLogFile(mContext);
 
         // Get preferences relevant to starting syncthing core.
-        mUseRoot = mPreferences.getBoolean(Constants.PREF_USE_ROOT, false) && Shell.SU.available();
         switch (command) {
             case deviceid:
                 mCommand = new String[]{mSyncthingBinary.getPath(), "device-id"};
@@ -134,7 +129,6 @@ public class SyncthingRunnable implements Runnable {
         }
     }
 
-    @SuppressLint("WakelockTimeout")
     public String run(boolean returnStdOut) throws ExecutableNotFoundException {
         Boolean sendStopToService = false;
         Boolean restartSyncthingNative = false;
@@ -144,31 +138,9 @@ public class SyncthingRunnable implements Runnable {
         // Trim Syncthing log.
         trimSyncthingLogFile();
 
-        /**
-         * Keep the CPU running while native binary is running.
-         * Only valid on Android 5 or lower.
-         */
-        PowerManager pm;
-        PowerManager.WakeLock wakeLock = null;
-        Boolean useWakeLock = mPreferences.getBoolean(Constants.PREF_USE_WAKE_LOCK, false);
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M && useWakeLock) {
-            pm = (PowerManager) mContext.getSystemService(Context.POWER_SERVICE);
-            /**
-             * Since gradle 4.6, wakelock tags have to obey "app:component" naming convention.
-             */
-            wakeLock = pm.newWakeLock(
-                    PowerManager.PARTIAL_WAKE_LOCK,
-                    mContext.getString(R.string.app_name) + ":" + TAG
-            );
-        }
-
         MulticastLock multicastLock = null;
         Process process = null;
         try {
-            if (wakeLock != null) {
-                wakeLock.acquire();
-            }
-
             // Android 11 blocks local discovery if we did not acquire MulticastLock.
             WifiManager wifi = (WifiManager) mContext.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
             multicastLock = wifi.createMulticastLock("multicastLock");
@@ -178,7 +150,6 @@ public class SyncthingRunnable implements Runnable {
             /**
              * Setup and run a new syncthing instance
              */
-            increaseInotifyWatches();
             HashMap<String, String> targetEnv = buildEnvironment();
             process = setupAndLaunch(targetEnv);
 
@@ -205,8 +176,6 @@ public class SyncthingRunnable implements Runnable {
                 lInfo = log(process.getInputStream(), Log.INFO);
                 lWarn = log(process.getErrorStream(), Log.WARN);
             }
-
-            niceSyncthing();
 
             exitCode = process.waitFor();
             LogV("Syncthing exited with code " + exitCode);
@@ -258,9 +227,6 @@ public class SyncthingRunnable implements Runnable {
         } catch (IOException | InterruptedException e) {
             Log.e(TAG, "Failed to execute syncthing binary or read output", e);
         } finally {
-            if (wakeLock != null) {
-                wakeLock.release();
-            }
             if (multicastLock != null) {
                 multicastLock.release();
                 multicastLock = null;
@@ -306,7 +272,7 @@ public class SyncthingRunnable implements Runnable {
      */
     private List<String> getSyncthingPIDs(Boolean enableLog) {
         List<String> syncthingPIDs = new ArrayList<String>();
-        String output = Util.runShellCommandGetOutput("ps\n", mUseRoot);
+        String output = Util.runShellCommandGetOutput("ps\n");
         if (TextUtils.isEmpty(output)) {
             Log.w(TAG, "Failed to list SyncthingNative processes. ps command returned empty.");
             return syncthingPIDs;
@@ -332,52 +298,6 @@ public class SyncthingRunnable implements Runnable {
     }
 
     /**
-     * Root-only: Temporarily increase "fs.inotify.max_user_watches"
-     * as Android has a default limit of 8192 watches.
-     * Manually run "sysctl fs.inotify" in a root shell terminal to check current limit.
-     */
-    private void increaseInotifyWatches() {
-        if (!mUseRoot) {
-            // Settings prohibit using root privileges. Cannot increase inotify limit.
-            return;
-        }
-        if (!Shell.SU.available()) {
-            Log.i(TAG, "increaseInotifyWatches: Root is not available. Cannot increase inotify limit.");
-            return;
-        }
-        int exitCode = Util.runShellCommand("sysctl -n -w fs.inotify.max_user_watches=131072\n", true);
-        Log.i(TAG, "increaseInotifyWatches: sysctl returned " + Integer.toString(exitCode));
-    }
-
-    /**
-     * Look for a running libsyncthingnative.so process and nice its IO.
-     */
-    private void niceSyncthing() {
-        if (!mUseRoot) {
-            // Settings prohibit using root privileges. Cannot nice syncthing.
-            return;
-        }
-        if (!Shell.SU.available()) {
-            Log.i(TAG_NICE, "Root is not available. Cannot nice syncthing.");
-            return;
-        }
-
-        List<String> syncthingPIDs = getSyncthingPIDs(false);
-        if (syncthingPIDs.isEmpty()) {
-            Log.i(TAG_NICE, "Found no running instances of " + Constants.FILENAME_SYNCTHING_BINARY);
-            return;
-        }
-
-        // Ionice all running syncthing processes.
-        for (String syncthingPID : syncthingPIDs) {
-            // Set best-effort, low priority using ionice.
-            int exitCode = Util.runShellCommand("/system/bin/ionice " + syncthingPID + " be 7\n", true);
-            Log.i(TAG_NICE, "ionice returned " + Integer.toString(exitCode) +
-                    " on " + Constants.FILENAME_SYNCTHING_BINARY);
-        }
-    }
-
-    /**
      * Look for running libsyncthingnative.so processes and end them gracefully.
      */
     public void killSyncthing() {
@@ -388,7 +308,7 @@ public class SyncthingRunnable implements Runnable {
             return;
         }
         for (String syncthingPID : syncthingPIDs) {
-            exitCode = Util.runShellCommand("kill -SIGINT " + syncthingPID + "\n", mUseRoot);
+            exitCode = Util.runShellCommand("kill -SIGINT " + syncthingPID + "\n");
             if (exitCode == 0) {
                 LogV("Sent kill SIGINT to process " + syncthingPID);
             } else {
@@ -497,11 +417,9 @@ public class SyncthingRunnable implements Runnable {
         targetEnv.put("SQLITE_TMPDIR", mContext.getCacheDir().getAbsolutePath());
 
         // Workaround SyncthingNativeCode denied to read gatewayIP by Android 14+ restriction.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            final String gatewayIpV4 = getGatewayIpV4(mContext);
-            if (gatewayIpV4 != null) {
-                targetEnv.put("FALLBACK_NET_GATEWAY_IPV4", gatewayIpV4);
-            }
+        final String gatewayIpV4 = getGatewayIpV4(mContext);
+        if (gatewayIpV4 != null) {
+            targetEnv.put("FALLBACK_NET_GATEWAY_IPV4", gatewayIpV4);
         }
 
         if (mPreferences.getBoolean(Constants.PREF_USE_TOR, false)) {
@@ -522,9 +440,7 @@ public class SyncthingRunnable implements Runnable {
 
         // Optimize memory usage for older devices.
         int gogc = 100;         // GO default
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            gogc = 50;
-        } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             gogc = 75;
         }
         LogV("Setting env var: [GOGC]=[" + Integer.toString(gogc) + "]");
@@ -543,30 +459,9 @@ public class SyncthingRunnable implements Runnable {
                 throw new ExecutableNotFoundException(mCommand[0]);
             }
         }
-
-        if (mUseRoot) {
-            ProcessBuilder pb = new ProcessBuilder("su");
-            Process process = pb.start();
-            // The su binary prohibits the inheritance of environment variables.
-            // Even with --preserve-environment the environment gets messed up.
-            // We therefore start a root shell, and set all the environment variables manually.
-            DataOutputStream suOut = new DataOutputStream(process.getOutputStream());
-            for (Map.Entry<String, String> entry : env.entrySet()) {
-                suOut.writeBytes(String.format("export %s=\"%s\"\n", entry.getKey(), entry.getValue()));
-            }
-            suOut.flush();
-            // Exec will replace the su process image by Syncthing as execlp in C does.
-            // Without using exec, the process will drop to the root shell as soon as Syncthing terminates like a normal shell does.
-            // If we did not use exec, we would wait infinitely for the process to terminate (ret = process.waitFor(); in run()).
-            // With exec the whole process terminates when Syncthing exits.
-            suOut.writeBytes("exec " + TextUtils.join(" ", mCommand) + "\n");
-            suOut.flush();
-            return process;
-        } else {
-            ProcessBuilder pb = new ProcessBuilder(mCommand);
-            pb.environment().putAll(env);
-            return pb.start();
-        }
+        ProcessBuilder pb = new ProcessBuilder(mCommand);
+        pb.environment().putAll(env);
+        return pb.start();
     }
 
     public class ExecutableNotFoundException extends Exception {
@@ -587,7 +482,6 @@ public class SyncthingRunnable implements Runnable {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     public static String getGatewayIpV4(final Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         Network activeNetwork = cm.getActiveNetwork();

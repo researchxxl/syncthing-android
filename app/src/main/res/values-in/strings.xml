@@ -114,8 +114,6 @@
     <string name="device_id_required">ID perangkat tidak boleh kosong</string>
     <!-- Content description for device ID qr code icon -->
     <string name="scan_qr_code_description">Pindai Kode QR</string>
-    <!-- Toast show if we could not get root permissions -->
-    <string name="toast_root_denied">Tidak mendapat kewenangan root</string>
     <!-- WebGuiActivity -->
     <!-- Title of the web gui activity -->
     <string name="web_gui_title">Web GUI</string>
@@ -131,7 +129,6 @@
     <string name="run_conditions_title">Syarat Operasi</string>
     <string name="sync_only_wifi_ssids_wifi_turn_on_wifi">Mohon aktifkan WiFi untuk memilih jaringan.</string>
     <string name="respect_battery_saving_title">Ikuti pengaturan penghematan baterai Android</string>
-    <string name="use_root_title">Jalankan Syncthing sebagai Superuser</string>
     <string name="preference_language_title">Bahasa</string>
     <string name="preference_language_summary">Ganti bahasa dalam aplikasi</string>
     <string name="pref_language_default">Bahasa Standar</string>
@@ -146,7 +143,6 @@
     <string name="enable_relaying">Aktfikan Relay</string>
     <string name="usage_reporting">Laporan Penggunaan Anonim</string>
     <string name="export_config">Ekspor Konfigurasi</string>
-    <string name="keep_wakelock_while_binary_running">Buat CPU tetap aktif saat Syncthing berjalan</string>
     <string name="use_tor_title">Gunakan Tor</string>
     <!-- Dialog shown before config export -->
     <string name="dialog_confirm_export">Anda yakin ingin mengekspor konfigurasi? Berkas yang ada akan ditimpa. \n \nPERINGATAN| Aplikasi lain mungkin bisa membaca kunci privat dari lokasi backup dan menggunakannya untuk mengunduh/mengubah berkas terselaraskan.</string>

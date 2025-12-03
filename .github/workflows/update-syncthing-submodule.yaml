@@ -1,0 +1,83 @@
+name: Update Syncthing submodule
+
+on:
+  schedule:
+    # Run every Wednesday at 19:00 UTC
+    - cron: '0 19 * * 3'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-syncthing-submodule:
+    name: Update Syncthing submodule
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+          fetch-depth: 0
+
+      - name: Get current submodule commit
+        id: current
+        run: |
+          CURRENT_COMMIT=$(git ls-tree HEAD syncthing/src/github.com/syncthing/syncthing | awk '{print $3}')
+          echo "commit=${CURRENT_COMMIT}" >> $GITHUB_OUTPUT
+          echo "Current commit: ${CURRENT_COMMIT}"
+
+      - name: Get latest syncthing release commit
+        id: latest
+        run: |
+          LATEST_TAG=$(curl -s https://api.github.com/repos/syncthing/syncthing/releases \
+            | jq -r 'map(select(.draft == false)) | .[0].tag_name')
+          echo "tag=${LATEST_TAG}" >> $GITHUB_OUTPUT
+          echo "Latest tag: ${LATEST_TAG}"
+          LATEST_COMMIT=$(git ls-remote https://github.com/syncthing/syncthing.git refs/tags/${LATEST_TAG}^{} | awk '{print $1}')
+          echo "commit=${LATEST_COMMIT}" >> $GITHUB_OUTPUT
+          echo "Latest commit: ${LATEST_COMMIT}"
+
+      - name: Update submodule if newer
+        if: ${{ steps.current.outputs.commit != steps.latest.outputs.commit }}
+        run: |
+          cd syncthing/src/github.com/syncthing/syncthing
+          git fetch origin "refs/tags/${{ steps.latest.outputs.tag }}"
+          git checkout "${{ steps.latest.outputs.tag }}"
+          cd -
+          git add syncthing/src/github.com/syncthing/syncthing
+
+      - name: Update versions.toml
+        if: ${{ steps.current.outputs.commit != steps.latest.outputs.commit }}
+        run: |
+          set -eu
+          TAG="${{ steps.latest.outputs.tag }}"
+          # Strip leading "v"
+          TAG="${TAG#v}"
+          # Extract major.minor.patch from tag (e.g. 2.0.12 from 2.0.12-rc.1)
+          BASE_VERSION=$(echo "$TAG" | sed -E 's/^([0-9]+\.[0-9]+\.[0-9]+).*/\1/')
+          # Append .0 as required by your version scheme
+          NEW_VERSION="${BASE_VERSION}.0"
+          sed -i -E 's/version-name = "[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+"/version-name = "'"${NEW_VERSION}"'"/' gradle/libs.versions.toml
+          IFS='.' read -r MAJOR MINOR PATCH BUILD <<< "$NEW_VERSION"
+          VERSION_CODE=$(( MAJOR*1000000 + MINOR*10000 + PATCH*100 + BUILD ))
+          sed -i -E 's/version-code = "[0-9]+"/version-code = "'"${VERSION_CODE}"'"/' gradle/libs.versions.toml
+          git add gradle/libs.versions.toml
+          echo "Updated version to: ${NEW_VERSION} (${VERSION_CODE})"
+
+      - name: Create Pull Request if commit changed
+        if: ${{ steps.current.outputs.commit != steps.latest.outputs.commit }}
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: "bump-syncthing-${{ steps.latest.outputs.tag }}"
+          commit-message: "Bump Syncthing submodule to ${{ steps.latest.outputs.tag }}"
+          title: "Bump Syncthing submodule to ${{ steps.latest.outputs.tag }}"
+          body: |
+            Bump Syncthing submodule to ${{ steps.latest.outputs.tag }}
+          labels: dependencies
+          author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
+          base: main
+          add-paths: |
+            gradle/libs.versions.toml
+            syncthing/src/github.com/syncthing/syncthing
+          delete-branch: true

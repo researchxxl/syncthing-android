@@ -1,21 +1,12 @@
 HMD Global phones have been reported to kill apps with a manufacturer-specific implementation called "DuraSpeed". DuraSpeed is built-into the OS and normally cannot be disabled by the user. This causes Syncthing-Fork to silently cease syncing when DuraSpeed kills the app.
 
-To work around this, connect your phone to a computer running ADB.
-If you like to allow Syncthing-Fork to attempt to disable DuraSpeed system-wide when your phone boots, issue the following commands:
+To work around this, advanced users may attempt to disable DuraSpeed system-wide for all apps. This can be achieved by using third party apps that offer the ability to write secure settings.
 
-${applicationId} = com.github.catfriend1.syncthingfork
-
+Java code example:
 ```
-adb shell pm grant ${applicationId} android.permission.WRITE_SECURE_SETTINGS
+Settings.Global.putInt(context.getContentResolver(), "setting.duraspeed.enabled", -1);
+Settings.Global.putInt(context.getContentResolver(), "setting.duraspeed.enabled", 0);
 ```
-
-If you're unhappy with Syncthing-Fork turning of DuraSpeed and you want to revert the change, issue the following commands:
-
-```
-adb shell pm revoke ${applicationId} android.permission.WRITE_SECURE_SETTINGS
-```
-
-Reboot your phone after the "pm revoke" for the change to take effect.
 
 Related:
 - [Details from the urbandroid-team tracker](https://github.com/urbandroid-team/dont-kill-my-app/issues/57)

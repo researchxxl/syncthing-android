@@ -1,3 +1,6 @@
+import java.util.Properties
+import java.io.FileInputStream
+
 plugins {
     alias(libs.plugins.aboutLibraries)
     alias(libs.plugins.android.application)
@@ -23,7 +26,6 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.guava)
     implementation(libs.jbcrypt)
-    implementation(libs.libsuperuser)
     implementation(libs.lingala.zip4j)
     implementation(libs.localbroadcastmanager)
     implementation(libs.preference.ktx)
@@ -60,10 +62,19 @@ android {
 
     signingConfigs {
         create("release") {
-            storeFile = System.getenv("SYNCTHING_RELEASE_STORE_FILE")?.let(::file)
-            storePassword = System.getenv("SIGNING_PASSWORD")
-            keyAlias = System.getenv("SYNCTHING_RELEASE_KEY_ALIAS")
-            keyPassword = System.getenv("SIGNING_PASSWORD")
+            val localProps = Properties()
+            val localFile = rootProject.file("local.properties")
+            if (localFile.exists()) {
+                localFile.inputStream().use { localProps.load(it) }
+            }
+            
+            fun propOrEnv(key: String): String? =
+                localProps.getProperty(key) ?: System.getenv(key)
+            
+            storeFile = propOrEnv("SYNCTHING_RELEASE_STORE_FILE")?.let(::file)
+            storePassword = propOrEnv("SIGNING_PASSWORD")
+            keyAlias = propOrEnv("SYNCTHING_RELEASE_KEY_ALIAS")
+            keyPassword = storePassword
         }
     }
 

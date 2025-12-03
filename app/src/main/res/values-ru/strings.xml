@@ -226,13 +226,6 @@ Android требует разрешение доступа к геолокаци
     <string name="scan_qr_code_description">Сканировать QR Код</string>
     <!-- Shown if no folders are configured -->
     <string name="folders_list_empty">Папки не заданы. Нажмите для добавления новой.</string>
-    <!-- Toast show if we could not get root permissions -->
-    <string name="toast_root_denied">Root-права не получены</string>
-    <!-- TipsAndTricks activity -->
-    <!-- Title of the Tips and Tricks activity -->
-    <string name="tips_and_tricks_title">Советы</string>
-    <string name="tip_sync_on_local_network_title">Синхронизировать только по локальной WiFi сети</string>
-    <string name="tip_phone_ip_address_syntax">PHONE_IP_ADDRESS</string>
     <string name="recent_changes_title">Недавние изменения</string>
     <string name="modified_by_device">Устройство: %1$s</string>
     <string name="modification_time">Время: %1$s</string>
@@ -266,7 +259,6 @@ Android требует разрешение доступа к геолокаци
     <string name="respect_battery_saving_title">Учитывать настройки энергосбережения Android</string>
     <!-- Preferences - Behaviour -->
     <string name="behaviour_autostart_title">Автозапуск</string>
-    <string name="use_root_title">Запуск Syncthing с root-правами</string>
     <string name="preference_language_title">Язык</string>
     <string name="preference_language_summary">Изменить язык приложения</string>
     <string name="pref_language_default">Язык по умолчанию</string>
@@ -297,7 +289,6 @@ Android требует разрешение доступа к геолокаци
     <string name="export_config">Экспорт настроек</string>
     <!-- Experimental options -->
     <string name="use_proxy">Подсоединиться через прокси</string>
-    <string name="keep_wakelock_while_binary_running">Поддерживать CPU включенным, пока Syncthing работает</string>
     <string name="use_tor_title">Использовать Tor</string>
     <string name="use_tor_summary">Для дополнительной приватности перенаправлять весь трафик через Tor. Требует наличия Orbot. Отключает опции прокси.</string>
     <string name="socks_proxy_address_title">SOCKS5 прокси</string>
@@ -522,14 +513,11 @@ Android требует разрешение доступа к геолокаци
     <string name="untrusted_device_explanation">Все папки, совместно используемые с этим устройством, должны быть защищены паролем, чтобы все отправленные данные не могли быть прочитаны без указанного пароля.</string>
     <string name="install_barcode_scanner_app_message">Это действие требует приложение сканирования штрих-кодов. Хотите установить приложение \'Binary Eye\' от F-Droid?</string>
     <string name="device_id_invalid">ID устройства не соответствует формату. Попробуйте ввести правильный ID заново.</string>
-    <string name="tip_custom_sync_conditions_title">Использовать пользовательские условия синхронизации для каждой папки/устройства</string>
     <string name="notification_permission_desc">Требуется для показа уведомлений о новых подключениях устройств, запросах на совместное использование папок и для поддержания работоспособности службы.</string>
     <string name="toast_notification_permission_required">Syncthing требует разрешения на уведомления, чтобы поддерживать работоспособность службы.</string>
     <string name="delete_unexpected_items">Удалить неожиданные файлы</string>
     <string name="device_last_seen">Был в сети: %1$s</string>
     <string name="autoAcceptFolders">Автоматический приём</string>
-    <string name="tip_write_to_sdcard_title">Обходное решение для записи на внешнюю SD-карту</string>
-    <string name="tip_ignore_delete_title">Восстановить фото из телефона на компьютер?</string>
     <string name="folder_type_switch_to_receive_encrypted_not_allowed">Переключение существующих папок в \'Получать зашифрованное\' не поддерживается.</string>
     <string name="folder_path_readwrite">Ваша версия Android даёт разрешение Syncthing на чтение и запись в указанной папке.</string>
     <string name="dialog_confirm_skip_ignore_doze_permission">Осторожно: Если SyncthingNative будет прерван и сделает что-то странное, вы сами виноваты. Пропускайте только если ваше устройство не поддерживает выдачу разрешения. Пропустить?</string>
@@ -542,18 +530,6 @@ Android требует разрешение доступа к геолокаци
     <string name="advanced_directory_selection">Расширенный выбор папки</string>
     <string name="local_discovery_disabled">Вы отключили локальное обнаружение в \'Настройки\' &gt; \'Настройки Syncthing\' &gt; \'Локальное обнаружение\'. Включите эту опцию для поиска устройств в локальной сети.</string>
     <string name="device_addresses_invalid">Адреса устройств не соответствуют формату. Попробуйте ещё раз. Смотрите документацию Syncthing для большей информации.</string>
-    <string name="tip_write_to_sdcard_text">Если вы видите меню, пишущее, что \'Android даёт Syncthing только разрешение на чтение\' для определённой папки, создайте новую папку используя этот путь для выдачи доступа к записи:
-\n%1$s/ИМЯ_ВАШЕЙ_ПАПКИ
-\nБудьте осторожны: Эта папка будет очищена системой, если вы удалите это приложение. Перед удалением приложения, переместите данные в безопасное место снаружи папки …/Android .</string>
-    <string name="tip_sync_on_local_network_text">Если вы хотите синхронизироваться только с устройствами в локальной сети или точке доступа, вы можете уменьшить использование батареи и избежать случайной синхронизации по мобильной сети, выключив следующие настройки в \'Настройки/Настройки Syncthing\':
-\n- Использовать обход NAT
-\n- Глобальное обнаружение
-\n- Использовать ретрансляторы
-\nОставьте \'Локальное обнаружение\' включённым.</string>
-    <string name="tip_custom_sync_conditions_text">Эта функция будет улучшена в будущих релизах. Пока же мы не хотели ломать существующие конфигурации и поведение приложения. Поэтому пользовательские условия синхронизации для определенного типа сети можно установить только в том случае, если вы сначала включите синхронизацию по сети в глобальных условиях запуска.</string>
-    <string name="tip_xiaomi_autostart_title">Xiaomi: приложение не запускается при загрузке</string>
-    <string name="tip_xiaomi_autostart_text">Xiaomi MIUI по умолчанию запрещает приложениям запускаться самостоятельно. На главном экране перейдите в \'Настройки\' &gt; \'Разрешения\' &gt; \'Автозапуск\' и включите ползунок \'Syncthing-Fork\'.</string>
-    <string name="tip_xiaomi_battery_saver_title">Xiaomi: приложение постоянно показывает экран приветствия</string>
     <string name="no_recent_changes">Нет недавних изменений.</string>
     <string name="ssl_cert_invalid_text">Похоже, сайт %1$s, имеет недействительный сертификат шифрования SSL. Продолжить?</string>
     <string name="web_page_loading">Загрузка веб-страницы:
@@ -568,7 +544,6 @@ Android требует разрешение доступа к геолокаци
     <string name="sync_only_wifi_ssids_wifi_turn_on_location">Включите функцию определения местоположения для выбора сетей.</string>
     <string name="power_source_title">Работать при питании</string>
     <string name="expert_mode_title">Режим эксперта</string>
-    <string name="use_root_summary">Запуск Syncthing с root-правами позволяет ему писать в папки, доступ к которым Android обычно ограничивает только чтением. Используйте эту функцию с осторожностью.</string>
     <string name="webui_password_title">Пароль для веб-интерфейса</string>
     <string name="download_support_bundle_title">Загрузить пакет поддержки</string>
     <string name="download_support_bundle_in_progress">Подготовка загрузки пакета поддержки …</string>
@@ -592,7 +567,6 @@ Android требует разрешение доступа к геолокаци
     <string name="pull_order_type_alphabetic_description">Получать файлы в алфавитном порядке.</string>
     <string name="webui_username_title">Имя пользователя для веб-интерфейса</string>
     <string name="dialog_settings_restart_app_question">Изменение этого параметра требует немедленного перезапуска приложения. Все остальные изменения будут отменены. Продолжить?</string>
-    <string name="tip_huawei_device_disconnected_title">Huawei: решение проблемы \'устройство отключено\'</string>
     <string name="run_on_roaming_title">Работать в роуминге</string>
     <string name="run_on_mobile_data_title">Работать по мобильной сети</string>
     <string name="security_notice">Уведомление о безопасности</string>
@@ -607,7 +581,6 @@ Android требует разрешение доступа к геолокаци
     <string name="webui_tcp_port_title">TCP порт веб-интерфейса</string>
     <string name="crash_reporting">Анонимные отчеты о сбоях</string>
     <string name="webui_remote_access_title">Удалённый доступ к веб-интерфейсу</string>
-    <string name="keep_wakelock_while_binary_running_summary">Только для Android 5 или ниже. Используйте эту настройку, если у вас возникают неожиданные отключения при работе от аккумулятора. Это приведет к увеличению расхода батареи.</string>
     <string name="syncthing_database_size">Размер базы данных Synthing</string>
     <string name="os_open_file_limit">Предельное количество открытых файлов для Android</string>
     <string name="reason_on_mobile_data">Syncthing разрешено работать от мобильной сети.</string>
@@ -633,13 +606,8 @@ Android требует разрешение доступа к геолокаци
     <string name="reason_on_nonroaming_mobile_data">Syncthing разрешено работать от мобильной сети без роуминга. Активная сеть без роуминга.</string>
     <string name="reason_on_metered_nonmetered_wifi">Syncthing разрешено работать в тарифицированных и нетарифицированных Wi-Fi сетях.</string>
     <string name="reason_on_nonmetered_wifi">Syncthing разрешено работать в нетарифицированных Wi-Fi сетях. Активная сеть без тарификации.</string>
-    <string name="tip_ignore_delete_text">Если вы хотите, чтобы все фотографии, сделанные на вашем телефоне, были скопированы на компьютер, поделитесь папкой \'Камера\' с компьютером. Откройте Syncthing на компьютере, добавьте папку и перейдите в \'Действия\' &gt; \'Дополнительно\' &gt; папка \'Камера\'. Включите \'Игнорировать удаление\' и нажмите \'Сохранить\'. Теперь вы можете удалять фотографии из папки камеры на телефоне, и они останутся в резервной копии на компьютере.</string>
-    <string name="tip_huawei_device_disconnected_text">Если ваш компьютер постоянно сообщает, что устройство Huawei отключено, откройте интерфейс Syncthing на компьютере. Перейдите в раздел \'Удалённые устройства\', разверните запись телефона, нажмите \'Редактировать\', переключитесь на \'Дополнительно\'. Введите IP-адрес вашего телефона в \'Адреса\' следующим образом:
-\ntcp4://%1$s, dynamic
-\nПодтверждено, что работает на: Huawei P10</string>
     <string name="run_on_metered_wifi_summary">Работать, когда устройство подключено к тарифицированной Wi-Fi сети, например, к точке доступа или при раздаче Wi-Fi с телефона. Внимание: При синхронизации большого количества данных может быть израсходована значительная часть тарифного плана.</string>
     <string name="run_in_flight_mode_summary">Если включить этот параметр, Syncthing будет работать даже при отключении от сети. Включите, если у вашего устройства есть проблемы с обнаружением ручных Wi-Fi подключений в режиме полёта.</string>
-    <string name="tip_xiaomi_battery_saver_text">Системное приложение Xiaomi MIUI для экономии заряда батареи отзывает разрешение \'игнорировать оптимизацию батареи\' при каждой перезагрузке телефона. Это приводит к тому, что приложение показывает экран приветствия и снова запрашивает недостающее обязательное разрешение. Решение: На главном экране откройте меню приложений &gt; долгое нажатие на \'Syncthing-Fork\' &gt; \'Информация о приложении\' &gt; \'Экономия заряда батареи\' и выберите \'Без ограничений\' (MIUI 10.3.2.0+).</string>
     <string name="run_on_time_schedule_summary">При включении этого параметра Syncthing попробует синхронизироваться в течение заданного времени, если выполнены условия работы и со времени последней синхронизации прошло заданное количество времени. Это может значительно сэкономить заряд батареи, но требует, чтобы партнеры по синхронизации находились в сети. Обратите внимание: при этом могут остаться неполные временные файлы до следующей синхронизации по расписанию.</string>
     <string name="behaviour_autostart_summary">Запускать приложение автоматически при загрузке операционной системы.</string>
     <string name="expert_mode_summary">При включении этой опции будут показаны расширенные параметры конфигурации. Сначала вам следует ознакомиться с документацией по Syncthing, чтобы убедиться, что вы знаете, как правильно их использовать. Неправильные настройки могут привести к разрядке батареи, истощению системных ресурсов или неполной синхронизации.</string>

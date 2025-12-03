@@ -1,4 +1,4 @@
-Updated SyncthingNative to v2.0.11
-Updated translations
-Removed feedback prompt about roaming
-Build using go 1.25.4
+Show state changes in QuickSettingsTileSchedule (thanks @normanre)
+Removed libsuperuser dependency for security reasons.
+Dropped wakelock and write secure system settings permission.
+Due to minimum requirements of Androidx dependencies minimum Android version was raised to 6.

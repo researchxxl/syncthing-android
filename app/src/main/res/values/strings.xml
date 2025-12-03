@@ -403,44 +403,6 @@
     <!-- Shown if no folders are configured -->
     <string name="folders_list_empty">No folders configured. Tap to add a new folder.</string>
 
-    <!-- Toast show if we could not get root permissions -->
-    <string name="toast_root_denied">Did not get root permissions</string>
-
-    <!-- TipsAndTricks activity -->
-
-    <!-- Title of the Tips and Tricks activity -->
-    <string name="tips_and_tricks_title">Tips &amp; Tricks</string>
-
-    <string name="tip_write_to_sdcard_title">Write to external sdcard workaround</string>
-    <string name="tip_write_to_sdcard_text">If you see the UI stating that \'Android only grants syncthing read-only access\' to a certain folder, create a new folder using this path to gain write access:
-\n%1$s/YOUR_FOLDER_NAME
-\nBe careful: This folder will get wiped out by Android if you uninstall this app. Before uninstalling the app, move the data to a safe place outside the …/Android folder.</string>
-
-    <string name="tip_sync_on_local_network_title">Sync only using the local WiFi network</string>
-    <string name="tip_sync_on_local_network_text">If you\'d like to sync only with devices that are located on the local WiFi network or reachable via WiFi hotspot, you can lower battery usage and avoid accidentially syncing over mobile data by turning off the following options under \'Settings/Syncthing Options\':
-\n- Enable NAT traversal
-\n- Global Discovery
-\n- Enable Relaying
-\nOnly leave \'Local discovery\' enabled.</string>
-
-    <string name="tip_custom_sync_conditions_title">Use per folder/device custom sync conditions</string>
-    <string name="tip_custom_sync_conditions_text">This feature will still be improved in future releases. For now, we didn\'t want to break existing configs and app behaviour. That\'s why custom sync conditions for a certain network type can only be set if you enable syncing on the network in the global run conditions first.</string>
-
-    <string name="tip_ignore_delete_title">Backup pictures from phone to computer\?</string>
-    <string name="tip_ignore_delete_text">If you\'d like to have all pictures made on your phone backed up to a computer, share the \'Camera\' folder with the computer. Open Syncthing on the computer, add the folder and go to \'Actions\' &gt; \'Advanced\' &gt; \'Camera\' folder. Enable \'Ignore Delete\' and click \'Save\'. You can now delete pictures from your camera folder on the phone and they will stay backed up on the computer.</string>
-
-    <string name="tip_huawei_device_disconnected_title">Huawei: \'device disconnected\' workaround</string>
-    <string name="tip_huawei_device_disconnected_text">If your desktop constantly reports your Huawei device as disconnected, open Syncthing UI of your desktop. Go to \'remote devices\', expand the phone\'s entry, click \'Edit\', switch to \'Advanced\'. Put your phone IP address into \'Addresses\' like this:
-\ntcp4://%1$s, dynamic
-\nConfirmed working for: Huawei P10</string>
-    <string name="tip_phone_ip_address_syntax">PHONE_IP_ADDRESS</string>
-
-    <string name="tip_xiaomi_autostart_title">Xiaomi: app does not start on boot</string>
-    <string name="tip_xiaomi_autostart_text">Xiaomi MIUI disallows apps to start on their own by default. From home screen, go to \'Settings\' &gt; \'Permissions\' &gt; \'Autostart\' and enable the \'Syncthing-Fork\' slider.</string>
-
-    <string name="tip_xiaomi_battery_saver_title">Xiaomi: app repeatedly shows welcome screen</string>
-    <string name="tip_xiaomi_battery_saver_text">Xiaomi MIUI\'s battery saver system app revokes the app\'s \'ignore battery optimization\' permission on every phone reboot. This causes the app to show the welcome screen and ask for the missing mandatory permission again. Solution: From home screen, open the app drawer &gt; Long press \'Syncthing-Fork\' &gt; \'App info\' &gt; \'Battery saver\' and select \'No restrictions\' (MIUI 10.3.2.0+).</string>
-
     <!-- RecentChangesActivity -->
 
     <string name="no_recent_changes">There are no recent changes.</string>
@@ -551,8 +513,6 @@
     <string name="behaviour_autostart_title">Autostart</string>
     <string name="behaviour_autostart_summary">Start app automatically on operating system startup.</string>
 
-    <string name="use_root_title">Run Syncthing as Superuser</string>
-    <string name="use_root_summary">Running Syncthing as root allows it to write to folders Android normally restricts to be readonly accessed. Use this feature with caution.</string>
 
     <string name="allow_overwrite_files_title">Allow overwrite of existing files</string>
     <string name="allow_overwrite_files_summary">When another app shares files to one of our folders.</string>
@@ -664,8 +624,6 @@
     <string name="use_proxy">Connect through a proxy</string>
     <string name="do_not_use_proxy">No proxy configured.</string>
 
-    <string name="keep_wakelock_while_binary_running">Keep the CPU awake while Syncthing is running</string>
-    <string name="keep_wakelock_while_binary_running_summary">Only for Android 5 or lower. Use this setting if you experience unexpected disconnects while operating on battery. This will result in increased battery consumption.</string>
 
     <string name="use_tor_title">Use Tor</string>
     <string name="use_tor_summary">Force all traffic through Tor for increased privacy. Requires Orbot. Disables proxy options.</string>
@@ -770,10 +728,10 @@
     <string name="open_issue_tracker_summary">Open the Syncthing-Fork issue tracker at %1$s</string>
 
     <!-- URL of the issue tracker -->
-    <string name="issue_tracker_url" translatable="false">https://github.com/Catfriend1/syncthing-android/issues</string>
+    <string name="issue_tracker_url" translatable="false">https://github.com/researchxxl/syncthing-android/issues</string>
 
     <!-- URL of the GitHub wiki -->
-    <string name="wiki_url" translatable="false">https://github.com/Catfriend1/syncthing-android/tree/main/wiki</string>
+    <string name="wiki_url" translatable="false">https://github.com/researchxxl/syncthing-android/tree/main/wiki</string>
 
     <!-- URL of the Syncthing project homepage -->
     <string name="url_syncthing_homepage" translatable="false">https://syncthing.net</string>
@@ -1132,7 +1090,7 @@
     <!-- Important news notification -->
     <string name="important_news_title">Important news - Action required</string>
     <string name="important_news_description">Please read our announcement on how to continue your smooth app experience at %1$s</string>
-    <string name="important_news_url" translatable="false">https://github.com/Catfriend1/syncthing-android/blob/main/wiki/Important-News.md</string>
+    <string name="important_news_url" translatable="false">https://github.com/researchxxl/syncthing-android/blob/main/wiki/Important-News.md</string>
     <string name="important_news_action_open">Open in Browser</string>
     <string name="important_news_action_remind">Remind me later</string>
     <string name="important_news_action_no_remind">Dismiss for now</string>

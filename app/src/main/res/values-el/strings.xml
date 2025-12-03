@@ -121,8 +121,6 @@
     <string name="device_id_required">Το ID της συσκευής δεν μπορεί να είναι κενό</string>
     <!-- Content description for device ID qr code icon -->
     <string name="scan_qr_code_description">Σάρωση κωδικού QR</string>
-    <!-- Toast show if we could not get root permissions -->
-    <string name="toast_root_denied">Δεν ήταν δυνατή η απόκτηση δικαιωμάτων root</string>
     <!-- WebGuiActivity -->
     <!-- Title of the web gui activity -->
     <string name="web_gui_title">Web GUI</string>
@@ -138,7 +136,6 @@
     <string name="run_conditions_title">Συνθήκες εκτέλεσης</string>
     <string name="sync_only_wifi_ssids_wifi_turn_on_wifi">Παρακαλώ ενεργοποιήστε το WiFi για να επιλέξετε δίκτυα.</string>
     <string name="respect_battery_saving_title">Υπακοή στη ρύθμιση εξοικονόμησης ενέργειας του Android</string>
-    <string name="use_root_title">Εκτέλεση του Syncthing ως υπερχρήστης</string>
     <string name="preference_language_title">Γλώσσα</string>
     <string name="preference_language_summary">Αλλαγή γλώσσας της εφαρμογής</string>
     <string name="pref_language_default">Προεπιλεγμένη γλώσσα</string>
@@ -158,7 +155,6 @@
     <string name="enable_relaying">Ενεργοποίηση αναμετάδοσης</string>
     <string name="usage_reporting">Ανώνυμη αναφορά δεδομένων χρήσης</string>
     <string name="export_config">Εξαγωγή ρυθμίσεων</string>
-    <string name="keep_wakelock_while_binary_running">Διατήρηση της CPU σε ενεργό κατάσταση όσο εκτελείται το Syncthing</string>
     <string name="use_tor_title">Χρήση του Tor</string>
     <!-- Dialog shown before config export -->
     <string name="dialog_confirm_export">Σίγουρα επιθυμείτε να εξάγετε τις ρυθμίσεις σας; Τυχόν υπάρχοντα αρχεία θα διαγραφούν. \n \nΠΡΟΣΟΧΗ! Οι άλλες εφαρμογές ενδέχεται να μπορούν να διαβάσουν το ιδιωτικό κλειδί από την τοποθεσία του αντιγράφου ασφαλείας και να το χρησιμοποιήσουν για τη λήψη/τροποποίηση των συγχρονισμένων αρχείων.</string>

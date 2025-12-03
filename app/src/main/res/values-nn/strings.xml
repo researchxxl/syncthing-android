@@ -109,8 +109,6 @@
     <string name="device_id_required">Einings-ID kan ikkje vere tom</string>
     <!-- Content description for device ID qr code icon -->
     <string name="scan_qr_code_description">Skann QR-kode</string>
-    <!-- Toast show if we could not get root permissions -->
-    <string name="toast_root_denied">Fikk ikkje superbrukartilgang</string>
     <!-- WebGuiActivity -->
     <!-- Title of the web gui activity -->
     <string name="web_gui_title">Grafisk grensesnitt på verdsveven</string>
@@ -121,7 +119,6 @@
     <string name="category_syncthing_options">Syncthing-innstillingar</string>
     <string name="category_experimental">Eksperiment</string>
     <string name="sync_only_wifi_ssids_wifi_turn_on_wifi">Skru på WiFi for å velje nettverk.</string>
-    <string name="use_root_title">Køyr Syncthing som superbrukar</string>
     <string name="device_name">Einingsnamn</string>
     <string name="listen_address">Lytteadresse for synkroniseringsprotokoll</string>
     <string name="max_recv_kbps">Nedlastingsgrense (KiB/s)</string>
@@ -132,7 +129,6 @@
     <string name="enable_relaying">Aktiver Reléer</string>
     <string name="usage_reporting">Anonym rapportering av bruk</string>
     <string name="export_config">Eksporter innstillingar</string>
-    <string name="keep_wakelock_while_binary_running">Hald prosessoren vaken medan Syncthing køyrer</string>
     <!-- Dialog shown before config export -->
     <string name="dialog_confirm_export">Vil du verkeleg eksportere innstillingane? Eksisterande filer vil verte skrivne over. \n \nÅTVARING: Andre appar kan vere i stand til å lese den private nøkkelen frå tryggingskopien, og bruke den til å laste ned eller endre synkroniserte filer.</string>
     <!-- Dialog shown before config import -->

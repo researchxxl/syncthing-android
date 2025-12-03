@@ -239,18 +239,6 @@
     <string name="scan_qr_code_description">Ler código QR</string>
     <!-- Shown if no folders are configured -->
     <string name="folders_list_empty">Nenhuma pasta configurada. Toque para adicionar uma nova pasta.</string>
-    <!-- Toast show if we could not get root permissions -->
-    <string name="toast_root_denied">Não foi possível obter permissões de root</string>
-    <!-- TipsAndTricks activity -->
-    <!-- Title of the Tips and Tricks activity -->
-    <string name="tips_and_tricks_title">Dicas e truques</string>
-    <string name="tip_sync_on_local_network_title">Sincronizar apenas usando a rede Wi-Fi local</string>
-    <string name="tip_sync_on_local_network_text">Se você deseja sincronizar apenas com dispositivos localizados na rede Wi-Fi local ou acessíveis via ponto de acesso Wi-Fi, você pode reduzir o uso da bateria e evitar a sincronização acidental por dados móveis desativando as seguintes opções em \'Configurações/Opções de sincronização\': \n- Ativar travessia de NAT \n- Descoberta global \n- Ativar retransmissão \nDeixe apenas a \'Descoberta local\' ativada.</string>
-    <string name="tip_custom_sync_conditions_title">Usar condições personalizadas de sincronização por pasta/dispositivo</string>
-    <string name="tip_custom_sync_conditions_text">Este recurso será melhorada em versões futuras. Por enquanto, nós não queríamos quebrar configurações existentes e o comportamento do app. É por isso que condições de sincronização personalizadas para um certo tipo de rede só podem ser definidas se você ativar primeiro a sincronização na rede nas condições de execução global.</string>
-    <string name="tip_ignore_delete_title">Fazer backup das fotos do celular no computador?</string>
-    <string name="tip_xiaomi_autostart_title">Xiaomi: o app não inicia com o dispositivo</string>
-    <string name="tip_xiaomi_battery_saver_text">O aplicativo do sistema de economia de bateria da Xiaomi MIUI revoga a permissão \'ignorar otimização da bateria\' do aplicativo em cada reinicialização do telefone. Isto faz com que o aplicativo mostre a tela de boas-vindas e peça novamente a permissão obrigatória ausente. Solução: na tela inicial, abra a gaveta de aplicativos&gt; Pressione e segure \'Syncthing-Fork\' &gt; \'Informações do aplicativo\' &gt; \'Economia de bateria\' e selecione \'Sem restrições\' (MIUI 10.3.2.0+).</string>
     <!-- RecentChangesActivity -->
     <string name="no_recent_changes">Não há alterações recentes.</string>
     <string name="recent_changes_title">Alterações recentes</string>
@@ -306,7 +294,6 @@
     <string name="power_source_battery_power">Bateria.</string>
     <string name="respect_battery_saving_title">Respeitar a configuração de economia de bateria do Android</string>
     <string name="run_in_flight_mode_summary">Ao ativar esta opção, o Syncthing será executado mesmo quando desconectado. Ative isto se o seu dispositivo tem problemas detectando conexões Wi-Fi durante o modo avião.</string>
-    <string name="use_root_title">Executar como Superusuário</string>
     <string name="expert_mode_title">Modo de especialista</string>
     <string name="expert_mode_summary">Ao ativar esta opção, opções de configurações avançadas serão exibidas. Você deve dar uma olhada na documentação do Syncthing primeiro para se certificar de que sabe como usá-las corretamente. Configurações incorretas podem causar drenagem de bateria, esgotamento dos recursos do sistema ou sincronização incompleta.</string>
     <string name="preference_language_title">Idioma</string>
@@ -343,7 +330,6 @@
     <string name="export_config">Exportar configuração</string>
     <!-- Experimental options -->
     <string name="use_proxy">Conectar por um proxy</string>
-    <string name="keep_wakelock_while_binary_running">Manter a CPU ativa enquanto o Syncthing está em execução</string>
     <string name="use_tor_title">Usar Tor</string>
     <string name="use_tor_summary">Forçar todo o tráfego através do Tor para privacidade melhorada. O Orbot é necessário. Desativa as opções de proxy.</string>
     <string name="socks_proxy_address_title">Proxy SOCKS5</string>
@@ -607,18 +593,10 @@
     <string name="sync_only_wifi_ssids_wifi_turn_on_location">Por favor, ative a localização para selecionar as redes.</string>
     <string name="respect_battery_saving_summary">Desative o Syncthing se a economia de bateria estiver ativa.</string>
     <string name="folder_run_script_caption">Executar script</string>
-    <string name="tip_xiaomi_autostart_text">A MIUI da Xiaomi não permite que aplicativos iniciem sozinhos por padrão. Na tela inicial, acesse \"Configurações\" &gt; \"Permissões\" &gt; \"Inicialização Automática\" e ative o controle deslizante \"Syncthing-Fork\".</string>
-    <string name="tip_huawei_device_disconnected_title">Huawei: solução alternativa para \'dispositivo desconectado\'</string>
     <string name="device_addresses_invalid">Os endereços do dispositivo não estão formatados corretamente. Tente novamente. Consulte a documentação do Syncthing para mais informações.</string>
     <string name="install_barcode_scanner_app_message">Isto requer um aplicativo de leitura de código de barras. Gostaria de instalar o aplicativo \"Binary Eye\" do F-Droid?</string>
-    <string name="tip_write_to_sdcard_title">Solução alternativa para gravação em cartão SD externo</string>
-    <string name="tip_write_to_sdcard_text">Se a interface do usuário informar que \"O Android concede apenas acesso de leitura ao Syncthing\" para uma determinada pasta, crie uma nova pasta usando este caminho para obter acesso de gravação:\n%1$s/NOME_DA_SUA_PASTA\nAtenção: esta pasta será apagada pelo Android se você desinstalar este aplicativo. Antes de desinstalar o aplicativo, mova os dados para um local seguro fora da pasta …/Android.</string>
-    <string name="tip_phone_ip_address_syntax">ENDEREÇO_IP_DO_TELEFONE</string>
-    <string name="tip_xiaomi_battery_saver_title">Xiaomi: aplicativo mostra tela de boas-vindas repetidamente</string>
     <string name="power_source_title">Executar enquanto alimentado por</string>
     <string name="folder_run_script_description">Opção avançada para executar scripts após uma pasta alterar seu estado de sincronização. Scripts em \'.stfolder/*.sh\' serão executados; outros locais não são suportados por questões de segurança.\nExemplo de chamada de script: \'.stfolder/rename-files.sh sync_complete\'</string>
-    <string name="tip_ignore_delete_text">Se quiser fazer backup de todas as fotos tiradas no seu celular em um computador, compartilhe a pasta \"Câmera\" com o computador. Abra o Syncthing no computador, adicione a pasta e vá em \"Ações\" &gt; \"Avançado\" e na pasta \"Câmera\". Ative \"Ignorar apagamento\" e clique em \"Salvar\". Agora você pode apagar fotos da pasta da câmera do celular e elas permanecerão armazenadas no computador.</string>
-    <string name="tip_huawei_device_disconnected_text">Se o seu computador relata constantemente que o seu dispositivo Huawei está desconectado, abra a interface do Syncthing no seu computador. Vá para \"Dispositivos remotos\", expanda a entrada do celular, clique em \"Editar\" e vá para \"Avançado\". Digite o endereço IP do seu telefone em \"Endereços\" como este:\ntcp4://%1$s, dinâmico\nFuncionamento confirmado para: Huawei P10</string>
     <string name="privacy_title">Política de privacidade</string>
     <string name="open_source_licenses_title">Licenças de código aberto</string>
     <string name="open_source_licenses_summary">Mostre as licenças de código aberto usadas</string>
@@ -637,7 +615,6 @@
     <string name="sleep_interval_minutes_title">Duração do intervalo de pausa da sincronização</string>
     <string name="behaviour_autostart_title">Início automático</string>
     <string name="behaviour_autostart_summary">Inicie o app automaticamente junto com o sistema.</string>
-    <string name="use_root_summary">Ao executar o Syncthing como superusuário, é possível a gravação em pastas que o Android normalmente restringe como pastas de somente leitura. Use este recurso com cautela.</string>
     <string name="start_into_web_gui_title">Iniciar diretamente na interface web</string>
     <string name="start_into_web_gui_summary">Ao iniciar o app, abra a interface web em vez na tela principal</string>
     <string name="webui_username_title">Nome de usuário da interface web</string>
@@ -661,7 +638,6 @@
     <string name="invalid_port_number" tools:ignore="PluralsCandidate">Número de porta não válido. Por favor, digite uma porta entre %1$d e %2$d.</string>
     <string name="invalid_integer_value" tools:ignore="PluralsCandidate">Valor de entrada não válido. Por favor, digite um valor entre %1$d e %2$d.</string>
     <string name="do_not_use_proxy">Nenhum proxy configurado.</string>
-    <string name="keep_wakelock_while_binary_running_summary">Somente para o Android 5 e anterior. Utilize esta configuração se enfrentar desconexões inesperadas ao usar a bateria. Isto resultará em um consumo aumentado da bateria.</string>
     <string name="preference_category_actions">Ações</string>
     <string name="preference_category_explanation">Explicação</string>
     <string name="preference_category_prepare">Preparar</string>

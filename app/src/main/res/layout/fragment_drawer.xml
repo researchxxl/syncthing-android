@@ -140,17 +140,6 @@
                 android:text="@string/restart"
                 android:clickable="true"
                 android:focusable="true" />
-
-            <TextView
-                android:id="@+id/drawerActionTipsAndTricks"
-                style="@style/Widget.Syncthing.TextView.Label"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                app:drawableLeftCompat="@drawable/baseline_help_outline_24"
-                app:drawableStartCompat="@drawable/baseline_help_outline_24"
-                android:text="@string/tips_and_tricks_title"
-                android:clickable="true"
-                android:focusable="true" />
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

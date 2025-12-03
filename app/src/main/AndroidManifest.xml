@@ -15,7 +15,6 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
     <!-- ACCESS_COARSE_LOCATION is required to get WiFi's SSID on 8.1 -->
@@ -27,9 +26,6 @@
     <!-- FOREGROUND_SERVICE is required since Android 9 SDK 28 -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
-    <!-- WRITE_SETTINGS, WRITE_SECURE_SETTINGS are required to disable DuraSpeed -->
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" />
     <!-- CAMERA is required for the "Syncthing Camera" feature and QR scanning -->
     <uses-permission android:name="android.permission.CAMERA" />
     <!-- MANAGE_EXTERNAL_STORAGE is required on Android 11 "R" -->
@@ -102,15 +98,6 @@
         <activity
             android:name=".activities.RecentChangesActivity"
             android:label="@string/recent_changes_title"
-            android:parentActivityName=".activities.MainActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainActivity" />
-        </activity>
-        <activity
-            android:name=".activities.TipsAndTricksActivity"
-            android:label="@string/tips_and_tricks_title"
             android:parentActivityName=".activities.MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize">
             <meta-data

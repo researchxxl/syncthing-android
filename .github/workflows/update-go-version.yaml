@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
   update-go:
@@ -41,21 +42,18 @@ jobs:
           echo "version=${NEW_VERSION}" >> $GITHUB_OUTPUT
           echo "New Go version: ${NEW_VERSION}"
 
-      - name: Check for changes and commit
-        run: |
-          if [ "${{ steps.current.outputs.version }}" != "${{ steps.new.outputs.version }}" ]; then
-            echo "Go version changed from ${{ steps.current.outputs.version }} to ${{ steps.new.outputs.version }}"
-            
-            # Configure git
-            git config user.name "github-actions[bot]"
-            git config user.email "github-actions[bot]@users.noreply.github.com"
-            
-            # Commit and push changes to main
-            git add gradle/libs.versions.toml
-            git commit -m "Update Go version to ${{ steps.new.outputs.version }}"
-            git push origin main
-            
-            echo "Changes committed to main branch"
-          else
-            echo "No Go version change detected, skipping commit"
-          fi
+      - name: Create Pull Request if version changed
+        if: ${{ steps.current.outputs.version != steps.new.outputs.version }}
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: "bump-go-version-${{ steps.new.outputs.version }}"
+          commit-message: "Bump Go from ${{ steps.current.outputs.version }} to ${{ steps.new.outputs.version }}"
+          title: "Bump Go from ${{ steps.current.outputs.version }} to ${{ steps.new.outputs.version }}"
+          body: |
+            Bump Go from ${{ steps.current.outputs.version }} to ${{ steps.new.outputs.version }}
+          labels: dependencies
+          author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
+          base: main
+          add-paths: |
+            gradle/libs.versions.toml
+          delete-branch: true

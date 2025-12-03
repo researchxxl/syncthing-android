@@ -191,7 +191,7 @@ public class LogActivity extends SyncthingActivity {
          * @param syncthingLog Filter on Syncthing's native messages.
          */
         private String getAndroidLog() {
-            String output = Util.runShellCommandGetOutput("/system/bin/logcat -t " + Integer.toString(ANDROID_LOG_FILE_MAX_LINES) + " -v time *:i ps:s art:s", false);
+            String output = Util.runShellCommandGetOutput("/system/bin/logcat -t " + Integer.toString(ANDROID_LOG_FILE_MAX_LINES) + " -v time *:i ps:s art:s");
 
             // Filter Android log.
             output = output.replaceAll("I/SyncthingNativeCode", "");

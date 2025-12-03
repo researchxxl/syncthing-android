@@ -24,7 +24,6 @@ import com.nutomic.syncthingandroid.R;
 import com.nutomic.syncthingandroid.activities.MainActivity;
 import com.nutomic.syncthingandroid.activities.RecentChangesActivity;
 import com.nutomic.syncthingandroid.activities.SettingsActivity;
-import com.nutomic.syncthingandroid.activities.TipsAndTricksActivity;
 import com.nutomic.syncthingandroid.activities.WebGuiActivity;
 import com.nutomic.syncthingandroid.service.Constants;
 import com.nutomic.syncthingandroid.service.SyncthingService;
@@ -54,7 +53,6 @@ public class DrawerFragment extends Fragment implements SyncthingService.OnServi
     private TextView mDrawerActionWebGui;
     private TextView mDrawerActionImportExport;
     private TextView mDrawerActionRestart;
-    private TextView mDrawerTipsAndTricks;
 
     /**
      * These buttons are always visible.
@@ -103,7 +101,6 @@ public class DrawerFragment extends Fragment implements SyncthingService.OnServi
         mDrawerActionWebGui         = view.findViewById(R.id.drawerActionWebGui);
         mDrawerActionImportExport   = view.findViewById(R.id.drawerActionImportExport);
         mDrawerActionRestart        = view.findViewById(R.id.drawerActionRestart);
-        mDrawerTipsAndTricks        = view.findViewById(R.id.drawerActionTipsAndTricks);
         mDrawerActionSettings       = view.findViewById(R.id.drawerActionSettings);
         mDrawerActionExit           = view.findViewById(R.id.drawerActionExit);
 
@@ -113,7 +110,6 @@ public class DrawerFragment extends Fragment implements SyncthingService.OnServi
         mDrawerActionWebGui.setOnClickListener(this);
         mDrawerActionImportExport.setOnClickListener(this);
         mDrawerActionRestart.setOnClickListener(this);
-        mDrawerTipsAndTricks.setOnClickListener(this);
         mDrawerActionSettings.setOnClickListener(this);
         mDrawerActionExit.setOnClickListener(this);
 
@@ -205,9 +201,6 @@ public class DrawerFragment extends Fragment implements SyncthingService.OnServi
             mActivity.closeDrawer();
         } else if (id == R.id.drawerActionRestart) {
             mActivity.showRestartDialog();
-            mActivity.closeDrawer();
-        } else if (id == R.id.drawerActionTipsAndTricks) {
-            startActivity(new Intent(mActivity, TipsAndTricksActivity.class));
             mActivity.closeDrawer();
         } else if (id == R.id.drawerActionSettings) {
             startActivityForResult(new Intent(mActivity, SettingsActivity.class), SETTINGS_SCREEN_REQUEST);

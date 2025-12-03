@@ -196,17 +196,6 @@
     <string name="device_name_required">El nom del dispositiu no pot ser buit</string>
     <!-- Content description for device ID qr code icon -->
     <string name="scan_qr_code_description">Escaneja el codi QR</string>
-    <!-- Toast show if we could not get root permissions -->
-    <string name="toast_root_denied">No s\'han obtingut permisos de superusuari</string>
-    <!-- TipsAndTricks activity -->
-    <!-- Title of the Tips and Tricks activity -->
-    <string name="tips_and_tricks_title">Consells i trucs</string>
-    <string name="tip_write_to_sdcard_title">Solució alternativa per escriure a la targeta SD externa</string>
-    <string name="tip_sync_on_local_network_title">Sincronitza només utilitzant la xarxa WiFi local</string>
-    <string name="tip_custom_sync_conditions_title">Utilitza condicions de sincronització per carpeta/dispositiu</string>
-    <string name="tip_huawei_device_disconnected_title">Solució alternativa per \'dispositiu desconnectat\' amb Huawei</string>
-    <string name="tip_phone_ip_address_syntax">ADREÇA_IP_TELÈFON</string>
-    <string name="tip_xiaomi_autostart_title">Xiaomi: l\'aplicació no s\'inicia durant l\'arrencada</string>
     <!-- RecentChangesActivity -->
     <string name="no_recent_changes">No hi ha cap canvi recent.</string>
     <string name="recent_changes_title">Canvis recents</string>
@@ -265,7 +254,6 @@
     <!-- Preferences - Behaviour -->
     <string name="behaviour_autostart_title">Inici automàtic</string>
     <string name="behaviour_autostart_summary">Inicia l\'aplicació automàticament durant l\'arrencada del sistema operatiu</string>
-    <string name="use_root_title">Executa el Syncthing com a Superusuari</string>
     <string name="expert_mode_title">Mode expert</string>
     <string name="preference_language_title">Idioma</string>
     <string name="preference_language_summary">Canvieu l\'idioma de l\'aplicació</string>
@@ -313,7 +301,6 @@
     <!-- Experimental options -->
     <string name="use_proxy">Connecta emprant un proxy</string>
     <string name="do_not_use_proxy">No s\'ha configurat cap proxy.</string>
-    <string name="keep_wakelock_while_binary_running">Mantingues activa la CPU mentre s\'executi el Syncthing</string>
     <string name="use_tor_title">Utilitza Tor</string>
     <string name="use_tor_summary">Força la connexió a través de Tor per millorar la privacitat. Requereix Orbot. Desactiva les opcions del proxy.</string>
     <string name="socks_proxy_address_title">Proxy SOCKS5</string>
@@ -555,7 +542,6 @@
     <string name="notification_crash_text">Feu clic per veure els registres (%1$s)</string>
     <string name="state_clean_waiting">Esperant per netejar</string>
     <string name="open_issue_tracker_summary">Obre el rastrejador d\'incidències de Syncthing-Fork a %1$s</string>
-    <string name="keep_wakelock_while_binary_running_summary">Només per a Android 5 o anterior. Feu servir aquesta configuració si experimenteu desconnexions inesperades mentre funcioneu amb bateria. Això comportarà un augment del consum de bateria.</string>
     <string name="reason_not_on_wifi">Syncthing pot funcionar amb Wi-Fi, però no hi ha Wi-Fi connectat o el telèfon està en mode vol.</string>
     <string name="reason_on_nonmetered_wifi">Syncthing pot funcionar en connexions WiFi no mesurades. La connexió WiFi activa no té límits.</string>
     <string name="reason_location_unavailable">Heu activat \"Executa a les xarxes WiFi seleccionades\" a la configuració. Els serveis de localització d\'Android estan actualment desactivats. Segons les restriccions d\'Android, Syncthing no pot determinar el nom de la xarxa WiFi actual per decidir si s\'ha d\'executar. Solució: activeu la localització, concediu permís de localització i torneu a connectar el WiFi.</string>
@@ -642,9 +628,6 @@
     <string name="autoAcceptFolders">Accepta automàticament</string>
     <string name="device_id_invalid">L\'ID del dispositiu no té el format correcte. Torneu-ho a intentar i introduïu l\'ID correcte.</string>
     <string name="folders_list_empty">No hi ha cap carpeta configurada. Toca per afegir una carpeta nova.</string>
-    <string name="tip_ignore_delete_title">Feu una còpia de seguretat de les imatges del telèfon a l\'ordinador?</string>
-    <string name="tip_xiaomi_autostart_text">MIUI de Xiaomi no permet que les aplicacions s\'iniciïn soles per defecte. Des de la pantalla d\'inici, aneu a \"Configuració\" &gt; \"Permisos\" &gt; \"Inici automàtic\" i activeu el control lliscant \"Syncthing-Fork\".</string>
-    <string name="tip_xiaomi_battery_saver_title">Xiaomi: l\'aplicació mostra repetidament la pantalla de benvinguda</string>
     <string name="preference_app_theme_title">Tema</string>
     <string name="preference_app_theme_follow_system">Seguir el sistema</string>
     <string name="preference_app_theme_follow_light">Clar</string>
@@ -682,10 +665,7 @@
     <string name="toast_notification_permission_required">Syncthing requereix el permís de notificació per mantenir el servei actiu i connectat.</string>
     <string name="photo_shoot_intro_permission_desc">La càmera Syncthing requereix el vostre consentiment per fer fotos i emmagatzemar-les al dispositiu. Aquesta funció és opcional. Per utilitzar-la, doneu-li permisos i toqueu \"Continua\". Configurarem una carpeta de la càmera Syncthing que podreu compartir amb altres dispositius Syncthing més endavant.</string>
     <string name="notification_permission_desc">Necessari per mostrar notificacions sobre noves connexions de dispositius, sol·licituds per compartir carpetes i per mantenir el servei actiu i connectat.</string>
-    <string name="tip_write_to_sdcard_text">Si veieu que la interfície d\'usuari indica que \"Android només concedeix accés de només lectura a Synchronization\" a una carpeta determinada, creeu una carpeta nova utilitzant aquesta ruta per obtenir accés d\'escriptura:\n%1$s/YOUR_FOLDER_NAME \nAtenció: Android esborrarà aquesta carpeta si desinstal·leu aquesta aplicació. Abans de desinstal·lar l\'aplicació, moveu les dades a un lloc segur fora de la carpeta …/Android.</string>
-    <string name="tip_huawei_device_disconnected_text">Si l\'escriptori informa constantment que el dispositiu Huawei està desconnectat, obriu la interfície d\'usuari de Syncthing de l\'escriptori. Aneu a \"dispositius remots\", expandiu l\'entrada del telèfon, feu clic a \"Edita\" i canvieu a \"Avançat\". Introduïu l\'adreça IP del vostre telèfon a \"Adreces\" així:\ntcp4://%1$s, dinàmic\nConfirmat que funciona per a: Huawei P10</string>
     <string name="sleep_interval_minutes_title">Durada de l\'interval de pausa de sincronització</string>
-    <string name="use_root_summary">Executar Syncthing com a root permet escriure a carpetes que Android normalment restringeix a l\'accés de només lectura. Feu servir aquesta funció amb precaució.</string>
     <string name="reason_mobile_data_disallowed">Syncthing no està configurat per executar-se amb una connexió de dades mòbil.</string>
     <plurals name="device_online_up_to_date">
         <item quantity="one">%1$d dispositiu en línia i actualitzat</item>
@@ -700,7 +680,6 @@
     <string name="webui_username_title">Nom d\'usuari de la interfície web</string>
     <string name="backup_password_title">Contrasenya de protecció de configuració</string>
     <string name="dialog_settings_restart_app_question">Canviar aquesta opció requereix un reinici immediat de l\'aplicació. Tots els altres canvis es descartaran. Voleu continuar?</string>
-    <string name="tip_xiaomi_battery_saver_text">L\'aplicació del sistema d\'estalvi de bateria de Xiaomi MIUI revoca el permís \"ignorar l\'optimització de la bateria\" de l\'aplicació cada vegada que reinicieu el telèfon. Això fa que l\'aplicació mostri la pantalla de benvinguda i torni a demanar el permís obligatori que falta. Solució: Des de la pantalla d\'inici, obriu el calaix de l\'aplicació &gt; premeu llargament \"Syncthing-Fork\" &gt; \"Informació de l\'aplicació\" &gt; \"Estalvi de bateria\" i seleccioneu \"Sense restriccions\" (MIUI 10.3.2.0+).</string>
     <string name="run_on_time_schedule_summary">Si activeu aquesta opció, s\'intentarà sincronitzar durant una durada configurada si es compleixen les condicions d\'execució i si ha transcorregut un període d\'interval especificat des de l\'última sincronització. Això pot estalviar molta bateria, però requereix que els socis de sincronització estiguin en línia. Nota: això pot deixar fitxers temporals incomplets fins que es produeixi la següent sincronització programada.</string>
     <string name="pizza_url_summary">Amb només un toc, pots deixar una càlida llesca de bondat, acompanyada de bones vibracions addicionals per mantenir els gats ronronejant feliçment.</string>
     <string name="reason_not_within_time_frame">Heu activat \"Executar segons la programació horària\" i l\'última sincronització va ser fa no més d\'una hora.</string>
@@ -730,8 +709,5 @@
     <string name="current_path">Ruta actual: %1$s</string>
     <string name="folder_type_receive_encrypted">Rebre xifrat</string>
     <string name="pull_order_type_oldestFirst_description">Fitxers d\'extracció ordenats per hora de modificació. Els més antics primer respectivament.</string>
-    <string name="tip_ignore_delete_text">Si voleu que totes les fotos fetes amb el telèfon es facin amb una còpia de seguretat a l\'ordinador, compartiu la carpeta \"Càmera\" amb l\'ordinador. Obriu Syncthing a l\'ordinador, afegiu la carpeta i aneu a \"Accions\" &gt; \"Avançat\" &gt; carpeta \"Càmera\". Activeu \"Ignorar supressió\" i feu clic a \"Desa\". Ara podeu suprimir fotos de la carpeta de la càmera del telèfon i es mantindran amb una còpia de seguretat a l\'ordinador.</string>
     <string name="button_force_stop">FORÇA ATURADA\nIGNORA LES CONDICIONS D\'EXECUCIÓ</string>
-    <string name="tip_custom_sync_conditions_text">Aquesta funció encara es millorarà en futures versions. De moment, no volíem trencar les configuracions existents ni el comportament de l\'aplicació. És per això que les condicions de sincronització personalitzades per a un determinat tipus de xarxa només es poden definir si primer activeu la sincronització a la xarxa a les condicions d\'execució globals.</string>
-    <string name="tip_sync_on_local_network_text">Si voleu sincronitzar només amb dispositius que es troben a la xarxa Wi-Fi local o accessibles a través d\'un punt d\'accés Wi-Fi, podeu reduir l\'ús de la bateria i evitar la sincronització accidental a través de dades mòbils desactivant les opcions següents a \"Configuració/Opcions de sincronització\":\n- Activa el travessament NAT\n- Detecció global\n- Activa la retransmissió\nNomés deixeu activada la \"Detecció local\".</string>
 </resources>

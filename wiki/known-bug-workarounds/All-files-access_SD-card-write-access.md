@@ -1,5 +1,5 @@
 ### TL;DR
-Android 11 is the first version since 4.4 that supports writing to external SD card again using Syncthing. That's why the app requests the  "access all files and manage external storage" permission on first usage.
+Android 11 is the first version since 4.4 that supports writing to external SD card again using Syncthing. That's why the app requests the "access all files and manage external storage" permission on first usage.
 
 ### Why SD card use together with Syncthing requires special attention
 According to Google's document:
@@ -27,7 +27,9 @@ Android forces SD card access to be read only upon SyncthingNative outside the a
 
 Implementing Syncthing as Java code instead of using the Native would involve a LOT of work, and so far until the time of writing this, no one stepped up to do it yet. If you want to help with this and are familiar with Go, Java and Android, read through the discussion in issues [#29](https://github.com/syncthing/syncthing-android/issues/29) and [#1008](https://github.com/syncthing/syncthing-android/issues/1008). They outline the steps to solve this issue pretty good. Short summary: SynchtingNative would have to be transformed into a gomobile library with goreverse bindings to be called from the wrapper's java code.
 
-### Special ways to bypass the Android SD card write access restriction for IT nerds or experts
-* You may ROOT your phone at your own risk. Syncthing-Fork has an option in its settings to enable the execution of SyncthingNative with root privileges. BUT: Executing SyncthingNative with such a high privilege level may also open up security issues (in theory).
-* You may use the [ExtSDCard Write Enabler Magisk Module](https://forum.xda-developers.com/apps/magisk/module-exsdcard-write-access-enabler-t3670428).
-* Android 6, 7: If you are on a rooted phone, you could use [this Xposed module](https://play.google.com/store/apps/details?id=com.balamurugan.marshmallowsdfix) to give Syncthing permission to write to the external SD card storage.
+### Write to external sdcard workaround
+If you see the UI stating that `Android only grants syncthing read-only access` to a certain folder, create a new folder using this path to gain write access:
+
+* /storage/[ABCD-EFGH]/Android/media/${applicationId}/YOUR_FOLDER_NAME
+
+Be careful: This folder will get wiped out by Android if you uninstall this app. Before uninstalling the app, move the data to a safe place outside the `/storage/[ABCD-EFGH]/Android` folder.

@@ -187,16 +187,6 @@
     <string name="device_name_required">Enhetsnamn får inte vara tomt</string>
     <!-- Content description for device ID qr code icon -->
     <string name="scan_qr_code_description">Skanna QR-kod</string>
-    <!-- Toast show if we could not get root permissions -->
-    <string name="toast_root_denied">Fick inte root behörigheter</string>
-    <!-- TipsAndTricks activity -->
-    <!-- Title of the Tips and Tricks activity -->
-    <string name="tips_and_tricks_title">Tips &amp; tricks</string>
-    <string name="tip_write_to_sdcard_title">Skriv till extert SD-kort-lösning</string>
-    <string name="tip_sync_on_local_network_title">Synkronisera endast med det lokala Wi-Fi-nätverket</string>
-    <string name="tip_huawei_device_disconnected_title">Huawei: \"enheten frånkopplad\"-lösning</string>
-    <string name="tip_phone_ip_address_syntax">PHONE_IP_ADDRESS</string>
-    <string name="tip_xiaomi_autostart_title">Xiaomi: appen startar inte vid start</string>
     <!-- RecentChangesActivity -->
     <string name="no_recent_changes">Det finns inga nya förändringar.</string>
     <string name="recent_changes_title">Nya förändringar</string>
@@ -250,7 +240,6 @@
     <!-- Preferences - Behaviour -->
     <string name="behaviour_autostart_title">Starta automatiskt</string>
     <string name="behaviour_autostart_summary">Starta appen automatiskt med operativsystemet.</string>
-    <string name="use_root_title">Kör som superanvändare</string>
     <string name="preference_language_title">Språk</string>
     <string name="preference_language_summary">Ändra appens språk</string>
     <string name="pref_language_default">Standardspråk</string>
@@ -288,8 +277,6 @@
     <!-- Experimental options -->
     <string name="use_proxy">Anslut via en proxy</string>
     <string name="do_not_use_proxy">Ingen proxy konfigurerad.</string>
-    <string name="keep_wakelock_while_binary_running">Håll CPU:n vaken medan Syncthing körs</string>
-    <string name="keep_wakelock_while_binary_running_summary">Endast för Android 5 eller lägre. Använd den här inställningen om du upplever oväntade urkopplingar när du använder batteriet. Detta kommer att resultera i ökad batteriförbrukning.</string>
     <string name="use_tor_title">Använd Tor</string>
     <string name="use_tor_summary">Tvinga all trafik genom Tor för ökad integritet. Kräver Orbot. Inaktiverar proxyalternativ.</string>
     <string name="socks_proxy_address_title">SOCKS5-proxy</string>
@@ -532,7 +519,6 @@
     <string name="no_devices_configured">Inga enheter har konfigurerats.\nBörja med att lägga till en enhet nu.</string>
     <string name="autoAcceptFolders">Acceptera automatiskt</string>
     <string name="untrusted_device">Otillförlitlig enhet</string>
-    <string name="tip_custom_sync_conditions_title">Använd anpassade synkroniseringsvillkor per mapp/enhet</string>
     <string name="ssl_cert_invalid_text">Webbplatsen på %1$s verkar ha ett ogiltigt certifikat för SSL-kryptering. Fortsätta?</string>
     <string name="preference_app_theme_follow_system">Följ systemet</string>
     <string name="respect_master_sync_title">Respektera Android-inställningen \"Synkronisera data automatiskt\"</string>
@@ -548,7 +534,6 @@
     <string name="pull_order_type_newestFirst_description">Dra filer ordnade efter ändringstid. Nyaste först.</string>
     <string name="custom_sync_conditions_title">Anpassade synkroniseringsvillkor</string>
     <string name="custom_sync_conditions_dialog">Ange synkroniseringsvillkor</string>
-    <string name="tip_ignore_delete_title">Säkerhetskopiera bilder från telefon till dator?</string>
     <string name="reason_on_metered_nonmetered_wifi">Syncthing tillåts köras på uppmätta och icke-uppmätta WiFi-anslutningar.</string>
     <string name="photo_shoot_intro_missing_permissions">Vi kräver lagring och kameratillstånd för att fortsätta.</string>
     <string name="grant_storage_permission">Bevilja lagringstillstånd</string>
@@ -562,7 +547,6 @@
     <string name="deviceEncryptionPasswordHint">Ange krypteringslösenordet om det inte är betrodd</string>
     <string name="device_disconnected_not_synced">Frånkopplad (%1$s väntar)</string>
     <string name="folders_list_empty">Inga mappar konfigurerade. Tryck för att lägga till en ny mapp.</string>
-    <string name="tip_ignore_delete_text">Om du vill att alla bilder som gjorts på din telefon ska säkerhetskopieras till en dator, dela mappen \"Kamera\" med datorn. Öppna Syncthing på datorn, lägg till mappen och gå till \"Åtgärder\" &gt; \"Avancerat\" &gt; \"Kamera\"-mappen. Aktivera \"Ignorera borttaning\" och klicka på \"Spara\". Du kan nu ta bort bilder från din kameramapp på telefonen och de kommer att förbli säkerhetskopierade på datorn.</string>
     <string name="sync_only_wifi_ssids_wifi_turn_on_location">Slå på plats för att välja nätverk.</string>
     <string name="device_state_unused">Oanvänd</string>
     <string name="device_last_seen">Sågs senast: %1$s</string>
@@ -571,7 +555,6 @@
     <string name="button_force_start">TVINGA START\nIGNORERA KÖRVILLKOR</string>
     <string name="button_force_stop">TVINGA STOPP\nIGNORERA KÖRVILLKOR</string>
     <string name="device_id_invalid">Enhets-ID:t är inte korrekt formaterat. Försök igen och ange rätt ID.</string>
-    <string name="tip_huawei_device_disconnected_text">Om ditt skrivbord hela tiden rapporterar att din Huawei-enhet är frånkopplad öppnar du Syncthings användargränssnitt på skrivbordet. Gå till \"fjärrenheter\", expandera telefonens post, klicka på \"Redigera\", växla till \"Avancerat\". Lägg din telefons IP-adress i \"Adresser\" så här:\ntcp4://%1$s, dynamisk\nBekräftat att det fungera för: Huawei P10</string>
     <string name="run_on_roaming_title">Kör under roaming</string>
     <string name="run_on_roaming_summary">Tillåt Syncthing att använda mobildata under roaming. (!) Vänligen skicka återkoppling till GitHub om detta fungerar korrekt.</string>
     <string name="run_on_metered_wifi_summary">Kör när enheten är ansluten till ett uppmätt Wi-Fi-nätverk, t.ex. en hotspot eller anslutet nätverk. Observera: Detta kan förbruka en stor del av din dataplan om du synkroniserar mycket data.</string>
@@ -591,11 +574,8 @@
     <string name="qs_force_label">Tvångskörning</string>
     <string name="qs_forced_to_run">Tvingad att köra</string>
     <string name="qs_forced_to_stop">Tvingad att stoppa</string>
-    <string name="tip_write_to_sdcard_text">Om du ser gränssnittet som säger att \"Android ger endast synkronisering skrivskyddad åtkomst\" till en viss mapp, skapa en ny mapp med den här sökvägen för att få skrivåtkomst:\n%1$s/YOUR_FOLDER_NAME\nVar försiktig: Den här mappen kommer att raderas av Android om du avinstallerar den här appen. Innan du avinstallerar appen flyttar du data till en säker plats utanför …/Android-mappen.</string>
-    <string name="tip_sync_on_local_network_text">Om du bara vill synkronisera med enheter som finns på det lokala WiFi-nätverket eller nås via WiFi-hotspot, kan du sänka batterianvändningen och undvika oavsiktlig synkronisering över mobildata genom att stänga av följande alternativ under \"Inställningar/synkroniseringsalternativ\":\n- Aktivera NAT-traversering\n- Global upptäckt\n- Aktivera relä\nLämna bara \"Lokal upptäckt\" aktiverat.</string>
     <string name="run_on_time_schedule_summary">Aktivering av det här alternativet kommer att försöka synkronisera under en konfigurerad varaktighet om körvillkoren är uppfyllda och om någon angiven intervallperiod har förflutit sedan den senaste synkroniseringen. Detta kan spara mycket batteri men kräver att synkroniseringspartners är uppkopplade. Observera: Detta kan lämna kvar ofullständiga temporära filer tills nästa schemalagda synkronisering äger rum.</string>
     <string name="sleep_interval_minutes_title">Varaktigheten av synkroniseringspausintervallet</string>
-    <string name="use_root_summary">Genom att köra Syncthing som root kan den skriva till mappar som Android normalt begränsar till att vara skrivskyddad. Använd denna funktion med försiktighet.</string>
     <string name="webui_remote_access_title">Fjärråtkomst för webbgränssnittet</string>
     <string name="broadcast_service_control_title">Tjänstekontroll genom sändning</string>
     <string name="verbose_log_summary">Om du aktiverar detta alternativ kommer du att skapa felsökningsloggar på en mycket detaljerad nivå.</string>
@@ -639,15 +619,12 @@
     <string name="preference_app_theme_follow_light">Ljust</string>
     <string name="dialog_exit_while_running_as_service_message">För ditt övervägande: Du konfigurerade appen att starta automatiskt vid uppstart. Därför övervakar den körförhållanden och synkroniserar när som helst i bakgrunden när förhållandena matchar. Du bör bara avsluta manuellt om du stöter på allvarliga problem. Annars inaktiverar du \"Starta automatiskt vid start\" i inställningarna. Vill du avsluta nu tills enheten har startat om?</string>
     <string name="install_barcode_scanner_app_message">Detta kräver en streckkodsläsare-app. Vill du installera appen \"Binary Eye\" från F-Droid?</string>
-    <string name="tip_custom_sync_conditions_text">Denna funktion kommer fortfarande att förbättras i framtida utgåvor. För närvarande ville vi inte bryta befintliga konfigurationer och appbeteende. Det är därför anpassade synkroniseringsvillkor för en viss nätverkstyp endast kan ställas in om du först aktiverar synkronisering på nätverket i de globala körförhållandena.</string>
     <string name="expert_mode_summary">Om du aktiverar det här alternativet visas avancerade konfigurationsalternativ. Du bör ta en titt på Syncthings dokumentation först för att se till att du vet hur du använder dem korrekt. Felaktiga inställningar kan orsaka batteriladdning, utmattning av systemresurser eller ofullständig synkronisering.</string>
     <string name="webui_tcp_port_title">TCP-port för webbgränssnittet</string>
     <string name="dialog_settings_restart_app_question">För att ändra det här alternativet krävs en omedelbar omstart av appen. Alla andra ändringar kommer att ignoreras. Fortsätta?</string>
     <string name="broadcast_service_control_summary">Standard: Inaktiverad. Aktivera för att låta adb- eller tredjepartsappar, t.ex. automatiseringsappar, instruera Syncthing att följa körvillkor, tvinga fram start eller tvinga fram stopp.</string>
     <string name="os_open_file_limit">Android Öppningsfilgräns</string>
-    <string name="tip_xiaomi_autostart_text">Xiaomi MIUI tillåter inte appar att starta på egen hand som standard. Från hemskärmen, gå till \"Inställningar\" &gt; \"Behörigheter\" &gt; \'Autostart\' och aktivera skjutreglaget \"Syncthing-Fork\".</string>
     <string name="download_support_bundle_title">Hämta supportpaketet</string>
-    <string name="tip_xiaomi_battery_saver_text">Xiaomi MIUIs batterisparsystemapp återkallar appens \"ignorera batterioptimering\"-tillstånd vid varje omstart av telefonen. Detta gör att appen visar välkomstskärmen och ber om det saknade obligatoriska tillståndet igen. Lösning: Från startskärmen, öppna applådan &gt; Tryck länge på \"Syncthing-Fork\" &gt; \"Appinfo\" &gt; \"Batterisparare\" och välj \"Inga begränsningar\" (MIUI 10.3.2.0+).</string>
     <string name="preference_app_theme_follow_dark">Mörkt</string>
     <string name="category_syncthing_options_summary">Denna meny är endast tillgänglig om Syncthing körs.</string>
     <string name="run_on_mobile_data_summary">Kör när enheten är ansluten via det mobila datanätverket. Varning: Detta kan förbruka mycket data från din mobiloperatörs dataplan om du synkroniserar stora mängder data.</string>
@@ -662,7 +639,6 @@
     <string name="device_syncing_percent_bytes">Synkroniserar (%1$d%%, %2$s)</string>
     <string name="local_discovery_disabled">Du har inaktiverat lokal upptäckt i \"Inställningar\" &gt; \"Synkroniseringsalternativ\" &gt; \"Lokal upptäckt\". Aktivera den för att söka efter enheter i det lokala nätverket.</string>
     <string name="folder_ignore_delete_caption">Ignorera Ta bort</string>
-    <string name="tip_xiaomi_battery_saver_title">Xiaomi: appen visar välkomstskärmen upprepade gånger</string>
     <string name="folder_type_switch_to_receive_encrypted_not_allowed">Att byta befintliga mappar till \"Ta emot krypterad\" stöds inte.</string>
     <string name="crash_reporting">Anonym kraschrapportering</string>
     <string name="webui_remote_access_summary">Ange för att tillåta åtkomst till webbgränssnittet från en annan enhet. Om det är aktiverat kan du logga in med användarens \"syncthing\" och API-nyckel som lösenord. Standard: inaktiverad (säkrast)</string>
