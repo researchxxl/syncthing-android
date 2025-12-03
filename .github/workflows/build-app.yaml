@@ -32,6 +32,13 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
+      - name: Get NDK version from gradle catalog
+        id: get_ndk_version
+        run: |
+          set -eu
+          NDK_VERSION=$(grep 'ndk-version = ' gradle/libs.versions.toml | cut -d '"' -f 2)
+          echo "ndk_version=${NDK_VERSION}" >> $GITHUB_OUTPUT
+
       - name: Load pinned Go version
         run: echo "GO_VERSION=$(grep -m1 '^go_version =' gradle/libs.versions.toml | sed -E 's/.*"([0-9]+\.[0-9]+\.[0-9]+)".*/\1/')" >> $GITHUB_ENV
 
@@ -47,7 +54,7 @@ jobs:
           path: |
             ~/.cache/go-build
             ~/go/pkg/mod
-          key: ${{ runner.os }}-go-${{ env.GO_VERSION }}-${{ hashFiles('syncthing/src/github.com/syncthing/syncthing/go.sum') }}
+          key: ${{ runner.os }}-go${{ env.GO_VERSION }}-${{ hashFiles('syncthing/src/github.com/syncthing/syncthing/go.sum') }}
 
       - name: Cache Gradle and Android user home
         uses: actions/cache@v4
@@ -73,9 +80,9 @@ jobs:
         with:
           path: |
             /opt/syncthing-android-prereq/prebuilt-jnilibs
-          key: ${{ runner.os }}-prebuilt-jnilibs-${{ steps.get_syncthing_commit.outputs.syncthing_commit }}
+          key: ${{ runner.os }}-prebuilt-jnilibs-go${{ env.GO_VERSION }}-ndk${{ steps.get_ndk_version.outputs.ndk_version }}-${{ steps.get_syncthing_commit.outputs.syncthing_commit }}
           restore-keys: |
-            ${{ runner.os }}-prebuilt-jnilibs-
+            ${{ runner.os }}-prebuilt-jnilibs-go${{ env.GO_VERSION }}-ndk${{ steps.get_ndk_version.outputs.ndk_version }}-
 
       - name: Set Gradle and Android user home environment variables
         run: |
@@ -90,19 +97,12 @@ jobs:
           echo "Set GRADLE_USER_HOME to: ${{ runner.temp }}/.gradle"
           echo "Set ANDROID_USER_HOME to: ${{ runner.temp }}/.android"
 
-      - name: Get NDK version from gradle catalog
-        id: get_ndk_version
-        run: |
-          set -eu
-          NDK_VERSION=$(grep 'ndk-version = ' gradle/libs.versions.toml | cut -d '"' -f 2)
-          echo "ndk_version=${NDK_VERSION}" >> $GITHUB_OUTPUT
-
       - name: Cache Android SDK
         uses: actions/cache@v4
         with:
           path: |
             ~/android-sdk
-          key: android-sdk-${{ runner.os }}-${{ steps.get_ndk_version.outputs.ndk_version }}
+          key: android-sdk-${{ runner.os }}-ndk${{ steps.get_ndk_version.outputs.ndk_version }}
           restore-keys: |
             android-sdk-${{ runner.os }}-
 
