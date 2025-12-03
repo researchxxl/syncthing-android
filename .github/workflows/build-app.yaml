@@ -47,7 +47,7 @@ jobs:
           path: |
             ~/.cache/go-build
             ~/go/pkg/mod
-          key: ${{ runner.os }}-go-${{ env.GO_VERSION }}-${{ hashFiles('syncthing/src/github.com/syncthing/syncthing/go.sum') }}
+          key: ${{ runner.os }}-go${{ env.GO_VERSION }}-${{ hashFiles('syncthing/src/github.com/syncthing/syncthing/go.sum') }}
 
       - name: Cache Gradle and Android user home
         uses: actions/cache@v4
@@ -73,9 +73,9 @@ jobs:
         with:
           path: |
             /opt/syncthing-android-prereq/prebuilt-jnilibs
-          key: ${{ runner.os }}-prebuilt-jnilibs-${{ steps.get_syncthing_commit.outputs.syncthing_commit }}
+          key: ${{ runner.os }}-prebuilt-jnilibs-go${{ env.GO_VERSION }}-${{ steps.get_syncthing_commit.outputs.syncthing_commit }}
           restore-keys: |
-            ${{ runner.os }}-prebuilt-jnilibs-
+            ${{ runner.os }}-prebuilt-jnilibs-go${{ env.GO_VERSION }}-
 
       - name: Set Gradle and Android user home environment variables
         run: |
