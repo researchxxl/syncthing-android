@@ -115,14 +115,18 @@ jobs:
           unset ANDROID_NDK_HOME
           echo '${{ secrets.SIGNING_KEYSTORE_JKS_BASE64 }}' | base64 -d > "$SYNCTHING_RELEASE_STORE_FILE"
           java -version
-          ./gradlew --no-daemon buildNative lintRelease assembleRelease
+          ./gradlew --no-daemon buildNative lintRelease assembleRelease bundlerelease
           rm "$SYNCTHING_RELEASE_STORE_FILE"
 
       - name: prepare-artifacts
         shell: bash
         run: |
           set -eu
-          cd "app/build/outputs/apk/release"
+          #
+          cd "app/build/outputs"
+          mv "bundle/release/app-release.aab" "bundle/release/${{ env.APPLICATION_ID }}_gplay_v${{ env.VERSION }}_${{ env.COMMIT_HASH }}.aab"
+          #
+          cd "apk/release"
           
           # Rename universal APK
           mv "app-universal-release.apk" "${{ env.APPLICATION_ID }}_release_v${{ env.VERSION }}.apk"
@@ -145,7 +149,7 @@ jobs:
 
       - uses: ncipollo/release-action@v1
         with:
-          artifacts: "app/build/outputs/apk/release/*.apk,app/build/outputs/apk/release/*.asc"
+          artifacts: "app/build/outputs/apk/release/*.apk,app/build/outputs/apk/release/*.asc,app/build/outputs/bundle/release/*.aab"
           artifactErrorsFailBuild: true
           name: Syncthing-Fork v${{ env.VERSION }}
           bodyFile: "app/src/main/play/release-notes/en-US/default.txt"
