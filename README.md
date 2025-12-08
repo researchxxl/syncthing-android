@@ -1,19 +1,17 @@
-# Syncthing-Fork - Google Play release channel
+# Syncthing for Android
 
-[![License: MPLv2](https://img.shields.io/badge/License-MPLv2-blue.svg)](https://opensource.org/licenses/MPL-2.0)
-<a href="https://github.com/Catfriend1/syncthing-android/releases/latest" alt="GitHub release"><img src="https://img.shields.io/github/v/release/Catfriend1/syncthing-android" /></a>
-<a href="https://play.google.com/store/apps/details?id=com.github.catfriend1.syncthingandroid" alt="GitHub Stats"><img src="https://img.shields.io/badge/GPlay_Downloads-100.000+-brightgreen.svg" /></a>
-<a href="https://hosted.weblate.org/projects/syncthing/android/catfriend1/"><img src="https://hosted.weblate.org/widget/syncthing/android/catfriend1/fork-stringsxml/svg-badge.svg" alt="Translation status" /></a>
-[![Build App](https://github.com/nel0x/syncthing-android-gplay/actions/workflows/build-app.yaml/badge.svg)](https://github.com/nel0x/syncthing-android-gplay/actions/workflows/build-app.yaml)
 
-A wrapper of [Syncthing](https://github.com/syncthing/syncthing) for Android.
+> [!IMPORTANT]
+> Syncthing-Fork was previously developed and maintained by [Catfriend1](https://github.com/catfriend1). As they seem to no longer be actively maintaining the project, I will continue the full development and maintenance here going forward. Thank you Catfriend1 for building and sharing this amazing project and all the effort you put into keeping Syncthing available on Android!
 
-This repository produces and publishes the Google Play build of Syncthing-Fork shown on <a href="https://play.google.com/store/apps/details?id=com.github.catfriend1.syncthingandroid">this listing</a>.
-It regularly mirrors the <a href="https://github.com/Catfriend1/syncthing-android">upstream project</a> and applies only changes required to stay compliant with Google Play policies.
+A wrapper of [Syncthing](https://github.com/syncthing/syncthing) for Android. 
+
+As the project is currently in the middle of a migration, the recommended and most stable installation method is the [Play Store channel](https://play.google.com/store/apps/details?id=com.github.catfriend1.syncthingandroid). APKs for manual installations or through Obtainium are available in the [Releases section](https://github.com/nel0x/syncthing-android/releases).
+The setup of a F-Droid repository is currently in work.
 
 <img src="app/src/main/play/listings/en-US/graphics/phone-screenshots/1.png" alt="screenshot 1" width="200" /> · <img src="app/src/main/play/listings/en-US/graphics/phone-screenshots/2.png" alt="screenshot 2" width="200" /> · <img src="app/src/main/play/listings/en-US/graphics/phone-screenshots/4.png" alt="screenshot 3" width="200" />
 
-## Switching from the (now deprecated) official version
+## Switching from the deprecated official version
 
 Switching is easier than you may think! See our [wiki article](wiki/migration/Switching-from-the-deprecated-official-version.md) for detailed instructions.
 
@@ -33,6 +31,7 @@ This project was forked from [syncthing/syncthing-android](https://github.com/sy
 
 Special thanks to the former maintainers:
 
+- [Catfriend1](https://github.com/catfriend1)
 - [imsodin](https://github.com/imsodin)
 - [nutomic](https://github.com/nutomic)
 
