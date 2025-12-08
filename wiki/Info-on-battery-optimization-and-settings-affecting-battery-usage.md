@@ -1,5 +1,5 @@
 First things first:
-* Syncthing-Fork requires to be exempted from doze which is asked during the welcome wizard. The app will cease to function if the permission is revoked.
+* Syncthing requires to be exempted from doze which is asked during the welcome wizard. The app will cease to function if the permission is revoked.
 * The app doesn't require the permission to "waste" your battery and the app doesn't use it to set wakelocks. It does run a reliable so called "Android foreground service".
 * Technically speaking, it's required to avoid database corruption in case Android can't communicate with the SyncthingNative before putting the app and SyncthingNative in suspend.
 

@@ -9,9 +9,9 @@ Bu, Syncthing için Syncthing-Android sarmalayıcısının bir çatalıdır ve a
 * Aynı ağdaki diğer Syncthing cihazlarını keşfedin ve bunları kolayca ekleyin.
 * Android 11'den bu yana harici SD kartta iki yönlü eşitlemeyi destekler.
 
-Android için Syncthing-Fork, Syncthing'in yerleşik Web Kullanıcı Arayüzü yerine bir Android Kullanıcı Arayüzü sağlayan Syncthing için bir sarmalayıcıdır. Syncthing, tescilli eşitleme ve bulut hizmetlerinin yerini açık, güvenilir ve merkezi olmayan bir şeyle değiştirir. Verileriniz yalnızca size ait verilerdir ve bunların nerede saklanacağını, üçüncü taraflarla paylaşılıp paylaşılmayacağını ve İnternet üzerinden nasıl aktarılacağını seçme hakkına sahipsiniz.
+Android için Syncthing, Syncthing'in yerleşik Web Kullanıcı Arayüzü yerine bir Android Kullanıcı Arayüzü sağlayan Syncthing için bir sarmalayıcıdır. Syncthing, tescilli eşitleme ve bulut hizmetlerinin yerini açık, güvenilir ve merkezi olmayan bir şeyle değiştirir. Verileriniz yalnızca size ait verilerdir ve bunların nerede saklanacağını, üçüncü taraflarla paylaşılıp paylaşılmayacağını ve İnternet üzerinden nasıl aktarılacağını seçme hakkına sahipsiniz.
 
-Lütfen izleyicide sorun konuları oluşturmadan önce forum ve/veya sosyal medya uygulamalarında yardım isteyin. Syncthing-Fork'un aile ve arkadaşların Android'de Syncthing kullanmalarına yardımcı olmak için kişisel bir ilgi olarak doğduğunu lütfen unutmayın. Sonuçların sizinle ve toplulukla paylaşılmasına rağmen şu anda 100.000'den fazla kullanıcıyı hedeflememekte. Teşekkür ederim.
+Lütfen izleyicide sorun konuları oluşturmadan önce forum ve/veya sosyal medya uygulamalarında yardım isteyin. Syncthing'un aile ve arkadaşların Android'de Syncthing kullanmalarına yardımcı olmak için kişisel bir ilgi olarak doğduğunu lütfen unutmayın. Sonuçların sizinle ve toplulukla paylaşılmasına rağmen şu anda 100.000'den fazla kullanıcıyı hedeflememekte. Teşekkür ederim.
 
 Web sitesi: https://github.com/Catfriend1/syncthing-android
 

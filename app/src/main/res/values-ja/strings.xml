@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name">Syncthing-Fork</string>
+    <string name="app_name">Syncthing</string>
     <string name="app_description">オープンで、信頼できる、分散型ファイル同期アプリケーション。</string>
     <!-- FirstStartActivity -->
     <!-- Title for dialog displayed on first start -->
@@ -40,7 +40,7 @@
     <string name="refresh">再読み込み</string>
     <!-- PhotoShootActivity -->
     <string name="photo_shoot_launcher_title">カメラを同期する</string>
-    <string name="photo_shoot_activity_title">Syncthing-Fork カメラ</string>
+    <string name="photo_shoot_activity_title">Syncthing カメラ</string>
     <string name="photo_shoot_intro_welcome_title">Syncthing Cameraにようこそ</string>
     <string name="photo_shoot_intro_permission_title">権限が必要です</string>
     <string name="photo_shoot_intro_no_camera">このデバイスにはカメラはありません。</string>
@@ -371,7 +371,7 @@
     <!-- Title of the preference showing upstream version name -->
     <string name="syncthing_version_title">Syncthing バージョン</string>
     <!-- Title of the preference showing this app's version name -->
-    <string name="app_version_title">Syncthing-Fork ラッパー バージョン</string>
+    <string name="app_version_title">Syncthing ラッパー バージョン</string>
     <!-- Title of the preference showing the REST API key -->
     <string name="syncthing_api_key">Syncthing API キー (クリックでコピー)</string>
     <!-- Shown when the API key is copied to the clipboard -->
@@ -573,10 +573,10 @@
     <string name="tip_huawei_device_disconnected_text">デスクトップでHuawei端末が常に切断と表示される場合は、デスクトップのSyncthing UIを開いてください。「リモートデバイス」に進み、スマートフォンの項目を展開して「編集」をクリックし、「詳細設定」に切り替えます。「アドレス」欄に次のようにスマートフォンのIPアドレスを入力してください：\ntcp4://%1$s, dynamic\nこの方法はHuawei P10で動作確認されています。</string>
     <string name="discovered_device_list_empty">ローカルネットワーク上でデバイスが見つかりませんでした。このアプリを2台目のスマートフォンで実行してください。パソコン用のインストールファイルは%1$sから入手できます</string>
     <string name="untrusted_device_explanation">このデバイスと共有されるすべてのフォルダーはパスワードで保護される必要があり、送信されたすべてのデータは指定されたパスワードがなければ読み取れなくなります。</string>
-    <string name="tip_xiaomi_autostart_text">Xiaomi MIUIは、デフォルトでアプリの自動起動を許可していません。ホーム画面から「設定」&gt;「権限」&gt;「自動起動」に移動し、「Syncthing-Fork」スライダーを有効にしてください。</string>
+    <string name="tip_xiaomi_autostart_text">Xiaomi MIUIは、デフォルトでアプリの自動起動を許可していません。ホーム画面から「設定」&gt;「権限」&gt;「自動起動」に移動し、「Syncthing」スライダーを有効にしてください。</string>
     <string name="local_discovery_disabled">「設定」&gt;「Syncthingオプション」&gt;「ローカル検出」でローカル検出が無効になっています。ローカルネットワーク上のデバイスを検索するには、ローカル検出を有効にしてください。</string>
     <string name="tip_sync_on_local_network_text">WiFiネットワーク上やWiFiホットスポット経由で接続できるデバイスのみと同期したい場合は、バッテリー消費を抑え、モバイルデータ通信による誤同期を防ぐために「設定/Syncthingオプション」で以下の項目をオフにしてください：\n- NATトラバーサルを有効化\n- グローバルディスカバリー\n- リレーを有効化\n\n「ローカルディスカバリー」だけを有効にしておきます。これにより、端末は同じローカルネットワーク内にある他のデバイスとだけ同期し、外部ネットワークやモバイル通信を使いません。</string>
-    <string name="tip_xiaomi_battery_saver_text">Xiaomi MIUIのバッテリーセーバーシステムアプリは、端末を再起動するたびにアプリの「バッテリー最適化を無視」権限を取り消してしまいます。そのため、アプリが毎回ウェルカム画面を表示し、必要な権限を再度求める現象が発生します。\n解決策としては、ホーム画面でアプリドロワーを開き、「Syncthing-Fork」を長押しして「アプリ情報」を選択し、「バッテリーセーバー」で「制限なし」を選んでください（MIUI 10.3.2.0以降）。</string>
+    <string name="tip_xiaomi_battery_saver_text">Xiaomi MIUIのバッテリーセーバーシステムアプリは、端末を再起動するたびにアプリの「バッテリー最適化を無視」権限を取り消してしまいます。そのため、アプリが毎回ウェルカム画面を表示し、必要な権限を再度求める現象が発生します。\n解決策としては、ホーム画面でアプリドロワーを開き、「Syncthing」を長押しして「アプリ情報」を選択し、「バッテリーセーバー」で「制限なし」を選んでください（MIUI 10.3.2.0以降）。</string>
     <string name="dialog_confirm_skip_ignore_doze_permission">注意：SyncthingNative が中断され、何か異常な動作をした場合、それはあなたの責任です。デバイスが許可の付与をサポートしていない場合にのみスキップしてください。本当にスキップしますか？</string>
     <string name="photo_shoot_take_picture_success">写真を Syncthing カメラ フォルダーに正常に保存しました。</string>
     <string name="folder_rejected">デバイス「%1$s」がフォルダ「%2$s」を共有しようとしています</string>

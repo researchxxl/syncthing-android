@@ -1,7 +1,7 @@
 
 ---
 
-## Syncthing-Fork v2.0.10.2 (2025-10-16)
+## Syncthing v2.0.10.2 (2025-10-16)
 
 ## What's Changed
 ### Features
@@ -9,7 +9,7 @@ Add pref to allow overwrite existing files when another app shares to our app (#
 
 ---
 
-## Syncthing-Fork v2.0.10.1 (2025-09-29)
+## Syncthing v2.0.10.1 (2025-09-29)
 
 ## What's Changed
 ### Features
@@ -18,7 +18,7 @@ Remove redundant buttons from device edit dialog (#1662)
 
 ---
 
-## Syncthing-Fork v2.0.10.0 (2025-09-24)
+## Syncthing v2.0.10.0 (2025-09-24)
 
 ## What's Changed
 ### Features
@@ -26,13 +26,13 @@ Remove redundant buttons from device edit dialog (#1662)
 
 ---
 
-## Syncthing-Fork v2.0.9.2 (2025-09-22)
+## Syncthing v2.0.9.2 (2025-09-22)
 
 This version supports v1 config import from the deprecated Syncthing official app.
 
 ---
 
-## Syncthing-Fork v2.0.9.0 (2025-09-13)
+## Syncthing v2.0.9.0 (2025-09-13)
 
 ## What's Changed
 ### Fixes
@@ -40,7 +40,7 @@ This version supports v1 config import from the deprecated Syncthing official ap
 
 ---
 
-## Syncthing-Fork v2.0.8.1 (2025-09-09)
+## Syncthing v2.0.8.1 (2025-09-09)
 
 ## What's Changed
 ### Fixes
@@ -52,11 +52,11 @@ This version supports v1 config import from the deprecated Syncthing official ap
 
 ---
 
-## Syncthing-Fork v2.0.8.0 (2025-09-08)
+## Syncthing v2.0.8.0 (2025-09-08)
 
 ---
 
-## Syncthing-Fork v2.0.7.0 (2025-09-05)
+## Syncthing v2.0.7.0 (2025-09-05)
 
 ## What's Changed
 ### Fixes
@@ -65,14 +65,14 @@ This version supports v1 config import from the deprecated Syncthing official ap
 
 ---
 
-## Syncthing-Fork v1.30.0.3 (2025-08-07)
+## Syncthing v1.30.0.3 (2025-08-07)
 
 ## What's Changed
 * Fixed UI crash if index sequence number for a folder exceeds a limit. This affected a minority of users, especially Syncthing-Lite users. But if it happened, users were unable to export config and could no longer open the app.
 
 ---
 
-## Syncthing-Fork v1.30.0.2 F-Droid (2025-07-16)
+## Syncthing v1.30.0.2 F-Droid (2025-07-16)
 
 Updated dependencies, build using Java 21. Functionally the same as v1.30.0.1. Released due to a change in the fdroid build process which allows us to build future releases off the release branch instead of using the separate fdroid branch. You can, but do not have to update if you already got v1.30.0.1-fdroid installed.
 ## What's Changed
@@ -81,7 +81,7 @@ Updated dependencies, build using Java 21. Functionally the same as v1.30.0.1. R
 
 ---
 
-## Syncthing-Fork v1.30.0.1 (2025-07-01)
+## Syncthing v1.30.0.1 (2025-07-01)
 
 ## What's Changed
 ### Fixes
@@ -97,7 +97,7 @@ Updated dependencies, build using Java 21. Functionally the same as v1.30.0.1. R
 
 ---
 
-## Syncthing-Fork v1.29.7.5 (2025-06-23)
+## Syncthing v1.29.7.5 (2025-06-23)
 
 ## What's Changed
 ### Fixes
@@ -114,12 +114,12 @@ Updated dependencies, build using Java 21. Functionally the same as v1.30.0.1. R
 
 ---
 
-## Syncthing-Fork v1.29.7.4 F-Droid (2025-06-27)
+## Syncthing v1.29.7.4 F-Droid (2025-06-27)
 Functionally the same as v1.29.7.3 with changes to support F-Droid's reproducible builds.
 
 ---
 
-## Syncthing-Fork v1.29.7.3 (2025-06-06)
+## Syncthing v1.29.7.3 (2025-06-06)
 
 ## What's Changed
 * Disable android backup integration by @Catfriend1 in #1470
@@ -127,7 +127,7 @@ Functionally the same as v1.29.7.3 with changes to support F-Droid's reproducibl
 
 ---
 
-## Syncthing-Fork v1.29.7.2 (2025-06-04)
+## Syncthing v1.29.7.2 (2025-06-04)
 
 ⚠️ Breaking change:
 The config import and export feature now reads or writes the file "(InternalStorage)/backups/syncthing/config.zip". This file can be encrypted by a user-defined password to protect sensitive parts of your Syncthing configuration like, for example, device trust and which data you share with other devices. The change makes it harder for a bad actor to gain unauthorized access to your files using stolen config exports.
@@ -146,7 +146,7 @@ The config import and export feature now reads or writes the file "(InternalStor
 
 ---
 
-## Syncthing-Fork v1.29.7.1 (2025-06-03)
+## Syncthing v1.29.7.1 (2025-06-03)
 
 **Checkpoint release - Use this if migrating from the deprecated "syncthing-android" to this app.**
 
@@ -157,7 +157,7 @@ What's Changed:
 
 ---
 
-## Syncthing-Fork v1.29.7.0 (2025-06-02)
+## Syncthing v1.29.7.0 (2025-06-02)
 
 What's Changed:
 - Updated SyncthingNative to v1.29.7
@@ -167,7 +167,7 @@ What's Changed:
 
 ---
 
-## Syncthing-Fork v1.29.6.6 (2025-06-01)
+## Syncthing v1.29.6.6 (2025-06-01)
 
 **Hotfix release** to address UI lags affecting some users. Only update if you have trouble with UI lags.
 
@@ -180,7 +180,7 @@ What's Changed:
 
 ---
 
-## Syncthing-Fork v1.29.6.5 (2025-05-22)
+## Syncthing v1.29.6.5 (2025-05-22)
 
 **Updated release signing key which was over 5 years old for security reasons.**
 **To upgrade from a previous release:**
@@ -203,7 +203,7 @@ What's Changed:
 
 ---
 
-## Syncthing-Fork v1.29.6.4 (2025-05-17)
+## Syncthing v1.29.6.4 (2025-05-17)
 
 Upgrade notes:
 The backup folder location UI preference on the settings screen is now relative to the internal storage root. Before, it was interpreted relative to the "(int-stor)/backups" folder. Please review that setting if you upgrade from a previous release.
@@ -239,7 +239,7 @@ The backup folder location UI preference on the settings screen is now relative 
 
 ---
 
-## Syncthing-Fork v1.29.6.0 (2025-05-06)
+## Syncthing v1.29.6.0 (2025-05-06)
 
 Upgrade notes:
 The backup folder location UI preference on the settings screen is now relative to the internal storage root. Before, it was interpreted relative to the "(int-stor)/backups" folder. Please review that setting if you upgrade from a previous release.
@@ -258,7 +258,7 @@ We are preparing for GPG signed release artifacts.
 
 ---
 
-## Syncthing-Fork v1.29.4.0 (2025-04-03)
+## Syncthing v1.29.4.0 (2025-04-03)
 
 ## What's Changed
 * Add Hebrew and Galician translation templates by @acolomb in #1310
@@ -274,7 +274,7 @@ We are preparing for GPG signed release artifacts.
 
 ---
 
-## Syncthing-Fork v1.29.3.0 (2025-03-13)
+## Syncthing v1.29.3.0 (2025-03-13)
 
 ## What's Changed
 * Bump org.jetbrains.kotlin:kotlin-stdlib-jdk8 from 2.1.0 to 2.1.10 by @dependabot in #1262
@@ -297,11 +297,11 @@ We are preparing for GPG signed release artifacts.
 
 ---
 
-## Syncthing-Fork v1.29.2.0 (2025-01-19)
+## Syncthing v1.29.2.0 (2025-01-19)
 
 ---
 
-## Syncthing-Fork v1.29.0.0 (2025-01-06)
+## Syncthing v1.29.0.0 (2025-01-06)
 
 ## What's Changed
 * Bump androidx.preference:preference from 1.1.1 to 1.2.1 by @dependabot in #1218
@@ -312,7 +312,7 @@ We are preparing for GPG signed release artifacts.
 
 ---
 
-## Syncthing-Fork v1.28.1.1 (2024-12-10)
+## Syncthing v1.28.1.1 (2024-12-10)
 
 ## What's Changed
 * Updated dependencies
@@ -320,7 +320,7 @@ We are preparing for GPG signed release artifacts.
 
 ---
 
-## Syncthing-Fork v1.28.1.0 (2024-12-10)
+## Syncthing v1.28.1.0 (2024-12-10)
 
 ## What's Changed
 * Add to migration instructions a note to delete the Syncthing configuration backup folder by @valentinstn in #1165
@@ -342,7 +342,7 @@ We are preparing for GPG signed release artifacts.
 
 ---
 
-## Syncthing-Fork v1.28.0.0 (2024-10-21)
+## Syncthing v1.28.0.0 (2024-10-21)
 
 Fixes:
 - Android 15: disable edge-to-edge rendered UI
@@ -351,31 +351,31 @@ Fixes:
 
 ---
 
-## Syncthing-Fork v1.27.12.0 (2024-09-13)
+## Syncthing v1.27.12.0 (2024-09-13)
 
 ---
 
-## Syncthing-Fork v1.27.9.0 (2024-07-27)
+## Syncthing v1.27.9.0 (2024-07-27)
 
 ---
 
-## Syncthing-Fork v1.27.7.0 (2024-05-12)
+## Syncthing v1.27.7.0 (2024-05-12)
 
 ---
 
-## Syncthing-Fork v1.27.6.0 (2024-04-10)
+## Syncthing v1.27.6.0 (2024-04-10)
 
 ---
 
-## Syncthing-Fork v1.27.4.0 (2024-03-08)
+## Syncthing v1.27.4.0 (2024-03-08)
 
 ---
 
-## Syncthing-Fork v1.27.3.0 (2024-02-08)
+## Syncthing v1.27.3.0 (2024-02-08)
 
 ---
 
-## Syncthing-Fork v1.27.2.1 (2024-01-07)
+## Syncthing v1.27.2.1 (2024-01-07)
 
 Other
 --
@@ -384,7 +384,7 @@ Other
 
 ---
 
-## Syncthing-Fork v1.27.2.0 (2023-12-14)
+## Syncthing v1.27.2.0 (2023-12-14)
 
 Fixes
 --
@@ -397,7 +397,7 @@ Other
 
 ---
 
-## Syncthing-Fork v1.27.1.0 (2023-12-08)
+## Syncthing v1.27.1.0 (2023-12-08)
 
 Fixes
 --
@@ -405,7 +405,7 @@ Fixes
 
 ---
 
-## Syncthing-Fork v1.27.0.1 (2023-12-05)
+## Syncthing v1.27.0.1 (2023-12-05)
 
 Other
 --
@@ -414,7 +414,7 @@ Other
 
 ---
 
-## Syncthing-Fork v1.27.0.0 (2023-11-22)
+## Syncthing v1.27.0.0 (2023-11-22)
 
 Enhanced
 --
@@ -428,7 +428,7 @@ Fixes
 
 ---
 
-## Syncthing-Fork v1.26.1.0 (2023-11-15)
+## Syncthing v1.26.1.0 (2023-11-15)
 
 NOTE: If you are upgrading instead of doing a fresh install, go to "Settings" - "Syncthing Options" and set a password. This is required prior to opening the "Web UI".
 
@@ -444,7 +444,7 @@ Other
 
 ---
 
-## Syncthing-Fork v1.26.0.2 (2023-11-06)
+## Syncthing v1.26.0.2 (2023-11-06)
 
 NOTE: If you are upgrading instead of doing a fresh install, go to "Settings" - "Syncthing Options" and set a password. This is required prior to opening the "Web UI".
 
@@ -466,7 +466,7 @@ Other
 
 ---
 
-## Syncthing-Fork v1.26.0.1 (2023-10-21)
+## Syncthing v1.26.0.1 (2023-10-21)
 
 NOTE: If you are upgrading instead of doing a fresh install, go to "Settings" - "Syncthing Options" and set a password. This is required prior to opening the "Web UI".
 
@@ -488,7 +488,7 @@ Other
 
 ---
 
-## Syncthing-Fork v1.26.0.0 (2023-10-14)
+## Syncthing v1.26.0.0 (2023-10-14)
 
 Enhanced
 --
@@ -507,11 +507,11 @@ Other
 
 ---
 
-## Syncthing-Fork v1.23.7.0 (2023-08-09)
+## Syncthing v1.23.7.0 (2023-08-09)
 
 ---
 
-## Syncthing-Fork v1.23.6.0 (2023-07-22)
+## Syncthing v1.23.6.0 (2023-07-22)
 
 Other
 --
@@ -519,7 +519,7 @@ Other
 
 ---
 
-## Syncthing-Fork v1.23.5.1 (2023-06-18)
+## Syncthing v1.23.5.1 (2023-06-18)
 
 Enhanced
 --
@@ -528,13 +528,13 @@ Enhanced
 
 ---
 
-## Syncthing-Fork v1.23.5.0 (2023-06-11)
+## Syncthing v1.23.5.0 (2023-06-11)
 
 Fixed issues: #987 #974 #984
 
 ---
 
-## Syncthing-Fork v1.23.2.2 (2023-03-09)
+## Syncthing v1.23.2.2 (2023-03-09)
 
 Fixes
 --
@@ -542,15 +542,15 @@ Fixes
 
 ---
 
-## Syncthing-Fork v1.23.2.1 (2023-03-07)
+## Syncthing v1.23.2.1 (2023-03-07)
 
 ---
 
-## Syncthing-Fork v1.23.0.0 (2023-01-05)
+## Syncthing v1.23.0.0 (2023-01-05)
 
 ---
 
-## Syncthing-Fork v1.22.2.2 (2022-12-08)
+## Syncthing v1.22.2.2 (2022-12-08)
 
 Enhanced
 --
@@ -563,7 +563,7 @@ Other
 
 ---
 
-## Syncthing-Fork v1.22.2.1 (2022-12-07)
+## Syncthing v1.22.2.1 (2022-12-07)
 
 Enhanced
 --
@@ -576,17 +576,17 @@ Fixes
 
 ---
 
-## Syncthing-Fork v1.22.2.0 (2022-11-09)
+## Syncthing v1.22.2.0 (2022-11-09)
 
 ---
 
-## Syncthing-Fork v1.22.1.0 (2022-11-02)
+## Syncthing v1.22.1.0 (2022-11-02)
 
 * Not available on Google Play - see issue #929
 
 ---
 
-## Syncthing-Fork v1.21.0.3 (2022-09-29)
+## Syncthing v1.21.0.3 (2022-09-29)
 
 Enhanced
 --
@@ -594,7 +594,7 @@ Enhanced
 
 ---
 
-## Syncthing-Fork v1.21.0.2 (2022-09-28)
+## Syncthing v1.21.0.2 (2022-09-28)
 
 Enhanced
 --
@@ -606,7 +606,7 @@ Fixes
 
 ---
 
-## Syncthing-Fork v1.21.0.1 (2022-09-21)
+## Syncthing v1.21.0.1 (2022-09-21)
 
 Enhanced
 --
@@ -614,12 +614,12 @@ Enhanced
 
 ---
 
-## Syncthing-Fork v1.21.0.0 (2022-09-08)
+## Syncthing v1.21.0.0 (2022-09-08)
 
 
 ---
 
-## Syncthing-Fork v1.20.3.1 (2022-07-13)
+## Syncthing v1.20.3.1 (2022-07-13)
 
 Enhanced
 --
@@ -633,12 +633,12 @@ Fixes
 
 ---
 
-## Syncthing-Fork v1.20.3.0 (2022-07-06)
+## Syncthing v1.20.3.0 (2022-07-06)
 
 
 ---
 
-## Syncthing-Fork v1.20.1.0 (2022-05-05)
+## Syncthing v1.20.1.0 (2022-05-05)
 
 Fixes
 --
@@ -646,7 +646,7 @@ Fixes
 
 ---
 
-## Syncthing-Fork v1.19.1.1 (2022-03-16)
+## Syncthing v1.19.1.1 (2022-03-16)
 
 Fixes
 --
@@ -657,19 +657,19 @@ Fixes
 
 ---
 
-## Syncthing-Fork v1.19.1.0 (2022-03-02)
+## Syncthing v1.19.1.0 (2022-03-02)
 
 ---
 
-## Syncthing-Fork v1.19.0.0 (2022-02-16)
+## Syncthing v1.19.0.0 (2022-02-16)
 
 ---
 
-## Syncthing-Fork v1.18.6.0 (2022-01-16)
+## Syncthing v1.18.6.0 (2022-01-16)
 
 ---
 
-## Syncthing-Fork v1.18.2.1 (2021-09-19)
+## Syncthing v1.18.2.1 (2021-09-19)
 
 Enhanced
 --
@@ -678,7 +678,7 @@ Enhanced
 
 ---
 
-## Syncthing-Fork v1.16.0.6 (2021-05-25)
+## Syncthing v1.16.0.6 (2021-05-25)
 
 Enhanced
 --
@@ -696,7 +696,7 @@ Others
 
 ---
 
-## Syncthing-Fork v1.14.0.1 (2021-03-13)
+## Syncthing v1.14.0.1 (2021-03-13)
 
 * Syncthing v1.14.0
 * Support new v1.14.x config format in the wrapper (#750)
@@ -715,7 +715,7 @@ Other issues
 
 ---
 
-## Syncthing-Fork v1.12.1.1 (2021-01-08)
+## Syncthing v1.12.1.1 (2021-01-08)
 
 Enhanced
 --
@@ -728,7 +728,7 @@ Other issues
 
 ---
 
-## Syncthing-Fork v1.11.1.0 (2020-11-04)
+## Syncthing v1.11.1.0 (2020-11-04)
 
 Enhanced
 --
@@ -742,7 +742,7 @@ Other issues
 
 ---
 
-## Syncthing-Fork v1.10.0.0 (2020-10-10)
+## Syncthing v1.10.0.0 (2020-10-10)
 
 Enhanced
 --
@@ -756,7 +756,7 @@ Other issues
 
 ---
 
-## Syncthing-Fork v1.9.0.5 (2020-09-20)
+## Syncthing v1.9.0.5 (2020-09-20)
 * Syncthing v1.9.0
 
 Other issues
@@ -766,7 +766,7 @@ Other issues
 
 ---
 
-## Syncthing-Fork v1.8.0.3 (2020-08-15)
+## Syncthing v1.8.0.3 (2020-08-15)
 
 Fixed
 --
@@ -781,7 +781,7 @@ Enhanced
 
 ---
 
-## Syncthing-Fork v1.7.0.1 (2020-07-07)
+## Syncthing v1.7.0.1 (2020-07-07)
 
 Fixed
 --
@@ -796,7 +796,7 @@ Other issues
 
 ---
 
-## Syncthing-Fork v1.6.0.4 (2020-06-02)
+## Syncthing v1.6.0.4 (2020-06-02)
 
 Fixed
 --
@@ -811,17 +811,17 @@ Other issues
 
 ---
 
-## Syncthing-Fork v1.4.2.4 (2020-05-01)
+## Syncthing v1.4.2.4 (2020-05-01)
 * Syncthing v1.4.2
 * Minor fixes
 
 ---
 
-## Syncthing-Fork v1.4.0.4 (2020-03-16)
+## Syncthing v1.4.0.4 (2020-03-16)
 
 ---
 
-## Syncthing-Fork v1.3.3.4 (2019-12-23)
+## Syncthing v1.3.3.4 (2019-12-23)
 * Updated build dependencies.
 * PLEASE NOTE: Android 10's Scoped Storage can or will render this app unusable in the future. This cannot be solved by devs, check wiki.
 Fixed
@@ -835,7 +835,7 @@ Enhanced
 
 ---
 
-## Syncthing-Fork v1.3.2.4 (2019-12-03)
+## Syncthing v1.3.2.4 (2019-12-03)
 * Syncthing v1.3.2
 * PLEASE NOTE: Android 10's Scoped Storage can or will render this app unusable in the future. This cannot be solved by devs, check wiki.
 Fixed
@@ -847,7 +847,7 @@ Enhanced
 
 ---
 
-## Syncthing-Fork v1.3.1.6 (2019-11-10)
+## Syncthing v1.3.1.6 (2019-11-10)
 * Syncthing v1.3.1
 * PLEASE NOTE: Android 10's Scoped Storage can or will render this app unusable in the future. This cannot be solved by devs, check wiki.
 Enhanced
@@ -855,7 +855,7 @@ Enhanced
 
 ---
 
-## Syncthing-Fork v1.3.0.5 (2019-10-28)
+## Syncthing v1.3.0.5 (2019-10-28)
 * Syncthing v1.3.0
 * PLEASE NOTE: Android 10's Scoped Storage can or will render this app unusable in the future. This cannot be solved by devs, check wiki.
 Permissions
@@ -867,7 +867,7 @@ Enhanced
 
 ---
 
-## Syncthing-Fork v1.2.2.4 (2019-09-22)
+## Syncthing v1.2.2.4 (2019-09-22)
 Changelog
 * Syncthing v1.2.2
 * PLEASE NOTE: Android 10's Scoped Storage can or will render this app unusable in the future. This cannot be solved by devs, check wiki.
@@ -881,7 +881,7 @@ Enhanced
 
 ---
 
-## Syncthing-Fork v1.2.0.8 (2019-07-16)
+## Syncthing v1.2.0.8 (2019-07-16)
 Fixes
 * Fixed crash in config reader (#445)
 Enhancements
@@ -892,7 +892,7 @@ Enhancements
 
 ---
 
-## Syncthing-Fork v1.1.1.3 (2019-04-27)
+## Syncthing v1.1.1.3 (2019-04-27)
 Changelog:
 - Disable DuraSpeed on HMD Global phones (#410) - see Wiki
 - Shorten logcat excerpts (#412)
@@ -901,14 +901,14 @@ Changelog:
 
 ---
 
-## Syncthing-Fork v1.1.0.6 (2019-03-29)
+## Syncthing v1.1.0.6 (2019-03-29)
 Changelog:
 - Add option to trigger sync every hour (#387)
 - Fix back arrow in TipsAndTricks activity on Android 4.4 not working (#389)
 
 ---
 
-## Syncthing-Fork v1.0.0.20 (2019-01-31)
+## Syncthing v1.0.0.20 (2019-01-31)
 Changelog:
 - Fix deferred native shutdown not working during State.STARTING (#296)
 - Don't crash if config got corrupted and inform the user (#295)

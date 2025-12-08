@@ -8,11 +8,11 @@ IssueTracker: https://github.com/Catfriend1/syncthing-android/issues
 Translation: https://hosted.weblate.org/projects/syncthing/android/catfriend1
 Changelog: https://github.com/Catfriend1/syncthing-android/releases
 
-AutoName: Syncthing-Fork
+AutoName: Syncthing
 
 RepoType: git
 Repo: https://github.com/Catfriend1/syncthing-android.git
-Binaries: https://github.com/Catfriend1/syncthing-android/releases/download/v%v/com.github.catfriend1.syncthingfork_release_v%v.apk
+Binaries: https://github.com/Catfriend1/syncthing-android/releases/download/v%v/com.github.catfriend1.syncthingandroid_release_v%v.apk
 
 Builds:
   - versionName: 2.0.10.1

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name">Syncthing-Fork</string>
+    <string name="app_name">Syncthing</string>
     <string name="app_description">Una aplicació de sincronització de fitxers oberta, confiable i descentralitzada.</string>
     <!-- FirstStartActivity -->
     <!-- Title for dialog displayed on first start -->
@@ -365,7 +365,7 @@
     <!-- Title of the preference showing upstream version name -->
     <string name="syncthing_version_title">Versió del Syncthing</string>
     <!-- Title of the preference showing this app's version name -->
-    <string name="app_version_title">Versió de l\'embolcall del Syncthing-Fork</string>
+    <string name="app_version_title">Versió de l\'embolcall del Syncthing</string>
     <!-- Title of the preference showing the REST API key -->
     <string name="syncthing_api_key">Clau d\'API del Syncthing (feu clic per copiar)</string>
     <!-- Shown when the API key is copied to the clipboard -->
@@ -554,7 +554,7 @@
     <string name="qs_forced_to_run">Forçat a executar-se</string>
     <string name="notification_crash_text">Feu clic per veure els registres (%1$s)</string>
     <string name="state_clean_waiting">Esperant per netejar</string>
-    <string name="open_issue_tracker_summary">Obre el rastrejador d\'incidències de Syncthing-Fork a %1$s</string>
+    <string name="open_issue_tracker_summary">Obre el rastrejador d\'incidències de Syncthing a %1$s</string>
     <string name="keep_wakelock_while_binary_running_summary">Només per a Android 5 o anterior. Feu servir aquesta configuració si experimenteu desconnexions inesperades mentre funcioneu amb bateria. Això comportarà un augment del consum de bateria.</string>
     <string name="reason_not_on_wifi">Syncthing pot funcionar amb Wi-Fi, però no hi ha Wi-Fi connectat o el telèfon està en mode vol.</string>
     <string name="reason_on_nonmetered_wifi">Syncthing pot funcionar en connexions WiFi no mesurades. La connexió WiFi activa no té límits.</string>
@@ -613,7 +613,7 @@
     <string name="run_on_whitelisted_wifi_summary">Activa la llista blanca per restringir la sincronització que només es produeixi en xarxes Wi-Fi especificades.</string>
     <string name="dialog_confirm_skip_ignore_doze_permission">Atenció: si SyncthingNative s\'interromp i fa alguna cosa estranya, la culpa és teva. Només cal ometre-ho en cas que el dispositiu no admeti l\'atorgament del permís. De debò que ho vols ometre?</string>
     <string name="photo_shoot_launcher_title">Sincronitza. Càmera</string>
-    <string name="photo_shoot_activity_title">Càmera de Syncthing-Fork</string>
+    <string name="photo_shoot_activity_title">Càmera de Syncthing</string>
     <string name="photo_shoot_intro_permission_title">Permisos necessaris</string>
     <string name="photo_shoot_intro_no_camera">Ho sento, aquest dispositiu no té càmera.</string>
     <string name="grant_storage_permission">Atorga permís d\'emmagatzematge</string>
@@ -643,7 +643,7 @@
     <string name="device_id_invalid">L\'ID del dispositiu no té el format correcte. Torneu-ho a intentar i introduïu l\'ID correcte.</string>
     <string name="folders_list_empty">No hi ha cap carpeta configurada. Toca per afegir una carpeta nova.</string>
     <string name="tip_ignore_delete_title">Feu una còpia de seguretat de les imatges del telèfon a l\'ordinador?</string>
-    <string name="tip_xiaomi_autostart_text">MIUI de Xiaomi no permet que les aplicacions s\'iniciïn soles per defecte. Des de la pantalla d\'inici, aneu a \"Configuració\" &gt; \"Permisos\" &gt; \"Inici automàtic\" i activeu el control lliscant \"Syncthing-Fork\".</string>
+    <string name="tip_xiaomi_autostart_text">MIUI de Xiaomi no permet que les aplicacions s\'iniciïn soles per defecte. Des de la pantalla d\'inici, aneu a \"Configuració\" &gt; \"Permisos\" &gt; \"Inici automàtic\" i activeu el control lliscant \"Syncthing\".</string>
     <string name="tip_xiaomi_battery_saver_title">Xiaomi: l\'aplicació mostra repetidament la pantalla de benvinguda</string>
     <string name="preference_app_theme_title">Tema</string>
     <string name="preference_app_theme_follow_system">Seguir el sistema</string>
@@ -700,7 +700,7 @@
     <string name="webui_username_title">Nom d\'usuari de la interfície web</string>
     <string name="backup_password_title">Contrasenya de protecció de configuració</string>
     <string name="dialog_settings_restart_app_question">Canviar aquesta opció requereix un reinici immediat de l\'aplicació. Tots els altres canvis es descartaran. Voleu continuar?</string>
-    <string name="tip_xiaomi_battery_saver_text">L\'aplicació del sistema d\'estalvi de bateria de Xiaomi MIUI revoca el permís \"ignorar l\'optimització de la bateria\" de l\'aplicació cada vegada que reinicieu el telèfon. Això fa que l\'aplicació mostri la pantalla de benvinguda i torni a demanar el permís obligatori que falta. Solució: Des de la pantalla d\'inici, obriu el calaix de l\'aplicació &gt; premeu llargament \"Syncthing-Fork\" &gt; \"Informació de l\'aplicació\" &gt; \"Estalvi de bateria\" i seleccioneu \"Sense restriccions\" (MIUI 10.3.2.0+).</string>
+    <string name="tip_xiaomi_battery_saver_text">L\'aplicació del sistema d\'estalvi de bateria de Xiaomi MIUI revoca el permís \"ignorar l\'optimització de la bateria\" de l\'aplicació cada vegada que reinicieu el telèfon. Això fa que l\'aplicació mostri la pantalla de benvinguda i torni a demanar el permís obligatori que falta. Solució: Des de la pantalla d\'inici, obriu el calaix de l\'aplicació &gt; premeu llargament \"Syncthing\" &gt; \"Informació de l\'aplicació\" &gt; \"Estalvi de bateria\" i seleccioneu \"Sense restriccions\" (MIUI 10.3.2.0+).</string>
     <string name="run_on_time_schedule_summary">Si activeu aquesta opció, s\'intentarà sincronitzar durant una durada configurada si es compleixen les condicions d\'execució i si ha transcorregut un període d\'interval especificat des de l\'última sincronització. Això pot estalviar molta bateria, però requereix que els socis de sincronització estiguin en línia. Nota: això pot deixar fitxers temporals incomplets fins que es produeixi la següent sincronització programada.</string>
     <string name="pizza_url_summary">Amb només un toc, pots deixar una càlida llesca de bondat, acompanyada de bones vibracions addicionals per mantenir els gats ronronejant feliçment.</string>
     <string name="reason_not_within_time_frame">Heu activat \"Executar segons la programació horària\" i l\'última sincronització va ser fa no més d\'una hora.</string>

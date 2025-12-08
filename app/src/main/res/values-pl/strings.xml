@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name">Syncthing-Fork</string>
+    <string name="app_name">Syncthing</string>
     <string name="app_description">Otwarta, godna zaufania i zdecentralizowana aplikacja do synchronizacji plików.</string>
     <!-- FirstStartActivity -->
     <!-- Title for dialog displayed on first start -->
@@ -32,7 +32,7 @@
     <string name="page_x_of_y">Strona %1$s z %2$s</string>
     <string name="main_menu">Menu główne</string>
     <string name="refresh">Odśwież</string>
-    <string name="photo_shoot_activity_title">Aparat Syncthing-Fork</string>
+    <string name="photo_shoot_activity_title">Aparat Syncthing</string>
     <string name="photo_shoot_intro_permission_title">Wymagane uprawnienia</string>
     <string name="photo_shoot_intro_no_camera">Niestety, to urządzenie nie posiada dostępnej kamery.</string>
     <string name="photo_shoot_intro_missing_permissions">Aby kontynuować, wymagane są uprawnienia dostępu do aparatu oraz do zapisu plików.</string>
@@ -469,7 +469,7 @@
     <string name="category_syncthing_options_summary">To menu jest dostępne tylko wtedy, gdy uruchomiono Syncthing.</string>
     <string name="autoAcceptFolders">Autoakceptacja</string>
     <string name="folder_fileWatcherDescription">Prosi system operacyjny o powiadomienia o zmienionych plikach. Gdy opcja jest wyłączona, co godzinę przeprowadzane jest skanowanie w poszukiwaniu zmian.</string>
-    <string name="run_on_roaming_summary">Zezwól Syncthing na korzystanie z mobilnej transmisji danych w roamingu. (!) Jeśli to działa poprawnie, prześlij opinię w serwisie GitHub.</string>
+    <string name="run_on_roaming_summary">Zezwól Syncthing na korzystanie z mobilnej transmisji danych w roamingu.</string>
     <string name="state_local_additions">Zmiany lokalne</string>
     <string name="run_on_whitelisted_wifi_networks">Wybrane sieci Wi-Fi: %1$s</string>
     <string name="reason_not_on_wifi">Syncthing może działać w sieci Wi-Fi, ale nie jest ona podłączona lub telefon jest w trybie samolotowym.</string>
@@ -504,7 +504,7 @@
     <string name="notification_permission_desc">Wymagane do wyświetlania powiadomień dotyczących nowych połączeń urządzeń, żądań udostępnienia folderów oraz do utrzymywania działania usługi i połączenia.</string>
     <string name="tip_custom_sync_conditions_title">Użyj niestandardowych warunków synchronizacji dla folderu/urządzenia</string>
     <string name="download_support_bundle_failed">Pobieranie pakietu obsługi nie powiodło się. Sprawdź dzienniki.</string>
-    <string name="app_version_title">Wersja nakładki Syncthing-Fork</string>
+    <string name="app_version_title">Wersja nakładki Syncthing</string>
     <string name="folder_type_sendreceive_description">Zawartość tego folderu będzie zarówno wysyłana jak i odbierana z innych urządzeń.</string>
     <string name="tip_write_to_sdcard_title">Obejście problemu: zapis na zewnętrznej karcie SD</string>
     <string name="keep_wakelock_while_binary_running_summary">Tylko dla systemu Android 5 lub starszego. Użyj tego ustawienia, jeśli podczas pracy na baterii wystąpią nieoczekiwane rozłączenia. Spowoduje to zwiększone zużycie baterii.</string>
@@ -556,14 +556,14 @@
     <string name="pull_order_type_alphabetic_description">Pobierz pliki w kolejności alfabetycznej według nazwy.</string>
     <string name="state_syncing_general">Synchronizowanie</string>
     <string name="notifications_persistent_channel">Syncthing jest aktywny</string>
-    <string name="tip_xiaomi_autostart_text">Xiaomi MIUI domyślnie nie pozwala aplikacjom na samodzielne uruchamianie. Na ekranie głównym przejdź do „Ustawienia” &gt; „Uprawnienia” &gt; „Autostart” i włącz suwak „Syncthing-Fork”.</string>
-    <string name="open_issue_tracker_summary">Otwórz narzędzie do śledzenia problemów Syncthing-Fork pod adresem %1$s</string>
+    <string name="tip_xiaomi_autostart_text">Xiaomi MIUI domyślnie nie pozwala aplikacjom na samodzielne uruchamianie. Na ekranie głównym przejdź do „Ustawienia” &gt; „Uprawnienia” &gt; „Autostart” i włącz suwak „Syncthing”.</string>
+    <string name="open_issue_tracker_summary">Otwórz narzędzie do śledzenia problemów Syncthing pod adresem %1$s</string>
     <string name="folders">Foldery</string>
     <string name="preference_app_theme_follow_light">Jasny</string>
     <string name="discovered_device_list_empty">Wykrywanie lokalne nie znalazło żadnych urządzeń w sieci lokalnej. Uruchom tę aplikację na drugim telefonie. Pliki instalacyjne dla komputerów są dostępne pod adresem: %1$s</string>
     <string name="dialog_settings_restart_app_title">Wymagane ponowne uruchomienie</string>
     <string name="state_failed_items">Elementy nieudane (%1$d)</string>
-    <string name="tip_xiaomi_battery_saver_text">Aplikacja systemowa oszczędzania baterii Xiaomi MIUI cofa zgodę aplikacji na „ignorowanie optymalizacji baterii” przy każdym ponownym uruchomieniu telefonu. Spowoduje to, że aplikacja wyświetli ekran powitalny i ponownie poprosi o brakujące obowiązkowe pozwolenie. Rozwiązanie: na ekranie głównym otwórz szufladę aplikacji &gt; Naciśnij długo „Syncthing-Fork” &gt; „Informacje o aplikacji” &gt; „Oszczędzanie baterii” i wybierz „Bez ograniczeń” (MIUI 10.3.2.0+).</string>
+    <string name="tip_xiaomi_battery_saver_text">Aplikacja systemowa oszczędzania baterii Xiaomi MIUI cofa zgodę aplikacji na „ignorowanie optymalizacji baterii” przy każdym ponownym uruchomieniu telefonu. Spowoduje to, że aplikacja wyświetli ekran powitalny i ponownie poprosi o brakujące obowiązkowe pozwolenie. Rozwiązanie: na ekranie głównym otwórz szufladę aplikacji &gt; Naciśnij długo „Syncthing” &gt; „Informacje o aplikacji” &gt; „Oszczędzanie baterii” i wybierz „Bez ograniczeń” (MIUI 10.3.2.0+).</string>
     <string name="executable_not_found">Brak podstawowego pliku wykonywalnego „%s”. Sprawdź dane wyjściowe kompilacji i logcat.</string>
     <string name="recent_changes_title">Ostatnie zmiany</string>
     <string name="sync_only_wifi_ssids_need_to_grant_location_permission">Musisz przyznać uprawnienia dostępu do lokalizacji, aby używać tej funkcji.</string>

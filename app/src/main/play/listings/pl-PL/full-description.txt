@@ -9,9 +9,9 @@ Ta aplikacja to fork nakładki Syncthing-Android dla programu Syncthing wprowadz
 * Wyszukiwanie i łatwe dodawanie innych urządzeń używających programu Syncthing w tej samej sieci.
 * Obsługa dwukierunkowej synchronizacji na zewnętrznych kartach SD od wersji 11 systemu Android.
 
-Syncthing-Fork dla systemu Android to nakładka na Syncthing zastępująca sieciowy interfejs użytkownika wbudowany w program Syncthing interfejsem użytkownika dla systemu Android. Syncthing zastępuje własnościowe usługi synchronizacji i chmury czymś otwartym, wiarygodnym i zdecentralizowanym. Twoje dane należą tylko do Ciebie i masz prawo decydować, gdzie mają się znajdować, czy mają być współdzielone z osobą trzecią oraz w jaki sposób są przesyłane przez Internet.
+Syncthing dla systemu Android to nakładka na Syncthing zastępująca sieciowy interfejs użytkownika wbudowany w program Syncthing interfejsem użytkownika dla systemu Android. Syncthing zastępuje własnościowe usługi synchronizacji i chmury czymś otwartym, wiarygodnym i zdecentralizowanym. Twoje dane należą tylko do Ciebie i masz prawo decydować, gdzie mają się znajdować, czy mają być współdzielone z osobą trzecią oraz w jaki sposób są przesyłane przez Internet.
 
-Przed zgłoszeniem problemu w trackerze, prosimy o zwrócenie się o pomoc na forum i/lub w mediach społecznościowych. Pamiętaj, że Syncthing-Fork powstał z osobistego zainteresowania, aby pomóc rodzinie i znajomym korzystać z Syncthing w systemie Android. Nie był on skierowany do ponad 100 000 użytkowników, mimo że wyniki są udostępniane Tobie i społeczności. Dziękuję.
+Przed zgłoszeniem problemu w trackerze, prosimy o zwrócenie się o pomoc na forum i/lub w mediach społecznościowych. Pamiętaj, że Syncthing powstał z osobistego zainteresowania, aby pomóc rodzinie i znajomym korzystać z Syncthing w systemie Android. Nie był on skierowany do ponad 100 000 użytkowników, mimo że wyniki są udostępniane Tobie i społeczności. Dziękuję.
 
 Strona: https://github.com/Catfriend1/syncthing-android
 

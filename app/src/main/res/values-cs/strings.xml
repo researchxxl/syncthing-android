@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name">Syncthing-Fork</string>
+    <string name="app_name">Syncthing</string>
     <string name="app_description">Otevřená, důvěryhodná a decentralizovaná aplikace pro synchronizaci souborů.</string>
     <!-- FirstStartActivity -->
     <!-- Title for dialog displayed on first start -->
@@ -465,7 +465,7 @@
     <string name="toast_ignore_doze_permission_required">Tato aplikace funguje spolehlivě, pouze pokud je vyjmuta z úsporného režimu „Doze“.</string>
     <string name="location_permission_title">Oprávnění k poloze</string>
     <string name="dialog_confirm_skip_ignore_doze_permission">Pozor: Pokud se SyncthingNative přeruší a udělá něco divného, je to vaše vina. Přeskočte pouze v případě, že vaše zařízení nepodporuje udělení oprávnění. Opravdu přeskočit?</string>
-    <string name="photo_shoot_activity_title">Syncthing-Fork Fotoaparát</string>
+    <string name="photo_shoot_activity_title">Syncthing Fotoaparát</string>
     <string name="folder_ignore_delete_caption">Ignorovat Odstranění</string>
     <string name="discovered_devices_title">Objevená zařízení - Klepnutím vyberte</string>
     <string name="folders">Složky</string>
@@ -507,7 +507,7 @@
     <string name="dialog_settings_restart_app_question">Změna této možnosti vyžaduje okamžitý restart aplikace. Všechny ostatní změny budou zahozeny. Pokračovat?</string>
     <string name="verbose_log_summary">Povolení této možnosti pomůže generovat logy ladění na velmi podrobné úrovni.</string>
     <string name="log_to_file_title">Log do souboru</string>
-    <string name="app_version_title">Verze Syncthing-Fork Wrapper</string>
+    <string name="app_version_title">Verze Syncthing Wrapper</string>
     <string name="syncthing_api_key">Syncthing API Key (kliknutím zkopírujete)</string>
     <string name="syncthing_database_size">Velikost databáze Syncthing</string>
     <string name="os_open_file_limit">Omezení otevřených souborů systému Android</string>
@@ -554,7 +554,7 @@
     <string name="folders_list_empty">Nejsou nakonfigurovány žádné složky. Klepnutím přidáte novou složku.</string>
     <string name="install_barcode_scanner_app_message">To vyžaduje aplikaci pro snímání čárových kódů. Chcete si nainstalovat aplikaci \'Binary Eye\' z obchodu F-Droid?</string>
     <string name="preference_app_theme_title">Téma</string>
-    <string name="tip_xiaomi_autostart_text">Xiaomi MIUI ve výchozím nastavení znemožňuje samostatný start aplikací. Na domovské obrazovce přejděte do nabídky „Nastavení“ &gt; „Oprávnění“ &gt; „Automatické spouštění“ a povolte posuvník „Syncthing-Fork“.</string>
+    <string name="tip_xiaomi_autostart_text">Xiaomi MIUI ve výchozím nastavení znemožňuje samostatný start aplikací. Na domovské obrazovce přejděte do nabídky „Nastavení“ &gt; „Oprávnění“ &gt; „Automatické spouštění“ a povolte posuvník „Syncthing“.</string>
     <string name="modified_by_device">Zařízení: %1$s</string>
     <string name="modification_time">Čas: %1$s</string>
     <string name="this_device">Toto zařízení</string>
@@ -591,7 +591,7 @@
     <string name="use_root_summary">Spuštění Syncthing jako root umožňuje zapisovat do složek, které Android normálně omezuje na přístup pouze pro čtení. Tuto funkci používejte opatrně.</string>
     <string name="qs_forced_to_stop">Vynuceno zastavení</string>
     <string name="folder_go_up">Přejít nahoru</string>
-    <string name="tip_xiaomi_battery_saver_text">Systémová aplikace spořiče baterie Xiaomi MIUI ruší oprávnění aplikace „ignorovat optimalizaci baterie“ při každém restartu telefonu. To způsobí, že aplikace zobrazí uvítací obrazovku a znovu požádá o chybějící oprávnění. Řešení: Na domovské obrazovce otevřete seznam aplikací &gt; dlouze stiskněte \'Syncthing-Fork\' &gt; \'O aplikaci\' &gt; \'Spořič baterie\' a vyberte \'Bez omezení\' (MIUI 10.3.2.0+).</string>
+    <string name="tip_xiaomi_battery_saver_text">Systémová aplikace spořiče baterie Xiaomi MIUI ruší oprávnění aplikace „ignorovat optimalizaci baterie“ při každém restartu telefonu. To způsobí, že aplikace zobrazí uvítací obrazovku a znovu požádá o chybějící oprávnění. Řešení: Na domovské obrazovce otevřete seznam aplikací &gt; dlouze stiskněte \'Syncthing\' &gt; \'O aplikaci\' &gt; \'Spořič baterie\' a vyberte \'Bez omezení\' (MIUI 10.3.2.0+).</string>
     <string name="photo_shoot_launcher_title">Sync. fotoaparát</string>
     <string name="untrusted_device">Nedůvěryhodné zařízení</string>
     <string name="untrusted_device_explanation">Všechny složky sdílené s tímto zařízením musí být chráněny heslem tak, aby všechna odeslaná data nebyla bez zadaného hesla čitelná.</string>
@@ -616,7 +616,7 @@
     <string name="config_export_failed">Export konfigurace selhal. Jděte do Nastavení-Odstraňování problémů-Otevřít log pro důvod selhání.</string>
     <string name="verbose_log_title">Podrobný log</string>
     <string name="log_to_file_summary">Výstup SyncthingNative bude zapsán do souboru.</string>
-    <string name="open_issue_tracker_summary">Otevřete nástroj pro sledování problémů Syncthing-Fork na adrese %1$s</string>
+    <string name="open_issue_tracker_summary">Otevřete nástroj pro sledování problémů Syncthing na adrese %1$s</string>
     <string name="complete_welcome_wizard_first">Nejprve spusťte aplikaci a před sdílením souborů dokončete uvítacího průvodce.</string>
     <string name="reason_force_start">Syncthing běží, protože bylo vynuceno spuštění bez ohledu na podmínky spuštění.</string>
     <string name="reason_not_within_time_frame_2">Povolili jste „Spustit podle časového plánu“ a poslední synchronizace proběhla před %s.</string>

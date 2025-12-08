@@ -39,7 +39,7 @@
     <string name="page_x_of_y">صفحة %1$s من %2$s</string>
     <string name="main_menu">القائمة الرئيسية</string>
     <string name="refresh">تحديث</string>
-    <string name="photo_shoot_activity_title">كاميرا Syncthing-Fork</string>
+    <string name="photo_shoot_activity_title">كاميرا Syncthing</string>
     <string name="photo_shoot_intro_welcome_title">مرحبًا بك في كاميرا Syncthing</string>
     <string name="photo_shoot_intro_permission_title">الأذونات المطلوبة</string>
     <string name="photo_shoot_intro_no_camera">عذرًا، هذا الجهاز لا يحتوي على كاميرا.</string>
@@ -81,9 +81,9 @@
     <string name="verbose_log_title">سجل مفصل</string>
     <string name="verbose_log_summary">سيساعد تمكين هذا الخيار في إنشاء سجلات تصحيح الأخطاء بمستوى تفصيلي للغاية.</string>
     <string name="report_issue_title">الإبلاغ عن مشكلة</string>
-    <string name="app_version_title">إصدار غلاف Syncthing-Fork</string>
+    <string name="app_version_title">إصدار غلاف Syncthing</string>
     <string name="api_key_copied_to_clipboard">تم نسخ مفتاح API الخاص بـ Syncthing إلى الحافظة</string>
-    <string name="open_issue_tracker_summary">فتح متتبع مشاكل Syncthing-Fork على %1$s</string>
+    <string name="open_issue_tracker_summary">فتح متتبع مشاكل Syncthing على %1$s</string>
     <string name="share_title">مشاركة</string>
     <string name="complete_welcome_wizard_first">أولاً، قم بتشغيل التطبيق من درج التطبيقات وأكمل معالج الترحيب قبل مشاركة الملفات.</string>
     <string name="share_activity_title">حفظ إلى Syncthing</string>
@@ -480,8 +480,8 @@
     <string name="tip_sync_on_local_network_text">إذا كنت ترغب في المزامنة فقط مع الأجهزة الموجودة على شبكة Wi-Fi المحلية أو التي يمكن الوصول إليها عبر نقطة اتصال Wi-Fi، يمكنك تقليل استهلاك البطارية وتجنب المزامنة عن طريق الخطأ عبر بيانات الجوال عن طريق إيقاف الخيارات التالية ضمن الإعدادات/خيارات Syncthing: \n- تمكين اجتياز NAT \n- الاكتشاف العالمي \n- تمكين الترحيل \nاترك الاكتشاف المحلي ممكّنًا فقط.</string>
     <string name="tip_custom_sync_conditions_text">سيتم تحسين هذه الميزة في الإصدارات المستقبلية. في الوقت الحالي، لم نرغب في كسر التكوينات الحالية وسلوك التطبيق. لهذا السبب، لا يمكن تعيين شروط مزامنة مخصصة لنوع شبكة معين إلا إذا قمت بتمكين المزامنة على الشبكة في شروط التشغيل العامة أولاً.</string>
     <string name="tip_ignore_delete_text">إذا كنت ترغب في نسخ جميع الصور الملتقطة على هاتفك احتياطيًا إلى جهاز كمبيوتر، شارك مجلد الكاميرا مع الكمبيوتر. افتح Syncthing على الكمبيوتر، أضف المجلد وانتقل إلى الإجراءات &gt; متقدم &gt; مجلد الكاميرا. قم بتمكين تجاهل الحذف وانقر على حفظ. يمكنك الآن حذف الصور من مجلد الكاميرا على الهاتف وستبقى منسوخة احتياطيًا على الكمبيوتر.</string>
-    <string name="tip_xiaomi_autostart_text">يمنع Xiaomi MIUI التطبيقات من البدء من تلقاء نفسها بشكل افتراضي. من الشاشة الرئيسية، انتقل إلى الإعدادات &gt; الأذونات &gt; التشغيل التلقائي وقم بتمكين شريط تمرير Syncthing-Fork.</string>
-    <string name="tip_xiaomi_battery_saver_text">يقوم تطبيق نظام توفير البطارية في Xiaomi MIUI بإلغاء إذن تجاهل تحسين البطارية للتطبيق عند كل إعادة تشغيل للهاتف. يؤدي هذا إلى عرض التطبيق لشاشة الترحيب وطلب الإذن الإلزامي المفقود مرة أخرى. الحل: من الشاشة الرئيسية، افتح درج التطبيقات &gt; اضغط مطولاً على Syncthing-Fork &gt; معلومات التطبيق &gt; توفير البطارية وحدد بلا قيود (MIUI 10.3.2.0+).</string>
+    <string name="tip_xiaomi_autostart_text">يمنع Xiaomi MIUI التطبيقات من البدء من تلقاء نفسها بشكل افتراضي. من الشاشة الرئيسية، انتقل إلى الإعدادات &gt; الأذونات &gt; التشغيل التلقائي وقم بتمكين شريط تمرير Syncthing.</string>
+    <string name="tip_xiaomi_battery_saver_text">يقوم تطبيق نظام توفير البطارية في Xiaomi MIUI بإلغاء إذن تجاهل تحسين البطارية للتطبيق عند كل إعادة تشغيل للهاتف. يؤدي هذا إلى عرض التطبيق لشاشة الترحيب وطلب الإذن الإلزامي المفقود مرة أخرى. الحل: من الشاشة الرئيسية، افتح درج التطبيقات &gt; اضغط مطولاً على Syncthing &gt; معلومات التطبيق &gt; توفير البطارية وحدد بلا قيود (MIUI 10.3.2.0+).</string>
     <string name="security_notice">إشعار أمني</string>
     <string name="ssl_cert_invalid_text">يبدو أن موقع الويب %1$s يحتوي على شهادة غير صالحة لتشفير SSL. متابعة؟</string>
     <string name="open_in_browser">فتح في المتصفح</string>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name">Syncthing-Fork</string>
+    <string name="app_name">Syncthing</string>
     <string name="app_description">En öppen, pålitlig och decentraliserad filsynkroniserings applikation.</string>
     <!-- FirstStartActivity -->
     <!-- Title for dialog displayed on first start -->
@@ -513,7 +513,7 @@
     <string name="welcome_text">Syncthing är ett program för filsynkronisering med öppen källkod. För att dela data med andra enheter måste du lägga till deras unika enhets-ID i enhetslistan. Efteråt kan du välja vilka mappar som ska delas med vilka enheter. \n \nRapportera eventuella problem du stöter på via GitHub.</string>
     <string name="notification_permission_title">Aviseringstillstånd</string>
     <string name="photo_shoot_intro_welcome_title">Välkommen till Syncthing Camera</string>
-    <string name="photo_shoot_activity_title">Syncthing-Fork Camera</string>
+    <string name="photo_shoot_activity_title">Syncthing Camera</string>
     <string name="toast_notification_permission_required">Syncthing kräver aviseringstillstånd för att hålla tjänsten vid liv och ansluten.</string>
     <string name="default_syncthing_camera_folder_label">Syncthing Camera</string>
     <string name="device_addresses_invalid">Enhetsadresserna är inte korrekt formaterade. Försök igen. Titta på Syncthing-dokumenten för mer information.</string>
@@ -601,8 +601,8 @@
     <string name="verbose_log_summary">Om du aktiverar detta alternativ kommer du att skapa felsökningsloggar på en mycket detaljerad nivå.</string>
     <string name="log_to_file_title">Logga till fil</string>
     <string name="log_to_file_summary">Utmatning från SyncthingNative kommer att skrivas till filen.</string>
-    <string name="open_issue_tracker_summary">Öppna Syncthing-Fork-problemspåraren på %1$s</string>
-    <string name="app_version_title">Syncthing-Fork Wrapper version</string>
+    <string name="open_issue_tracker_summary">Öppna Syncthing-problemspåraren på %1$s</string>
+    <string name="app_version_title">Syncthing Wrapper version</string>
     <string name="advanced_storage_path_overview">Översikt över avancerad lagringsväg</string>
     <string name="folder_go_up">Gå upp</string>
     <string name="complete_welcome_wizard_first">Starta först appen från applådan och slutför välkomstguiden innan du delar filer.</string>
@@ -645,9 +645,9 @@
     <string name="dialog_settings_restart_app_question">För att ändra det här alternativet krävs en omedelbar omstart av appen. Alla andra ändringar kommer att ignoreras. Fortsätta?</string>
     <string name="broadcast_service_control_summary">Standard: Inaktiverad. Aktivera för att låta adb- eller tredjepartsappar, t.ex. automatiseringsappar, instruera Syncthing att följa körvillkor, tvinga fram start eller tvinga fram stopp.</string>
     <string name="os_open_file_limit">Android Öppningsfilgräns</string>
-    <string name="tip_xiaomi_autostart_text">Xiaomi MIUI tillåter inte appar att starta på egen hand som standard. Från hemskärmen, gå till \"Inställningar\" &gt; \"Behörigheter\" &gt; \'Autostart\' och aktivera skjutreglaget \"Syncthing-Fork\".</string>
+    <string name="tip_xiaomi_autostart_text">Xiaomi MIUI tillåter inte appar att starta på egen hand som standard. Från hemskärmen, gå till \"Inställningar\" &gt; \"Behörigheter\" &gt; \'Autostart\' och aktivera skjutreglaget \"Syncthing\".</string>
     <string name="download_support_bundle_title">Hämta supportpaketet</string>
-    <string name="tip_xiaomi_battery_saver_text">Xiaomi MIUIs batterisparsystemapp återkallar appens \"ignorera batterioptimering\"-tillstånd vid varje omstart av telefonen. Detta gör att appen visar välkomstskärmen och ber om det saknade obligatoriska tillståndet igen. Lösning: Från startskärmen, öppna applådan &gt; Tryck länge på \"Syncthing-Fork\" &gt; \"Appinfo\" &gt; \"Batterisparare\" och välj \"Inga begränsningar\" (MIUI 10.3.2.0+).</string>
+    <string name="tip_xiaomi_battery_saver_text">Xiaomi MIUIs batterisparsystemapp återkallar appens \"ignorera batterioptimering\"-tillstånd vid varje omstart av telefonen. Detta gör att appen visar välkomstskärmen och ber om det saknade obligatoriska tillståndet igen. Lösning: Från startskärmen, öppna applådan &gt; Tryck länge på \"Syncthing\" &gt; \"Appinfo\" &gt; \"Batterisparare\" och välj \"Inga begränsningar\" (MIUI 10.3.2.0+).</string>
     <string name="preference_app_theme_follow_dark">Mörkt</string>
     <string name="category_syncthing_options_summary">Denna meny är endast tillgänglig om Syncthing körs.</string>
     <string name="run_on_mobile_data_summary">Kör när enheten är ansluten via det mobila datanätverket. Varning: Detta kan förbruka mycket data från din mobiloperatörs dataplan om du synkroniserar stora mängder data.</string>

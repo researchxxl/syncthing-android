@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name">Syncthing-Fork</string>
+    <string name="app_name">Syncthing</string>
     <string name="app_description">Egy nyílt, megbízható és decentralizált fájl szinkronizáló alkalmazás.</string>
     <!-- FirstStartActivity -->
     <!-- Title for dialog displayed on first start -->
@@ -45,7 +45,7 @@
     <string name="refresh">Frissítés</string>
     <!-- PhotoShootActivity -->
     <string name="photo_shoot_launcher_title">Szinkronizálás. Kamera</string>
-    <string name="photo_shoot_activity_title">Syncthing-Fork kamera</string>
+    <string name="photo_shoot_activity_title">Syncthing kamera</string>
     <string name="photo_shoot_intro_welcome_title">Üdvözöljük a Syncthing kameránál</string>
     <string name="photo_shoot_intro_permission_title">Szükséges engedélyek</string>
     <string name="photo_shoot_intro_no_camera">Sajnos ez a készülék nem rendelkezik kamerával.</string>
@@ -287,9 +287,9 @@
 \nConfirmed working for: Huawei P10</string>
     <string name="tip_phone_ip_address_syntax">PHONE_IP_ADDRESS</string>
     <string name="tip_xiaomi_autostart_title">Xiaomi: az alkalmazás nem indul el a rendszerindításkor</string>
-    <string name="tip_xiaomi_autostart_text">A Xiaomi MIUI alapértelmezés szerint tiltja az alkalmazások önálló indítását. A kezdőképernyőről lépjen a \'Beállítások\' &gt; \'Engedélyek\' &gt; \'Automatikus indítás\' menüpontra, és kapcsolja be a \'Syncthing-Fork\' csúszkát.</string>
+    <string name="tip_xiaomi_autostart_text">A Xiaomi MIUI alapértelmezés szerint tiltja az alkalmazások önálló indítását. A kezdőképernyőről lépjen a \'Beállítások\' &gt; \'Engedélyek\' &gt; \'Automatikus indítás\' menüpontra, és kapcsolja be a \'Syncthing\' csúszkát.</string>
     <string name="tip_xiaomi_battery_saver_title">Xiaomi: az alkalmazás ismételten üdvözlő képernyőt mutat</string>
-    <string name="tip_xiaomi_battery_saver_text">A Xiaomi MIUI akkumulátorkímélő rendszeralkalmazás minden egyes telefon újraindításakor visszavonja az alkalmazás \"akkumulátor-optimalizálás figyelmen kívül hagyása\" engedélyét. Ennek hatására az alkalmazás megjeleníti az üdvözlő képernyőt, és újra kéri a hiányzó kötelező engedélyt. Megoldás: A kezdőképernyőről nyissa meg az alkalmazásfiókot &gt; nyomja meg hosszan a \'Syncthing-Fork\' &gt; \'App info\' &gt; \'Battery saver\'-t és válassza a \'No restrictions\' lehetőséget (MIUI 10.3.2.0+).</string>
+    <string name="tip_xiaomi_battery_saver_text">A Xiaomi MIUI akkumulátorkímélő rendszeralkalmazás minden egyes telefon újraindításakor visszavonja az alkalmazás \"akkumulátor-optimalizálás figyelmen kívül hagyása\" engedélyét. Ennek hatására az alkalmazás megjeleníti az üdvözlő képernyőt, és újra kéri a hiányzó kötelező engedélyt. Megoldás: A kezdőképernyőről nyissa meg az alkalmazásfiókot &gt; nyomja meg hosszan a \'Syncthing\' &gt; \'App info\' &gt; \'Battery saver\'-t és válassza a \'No restrictions\' lehetőséget (MIUI 10.3.2.0+).</string>
     <!-- RecentChangesActivity -->
     <string name="no_recent_changes">A közelmúltban nem történt változás.</string>
     <string name="recent_changes_title">Legutóbbi változások</string>
@@ -470,12 +470,12 @@
     <!-- Settings item that opens issue tracker -->
     <string name="report_issue_title">Hibabejelentés</string>
     <!-- Summary for the issue tracker settings item -->
-    <string name="open_issue_tracker_summary">Nyissa meg a Syncthing-Fork hibakövetőt a következő címen %1$s</string>
+    <string name="open_issue_tracker_summary">Nyissa meg a Syncthing hibakövetőt a következő címen %1$s</string>
     <!-- Menu item to donate -->
     <!-- Title of the preference showing upstream version name -->
     <string name="syncthing_version_title">Syncthing verzió</string>
     <!-- Title of the preference showing this app's version name -->
-    <string name="app_version_title">Syncthing-Fork Wrapper Version</string>
+    <string name="app_version_title">Syncthing Wrapper Version</string>
     <!-- Title of the preference showing the REST API key -->
     <string name="syncthing_api_key">Syncthing API kulcs (kattintson a másoláshoz)</string>
     <!-- Shown when the API key is copied to the clipboard -->

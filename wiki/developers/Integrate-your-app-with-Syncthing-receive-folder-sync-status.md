@@ -2,7 +2,7 @@
 
 ### Receive notification after a folder completed its sync progress
 
-You can receive the folder sync complete event from Syncthing-Fork by using a BroadcastReceiver to subscribe.
+You can receive the folder sync complete event from Syncthing by using a BroadcastReceiver to subscribe.
 
 Prerequisites:
 - Declare our permission in your "AndroidManifest.xml"
@@ -57,7 +57,7 @@ cd "scripts/debug/SyncthingReceiverTestApp/"
 ./gradlew assembleDebug
 ```
 
-- Start test app and follow the logcat while Syncthing-Fork is running and about to complete a folder sync progress.
+- Start test app and follow the logcat while Syncthing is running and about to complete a folder sync progress.
 ```
 # adb logcat v:* * | grep 'SyncStatusReceiver'
 05-12 23:59:37.143 D setRemoteCompletionInfo: Completed folder=[android_sdk_built_for_x86_64_u3dz-photos]

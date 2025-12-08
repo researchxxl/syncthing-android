@@ -10,7 +10,7 @@
 * Khám phá các thiết bị Syncthing khác trên cùng mạng và thêm chúng dễ dàng.
 * Hỗ trợ đồng bộ hóa hai chiều trên thẻ SD ngoài từ Android 11.
 
-Syncthing-Fork cho Android là một wrapper cho Syncthing cung cấp giao diện Android thay vì giao diện web được cài sẵn của Syncthing. Syncthing thay thế các dịch vụ đám mây và đồng bộ độc quyền bằng một giải pháp phi tập trung, mở và đáng tin cậy. Dữ liệu của bạn sẽ luôn là của riêng bạn và bạn hoàn toàn có quyền lựa chọn nơi lưu trữ, có chia sẻ với bên thứ ba không và cách thức truyền tải dữ liệu qua mạng.
+Syncthing cho Android là một wrapper cho Syncthing cung cấp giao diện Android thay vì giao diện web được cài sẵn của Syncthing. Syncthing thay thế các dịch vụ đám mây và đồng bộ độc quyền bằng một giải pháp phi tập trung, mở và đáng tin cậy. Dữ liệu của bạn sẽ luôn là của riêng bạn và bạn hoàn toàn có quyền lựa chọn nơi lưu trữ, có chia sẻ với bên thứ ba không và cách thức truyền tải dữ liệu qua mạng.
 
 Mục tiêu của fork này:
 * Phát triển và thử các cải thiện cùng với cộng đồng.

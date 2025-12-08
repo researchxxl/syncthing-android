@@ -29,7 +29,7 @@
     <string name="ignore">拒絕</string>
     <string name="main_menu">主選單</string>
     <string name="refresh">更新</string>
-    <string name="photo_shoot_activity_title">Syncthing-Fork 相機</string>
+    <string name="photo_shoot_activity_title">Syncthing 相機</string>
     <string name="photo_shoot_intro_welcome_title">歡迎使用 Syncthing 相機</string>
     <string name="photo_shoot_intro_permission_title">所需要的權限</string>
     <string name="photo_shoot_intro_no_camera">抱歉，這台設備並無相機。</string>

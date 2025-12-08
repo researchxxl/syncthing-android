@@ -9,9 +9,9 @@
 * 发现同一网络上的其他 Syncthing 设备并轻松添加它们。
 * 自 Android 11 起支持外部 SD 卡上的双向同步。
 
-Android 版 Syncthing-Fork 是 Syncthing 的包装器，它提供 Android UI，而不是 Syncthing 的内置 Web UI。Syncthing 用开放、值得信赖和去中心化的服务取代了专有的同步和云服务。您的数据是您自己的数据，您有权选择将其存储在何处、是否与第三方共享以及如何通过互联网传输。
+Android 版 Syncthing 是 Syncthing 的包装器，它提供 Android UI，而不是 Syncthing 的内置 Web UI。Syncthing 用开放、值得信赖和去中心化的服务取代了专有的同步和云服务。您的数据是您自己的数据，您有权选择将其存储在何处、是否与第三方共享以及如何通过互联网传输。
 
-请先在论坛和/或社交媒体应用上寻求帮助，再在问题跟踪器中创建问题。请记住，Syncthing-Fork 最初只是源于个人兴趣，旨在帮助家人和朋友在 Android 设备上使用 Syncthing。尽管目前其成果已与您及整个社区共享，但它并非旨在面向目前超过十万的用户群体。谢谢
+请先在论坛和/或社交媒体应用上寻求帮助，再在问题跟踪器中创建问题。请记住，Syncthing 最初只是源于个人兴趣，旨在帮助家人和朋友在 Android 设备上使用 Syncthing。尽管目前其成果已与您及整个社区共享，但它并非旨在面向目前超过十万的用户群体。谢谢
 
 网站：https://github.com/Catfriend1/syncthing-android
 

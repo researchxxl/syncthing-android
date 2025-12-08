@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name">Syncthing-Fork</string>
+    <string name="app_name">Syncthing</string>
     <string name="app_description">Een open, betrouwbare en gedecentraliseerde applicatie voor bestandssynchronisatie.</string>
     <!-- FirstStartActivity -->
     <!-- Title for dialog displayed on first start -->
@@ -390,7 +390,7 @@
     <string name="dialog_confirm_skip_ignore_doze_permission">Voorzichtig: Als SyncthingNative wordt onderbroken en iets vreemds doet, is dat jouw schuld. Sla alleen over als je apparaat het verlenen van de toestemming niet ondersteunt. Echt overslaan?</string>
     <string name="refresh">Ververs</string>
     <string name="photo_shoot_launcher_title">Camera synchroniseren</string>
-    <string name="photo_shoot_activity_title">Syncthing-Fork Camera</string>
+    <string name="photo_shoot_activity_title">Syncthing Camera</string>
     <string name="dialog_all_files_access_not_supported">Uw apparaat ondersteunt niet de toegang tot alle bestanden</string>
     <string name="toast_ignore_doze_permission_required">Deze app werkt alleen betrouwbaar als hij is vrijgesteld van de spaarstand “doze”.</string>
     <string name="location_permission_desc">Syncthing kan worden geconfigureerd om te werken op geselecteerde Wi-Fi-netwerken. Android vereist dat de app locatie-toestemming heeft om de naam van het actieve Wi-Fi-netwerk te lezen. Als je deze functie wilt gebruiken, druk dan op de knop hierboven. Je kunt deze stap overslaan. Zie ons privacybeleid voor meer informatie.</string>

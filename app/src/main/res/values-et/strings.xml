@@ -73,7 +73,7 @@
         <item quantity="one">%1$d fail on kopeeritud „%2$s“ kausta</item>
         <item quantity="other">%1$d faili on kopeeritud „%2$s“ kausta</item>
     </plurals>
-    <string name="app_name">Syncthing-Fork</string>
+    <string name="app_name">Syncthing</string>
     <string name="add_folder">Lisa kaust</string>
     <string name="important_news_action_open">Ava veebibrauseris</string>
     <string name="important_news_action_remind">Tuleta mulle hiljem meelde</string>

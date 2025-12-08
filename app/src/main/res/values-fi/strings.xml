@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name">Syncthing-Fork</string>
+    <string name="app_name">Syncthing</string>
     <string name="app_description">Avoin, luotettava ja hajautettu tiedostojensynkronointisovellus.</string>
     <!-- FirstStartActivity -->
     <!-- Title for dialog displayed on first start -->
@@ -45,7 +45,7 @@
     <string name="refresh">Virkistä</string>
     <!-- PhotoShootActivity -->
     <string name="photo_shoot_launcher_title">Sync. Kamera</string>
-    <string name="photo_shoot_activity_title">Syncthing-Fork Kamera</string>
+    <string name="photo_shoot_activity_title">Syncthing Kamera</string>
     <string name="photo_shoot_intro_welcome_title">Tervetuloa Syncthing Kameraan</string>
     <string name="photo_shoot_intro_permission_title">Vaaditut käyttöoikeudet</string>
     <string name="photo_shoot_intro_no_camera">Pahoittelut, tässä laitteessa ei ole kameraa.</string>
@@ -237,8 +237,8 @@
 \n- Aktivoi yhteyden välitys
 \nJätä vain \'Paikallinen etsintä\' käyttöön.</string>
     <string name="tip_custom_sync_conditions_text">Tätä ominaisuutta parannetaan vielä tulevissa sovellusversioissa. Toistaiseksi emme halunneet rikkoa olemassa olevia asetuksia ja sovelluksen käyttäytymistä. Tästä syystä räätälöidyt käyntiehdot tietylle verkkotyypille voidaan asettaa vain, jos otat ensin käyttöön verkossa synkronoinnin globaaleista käyntiehdoista.</string>
-    <string name="tip_xiaomi_autostart_text">Xiaomi MIUI estää oletuksena sovellusten käynnistymisen itsestään. Mene kotinäytöltä \'Asetukset\' &gt; \'Käyttöoikeudet\' &gt; \'Autostart\' ja kytke päälle \'Syncthing-Fork\':n valitsin.</string>
-    <string name="tip_xiaomi_battery_saver_text">Xiaomi MIUI:n virransäästöjärjestelmäsovellus poistaa jokaisen uudelleenkäynnistyksen yhteydessä sovelluksen oikeuden ohittaa akun käytön optimointi. Tämä aiheuttaa sovelluksen näkymisen alkutervehdysruudulla ja puuttuvan käyttöoikeuden kysymisen uudestaan. Ratkaisu: avaaa kotinäytöllä sovellusvalitsin &gt; paina pitkään \'Syncthing-Fork\' &gt; \'Sovellustiedot\' &gt; \'Virransäästö\' ja valitse \'Ei rajoituksia\' (MIUI 10.3.2.0+).</string>
+    <string name="tip_xiaomi_autostart_text">Xiaomi MIUI estää oletuksena sovellusten käynnistymisen itsestään. Mene kotinäytöltä \'Asetukset\' &gt; \'Käyttöoikeudet\' &gt; \'Autostart\' ja kytke päälle \'Syncthing\':n valitsin.</string>
+    <string name="tip_xiaomi_battery_saver_text">Xiaomi MIUI:n virransäästöjärjestelmäsovellus poistaa jokaisen uudelleenkäynnistyksen yhteydessä sovelluksen oikeuden ohittaa akun käytön optimointi. Tämä aiheuttaa sovelluksen näkymisen alkutervehdysruudulla ja puuttuvan käyttöoikeuden kysymisen uudestaan. Ratkaisu: avaaa kotinäytöllä sovellusvalitsin &gt; paina pitkään \'Syncthing\' &gt; \'Sovellustiedot\' &gt; \'Virransäästö\' ja valitse \'Ei rajoituksia\' (MIUI 10.3.2.0+).</string>
     <!-- WebGuiActivity -->
     <!-- Title of the web gui activity -->
     <string name="web_gui_title">Web käyttöliittymä</string>

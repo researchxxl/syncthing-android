@@ -53,7 +53,7 @@
     <string name="versions_path">Путања верзија</string>
     <string name="pull_order_type_random">Случајно</string>
     <string name="default_syncthing_camera_folder_label">Syncthing камера</string>
-    <string name="photo_shoot_activity_title">Syncthing-Fork камера</string>
+    <string name="photo_shoot_activity_title">Syncthing камера</string>
     <string name="storage_permission_desc">Syncthing треба да има приступ вашем складишту фајлова да би извршио синхронизацију фајлова.</string>
     <string name="ssl_cert_invalid_text">Вебсајт на %1$s изгледа да има неважећи сертификат за SSL енкрипцију. Наставити?</string>
     <string name="exit">Излаз</string>
@@ -105,7 +105,7 @@
     <string name="simple_file_versioning_description">Фајлови се премештају у верзије са временским жигом у директоријуму .stversions када их Syncthing замени или уклони.</string>
     <string name="external_versioning_description">Први параметар командне линије је путања фасцикле, а други параметар је релативна путања у фасцикли.</string>
     <string name="clean_out_after">Очисти после</string>
-    <string name="app_name">Syncthing-Fork</string>
+    <string name="app_name">Syncthing</string>
     <string name="introduction">Увод</string>
     <string name="back">Назад</string>
     <string name="refresh">Освежи</string>
@@ -191,7 +191,7 @@
     <string name="enable_nat_traversal">Омогући NAT пролаз</string>
     <string name="save_title">Сачувај</string>
     <string name="send_device_id_to">Пошаљите ID уређаја на</string>
-    <string name="tip_xiaomi_autostart_text">Xiaomi MIUI подразумевано не дозвољава апликацијама да се покрећу самостално. Са почетног екрана, идите на \'Подешавања\' &gt; \'Дозволе\' &gt; \'Аутоматско покретање\' и омогућите \'Syncthing-Fork\' прекидач.</string>
+    <string name="tip_xiaomi_autostart_text">Xiaomi MIUI подразумевано не дозвољава апликацијама да се покрећу самостално. Са почетног екрана, идите на \'Подешавања\' &gt; \'Дозволе\' &gt; \'Аутоматско покретање\' и омогућите \'Syncthing\' прекидач.</string>
     <string name="reason_on_mobile_data">Syncthing је омогућен да ради са мобилним подацима.</string>
     <string name="ignore_doze_permission_desc">Android може зауставити синхронизацију након неког времена. Да бисте то спречили, искључите оптимизацију батерије. Неки уређаји имају прединсталиране додатне апликације за убијање задатака. Требало би да додате Syncthing на њихову белу листу.</string>
     <string name="folder_type_receiveonly_description">Фајлови се синхронизују из кластера, али било које промене направљене локално неће бити послате другим уређајима.</string>
@@ -292,7 +292,7 @@
     <string name="pref_language_default">Подразумевани језик</string>
     <string name="crash_reporting">Анонимно пријављивање падова</string>
     <string name="tip_huawei_device_disconnected_text">Ако ваш десктоп стално пријављује ваш Huawei уређај као искључен, отворите Syncthing интерфејс на вашем десктопу. Идите на \'удаљени уређаји\', проширите унос телефона, кликните \'Уреди\', прелите на \'Напредно\'. Унесите IP адресу вашег телефона у \'Адресе\' на следећи начин: \ntcp4://%1$s, динамичан \nПотврђено ради за: Huawei P10</string>
-    <string name="tip_xiaomi_battery_saver_text">Xiaomi MIUI системска апликација за уштеду батерије одузима апликацији дозволу \'игнориши оптимизацију батерије\' при сваком поновном покретању телефона. То узрокује да апликација поново покаже екран добродошлице и затражи недостајућу обавезну дозволу. Решење: Са почетног екрана, отворите фиоку апликација &gt; Дугим притиском на \'Syncthing-Fork\' &gt; \'Информације о апликацији\' &gt; \'Уштеда батерије\' и изаберите \'Без ограничења\' (MIUI 10.3.2.0+).</string>
+    <string name="tip_xiaomi_battery_saver_text">Xiaomi MIUI системска апликација за уштеду батерије одузима апликацији дозволу \'игнориши оптимизацију батерије\' при сваком поновном покретању телефона. То узрокује да апликација поново покаже екран добродошлице и затражи недостајућу обавезну дозволу. Решење: Са почетног екрана, отворите фиоку апликација &gt; Дугим притиском на \'Syncthing\' &gt; \'Информације о апликацији\' &gt; \'Уштеда батерије\' и изаберите \'Без ограничења\' (MIUI 10.3.2.0+).</string>
     <string name="pull_order_type_random_description">Преузмите фајлове у случајном редоследу.</string>
     <string name="folder_type_receive_encrypted_description">Чува и синхронизује само шифроване податке. Фасцикле на свим повезаним уређајима морају да буду конфигурисане са истом лозинком или да исто буду типа \'Пријем шифрованих\'.</string>
     <string name="preference_app_theme_follow_dark">Тамно</string>
@@ -392,7 +392,7 @@
     <string name="expert_mode_title">Експертски режим</string>
     <string name="sync_duration_minutes_title">Дужина синхронизационог циклуса</string>
     <string name="st_reset_database_done">Успешно ресетована база података Syncthing-а</string>
-    <string name="open_issue_tracker_summary">Отворите трекер питања Syncthing-Fork на %1$s</string>
+    <string name="open_issue_tracker_summary">Отворите трекер питања Syncthing на %1$s</string>
     <string name="syncthing_api_key">Syncthing API кључ (кликните да копирате)</string>
     <string name="toast_invalid_http_proxy_address">Унос није у складу са синтаксом проксија \'http://[IP/HOSTNAME]:[PORT]\'</string>
     <string name="folder_pause">Пауза фасцикле</string>
@@ -476,7 +476,7 @@
     <string name="discovered_device_list_empty">Локално откривање није нашло ниједан уређај на локалној мрежи. Покрените ову апликацију на другом телефону. Фајлови за инсталацију за рачунаре су доступни на: %1$s</string>
     <string name="expert_mode_summary">Омогућавање ове опције ће показати напредне опције конфигурације. Требало би прво да погледате Syncthing Документацију да бисте били сигурни да знате како их исправно користити. Неправилна подешавања могу узроковати пражњење батерије, исцрпљивање системских ресурса или непотпуну синхронизацију.</string>
     <string name="st_reset_database_question">Ова акција треба да се изврши само на основу препоруке нашег тима за подршку. \nДа ли сте сигурни да желите да очистите базу података Syncthing-а?</string>
-    <string name="app_version_title">Верзија Syncthing-Fork Wrapper-а</string>
+    <string name="app_version_title">Верзија Syncthing Wrapper-а</string>
     <string name="syncthing_database_size">Величина базе података Syncthing-а</string>
     <string name="broadcast_service_control_summary">Подразумевано: Онемогућено. Омогућите ову опцију да бисте покренули и зауставили услугу слањем објаве, нпр. из апликација за аутоматизацију трећих страна. Напомена: Морате ручно поново покренути апликацију након промене ове опције.</string>
     <string name="device_id_copied_to_clipboard">ID уређаја копиран у клипборд</string>

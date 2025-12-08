@@ -9,9 +9,9 @@ Fork francisé de Syncthing-Android wrapper pour Syncthing qui amène des améli
 * Découverte d'autres appareils Syncthing sur le même réseau et possibilité d'ajout facile, comme sur les versions PC.
 * Support de la synchronisation bidirectionnelle sur carte SD externe depuis Android 11.
 
-Syncthing-Fork pour Android est une surcouche pour Syncthing qui fournit une interface Android plus adaptée que celle au standard Web intégrée nativement.. Syncthing remplace les services propriétaires de synchronisation/cloud par un système ouvert, digne de confiance et décentralisé. Vos données sont uniquement les vôtres et vous avez le contrôle intégral des quelles et de là où elles sont, d'avec qui vous les partagez et de comment elles sont transmises via l'Internet.
+Syncthing pour Android est une surcouche pour Syncthing qui fournit une interface Android plus adaptée que celle au standard Web intégrée nativement.. Syncthing remplace les services propriétaires de synchronisation/cloud par un système ouvert, digne de confiance et décentralisé. Vos données sont uniquement les vôtres et vous avez le contrôle intégral des quelles et de là où elles sont, d'avec qui vous les partagez et de comment elles sont transmises via l'Internet.
 
-Merci de rechercher de l'aide sur le forum et/ou les applis de réseaux sociaux avant de signaler un bug dans le système de suivi des versions. Notez également que Syncthing-Fork est né d'un intérêt personnel afin d'aider famille et amis à utiliser Syncthing sur Android. Il n'était initialement pas prévu pour les plus de 100 000 utilisateurs actuels, même si les bénéfices en sont partagés avec vous et la communauté des utilisateurs. Merci encore.
+Merci de rechercher de l'aide sur le forum et/ou les applis de réseaux sociaux avant de signaler un bug dans le système de suivi des versions. Notez également que Syncthing est né d'un intérêt personnel afin d'aider famille et amis à utiliser Syncthing sur Android. Il n'était initialement pas prévu pour les plus de 100 000 utilisateurs actuels, même si les bénéfices en sont partagés avec vous et la communauté des utilisateurs. Merci encore.
 
 Site web : https://github.com/Catfriend1/syncthing-android
 

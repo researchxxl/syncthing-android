@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name">Syncthing-Fork</string>
+    <string name="app_name">Syncthing</string>
     <string name="app_description">En åpen, pålitelig og desentralisert filsynkroniseringsapplikasjon.</string>
     <!-- FirstStartActivity -->
     <!-- Title for dialog displayed on first start -->
@@ -210,7 +210,7 @@
     <string name="notification_permission_title">Varslingstillatelse</string>
     <string name="generic_help">Hjelp</string>
     <string name="photo_shoot_intro_no_camera">Beklager, denne enheten har ikke kamera.</string>
-    <string name="photo_shoot_activity_title">Syncthing-Fork kamera</string>
+    <string name="photo_shoot_activity_title">Syncthing kamera</string>
     <string name="photo_shoot_intro_welcome_title">Velkommen til Syncthing kamera</string>
     <string name="photo_shoot_intro_permission_title">Nødvendige tilganger</string>
     <string name="photo_shoot_intro_missing_permissions">Vi krever tilgang til lagring og kamera for å fortsette.</string>

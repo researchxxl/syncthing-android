@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name">Syncthing-Fork</string>
+    <string name="app_name">Syncthing</string>
     <string name="app_description">Eine offene, vertrauenswürdige und dezentralisierte Anwendung zur Dateisynchronisation.</string>
     <!-- FirstStartActivity -->
     <!-- Title for dialog displayed on first start -->
@@ -45,7 +45,7 @@
     <string name="refresh">Aktualisieren</string>
     <!-- PhotoShootActivity -->
     <string name="photo_shoot_launcher_title">Sync. Kamera</string>
-    <string name="photo_shoot_activity_title">Syncthing-Fork Kamera</string>
+    <string name="photo_shoot_activity_title">Syncthing Kamera</string>
     <string name="photo_shoot_intro_welcome_title">Willkommen zur Syncthing Kamera</string>
     <string name="photo_shoot_intro_permission_title">Erforderliche Berechtigungen</string>
     <string name="photo_shoot_intro_no_camera">Entschuldigung, dieses Gerät hat keine Kamera.</string>
@@ -287,9 +287,9 @@
 \nFunktioniert sicher auf: Huawei P10</string>
     <string name="tip_phone_ip_address_syntax">TELEFON_IP_ADRESSE</string>
     <string name="tip_xiaomi_autostart_title">Xiaomi: App startet nicht beim Hochfahren</string>
-    <string name="tip_xiaomi_autostart_text">Xiaomi MIUI verbietet Apps standardmäßig, sich selbst zu starten. Vom Startbildschirm beginnend „Einstellungen“ &gt; „Rechte“ &gt; „Autostart“ wählen und den Schieberegler „Syncthing-Fork“ aktivieren.</string>
+    <string name="tip_xiaomi_autostart_text">Xiaomi MIUI verbietet Apps standardmäßig, sich selbst zu starten. Vom Startbildschirm beginnend „Einstellungen“ &gt; „Rechte“ &gt; „Autostart“ wählen und den Schieberegler „Syncthing“ aktivieren.</string>
     <string name="tip_xiaomi_battery_saver_title">Xiaomi: App zeigt wiederholt Begrüßungsbildschirm</string>
-    <string name="tip_xiaomi_battery_saver_text">Die Xiaomi MIUI System-App für Batteriesparen widerruft bei jedem Geräteneustart die Berechtigung zum „Ignorieren der Batterieoptimierung“. Dies führt dazu, dass die App den Begrüßungsbildschirm anzeigt und erneut nach der fehlenden, notwendigen Berechtigung fragt. Lösung: Auf dem Startbildschirm die App-Übersicht öffnen &gt; Lange auf „Syncthing-Fork“ &gt; „App-Informationen“ &gt; „Batteriesparen“ drücken und „Uneingeschränkt“ auswählen (MIUI 10.3.2.0+).</string>
+    <string name="tip_xiaomi_battery_saver_text">Die Xiaomi MIUI System-App für Batteriesparen widerruft bei jedem Geräteneustart die Berechtigung zum „Ignorieren der Batterieoptimierung“. Dies führt dazu, dass die App den Begrüßungsbildschirm anzeigt und erneut nach der fehlenden, notwendigen Berechtigung fragt. Lösung: Auf dem Startbildschirm die App-Übersicht öffnen &gt; Lange auf „Syncthing“ &gt; „App-Informationen“ &gt; „Batteriesparen“ drücken und „Uneingeschränkt“ auswählen (MIUI 10.3.2.0+).</string>
     <!-- RecentChangesActivity -->
     <string name="no_recent_changes">Es gibt keine kürzlichen Änderungen.</string>
     <string name="recent_changes_title">Letzte Änderungen</string>
@@ -331,7 +331,7 @@
     <string name="run_on_mobile_data_title">Bei mobiler Datenverbindung starten</string>
     <string name="run_on_mobile_data_summary">Starten, wenn das Gerät über das mobile Datennetzwerk verbunden ist. Warnung: Wenn große Datenmengen synchronisiert werden, kann dies zu einem hohen Verbrauch des verfügbaren Datenvolumens führen.</string>
     <string name="run_on_roaming_title">Beim Roaming starten</string>
-    <string name="run_on_roaming_summary">Syncthing ermöglichen, mobile Daten während dem Roaming zu verwenden. (!) Bitte ein Feedback auf GitHub hinterlassen, wenn dies korrekt funktioniert.</string>
+    <string name="run_on_roaming_summary">Syncthing gestatten, bei Roaming mobile Daten zu verwenden.</string>
     <string name="run_on_wifi_title">Bei WLAN-Verbindung starten</string>
     <string name="run_on_wifi_summary">Starten, wenn das Gerät mit einem WLAN- oder Kabelnetzwerk verbunden ist.</string>
     <string name="run_on_metered_wifi_title">Bei getakteter WLAN-Verbindung starten</string>
@@ -470,12 +470,12 @@
     <!-- Settings item that opens issue tracker -->
     <string name="report_issue_title">Fehler melden</string>
     <!-- Summary for the issue tracker settings item -->
-    <string name="open_issue_tracker_summary">Syncthing-Fork-Fehlersammlung bei %1$s öffnen</string>
+    <string name="open_issue_tracker_summary">Syncthing-Fehlersammlung bei %1$s öffnen</string>
     <!-- Menu item to donate -->
     <!-- Title of the preference showing upstream version name -->
     <string name="syncthing_version_title">Syncthing-Version</string>
     <!-- Title of the preference showing this app's version name -->
-    <string name="app_version_title">Syncthing-Fork-Wrapper-Version</string>
+    <string name="app_version_title">Syncthing-Wrapper-Version</string>
     <!-- Title of the preference showing the REST API key -->
     <string name="syncthing_api_key">Syncthing API-Schlüssel (Klicken zum Kopieren)</string>
     <!-- Shown when the API key is copied to the clipboard -->

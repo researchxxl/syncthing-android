@@ -10,7 +10,7 @@ Detta är en förgrening av Syncthing-Android-omslaget för Syncthing som ger st
 * Upptäck andra Syncthing-enheter på samma nätverk och lägg enkelt till dem.
 * Stöder tvåvägssynkronisering på externt SD-kort sedan Android 11.
 
-Syncthing-Fork för Android är ett omslag för Syncthing som tillhandahåller ett Android-gränssnitt istället för Syncthings inbyggda webbgränssnitt. Syncthing ersätter egenutvecklade synkroniserings- och molntjänster med något öppet, pålitligt och decentraliserat. Din data är ensam din data och du förtjänar att välja var den lagras, om den delas med någon tredje part och hur den överförs över Internet.
+Syncthing för Android är ett omslag för Syncthing som tillhandahåller ett Android-gränssnitt istället för Syncthings inbyggda webbgränssnitt. Syncthing ersätter egenutvecklade synkroniserings- och molntjänster med något öppet, pålitligt och decentraliserat. Din data är ensam din data och du förtjänar att välja var den lagras, om den delas med någon tredje part och hur den överförs över Internet.
 
 Mål med förgreningen:
 * Utveckla och prova förbättringar tillsammans med gemenskapen.

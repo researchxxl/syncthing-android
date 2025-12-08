@@ -1,4 +1,4 @@
-nVidia Shield TV's Android OS seem to lack the "regular" battery optimization consent and settings dialogs as they are known from mobile phones and tablets. Because of the missing functionality, you can't setup Syncthing-Fork on those TV's without making some steps to prepare the installation of the Syncthing-Fork app first.
+nVidia Shield TV's Android OS seem to lack the "regular" battery optimization consent and settings dialogs as they are known from mobile phones and tablets. Because of the missing functionality, you can't setup Syncthing on those TV's without making some steps to prepare the installation of the Syncthing app first.
 
 The following instructions to solve the problem by preparing the Android TV for running the app have been contributed by @o-l-a-v :
 
@@ -20,7 +20,7 @@ The following instructions to solve the problem by preparing the Android TV for 
 ```
     adb devices
 ```
-* To whitelist Syncthing-Fork from doze / Android Battery Optimization, type the following
+* To whitelist Syncthing from doze / Android Battery Optimization, type the following
 ```
     adb shell dumpsys deviceidle whitelist +${applicationId}
 ```

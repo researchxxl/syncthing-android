@@ -1,4 +1,4 @@
-## Welcome to the Syncthing-Fork for Android wiki!
+## Welcome to the Syncthing for Android wiki!
 
 If you are a new user, we suggest you read [Syncthing's getting started guide](https://docs.syncthing.net/intro/getting-started.html#getting-started).
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name">Syncthing-Fork</string>
+    <string name="app_name">Syncthing</string>
     <string name="app_description">개방적이고 신뢰할 수 있는 분산형 파일 동기화 응용프로그램.</string>
     <!-- FirstStartActivity -->
     <!-- Title for dialog displayed on first start -->
@@ -318,7 +318,7 @@
     <string name="photo_shoot_launcher_title">카메라 동기화</string>
     <string name="toast_notification_permission_required">Syncthing이 활성화되고 연결된 상태를 유지하려면 알림 권한이 필요합니다.</string>
     <string name="refresh">새로고침</string>
-    <string name="photo_shoot_activity_title">Syncthing-Fork 카메라</string>
+    <string name="photo_shoot_activity_title">Syncthing 카메라</string>
     <string name="photo_shoot_intro_welcome_title">Syncthing 카메라에 오신것을 환영합니다</string>
     <string name="photo_shoot_intro_permission_title">요구되는 권한</string>
     <string name="photo_shoot_intro_no_camera">죄송합니다, 이 기기에는 카메라가 없습니다.</string>
@@ -410,7 +410,7 @@
     <string name="tip_xiaomi_autostart_title">Xiaomi: 부팅 시 앱이 시작되지 않음</string>
     <string name="web_page_loading">웹페이지 로딩중:
 \n%1$s …</string>
-    <string name="tip_xiaomi_autostart_text">Xiaomi MIUI는 기본적으로 앱이 자동으로 시작되는 것을 허용하지 않습니다. 홈 화면에서 \'설정\' &gt; \'권한\' &gt; \'자동 시작\'으로 이동하여 \'Syncthing-Fork\' 슬라이더를 활성화하세요.</string>
+    <string name="tip_xiaomi_autostart_text">Xiaomi MIUI는 기본적으로 앱이 자동으로 시작되는 것을 허용하지 않습니다. 홈 화면에서 \'설정\' &gt; \'권한\' &gt; \'자동 시작\'으로 이동하여 \'Syncthing\' 슬라이더를 활성화하세요.</string>
     <string name="open_in_browser">브라우저에서 열기</string>
     <string name="category_user_interface">사용자 인터페이스</string>
     <string name="preference_app_theme_title">테마</string>
@@ -447,7 +447,7 @@
     <string name="ssl_cert_invalid_text">%1$s의 웹사이트에 SSL 암호화를 위한 유효하지 않은 인증서가 있는 것 같습니다. 계속하시겠습니까?</string>
     <string name="run_on_roaming_title">로밍 중에 실행</string>
     <string name="devices_list_empty">설정된 기기가 없습니다. 새 기기를 추가하려면 탭하세요.</string>
-    <string name="tip_xiaomi_battery_saver_text">Xiaomi MIUI의 배터리 절약 시스템 앱은 기기가 재부팅될 때 앱의 \'배터리 최적화 무시\' 권한을 취소합니다. 이로 인해 앱이 초기 화면을 표시하고 누락된 필수 권한을 다시 요청하게 됩니다. 해결 방법: 홈 화면에서 앱 서랍을 엽니다 &gt; \'Syncthing-Fork\'를 길게 누릅니다 &gt; \'앱 정보\' &gt; \'배터리 절약\'을 선택하고 \'제한 없음\'을 선택합니다 (MIUI 10.3.2.0+).</string>
+    <string name="tip_xiaomi_battery_saver_text">Xiaomi MIUI의 배터리 절약 시스템 앱은 기기가 재부팅될 때 앱의 \'배터리 최적화 무시\' 권한을 취소합니다. 이로 인해 앱이 초기 화면을 표시하고 누락된 필수 권한을 다시 요청하게 됩니다. 해결 방법: 홈 화면에서 앱 서랍을 엽니다 &gt; \'Syncthing\'를 길게 누릅니다 &gt; \'앱 정보\' &gt; \'배터리 절약\'을 선택하고 \'제한 없음\'을 선택합니다 (MIUI 10.3.2.0+).</string>
     <string name="use_tor_summary">개인 정보 보호를 위해 모든 트래픽을 Tor를 통하도록 강제합니다. Orbot이 필요합니다. 프록시 옵션을 비활성화합니다.</string>
     <string name="toast_invalid_socks_proxy_address">입력이 프록시 문법 \'socks5://[IP/호스트이름]:[포트]\'를 위반합니다</string>
     <string name="broadcast_service_control_summary">기본값: 비활성화. 이 옵션을 활성화하면 방송을 보내는 것으로 서비스(예시 : 서드파티 자동화 앱)를 시작하고 중지할 수 있습니다 참고: 이 옵션을 변경한 후에는 앱을 수동으로 다시 시작해야 합니다.</string>
@@ -514,8 +514,8 @@
     <string name="sync_duration_minutes_summary">%1$s 분</string>
     <string name="behaviour_autostart_title">자동 시작</string>
     <string name="expert_mode_title">전문가 모드</string>
-    <string name="open_issue_tracker_summary">%1$s에서 Syncthing-Fork 이슈 트래커를 엽니다</string>
-    <string name="app_version_title">Syncthing-Fork 래퍼 버전</string>
+    <string name="open_issue_tracker_summary">%1$s에서 Syncthing 이슈 트래커를 엽니다</string>
+    <string name="app_version_title">Syncthing 래퍼 버전</string>
     <string name="syncthing_api_key">Syncthing API 키 (클릭하여 복사)</string>
     <string name="api_key_copied_to_clipboard">Syncthing API 키가 클립보드에 복사되었습니다</string>
     <string name="syncthing_database_size">Syncthing 데이터베이스 크기</string>

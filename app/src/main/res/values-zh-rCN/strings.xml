@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name">Syncthing-Fork</string>
+    <string name="app_name">Syncthing</string>
     <string name="app_description">开放且值得信赖的去中心化文件同步应用程序。</string>
     <!-- FirstStartActivity -->
     <!-- Title for dialog displayed on first start -->
@@ -45,7 +45,7 @@
     <string name="refresh">刷新</string>
     <!-- PhotoShootActivity -->
     <string name="photo_shoot_launcher_title">同步相机</string>
-    <string name="photo_shoot_activity_title">Syncthing-Fork 相机</string>
+    <string name="photo_shoot_activity_title">Syncthing 相机</string>
     <string name="photo_shoot_intro_welcome_title">欢迎使用 Syncthing 相机</string>
     <string name="photo_shoot_intro_permission_title">必需的权限</string>
     <string name="photo_shoot_intro_no_camera">抱歉，此设备没有相机。</string>
@@ -288,9 +288,9 @@
 \n确认工作：华为 P10</string>
     <string name="tip_phone_ip_address_syntax">PHONE_IP_ADDRESS</string>
     <string name="tip_xiaomi_autostart_title">小米：开机时应用无法启动</string>
-    <string name="tip_xiaomi_autostart_text">默认情况下，小米 MIUI 不允许应用自启动。请在主屏幕中，请到“设置 &gt; 权限 &gt; 应用自启动”并开启“Syncthing-Fork”滑块。</string>
+    <string name="tip_xiaomi_autostart_text">默认情况下，小米 MIUI 不允许应用自启动。请在主屏幕中，请到“设置 &gt; 权限 &gt; 应用自启动”并开启“Syncthing”滑块。</string>
     <string name="tip_xiaomi_battery_saver_title">小米：应用反复显示欢迎屏幕</string>
-    <string name="tip_xiaomi_battery_saver_text">小米 MIUI 的电池保护系统应用会在每次重启手机时撤销该应用的“忽略电池优化”权限。这将导致应用程序显示欢迎界面，并再次请求丢失的必需权限。解决方案：从主屏幕打开应用抽屉 &gt; 长按“Syncthing-Fork”&gt; “应用信息”&gt;“电池保护”，选择“无限制”（MIUI 10.3.2.0+）。</string>
+    <string name="tip_xiaomi_battery_saver_text">小米 MIUI 的电池保护系统应用会在每次重启手机时撤销该应用的“忽略电池优化”权限。这将导致应用程序显示欢迎界面，并再次请求丢失的必需权限。解决方案：从主屏幕打开应用抽屉 &gt; 长按“Syncthing”&gt; “应用信息”&gt;“电池保护”，选择“无限制”（MIUI 10.3.2.0+）。</string>
     <!-- RecentChangesActivity -->
     <string name="no_recent_changes">没有最近的更改。</string>
     <string name="recent_changes_title">最近的更改</string>
@@ -332,7 +332,7 @@
     <string name="run_on_mobile_data_title">用移动数据运行</string>
     <string name="run_on_mobile_data_summary">当设备通过移动数据网络连接时运行。警告：如果要同步大量数据，这可能会消耗移动运营商数据套餐里的很多流量。</string>
     <string name="run_on_roaming_title">漫游时运行</string>
-    <string name="run_on_roaming_summary">允许 Syncthing 漫游时使用移动数据。(!) 请向 GitHub 反馈此功能是否正常工作。</string>
+    <string name="run_on_roaming_summary">允许 Syncthing 漫游时使用移动数据。</string>
     <string name="run_on_wifi_title">用 Wi-Fi 运行</string>
     <string name="run_on_wifi_summary">当设备连接到 Wi-Fi 或以太网时运行。</string>
     <string name="run_on_metered_wifi_title">用计量 Wi-Fi 运行</string>
@@ -471,12 +471,12 @@
     <!-- Settings item that opens issue tracker -->
     <string name="report_issue_title">报告问题</string>
     <!-- Summary for the issue tracker settings item -->
-    <string name="open_issue_tracker_summary">打开位于 %1$s 的 Syncthing-Fork 问题跟踪页</string>
+    <string name="open_issue_tracker_summary">打开位于 %1$s 的 Syncthing 问题跟踪页</string>
     <!-- Menu item to donate -->
     <!-- Title of the preference showing upstream version name -->
     <string name="syncthing_version_title">Syncthing 版本</string>
     <!-- Title of the preference showing this app's version name -->
-    <string name="app_version_title">Syncthing-Fork 包装器版本</string>
+    <string name="app_version_title">Syncthing 包装器版本</string>
     <!-- Title of the preference showing the REST API key -->
     <string name="syncthing_api_key">Syncthing API 密钥（单击复制）</string>
     <!-- Shown when the API key is copied to the clipboard -->

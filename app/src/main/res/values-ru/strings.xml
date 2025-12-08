@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name">Syncthing-Fork</string>
+    <string name="app_name">Syncthing</string>
     <string name="app_description">Открытое, надёжное и децентрализованное приложение для синхронизации файлов.</string>
     <!-- FirstStartActivity -->
     <!-- Title for dialog displayed on first start -->
@@ -46,7 +46,7 @@ Android требует разрешение доступа к геолокаци
     <string name="refresh">Обновить</string>
     <!-- PhotoShootActivity -->
     <string name="photo_shoot_launcher_title">Sync. Камера</string>
-    <string name="photo_shoot_activity_title">Syncthing-Fork Камера</string>
+    <string name="photo_shoot_activity_title">Syncthing Камера</string>
     <string name="photo_shoot_intro_welcome_title">Добро пожаловать в Syncthing Камера</string>
     <string name="photo_shoot_intro_permission_title">Необходимые разрешения</string>
     <string name="photo_shoot_intro_no_camera">Извините, у этого устройства нет камеры.</string>
@@ -552,7 +552,7 @@ Android требует разрешение доступа к геолокаци
 \nОставьте \'Локальное обнаружение\' включённым.</string>
     <string name="tip_custom_sync_conditions_text">Эта функция будет улучшена в будущих релизах. Пока же мы не хотели ломать существующие конфигурации и поведение приложения. Поэтому пользовательские условия синхронизации для определенного типа сети можно установить только в том случае, если вы сначала включите синхронизацию по сети в глобальных условиях запуска.</string>
     <string name="tip_xiaomi_autostart_title">Xiaomi: приложение не запускается при загрузке</string>
-    <string name="tip_xiaomi_autostart_text">Xiaomi MIUI по умолчанию запрещает приложениям запускаться самостоятельно. На главном экране перейдите в \'Настройки\' &gt; \'Разрешения\' &gt; \'Автозапуск\' и включите ползунок \'Syncthing-Fork\'.</string>
+    <string name="tip_xiaomi_autostart_text">Xiaomi MIUI по умолчанию запрещает приложениям запускаться самостоятельно. На главном экране перейдите в \'Настройки\' &gt; \'Разрешения\' &gt; \'Автозапуск\' и включите ползунок \'Syncthing\'.</string>
     <string name="tip_xiaomi_battery_saver_title">Xiaomi: приложение постоянно показывает экран приветствия</string>
     <string name="no_recent_changes">Нет недавних изменений.</string>
     <string name="ssl_cert_invalid_text">Похоже, сайт %1$s, имеет недействительный сертификат шифрования SSL. Продолжить?</string>
@@ -639,7 +639,7 @@ Android требует разрешение доступа к геолокаци
 \nПодтверждено, что работает на: Huawei P10</string>
     <string name="run_on_metered_wifi_summary">Работать, когда устройство подключено к тарифицированной Wi-Fi сети, например, к точке доступа или при раздаче Wi-Fi с телефона. Внимание: При синхронизации большого количества данных может быть израсходована значительная часть тарифного плана.</string>
     <string name="run_in_flight_mode_summary">Если включить этот параметр, Syncthing будет работать даже при отключении от сети. Включите, если у вашего устройства есть проблемы с обнаружением ручных Wi-Fi подключений в режиме полёта.</string>
-    <string name="tip_xiaomi_battery_saver_text">Системное приложение Xiaomi MIUI для экономии заряда батареи отзывает разрешение \'игнорировать оптимизацию батареи\' при каждой перезагрузке телефона. Это приводит к тому, что приложение показывает экран приветствия и снова запрашивает недостающее обязательное разрешение. Решение: На главном экране откройте меню приложений &gt; долгое нажатие на \'Syncthing-Fork\' &gt; \'Информация о приложении\' &gt; \'Экономия заряда батареи\' и выберите \'Без ограничений\' (MIUI 10.3.2.0+).</string>
+    <string name="tip_xiaomi_battery_saver_text">Системное приложение Xiaomi MIUI для экономии заряда батареи отзывает разрешение \'игнорировать оптимизацию батареи\' при каждой перезагрузке телефона. Это приводит к тому, что приложение показывает экран приветствия и снова запрашивает недостающее обязательное разрешение. Решение: На главном экране откройте меню приложений &gt; долгое нажатие на \'Syncthing\' &gt; \'Информация о приложении\' &gt; \'Экономия заряда батареи\' и выберите \'Без ограничений\' (MIUI 10.3.2.0+).</string>
     <string name="run_on_time_schedule_summary">При включении этого параметра Syncthing попробует синхронизироваться в течение заданного времени, если выполнены условия работы и со времени последней синхронизации прошло заданное количество времени. Это может значительно сэкономить заряд батареи, но требует, чтобы партнеры по синхронизации находились в сети. Обратите внимание: при этом могут остаться неполные временные файлы до следующей синхронизации по расписанию.</string>
     <string name="behaviour_autostart_summary">Запускать приложение автоматически при загрузке операционной системы.</string>
     <string name="expert_mode_summary">При включении этой опции будут показаны расширенные параметры конфигурации. Сначала вам следует ознакомиться с документацией по Syncthing, чтобы убедиться, что вы знаете, как правильно их использовать. Неправильные настройки могут привести к разрядке батареи, истощению системных ресурсов или неполной синхронизации.</string>
@@ -654,7 +654,7 @@ Android требует разрешение доступа к геолокаци
     <string name="reason_mobile_data_disallowed">Syncthing не настроен на работу от мобильной сети.</string>
     <string name="reason_on_roaming_nonroaming_mobile_data">Syncthing разрешено работать от мобильной сети с в роуминге и без него.</string>
     <string name="current_path">Текущий путь: %1$s</string>
-    <string name="app_version_title">Версия Syncthing-Fork</string>
+    <string name="app_version_title">Версия Syncthing</string>
     <string name="state_failed_items">Не удалось (%1$d)</string>
     <string name="reason_not_while_power_saving">Syncthing не запущен, потому что устройство в режиме энергосбережения.</string>
     <string name="broadcast_service_control_title">Управление командами вещания</string>
@@ -709,7 +709,7 @@ Android требует разрешение доступа к геолокаци
     <string name="notification_out_of_disk_space">SD-карта заполнена. Файл %1$s</string>
     <string name="file_versioning_generic_description">Syncthing поддерживает архивацию прежних версий файлов, когда они удаляются или заменяются новыми версиями из кластера. Ознакомьтесь с доступными стратегиями управления версиями файлов. Настройка выполняется на каждом устройстве и с точностью до отдельных папок. Текущая стратегия:</string>
     <string name="run_on_whitelisted_wifi_summary">Чтобы ограничить синхронизацию до конкретных сетей Wi-Fi, настройте разрешающий список.</string>
-    <string name="open_issue_tracker_summary">Открыть трекер задач Syncthing-Fork в %1$s</string>
+    <string name="open_issue_tracker_summary">Открыть трекер задач Syncthing в %1$s</string>
     <string name="config_read_failed">Не удаётся прочесть конфигурацию. Можете попробовать сделать резервную копию данных и очистить данные приложения в настройках Android, затем запустить его снова.</string>
     <string name="start_into_web_gui_title">Открывать веб-интерфейс при запуске</string>
     <string name="start_into_web_gui_summary">При заходе в приложение, сразу же открывать веб-интерфейс</string>

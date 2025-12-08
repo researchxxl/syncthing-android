@@ -9,7 +9,7 @@ Esto es un fork del wrapper Syncthing-Android para Syncthing que trae mejoras co
 * Descubrir y añadir fácilmente otros dispositivos Syncthing en la misma red.
 * Soporte para la sincronización bidireccional con tarjeta SD externa desde Android 11.
 
-Syncthing-Fork para Android es un wrapper para Syncthing que provee una interfaz de Android en lugar de la interfaz web integrada de Syncthing. Syncthing reemplaza la sincronización propietaria y servicios de nube con una aplicación de código abierto, confiable y descentralizada. Tus datos son tuyos y mereces elegir dónde se almacenan, si se comparten con terceros y cómo son transmitidos por Internet.
+Syncthing para Android es un wrapper para Syncthing que provee una interfaz de Android en lugar de la interfaz web integrada de Syncthing. Syncthing reemplaza la sincronización propietaria y servicios de nube con una aplicación de código abierto, confiable y descentralizada. Tus datos son tuyos y mereces elegir dónde se almacenan, si se comparten con terceros y cómo son transmitidos por Internet.
 
 Por favor, busca ayuda en el foro y/o en las redes sociales antes de crear incidencias. Ten en cuenta que Syncthing‑Fork nació por interés personal para ayudar a familiares y amigos a usar Syncthing en Android. No fue diseñado para los más de 100.000 usuarios actuales, aunque compartimos los resultados contigo y la comunidad. Gracias.
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name">Syncthing-Fork</string>
+    <string name="app_name">Syncthing</string>
     <string name="app_description">O aplicație de sincronizare de fișiere în mod deschis, de încredere și descentralizat.</string>
     <!-- FirstStartActivity -->
     <!-- Title for dialog displayed on first start -->
@@ -43,7 +43,7 @@
     <string name="refresh">Reîmprospătare</string>
     <!-- PhotoShootActivity -->
     <string name="photo_shoot_launcher_title">Sync. Camera</string>
-    <string name="photo_shoot_activity_title">Syncthing-Fork Camera</string>
+    <string name="photo_shoot_activity_title">Syncthing Camera</string>
     <string name="photo_shoot_intro_welcome_title">Bine ai venit la Syncthing Camera</string>
     <string name="photo_shoot_intro_permission_title">Permisiuni necesare</string>
     <string name="photo_shoot_intro_no_camera">Ne pare rău, acest dispozitiv nu are o cameră foto.</string>
@@ -276,9 +276,9 @@
     <string name="tip_huawei_device_disconnected_title">Soluție pentru Huawei: „dispozitiv deconectat”</string>
     <string name="tip_huawei_device_disconnected_text">Dacă desktop-ul raportează constant că dispozitivul Huawei este deconectat, deschide Syncthing de pe desktop. Accesează „dispozitive de la distanță”, extinde intrarea telefonului, fă clic pe „Editare”, treci la „Avansat”. Introdu adresa IP a telefonului în „Adrese” ca aceasta: \ntcp4://%1$s, dinamic \nA fost confirmată funcționarea pentru: Huawei P10</string>
     <string name="tip_xiaomi_autostart_title">Xiaomi: aplicația nu rulează la pornire</string>
-    <string name="tip_xiaomi_autostart_text">MIUI de la Xiaomi nu permite aplicațiilor să pornească singure în mod implicit. Din ecranul de pornire, accesează „Setări” &gt; \"Aplicații\" &gt; „Permisiuni” &gt; „Pornire automată” și activează glisorul „Syncthing-Fork”.</string>
+    <string name="tip_xiaomi_autostart_text">MIUI de la Xiaomi nu permite aplicațiilor să pornească singure în mod implicit. Din ecranul de pornire, accesează „Setări” &gt; \"Aplicații\" &gt; „Permisiuni” &gt; „Pornire automată” și activează glisorul „Syncthing”.</string>
     <string name="tip_xiaomi_battery_saver_title">Xiaomi: aplicația arată în mod repetat ecranul de bun venit</string>
-    <string name="tip_xiaomi_battery_saver_text">Aplicația de sistem pentru economisirea bateriei instalată în MIUI de la Xiaomi revocă permisiunea aplicației „ignoră optimizarea bateriei” la fiecare repornire a telefonului. Acest lucru face ca aplicația să afișeze ecranul de bun venit și să solicite din nou permisiunea obligatorie care lipsește. Soluție: din ecranul de pornire, deschideți sertarul aplicațiilor &gt; apăsați lung „Syncthing-Fork” &gt; „Informații aplicație” &gt; „Economisire baterie” și selectați „Nicio restricție” (MIUI 10.3.2.0+).</string>
+    <string name="tip_xiaomi_battery_saver_text">Aplicația de sistem pentru economisirea bateriei instalată în MIUI de la Xiaomi revocă permisiunea aplicației „ignoră optimizarea bateriei” la fiecare repornire a telefonului. Acest lucru face ca aplicația să afișeze ecranul de bun venit și să solicite din nou permisiunea obligatorie care lipsește. Soluție: din ecranul de pornire, deschideți sertarul aplicațiilor &gt; apăsați lung „Syncthing” &gt; „Informații aplicație” &gt; „Economisire baterie” și selectați „Nicio restricție” (MIUI 10.3.2.0+).</string>
     <!-- RecentChangesActivity -->
     <string name="no_recent_changes">Nu există modificări recente.</string>
     <string name="recent_changes_title">Modificări recente</string>
@@ -747,7 +747,7 @@
     <string name="dialog_confirm_skip_ignore_doze_permission">Atenție: Dacă SyncthingNative este întrerupt și face ceva ciudat, ești de vină. Omite doar în cazul în care dispozitivul nu acceptă acordarea permisiunii. Chiar omiți?</string>
     <string name="toast_notification_permission_required">Syncthing necesită permisiunea de notificare pentru a-și menține serviciul pornit și conectat.</string>
     <string name="download_support_bundle_in_progress">Pregătirea descărcării pachetului de asistență…</string>
-    <string name="app_version_title">Versiunea Syncthing-Fork Wrapper</string>
+    <string name="app_version_title">Versiunea Syncthing Wrapper</string>
     <string name="sleep_interval_minutes_title">Durata intervalului de pauză de sincronizare</string>
     <string name="pizza_url_summary">Cu o singură atingere, poți lăsa o felie caldă de bunătate - completată cu vibrații suplimentare bune pentru a susține pisicile care se curăță fericit.</string>
     <string name="share_log_file_missing">Fișierul jurnal pentru partajare lipsește.</string>

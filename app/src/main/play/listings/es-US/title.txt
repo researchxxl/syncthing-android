@@ -1,1 +1,1 @@
-Syncthing-Fork
+Syncthing

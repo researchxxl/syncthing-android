@@ -1,7 +1,7 @@
-HMD Global phones have been reported to kill apps with a manufacturer-specific implementation called "DuraSpeed". DuraSpeed is built-into the OS and normally cannot be disabled by the user. This causes Syncthing-Fork to silently cease syncing when DuraSpeed kills the app.
+HMD Global phones have been reported to kill apps with a manufacturer-specific implementation called "DuraSpeed". DuraSpeed is built-into the OS and normally cannot be disabled by the user. This causes Syncthing to silently cease syncing when DuraSpeed kills the app.
 
 To work around this, connect your phone to a computer running ADB.
-If you like to allow Syncthing-Fork to attempt to disable DuraSpeed system-wide when your phone boots, issue the following commands:
+If you like to allow Syncthing to attempt to disable DuraSpeed system-wide when your phone boots, issue the following commands:
 
 ${applicationId} = com.github.catfriend1.syncthingandroid
 
@@ -9,7 +9,7 @@ ${applicationId} = com.github.catfriend1.syncthingandroid
 adb shell pm grant ${applicationId} android.permission.WRITE_SECURE_SETTINGS
 ```
 
-If you're unhappy with Syncthing-Fork turning of DuraSpeed and you want to revert the change, issue the following commands:
+If you're unhappy with Syncthing turning of DuraSpeed and you want to revert the change, issue the following commands:
 
 ```
 adb shell pm revoke ${applicationId} android.permission.WRITE_SECURE_SETTINGS

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name">Syncthing-Fork</string>
+    <string name="app_name">Syncthing</string>
     <string name="app_description">Um aplicativo aberto, confiável e descentralizado para sincronização de arquivos.</string>
     <!-- FirstStartActivity -->
     <!-- Title for dialog displayed on first start -->
@@ -43,7 +43,7 @@
     <string name="refresh">Recarregar</string>
     <!-- PhotoShootActivity -->
     <string name="photo_shoot_launcher_title">Câmera do Sync.</string>
-    <string name="photo_shoot_activity_title">Câmera do Syncthing-Fork</string>
+    <string name="photo_shoot_activity_title">Câmera do Syncthing</string>
     <string name="photo_shoot_intro_welcome_title">Boas-vindas à Câmera do Syncthing</string>
     <string name="photo_shoot_intro_permission_title">Permissões necessárias</string>
     <string name="photo_shoot_intro_no_camera">Desculpe, este dispositivo não tem uma câmera.</string>
@@ -250,7 +250,7 @@
     <string name="tip_custom_sync_conditions_text">Este recurso será melhorada em versões futuras. Por enquanto, nós não queríamos quebrar configurações existentes e o comportamento do app. É por isso que condições de sincronização personalizadas para um certo tipo de rede só podem ser definidas se você ativar primeiro a sincronização na rede nas condições de execução global.</string>
     <string name="tip_ignore_delete_title">Fazer backup das fotos do celular no computador?</string>
     <string name="tip_xiaomi_autostart_title">Xiaomi: o app não inicia com o dispositivo</string>
-    <string name="tip_xiaomi_battery_saver_text">O aplicativo do sistema de economia de bateria da Xiaomi MIUI revoga a permissão \'ignorar otimização da bateria\' do aplicativo em cada reinicialização do telefone. Isto faz com que o aplicativo mostre a tela de boas-vindas e peça novamente a permissão obrigatória ausente. Solução: na tela inicial, abra a gaveta de aplicativos&gt; Pressione e segure \'Syncthing-Fork\' &gt; \'Informações do aplicativo\' &gt; \'Economia de bateria\' e selecione \'Sem restrições\' (MIUI 10.3.2.0+).</string>
+    <string name="tip_xiaomi_battery_saver_text">O aplicativo do sistema de economia de bateria da Xiaomi MIUI revoga a permissão \'ignorar otimização da bateria\' do aplicativo em cada reinicialização do telefone. Isto faz com que o aplicativo mostre a tela de boas-vindas e peça novamente a permissão obrigatória ausente. Solução: na tela inicial, abra a gaveta de aplicativos&gt; Pressione e segure \'Syncthing\' &gt; \'Informações do aplicativo\' &gt; \'Economia de bateria\' e selecione \'Sem restrições\' (MIUI 10.3.2.0+).</string>
     <!-- RecentChangesActivity -->
     <string name="no_recent_changes">Não há alterações recentes.</string>
     <string name="recent_changes_title">Alterações recentes</string>
@@ -384,7 +384,7 @@
     <!-- Settings item that opens issue tracker -->
     <string name="report_issue_title">Reportar problema</string>
     <!-- Summary for the issue tracker settings item -->
-    <string name="open_issue_tracker_summary">Abra o rastreador de problemas do Syncthing-Fork em %1$s</string>
+    <string name="open_issue_tracker_summary">Abra o rastreador de problemas do Syncthing em %1$s</string>
     <!-- Menu item to donate -->
     <!-- Title of the preference showing upstream version name -->
     <string name="syncthing_version_title">Versão do Syncthing</string>
@@ -607,7 +607,7 @@
     <string name="sync_only_wifi_ssids_wifi_turn_on_location">Por favor, ative a localização para selecionar as redes.</string>
     <string name="respect_battery_saving_summary">Desative o Syncthing se a economia de bateria estiver ativa.</string>
     <string name="folder_run_script_caption">Executar script</string>
-    <string name="tip_xiaomi_autostart_text">A MIUI da Xiaomi não permite que aplicativos iniciem sozinhos por padrão. Na tela inicial, acesse \"Configurações\" &gt; \"Permissões\" &gt; \"Inicialização Automática\" e ative o controle deslizante \"Syncthing-Fork\".</string>
+    <string name="tip_xiaomi_autostart_text">A MIUI da Xiaomi não permite que aplicativos iniciem sozinhos por padrão. Na tela inicial, acesse \"Configurações\" &gt; \"Permissões\" &gt; \"Inicialização Automática\" e ative o controle deslizante \"Syncthing\".</string>
     <string name="tip_huawei_device_disconnected_title">Huawei: solução alternativa para \'dispositivo desconectado\'</string>
     <string name="device_addresses_invalid">Os endereços do dispositivo não estão formatados corretamente. Tente novamente. Consulte a documentação do Syncthing para mais informações.</string>
     <string name="install_barcode_scanner_app_message">Isto requer um aplicativo de leitura de código de barras. Gostaria de instalar o aplicativo \"Binary Eye\" do F-Droid?</string>
@@ -678,7 +678,7 @@
     <string name="pizza_url_title">» Gatos amam pizza « 😺🍕</string>
     <string name="pizza_url_summary">Com somente um toque, você pode deixar uma fatia quentinha de gentileza - coberta com extras vibes boas para manter os gatos ronronando.</string>
     <string name="privacy_summary">Abra a política de privacidade do syncthing-android, que cobre o uso (se qualquer) de dados pessoais, como a localização.</string>
-    <string name="app_version_title">Versão do pacote do Syncthing-Fork</string>
+    <string name="app_version_title">Versão do pacote do Syncthing</string>
     <string name="syncthing_database_size">Tamanho do banco de dados do Syncthing</string>
     <string name="os_open_file_limit">Limite de abrir arquivos do Android</string>
     <string name="advanced_storage_path_overview">Visão geral do caminho de armazenamento avançado</string>

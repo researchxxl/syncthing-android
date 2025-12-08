@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name">Syncthing-Fork</string>
+    <string name="app_name">Syncthing</string>
     <string name="app_description">Uma aplicação de sincronização de ficheiros aberta, fiável e descentralizada.</string>
     <!-- FirstStartActivity -->
     <!-- Title for dialog displayed on first start -->
@@ -325,7 +325,7 @@
     <string name="reason">Motivo:</string>
     <string name="main_menu">Menu principal</string>
     <string name="refresh">Atualizar</string>
-    <string name="photo_shoot_activity_title">Câmara Syncthing-Fork</string>
+    <string name="photo_shoot_activity_title">Câmara Syncthing</string>
     <string name="photo_shoot_intro_permission_title">Permissões necessárias</string>
     <string name="photo_shoot_intro_no_camera">Desculpe, este dispositivo não tem uma câmara.</string>
     <string name="grant_storage_permission">Conceder permissão de armazenamento</string>
@@ -360,7 +360,7 @@
 \nApenas deixe \'Descoberta local\' ativada.</string>
     <string name="tip_custom_sync_conditions_text">Esse recurso será melhorada em versões futuras. Por enquanto, não queríamos quebrar configurações existentes e o comportamento do app. É por isso que condições de sincronização personalizadas para um certo tipo de rede só podem ser definidas se ativar primeiro a sincronização na rede nas condições execução global.</string>
     <string name="tip_ignore_delete_title">Fazer backups das fotos do telemóvel para o computador?</string>
-    <string name="tip_xiaomi_battery_saver_text">A app do sistema de economia de pilha da Xiaomi MIUI revoga a permissão \'ignorar otimização da pilha\' da app em cada reinicialização do telefone. Isso faz com que a app mostre o ecrã de boas-vindas e peça novamente a permissão obrigatória ausente. Solução: no ecrã inicial, abra a gaveta de apps&gt; Pressione e segure \'Syncthing-Fork\' &gt; \'Informações da app\' &gt; \'Economia de pilha\' e selecione \'Sem restrições\' (MIUI 10.3.2.0+).</string>
+    <string name="tip_xiaomi_battery_saver_text">A app do sistema de economia de pilha da Xiaomi MIUI revoga a permissão \'ignorar otimização da pilha\' da app em cada reinicialização do telefone. Isso faz com que a app mostre o ecrã de boas-vindas e peça novamente a permissão obrigatória ausente. Solução: no ecrã inicial, abra a gaveta de apps&gt; Pressione e segure \'Syncthing\' &gt; \'Informações da app\' &gt; \'Economia de pilha\' e selecione \'Sem restrições\' (MIUI 10.3.2.0+).</string>
     <string name="preference_app_theme_title">Tema</string>
     <string name="preference_app_theme_follow_dark">Escuro</string>
     <string name="run_on_metered_wifi_summary">Executar quando o dispositivo estiver conectado a uma rede Wi-Fi limitado, por exemplo, um ponto de acesso ou uma rede com fio. Atenção: Isso pode consumir grande parte do seu plano de dados se sincronizar muitos dados.</string>
