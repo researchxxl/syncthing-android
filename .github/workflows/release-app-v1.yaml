@@ -130,7 +130,6 @@ jobs:
           mv "app-x86_64-release.apk" "${{ env.APPLICATION_ID }}_release_v${{ env.VERSION }}_x86_64.apk"
 
       - uses: ncipollo/release-action@v1
-        if: false
         with:
           tag: ${{ github.event.inputs.tag }}
           artifacts: "app/build/outputs/apk/release/*.apk"
