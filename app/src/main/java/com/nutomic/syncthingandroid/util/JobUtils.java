@@ -16,8 +16,6 @@ public class JobUtils {
 
     private static final String TAG = "JobUtils";
 
-    private static final int TOLERATED_INACCURACY_IN_SECONDS = 120;
-
     public static void scheduleSyncTriggerServiceJob(Context context, int delayInSeconds, boolean startRun) {
         if (delayInSeconds < 0) {
             delayInSeconds = 0;
@@ -28,9 +26,6 @@ public class JobUtils {
 
         // Wait at least "delayInSeconds".
         builder.setMinimumLatency(delayInSeconds * 1000);
-
-        // Maximum tolerated delay.
-        builder.setOverrideDeadline((delayInSeconds + TOLERATED_INACCURACY_IN_SECONDS) * 1000);
 
         // Syncthing should start after the delay if startRun is true, and otherwise stop
         // The PersistableBundle is used to forward this information to the SyncTriggerJobService
@@ -45,7 +40,7 @@ public class JobUtils {
         jobScheduler.schedule(builder.build());
         Log.i(TAG, "Scheduled SyncTriggerJobService to run in " +
                 Integer.toString(delayInSeconds) +
-                "(+" + Integer.toString(TOLERATED_INACCURACY_IN_SECONDS) + ") seconds.");
+                " seconds.");
     }
 
     public static void cancelAllScheduledJobs(Context context) {
