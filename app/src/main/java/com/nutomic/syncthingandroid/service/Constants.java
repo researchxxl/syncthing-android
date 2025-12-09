@@ -194,12 +194,6 @@ public class Constants {
     public static final long GUI_UPDATE_INTERVAL = TimeUnit.SECONDS.toMillis(1);
 
     /**
-     * If the user enabled hourly one-time shot sync, the following
-     * parameters are effective.
-     */
-    public static final int WAIT_FOR_NEXT_SYNC_DELAY_SECS       = isRunningOnEmulator() ? 20 : 3600;        // "off" state duration
-
-    /**
      * File in the config folder that contains configuration.
      */
     public static final String CONFIG_FILE = "config.xml";
