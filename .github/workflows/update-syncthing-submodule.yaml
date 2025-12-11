@@ -15,7 +15,7 @@ jobs:
     name: Update Syncthing submodule
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           submodules: true
           fetch-depth: 0
@@ -67,7 +67,7 @@ jobs:
 
       - name: Create Pull Request if commit changed
         if: ${{ steps.current.outputs.commit != steps.latest.outputs.commit }}
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@98357b18bf14b5342f975ff684046ec3b2a07725 # v8.0.0
         with:
           branch: "bump-syncthing-${{ steps.latest.outputs.tag }}"
           commit-message: "Bump Syncthing submodule to ${{ steps.latest.outputs.tag }}"
