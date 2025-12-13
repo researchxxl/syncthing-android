@@ -23,6 +23,7 @@
         android:layout_marginStart="144dp"
         android:hint="@string/deviceEncryptionPasswordHint"
         android:inputType="textPassword|textNoSuggestions"
+        android:accessibilityDataSensitive="yes"
         android:importantForAutofill="no" />
 
 </LinearLayout>
