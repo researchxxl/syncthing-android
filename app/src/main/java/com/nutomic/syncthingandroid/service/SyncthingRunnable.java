@@ -408,6 +408,7 @@ public class SyncthingRunnable implements Runnable {
                 mPreferences.getStringSet(Constants.PREF_DEBUG_FACILITIES_ENABLED, new HashSet<>())));
         targetEnv.put("STMONITORED", "1");
         targetEnv.put("STNOUPGRADE", "1");
+        targetEnv.put("STVERSIONEXTRA", mContext.getString(R.string.app_name));
 
         // Database tuning against slowness.
         targetEnv.put("SQLITE_TMPDIR", mContext.getCacheDir().getAbsolutePath());
