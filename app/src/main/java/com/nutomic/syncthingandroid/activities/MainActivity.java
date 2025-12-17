@@ -1,6 +1,5 @@
 package com.nutomic.syncthingandroid.activities;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.ComponentName;
@@ -11,7 +10,6 @@ import android.net.Uri;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -25,7 +23,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -49,6 +46,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.nutomic.syncthingandroid.R;
 import com.nutomic.syncthingandroid.SyncthingApp;
+import com.nutomic.syncthingandroid.fragments.DeviceIdDialogFragment;
 import com.nutomic.syncthingandroid.fragments.DeviceListFragment;
 import com.nutomic.syncthingandroid.fragments.DrawerFragment;
 import com.nutomic.syncthingandroid.fragments.FolderListFragment;
@@ -81,9 +79,6 @@ public class MainActivity extends SyncthingActivity
     private Boolean ENABLE_VERBOSE_LOG = false;
 
     private static final String IS_SHOWING_RESTART_DIALOG = "RESTART_DIALOG_STATE";
-    private static final String IS_QRCODE_DIALOG_DISPLAYED = "QRCODE_DIALOG_STATE";
-    private static final String QRCODE_BITMAP_KEY = "QRCODE_BITMAP";
-    private static final String DEVICEID_KEY = "DEVICEID";
 
     private static final int FOLDER_FRAGMENT_ID = 0;
     private static final int DEVICE_FRAGMENT_ID = 1;
@@ -102,7 +97,6 @@ public class MainActivity extends SyncthingActivity
     private static final long USAGE_REPORTING_DIALOG_DELAY = TimeUnit.DAYS.toMillis(3);
     private static final Boolean DEBUG_FORCE_USAGE_REPORTING_DIALOG = false;
 
-    private AlertDialog mQrCodeDialog;
     private AlertDialog mUsageReportingDialog;
     private Dialog mRestartDialog;
 
@@ -264,9 +258,6 @@ public class MainActivity extends SyncthingActivity
         if (savedInstanceState != null) {
             if (savedInstanceState.getBoolean(IS_SHOWING_RESTART_DIALOG)){
                 showRestartDialog();
-            }
-            if (savedInstanceState.getBoolean(IS_QRCODE_DIALOG_DISPLAYED)) {
-                showQrCodeDialog(savedInstanceState.getString(DEVICEID_KEY), savedInstanceState.getParcelable(QRCODE_BITMAP_KEY));
             }
         }
 
@@ -449,13 +440,6 @@ public class MainActivity extends SyncthingActivity
         putFragment.accept(mStatusFragment);
 
         outState.putBoolean(IS_SHOWING_RESTART_DIALOG, mRestartDialog != null && mRestartDialog.isShowing());
-        if (mQrCodeDialog != null && mQrCodeDialog.isShowing()) {
-            outState.putBoolean(IS_QRCODE_DIALOG_DISPLAYED, true);
-            ImageView qrCode = mQrCodeDialog.findViewById(R.id.qrcode_image_view);
-            TextView deviceID = mQrCodeDialog.findViewById(R.id.device_id);
-            outState.putParcelable(QRCODE_BITMAP_KEY, ((BitmapDrawable) qrCode.getDrawable()).getBitmap());
-            outState.putString(DEVICEID_KEY, deviceID.getText().toString());
-        }
         Util.dismissDialogSafe(mRestartDialog, this);
         Util.dismissDialogSafe(mUsageReportingDialog, this);
     }
@@ -511,31 +495,20 @@ public class MainActivity extends SyncthingActivity
     }
 
     public void showQrCodeDialog(String deviceId, Bitmap qrCode) {
-        @SuppressLint("InflateParams")
-        View qrCodeDialogView = this.getLayoutInflater().inflate(R.layout.dialog_qrcode, null);
-        TextView deviceIdTextView = qrCodeDialogView.findViewById(R.id.device_id);
-        TextView shareDeviceIdTextView = qrCodeDialogView.findViewById(R.id.actionShareId);
-        ImageView qrCodeImageView = qrCodeDialogView.findViewById(R.id.qrcode_image_view);
-
-        deviceIdTextView.setText(deviceId);
-        deviceIdTextView.setOnClickListener(v -> Util.copyDeviceId(this, deviceIdTextView.getText().toString()));
-        shareDeviceIdTextView.setOnClickListener(v -> shareDeviceId(deviceId));
-        qrCodeImageView.setImageBitmap(qrCode);
-
-        mQrCodeDialog = new AlertDialog.Builder(this)
-                .setTitle(R.string.device_id)
-                .setView(qrCodeDialogView)
-                .setPositiveButton(R.string.finish, null)
-                .create();
-
-        mQrCodeDialog.show();
-    }
-
-    private void shareDeviceId(String deviceId) {
-        Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
-        shareIntent.setType("text/plain");
-        shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, deviceId);
-        startActivity(Intent.createChooser(shareIntent, getString(R.string.share_device_id_chooser)));
+        // TODO: cache and use cached local device name like device id
+        //      otherwise device name is empty when syncthing is not running
+        String deviceName = "";
+        var restApi = getService().getApi();
+        if (restApi != null) {
+            deviceName = restApi.getLocalDevice().name;
+        }
+        DeviceIdDialogFragment.Companion.show(
+                getSupportFragmentManager(),
+                deviceName.trim(),
+                deviceId,
+                qrCode,
+                true
+        );
     }
 
     @Override
