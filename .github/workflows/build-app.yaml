@@ -81,8 +81,6 @@ jobs:
           path: |
             /opt/syncthing-android-prereq/prebuilt-jnilibs
           key: ${{ runner.os }}-prebuilt-jnilibs-go${{ env.GO_VERSION }}-ndk${{ steps.get_ndk_version.outputs.ndk_version }}-${{ steps.get_syncthing_commit.outputs.syncthing_commit }}
-          restore-keys: |
-            ${{ runner.os }}-prebuilt-jnilibs-go${{ env.GO_VERSION }}-ndk${{ steps.get_ndk_version.outputs.ndk_version }}-
 
       - name: Set Gradle and Android user home environment variables
         run: |
