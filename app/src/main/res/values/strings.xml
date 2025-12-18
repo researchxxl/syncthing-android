@@ -397,6 +397,8 @@
     <!-- Content description (alt text) for device ID qr code in show device id dialog -->
     <string name="device_id_qr_code">Device ID QR Code</string>
 
+    <string name="close_device_id">Close device id</string>
+
     <string name="copy">Copy</string>
 
     <!-- Content description for device ID qr code icon -->
