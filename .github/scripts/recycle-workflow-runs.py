@@ -139,7 +139,7 @@ def main():
     repo = os.environ.get('REPO')
     
     # Hardcoded defaults - no longer dependent on workflow inputs
-    workflow_names_str = os.environ.get('WORKFLOW_NAMES', 'Build App,Copilot coding agent,Copilot Setup Steps,Dependabot Updates,Lock Threads,Recycle Runs,Release App,Release App v1,Update Go Version,Update Syncthing submodule')
+    workflow_names_str = os.environ.get('WORKFLOW_NAMES', 'Build App,Copilot coding agent,Copilot Setup Steps,Dependabot Updates,Lock Threads,Recycle Runs,Release App,Update Go Version,Update Syncthing submodule')
     days_to_keep_str = os.environ.get('DAYS_TO_KEEP', '14')
     dry_run_str = os.environ.get('DRY_RUN', 'false')
     
