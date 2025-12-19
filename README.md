@@ -20,8 +20,6 @@ Switching is easier than you may think! See our [wiki article](wiki/migration/Sw
 
 Our knowledge base is published [here](wiki#readme).
 
-Our [release history and changelog](wiki/CHANGELOG.md) can be found on the wiki.
-
 ## Building and Development Notes
 
 See [detailed info](wiki/developers/Building-and-Development.md).

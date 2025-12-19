@@ -84,6 +84,7 @@ android {
             isDebuggable = true
             isJniDebuggable = true
             isMinifyEnabled = false
+            signingConfig = null
         }
         getByName("release") {
             isMinifyEnabled = false
@@ -146,22 +147,6 @@ android {
 
 }
 
-/**
- * Some languages are not supported by Google Play, so we ignore them.
- */
-tasks.register<Delete>("deleteUnsupportedPlayTranslations") {
-    delete(
-            "src/main/play/listings/el-EL/",
-            "src/main/play/listings/en/",
-            "src/main/play/listings/eu/",
-            "src/main/play/listings/nb/",
-            "src/main/play/listings/nl_BE/",
-            "src/main/play/listings/nl-BE/",
-            "src/main/play/listings/nn/",
-            "src/main/play/listings/ta/",
-    )
-}
-
 tasks.register("validateAppVersionCode") {
     doFirst {
         val versionName = libs.versions.version.name.get()
@@ -190,11 +175,10 @@ project.afterEvaluate {
 
     val isCopilot = System.getenv("IS_COPILOT")?.toBoolean() ?: false
     if (!isCopilot) {
-        android.buildTypes.forEach {
-            val capitalizedName = it.name.replaceFirstChar { ch -> ch.uppercase() }
-            tasks.named("merge${capitalizedName}JniLibFolders") {
+        tasks
+            .matching { it.name.startsWith("merge") && it.name.endsWith("JniLibFolders") }
+            .configureEach {
                 dependsOn(":syncthing:buildNative")
             }
-        }
     }
 }
