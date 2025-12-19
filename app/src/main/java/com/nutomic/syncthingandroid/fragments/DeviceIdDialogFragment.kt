@@ -22,9 +22,7 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.ContentCopy
@@ -74,24 +72,12 @@ class DeviceIdDialogFragment : DialogFragment() {
                         DeviceIdDialog(
                             onDismiss = { dismiss() },
                             deviceName,
+                            deviceId,
+                            qrCode,
+                            onCopy = { copyDeviceId(deviceId) },
+                            onShare = { shareDeviceId(deviceId) },
                             isCurrentDevice,
-                        ) {
-                            if (isLandscape()) {
-                                LandscapeDialogContent(
-                                    deviceId,
-                                    qrCode,
-                                    onCopy = { copyDeviceId(deviceId) },
-                                    onShare = { shareDeviceId(deviceId) },
-                                )
-                            } else {
-                                PortraitDialogContent(
-                                    deviceId,
-                                    qrCode,
-                                    onCopy = { copyDeviceId(deviceId) },
-                                    onShare = { shareDeviceId(deviceId) },
-                                )
-                            }
-                        }
+                        )
                     }
                 }
             )
@@ -156,8 +142,11 @@ class DeviceIdDialogFragment : DialogFragment() {
 fun DeviceIdDialog(
     onDismiss: () -> Unit,
     deviceName: String,
-    isCurrentDevice: Boolean = false,
-    content: @Composable () -> Unit,
+    deviceId: String,
+    qrCode: Bitmap,
+    onCopy: () -> Unit,
+    onShare: () -> Unit,
+    isCurrentDevice: Boolean,
 ) {
     ApplicationTheme {
         AlertDialog(
@@ -176,7 +165,13 @@ fun DeviceIdDialog(
                     DialogTitle(deviceName, isCurrentDevice)
                 }
             },
-            text = content,
+            text = {
+                if (isLandscape()) {
+                    LandscapeDialogContent(deviceId, qrCode, onCopy, onShare)
+                } else {
+                    PortraitDialogContent(deviceId, qrCode, onCopy, onShare)
+                }
+            },
             confirmButton = {
                 if (!isLandscape()) {
                     TextButton(onClick = { onDismiss() }) {
@@ -197,7 +192,7 @@ fun isLandscape(): Boolean {
 @Composable
 fun DialogTitle(
     deviceName: String,
-    isCurrentDevice: Boolean = false,
+    isCurrentDevice: Boolean,
     modifier: Modifier = Modifier
 ) {
     val thisDeviceText = stringResource(R.string.this_device)
@@ -253,7 +248,7 @@ fun PortraitDialogContent(
     val screenHeightDp = configuration.screenHeightDp.dp
     val qrMaxHeight = minOf(screenHeightDp * 0.35f, 280.dp)
 
-    Column(Modifier.verticalScroll(rememberScrollState())) {
+    Column {
         Surface(
             shape = RoundedCornerShape(16.dp),
             color = Color.White,

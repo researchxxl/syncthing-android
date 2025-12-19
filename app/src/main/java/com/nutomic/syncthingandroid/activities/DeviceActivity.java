@@ -783,7 +783,7 @@ public class DeviceActivity extends SyncthingActivity {
     public void showQrCodeDialog(String deviceName, String deviceId, Bitmap qrCode) {
         DeviceIdDialogFragment.Companion.show(
                 getSupportFragmentManager(),
-                deviceName,
+                deviceName.trim(),
                 deviceId,
                 qrCode,
                 false
