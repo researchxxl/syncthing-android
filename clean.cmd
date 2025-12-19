@@ -1,5 +1,6 @@
 @echo off
 ::
+RD /S /Q ".idea" 2>NUL:
 RD /S /Q ".gradle" 2>NUL:
 RD /S /Q ".kotlin" 2>NUL:
 RD /S /Q "app\build" 2>NUL:
