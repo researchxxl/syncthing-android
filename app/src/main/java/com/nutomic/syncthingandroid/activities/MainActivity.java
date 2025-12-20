@@ -9,7 +9,6 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -51,15 +50,18 @@ import com.nutomic.syncthingandroid.fragments.DeviceListFragment;
 import com.nutomic.syncthingandroid.fragments.DrawerFragment;
 import com.nutomic.syncthingandroid.fragments.FolderListFragment;
 import com.nutomic.syncthingandroid.fragments.StatusFragment;
+import com.nutomic.syncthingandroid.model.Device;
 import com.nutomic.syncthingandroid.service.AppPrefs;
 import com.nutomic.syncthingandroid.service.Constants;
 import com.nutomic.syncthingandroid.service.RestApi;
 import com.nutomic.syncthingandroid.service.SyncthingService;
 import com.nutomic.syncthingandroid.service.SyncthingServiceBinder;
+import com.nutomic.syncthingandroid.util.ConfigRouter;
 import com.nutomic.syncthingandroid.util.PermissionUtil;
 import com.nutomic.syncthingandroid.util.Util;
 
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
@@ -120,7 +122,7 @@ public class MainActivity extends SyncthingActivity
     private boolean mImportantNewsRemindLaterThisSession = false;
 
     @Inject SharedPreferences mPreferences;
-
+    private ConfigRouter mConfig;
     private final Handler mUIRefreshHandler = new Handler();
 
     private OnBackPressedCallback mBackPressedCallback = new OnBackPressedCallback(true) {
@@ -215,6 +217,7 @@ public class MainActivity extends SyncthingActivity
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ((SyncthingApp) getApplication()).component().inject(this);
+        mConfig = new ConfigRouter(MainActivity.this);
         ENABLE_VERBOSE_LOG = AppPrefs.getPrefVerboseLog(mPreferences);
         if (ENABLE_VERBOSE_LOG) {
             Util.testPathEllipsis();
@@ -494,19 +497,22 @@ public class MainActivity extends SyncthingActivity
         mRestartDialog.show();
     }
 
-    public void showQrCodeDialog(String deviceId, Bitmap qrCode) {
-        // TODO: cache and use cached local device name like device id
-        //      otherwise device name is empty when syncthing is not running
+    public void showQrCodeDialog(String deviceId) {
+        RestApi restApi = getApi();
+        List<Device> devices = mConfig.getDevices(restApi, true);
         String deviceName = "";
-        var restApi = getService().getApi();
-        if (restApi != null) {
-            deviceName = restApi.getLocalDevice().name;
+
+        for (Device d : devices) {
+            if (d.deviceID.equals(deviceId)) {
+                deviceName = d.getDisplayName();
+                break;
+            }
         }
+
         DeviceIdDialogFragment.Companion.show(
                 getSupportFragmentManager(),
                 deviceName.trim(),
                 deviceId,
-                qrCode,
                 true
         );
     }

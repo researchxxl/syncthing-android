@@ -746,46 +746,10 @@ public class DeviceActivity extends SyncthingActivity {
             return;
         }
         
-        final int qrCodeSize = 232;
-        Bitmap qrCodeBitmap = null;
-        try {
-            qrCodeBitmap = generateQrCodeBitmap(mDevice.deviceID, qrCodeSize, qrCodeSize);
-        } catch (WriterException | NullPointerException ex) {
-            Log.e(TAG, "onShowDeviceIdQrClick: generateQrCodeBitmap failed", ex);
-        }
-        showQrCodeDialog(mDevice.name, mDevice.deviceID, qrCodeBitmap);
-    }
-
-    private Bitmap generateQrCodeBitmap(String text, int width, int height) throws WriterException, NullPointerException {
-        BitMatrix bitMatrix;
-        try {
-            bitMatrix = new MultiFormatWriter().encode(text, BarcodeFormat.QR_CODE,
-            width, height, null);
-        } catch (IllegalArgumentException ex) {
-            return null;
-        }
-        int bitMatrixWidth = bitMatrix.getWidth();
-        int bitMatrixHeight = bitMatrix.getHeight();
-        int[] pixels = new int[bitMatrixWidth * bitMatrixHeight];
-        int colorWhite = 0xFFFFFFFF;
-        int colorBlack = 0xFF000000;
-        for (int y = 0; y < bitMatrixHeight; y++) {
-            int offset = y * bitMatrixWidth;
-            for (int x = 0; x < bitMatrixWidth; x++) {
-                pixels[offset + x] = bitMatrix.get(x, y) ? colorBlack : colorWhite;
-            }
-        }
-        Bitmap bitmap = Bitmap.createBitmap(bitMatrixWidth, bitMatrixHeight, Bitmap.Config.ARGB_4444);
-        bitmap.setPixels(pixels, 0, width, 0, 0, bitMatrixWidth, bitMatrixHeight);
-        return bitmap;
-    }
-
-    public void showQrCodeDialog(String deviceName, String deviceId, Bitmap qrCode) {
         DeviceIdDialogFragment.Companion.show(
                 getSupportFragmentManager(),
-                deviceName.trim(),
-                deviceId,
-                qrCode,
+                mDevice.getDisplayName().trim(),
+                mDevice.deviceID,
                 false
         );
     }

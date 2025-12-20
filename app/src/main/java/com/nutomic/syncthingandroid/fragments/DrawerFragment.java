@@ -147,39 +147,8 @@ public class DrawerFragment extends Fragment implements SyncthingService.OnServi
             Toast.makeText(mActivity, R.string.could_not_access_deviceid, Toast.LENGTH_SHORT).show();
             return;
         }
-        final int qrCodeSize = 232;
-        Bitmap qrCodeBitmap = null;
-        try {
-            qrCodeBitmap = generateQrCodeBitmap(localDeviceID, qrCodeSize, qrCodeSize);
-        } catch (WriterException | NullPointerException ex) {
-            Log.e(TAG, "showQrCode: generateQrCodeBitmap failed", ex);
-        }
-        mActivity.showQrCodeDialog(localDeviceID, qrCodeBitmap);
+        mActivity.showQrCodeDialog(localDeviceID);
         mActivity.closeDrawer();
-    }
-
-    private Bitmap generateQrCodeBitmap(String text, int width, int height) throws WriterException, NullPointerException {
-        BitMatrix bitMatrix;
-        try {
-            bitMatrix = new MultiFormatWriter().encode(text, BarcodeFormat.QR_CODE,
-            width, height, null);
-        } catch (IllegalArgumentException ex) {
-            return null;
-        }
-        int bitMatrixWidth = bitMatrix.getWidth();
-        int bitMatrixHeight = bitMatrix.getHeight();
-        int[] pixels = new int[bitMatrixWidth * bitMatrixHeight];
-        int colorWhite = 0xFFFFFFFF;
-        int colorBlack = 0xFF000000;
-        for (int y = 0; y < bitMatrixHeight; y++) {
-            int offset = y * bitMatrixWidth;
-            for (int x = 0; x < bitMatrixWidth; x++) {
-                pixels[offset + x] = bitMatrix.get(x, y) ? colorBlack : colorWhite;
-            }
-        }
-        Bitmap bitmap = Bitmap.createBitmap(bitMatrixWidth, bitMatrixHeight, Bitmap.Config.ARGB_4444);
-        bitmap.setPixels(pixels, 0, width, 0, 0, bitMatrixWidth, bitMatrixHeight);
-        return bitmap;
     }
 
     @Override

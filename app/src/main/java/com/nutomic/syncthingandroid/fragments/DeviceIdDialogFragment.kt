@@ -49,10 +49,11 @@ import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
-import androidx.core.os.BundleCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.MultiFormatWriter
 import com.nutomic.syncthingandroid.R
 import com.nutomic.syncthingandroid.theme.ApplicationTheme
 
@@ -61,9 +62,10 @@ class DeviceIdDialogFragment : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val args = requireArguments()
         val deviceName = args.getString(ARG_DEVICE_NAME)!!
-        val isCurrentDevice = args.getBoolean(ARG_IS_CURRENT_DEVICE)
         val deviceId = args.getString(ARG_DEVICE_ID)!!
-        val qrCode = BundleCompat.getParcelable(args, ARG_QR_CODE, Bitmap::class.java)!!
+        val isCurrentDevice = args.getBoolean(ARG_IS_CURRENT_DEVICE)
+
+        val qrCode = generateQrCode(deviceId)
 
         return Dialog(requireContext()).apply {
             setContentView(
@@ -82,6 +84,25 @@ class DeviceIdDialogFragment : DialogFragment() {
                 }
             )
         }
+    }
+
+    private fun generateQrCode(deviceId: String): Bitmap {
+        val qrSize = 232
+        val black = 0xFF000000
+        val white = 0x00000000
+
+        val bitMatrix = MultiFormatWriter()
+            .encode(deviceId, BarcodeFormat.QR_CODE, qrSize, qrSize)
+        val bitMap = Bitmap.createBitmap(bitMatrix.width, bitMatrix.height, Bitmap.Config.ARGB_8888)
+
+        for (x in 0 until qrSize) {
+            for (y in 0 until qrSize) {
+                val pixel = if (bitMatrix[x, y]) black else white
+                bitMap.setPixel(x, y, pixel.toInt())
+            }
+        }
+
+        return bitMap
     }
 
     private fun copyDeviceId(id: String) {
@@ -115,21 +136,18 @@ class DeviceIdDialogFragment : DialogFragment() {
     companion object {
         private const val ARG_DEVICE_NAME = "device_name"
         private const val ARG_DEVICE_ID = "device_id"
-        private const val ARG_QR_CODE = "qr_code"
         private const val ARG_IS_CURRENT_DEVICE = "is_current_device"
 
         fun show(
             fm: FragmentManager,
             deviceName: String,
             deviceId: String,
-            qrCode: Bitmap,
             isCurrentDevice: Boolean = false,
         ) {
             DeviceIdDialogFragment().apply {
                 arguments = bundleOf(
                     ARG_DEVICE_NAME to deviceName,
                     ARG_DEVICE_ID to deviceId,
-                    ARG_QR_CODE to qrCode,
                     ARG_IS_CURRENT_DEVICE to isCurrentDevice,
                 )
             }.show(fm, "DeviceIdDialog")
