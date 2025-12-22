@@ -72,6 +72,22 @@ tasks.register("buildNative") {
 
         val fullEnv = System.getenv().toMutableMap().apply {
             putAll(env)
+
+            System.getProperty("http.proxyHost")?.let { host ->
+                System.getProperty("http.proxyPort")?.let { port ->
+                    this["HTTP_PROXY"] = "http://$host:$port"
+                }
+            }
+
+            System.getProperty("https.proxyHost")?.let { host ->
+                System.getProperty("https.proxyPort")?.let { port ->
+                    this["HTTPS_PROXY"] = "http://$host:$port"
+                }
+            }
+
+            System.getProperty("http.nonProxyHosts")?.let { np ->
+                this["NO_PROXY"] = np
+            }
         }
 
         val pythonBinary = detectPythonBinary()

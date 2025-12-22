@@ -13,8 +13,8 @@ version-name = "2.0.12.2"
 # External SDK versions
 go_version = "1.25.5"
 
-aboutLibraries = "13.1.0"
-activity = "1.12.1"
+aboutLibraries = "13.2.1"
+activity = "1.12.2"
 android-material = "1.13.0"
 android-gradle-plugin = "8.13.2"
 compose-material3 = "1.4.0"
