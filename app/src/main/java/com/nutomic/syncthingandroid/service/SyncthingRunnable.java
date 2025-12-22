@@ -339,12 +339,10 @@ public class SyncthingRunnable implements Runnable {
                 br = new BufferedReader(new InputStreamReader(is, Charsets.UTF_8));
                 String line;
                 while ((line = br.readLine()) != null) {
-                    /*
                     if (ENABLE_VERBOSE_LOG) {
                         String lineWithoutTimestamp = line.replaceFirst("\\d{4}/\\d{2}/\\d{2} \\d{2}:\\d{2}:\\d{2} ?", "");
                         Log.println(priority, TAG_NATIVE, lineWithoutTimestamp);
                     }
-                    */
                     // Always output SynchtingNative's output to "syncthing.log".
                     Files.append(line + "\n", mSyncthingLogFile, Charsets.UTF_8);
                 }
