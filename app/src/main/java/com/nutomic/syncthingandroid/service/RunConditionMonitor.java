@@ -729,10 +729,16 @@ public class RunConditionMonitor {
      */
     private boolean isCharging_API17() {
         Intent intent = mContext.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        if (intent == null) {
+            LogV("isCharging_API17: Checking battery status intent returned null");
+            return false;
+        }
         int plugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
+        LogV("isCharging_API17: Battery status intent extras: " + (intent.getExtras() != null ? intent.getExtras().toString() : "null"));
         return plugged == BatteryManager.BATTERY_PLUGGED_AC ||
             plugged == BatteryManager.BATTERY_PLUGGED_USB ||
-            plugged == BatteryManager.BATTERY_PLUGGED_WIRELESS;
+            plugged == BatteryManager.BATTERY_PLUGGED_WIRELESS ||
+            plugged == BatteryManager.BATTERY_PLUGGED_DOCK;
     }
 
     private boolean isPowerSaving() {
