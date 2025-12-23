@@ -42,6 +42,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -49,6 +50,8 @@ import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
+import androidx.core.graphics.createBitmap
+import androidx.core.graphics.set
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
@@ -93,12 +96,12 @@ class DeviceIdDialogFragment : DialogFragment() {
 
         val bitMatrix = MultiFormatWriter()
             .encode(deviceId, BarcodeFormat.QR_CODE, qrSize, qrSize)
-        val bitMap = Bitmap.createBitmap(bitMatrix.width, bitMatrix.height, Bitmap.Config.ARGB_8888)
+        val bitMap = createBitmap(bitMatrix.width, bitMatrix.height, Bitmap.Config.ARGB_8888)
 
         for (x in 0 until qrSize) {
             for (y in 0 until qrSize) {
                 val pixel = if (bitMatrix[x, y]) black else white
-                bitMap.setPixel(x, y, pixel.toInt())
+                bitMap[x, y] = pixel.toInt()
             }
         }
 
@@ -262,9 +265,9 @@ fun PortraitDialogContent(
     onCopy: () -> Unit,
     onShare: () -> Unit,
 ) {
-    val configuration = LocalConfiguration.current
-    val screenHeightDp = configuration.screenHeightDp.dp
-    val qrMaxHeight = minOf(screenHeightDp * 0.35f, 280.dp)
+    val windowInfo = LocalWindowInfo.current
+    val containerHeightDp = windowInfo.containerDpSize.height
+    val qrMaxHeight = minOf(containerHeightDp * 0.30f, 280.dp)
 
     Column {
         Surface(
