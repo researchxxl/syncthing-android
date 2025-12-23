@@ -29,8 +29,6 @@ import com.nutomic.syncthingandroid.service.Constants;
 import com.nutomic.syncthingandroid.service.SyncthingService;
 import com.nutomic.syncthingandroid.util.Util;
 
-import java.net.URL;
-
 
 /**
  * Displays information about the local device.
@@ -58,6 +56,7 @@ public class DrawerFragment extends Fragment implements SyncthingService.OnServi
      * These buttons are always visible.
      */
     private TextView mDrawerActionSettings;
+    private TextView mDrawerActionNewSettings;
     private TextView mDrawerActionExit;
 
     private MainActivity mActivity;
@@ -102,6 +101,7 @@ public class DrawerFragment extends Fragment implements SyncthingService.OnServi
         mDrawerActionImportExport   = view.findViewById(R.id.drawerActionImportExport);
         mDrawerActionRestart        = view.findViewById(R.id.drawerActionRestart);
         mDrawerActionSettings       = view.findViewById(R.id.drawerActionSettings);
+        mDrawerActionNewSettings    = view.findViewById(R.id.drawerActionNewSettings);
         mDrawerActionExit           = view.findViewById(R.id.drawerActionExit);
 
         // Add listeners to buttons.
@@ -111,6 +111,7 @@ public class DrawerFragment extends Fragment implements SyncthingService.OnServi
         mDrawerActionImportExport.setOnClickListener(this);
         mDrawerActionRestart.setOnClickListener(this);
         mDrawerActionSettings.setOnClickListener(this);
+        mDrawerActionNewSettings.setOnClickListener(this);
         mDrawerActionExit.setOnClickListener(this);
 
         // Initially fill UI elements.
@@ -184,6 +185,7 @@ public class DrawerFragment extends Fragment implements SyncthingService.OnServi
 
     @Override
     public void onClick(View v) {
+        Log.i(TAG, "onClick: clicked");
         Intent intent;
         int id = v.getId();
         if (id == R.id.drawerActionShowQrCode) {
@@ -204,6 +206,10 @@ public class DrawerFragment extends Fragment implements SyncthingService.OnServi
             mActivity.closeDrawer();
         } else if (id == R.id.drawerActionSettings) {
             startActivityForResult(new Intent(mActivity, SettingsActivity.class), SETTINGS_SCREEN_REQUEST);
+            mActivity.closeDrawer();
+        } else if (id == R.id.drawerActionNewSettings) {
+            Log.i(TAG, "onClick: new settings clicked");
+            startActivity(new Intent(mActivity, com.nutomic.syncthingandroid.settings.SettingsActivity.class));
             mActivity.closeDrawer();
         } else if (id == R.id.drawerActionExit) {
             if (sharedPreferences != null && sharedPreferences.getBoolean(Constants.PREF_START_SERVICE_ON_BOOT, false)) {

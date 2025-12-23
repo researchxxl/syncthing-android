@@ -1,5 +1,4 @@
 import java.util.Properties
-import java.io.FileInputStream
 
 plugins {
     alias(libs.plugins.aboutLibraries)
@@ -7,6 +6,7 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.jetbrains.kotlin.serialization)
 }
 
 dependencies {
@@ -16,6 +16,7 @@ dependencies {
     implementation(libs.activity.ktx)
     implementation(libs.android.material)
     implementation(libs.compose.material3)
+    implementation(libs.compose.material3.adaptive.navigation3)
     implementation(libs.compose.material.icons.extended)
     implementation(libs.compose.ui)
     implementation(libs.constraintlayout)
@@ -26,8 +27,11 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.guava)
     implementation(libs.jbcrypt)
+    implementation(libs.kotlinx.serialization.core)
     implementation(libs.lingala.zip4j)
     implementation(libs.localbroadcastmanager)
+    implementation(libs.navigation3.runtime)
+    implementation(libs.navigation3.ui)
     implementation(libs.preference.ktx)
     implementation(libs.recyclerview)
     implementation(libs.stream)
@@ -84,7 +88,7 @@ android {
             isDebuggable = true
             isJniDebuggable = true
             isMinifyEnabled = false
-            signingConfig = null
+            signingConfig = signingConfigs.getByName("debug")
         }
         getByName("release") {
             isMinifyEnabled = false
