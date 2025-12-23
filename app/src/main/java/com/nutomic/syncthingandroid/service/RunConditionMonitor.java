@@ -867,7 +867,7 @@ public class RunConditionMonitor {
 
     private void LogV(String logMessage) {
         if (ENABLE_VERBOSE_LOG) {
-            Log.v(TAG, logMessage);
+            Log.i(TAG, logMessage);
         }
     }
 }
