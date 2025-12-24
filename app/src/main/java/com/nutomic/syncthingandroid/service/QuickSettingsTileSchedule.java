@@ -28,6 +28,9 @@ public class QuickSettingsTileSchedule extends TileService implements ServiceCon
 
     private int mTilesAvailableState = Tile.STATE_INACTIVE;
 
+    public QuickSettingsTileSchedule() {
+    }
+
     private Context mContext;
     private SharedPreferences mPreferences; // Manually initialized - no injection needed
 
@@ -39,10 +42,6 @@ public class QuickSettingsTileSchedule extends TileService implements ServiceCon
         }
     };
     private SyncthingService mSyncthingService;
-
-    public QuickSettingsTileSchedule() {
-    }
-
 
     @Override
     public void onDestroy() {
