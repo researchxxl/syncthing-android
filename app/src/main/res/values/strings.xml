@@ -394,6 +394,13 @@
     <!-- Toast shown when trying to create a device with invalid addresses -->
     <string name="device_addresses_invalid">The device addresses are not formatted correctly. Please retry. Look at the Syncthing docs for more info.</string>
 
+    <!-- Content description (alt text) for device ID qr code in show device id dialog -->
+    <string name="device_id_qr_code">Device ID QR Code</string>
+
+    <string name="close_device_id">Close device id</string>
+
+    <string name="copy">Copy</string>
+
     <!-- Content description for device ID qr code icon -->
     <string name="scan_qr_code_description">Scan QR Code</string>
 

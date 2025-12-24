@@ -2,19 +2,13 @@ package com.nutomic.syncthingandroid.util;
 
 import android.app.Dialog;
 import android.app.UiModeManager;
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.preference.PreferenceManager;
 
 import com.google.common.base.Charsets;
 import com.nutomic.syncthingandroid.R;
@@ -42,22 +36,6 @@ public class Util {
     private static final String TAG = "Util";
 
     private Util() {
-    }
-
-    /**
-     * Copies the given device ID to the clipboard (and shows a Toast telling about it).
-     *
-     * @param id The device ID to copy.
-     */
-    public static void copyDeviceId(Context context, String id) {
-        ClipboardManager clipboard = (ClipboardManager)
-                context.getSystemService(Context.CLIPBOARD_SERVICE);
-        ClipData clip = ClipData.newPlainText(context.getString(R.string.device_id), id);
-        clipboard.setPrimaryClip(clip);
-        if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
-            Toast.makeText(context, R.string.device_id_copied_to_clipboard, Toast.LENGTH_SHORT)
-                    .show();
-        }
     }
 
     /**

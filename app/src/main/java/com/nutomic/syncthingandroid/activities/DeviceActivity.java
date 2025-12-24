@@ -39,6 +39,7 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.nutomic.syncthingandroid.R;
 import com.nutomic.syncthingandroid.SyncthingApp;
+import com.nutomic.syncthingandroid.fragments.DeviceIdDialogFragment;
 import com.nutomic.syncthingandroid.model.Connection;
 import com.nutomic.syncthingandroid.model.Device;
 import com.nutomic.syncthingandroid.model.DiscoveredDevice;
@@ -745,58 +746,12 @@ public class DeviceActivity extends SyncthingActivity {
             return;
         }
         
-        final int qrCodeSize = 232;
-        Bitmap qrCodeBitmap = null;
-        try {
-            qrCodeBitmap = generateQrCodeBitmap(mDevice.deviceID, qrCodeSize, qrCodeSize);
-        } catch (WriterException | NullPointerException ex) {
-            Log.e(TAG, "onShowDeviceIdQrClick: generateQrCodeBitmap failed", ex);
-        }
-        showQrCodeDialog(mDevice.deviceID, qrCodeBitmap);
-    }
-
-    private Bitmap generateQrCodeBitmap(String text, int width, int height) throws WriterException, NullPointerException {
-        BitMatrix bitMatrix;
-        try {
-            bitMatrix = new MultiFormatWriter().encode(text, BarcodeFormat.QR_CODE,
-            width, height, null);
-        } catch (IllegalArgumentException ex) {
-            return null;
-        }
-        int bitMatrixWidth = bitMatrix.getWidth();
-        int bitMatrixHeight = bitMatrix.getHeight();
-        int[] pixels = new int[bitMatrixWidth * bitMatrixHeight];
-        int colorWhite = 0xFFFFFFFF;
-        int colorBlack = 0xFF000000;
-        for (int y = 0; y < bitMatrixHeight; y++) {
-            int offset = y * bitMatrixWidth;
-            for (int x = 0; x < bitMatrixWidth; x++) {
-                pixels[offset + x] = bitMatrix.get(x, y) ? colorBlack : colorWhite;
-            }
-        }
-        Bitmap bitmap = Bitmap.createBitmap(bitMatrixWidth, bitMatrixHeight, Bitmap.Config.ARGB_4444);
-        bitmap.setPixels(pixels, 0, width, 0, 0, bitMatrixWidth, bitMatrixHeight);
-        return bitmap;
-    }
-
-    public void showQrCodeDialog(String deviceId, Bitmap qrCode) {
-        @SuppressWarnings("InflateParams")
-        View qrCodeDialogView = this.getLayoutInflater().inflate(R.layout.dialog_qrcode, null);
-        TextView deviceIdTextView = qrCodeDialogView.findViewById(R.id.device_id);
-        TextView shareDeviceIdTextView = qrCodeDialogView.findViewById(R.id.actionShareId);
-        ImageView qrCodeImageView = qrCodeDialogView.findViewById(R.id.qrcode_image_view);
-
-        deviceIdTextView.setText(deviceId);
-        deviceIdTextView.setOnClickListener(v -> Util.copyDeviceId(this, deviceIdTextView.getText().toString()));
-        shareDeviceIdTextView.setOnClickListener(v -> shareDeviceId(this, deviceId));
-        qrCodeImageView.setImageBitmap(qrCode);
-
-        new androidx.appcompat.app.AlertDialog.Builder(this)
-                .setTitle(R.string.device_id)
-                .setView(qrCodeDialogView)
-                .setPositiveButton(R.string.finish, null)
-                .create()
-                .show();
+        DeviceIdDialogFragment.Companion.show(
+                getSupportFragmentManager(),
+                mDevice.getDisplayName().trim(),
+                mDevice.deviceID,
+                false
+        );
     }
 
     private void showCompressionDialog(){
@@ -807,18 +762,6 @@ public class DeviceActivity extends SyncthingActivity {
                         mCompressionEntrySelectedListener)
                 .create();
         mCompressionDialog.show();
-    }
-
-    /**
-     * Shares the given device ID via Intent. Must be called from an Activity.
-     */
-    private void shareDeviceId(Context context, String id) {
-        Intent shareIntent = new Intent();
-        shareIntent.setAction(Intent.ACTION_SEND);
-        shareIntent.setType("text/plain");
-        shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, id);
-        context.startActivity(Intent.createChooser(
-                shareIntent, context.getString(R.string.send_device_id_to)));
     }
 
     private void showDiscardDialog(){

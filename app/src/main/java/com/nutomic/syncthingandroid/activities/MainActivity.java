@@ -1,6 +1,5 @@
 package com.nutomic.syncthingandroid.activities;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.ComponentName;
@@ -10,8 +9,6 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -25,7 +22,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -49,19 +45,23 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.nutomic.syncthingandroid.R;
 import com.nutomic.syncthingandroid.SyncthingApp;
+import com.nutomic.syncthingandroid.fragments.DeviceIdDialogFragment;
 import com.nutomic.syncthingandroid.fragments.DeviceListFragment;
 import com.nutomic.syncthingandroid.fragments.DrawerFragment;
 import com.nutomic.syncthingandroid.fragments.FolderListFragment;
 import com.nutomic.syncthingandroid.fragments.StatusFragment;
+import com.nutomic.syncthingandroid.model.Device;
 import com.nutomic.syncthingandroid.service.AppPrefs;
 import com.nutomic.syncthingandroid.service.Constants;
 import com.nutomic.syncthingandroid.service.RestApi;
 import com.nutomic.syncthingandroid.service.SyncthingService;
 import com.nutomic.syncthingandroid.service.SyncthingServiceBinder;
+import com.nutomic.syncthingandroid.util.ConfigRouter;
 import com.nutomic.syncthingandroid.util.PermissionUtil;
 import com.nutomic.syncthingandroid.util.Util;
 
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
@@ -81,9 +81,6 @@ public class MainActivity extends SyncthingActivity
     private Boolean ENABLE_VERBOSE_LOG = false;
 
     private static final String IS_SHOWING_RESTART_DIALOG = "RESTART_DIALOG_STATE";
-    private static final String IS_QRCODE_DIALOG_DISPLAYED = "QRCODE_DIALOG_STATE";
-    private static final String QRCODE_BITMAP_KEY = "QRCODE_BITMAP";
-    private static final String DEVICEID_KEY = "DEVICEID";
 
     private static final int FOLDER_FRAGMENT_ID = 0;
     private static final int DEVICE_FRAGMENT_ID = 1;
@@ -102,7 +99,6 @@ public class MainActivity extends SyncthingActivity
     private static final long USAGE_REPORTING_DIALOG_DELAY = TimeUnit.DAYS.toMillis(3);
     private static final Boolean DEBUG_FORCE_USAGE_REPORTING_DIALOG = false;
 
-    private AlertDialog mQrCodeDialog;
     private AlertDialog mUsageReportingDialog;
     private Dialog mRestartDialog;
 
@@ -126,7 +122,7 @@ public class MainActivity extends SyncthingActivity
     private boolean mImportantNewsRemindLaterThisSession = false;
 
     @Inject SharedPreferences mPreferences;
-
+    private ConfigRouter mConfig;
     private final Handler mUIRefreshHandler = new Handler();
 
     private OnBackPressedCallback mBackPressedCallback = new OnBackPressedCallback(true) {
@@ -221,6 +217,7 @@ public class MainActivity extends SyncthingActivity
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ((SyncthingApp) getApplication()).component().inject(this);
+        mConfig = new ConfigRouter(MainActivity.this);
         ENABLE_VERBOSE_LOG = AppPrefs.getPrefVerboseLog(mPreferences);
         if (ENABLE_VERBOSE_LOG) {
             Util.testPathEllipsis();
@@ -264,9 +261,6 @@ public class MainActivity extends SyncthingActivity
         if (savedInstanceState != null) {
             if (savedInstanceState.getBoolean(IS_SHOWING_RESTART_DIALOG)){
                 showRestartDialog();
-            }
-            if (savedInstanceState.getBoolean(IS_QRCODE_DIALOG_DISPLAYED)) {
-                showQrCodeDialog(savedInstanceState.getString(DEVICEID_KEY), savedInstanceState.getParcelable(QRCODE_BITMAP_KEY));
             }
         }
 
@@ -449,13 +443,6 @@ public class MainActivity extends SyncthingActivity
         putFragment.accept(mStatusFragment);
 
         outState.putBoolean(IS_SHOWING_RESTART_DIALOG, mRestartDialog != null && mRestartDialog.isShowing());
-        if (mQrCodeDialog != null && mQrCodeDialog.isShowing()) {
-            outState.putBoolean(IS_QRCODE_DIALOG_DISPLAYED, true);
-            ImageView qrCode = mQrCodeDialog.findViewById(R.id.qrcode_image_view);
-            TextView deviceID = mQrCodeDialog.findViewById(R.id.device_id);
-            outState.putParcelable(QRCODE_BITMAP_KEY, ((BitmapDrawable) qrCode.getDrawable()).getBitmap());
-            outState.putString(DEVICEID_KEY, deviceID.getText().toString());
-        }
         Util.dismissDialogSafe(mRestartDialog, this);
         Util.dismissDialogSafe(mUsageReportingDialog, this);
     }
@@ -510,32 +497,24 @@ public class MainActivity extends SyncthingActivity
         mRestartDialog.show();
     }
 
-    public void showQrCodeDialog(String deviceId, Bitmap qrCode) {
-        @SuppressLint("InflateParams")
-        View qrCodeDialogView = this.getLayoutInflater().inflate(R.layout.dialog_qrcode, null);
-        TextView deviceIdTextView = qrCodeDialogView.findViewById(R.id.device_id);
-        TextView shareDeviceIdTextView = qrCodeDialogView.findViewById(R.id.actionShareId);
-        ImageView qrCodeImageView = qrCodeDialogView.findViewById(R.id.qrcode_image_view);
+    public void showQrCodeDialog(String deviceId) {
+        RestApi restApi = getApi();
+        List<Device> devices = mConfig.getDevices(restApi, true);
+        String deviceName = "";
 
-        deviceIdTextView.setText(deviceId);
-        deviceIdTextView.setOnClickListener(v -> Util.copyDeviceId(this, deviceIdTextView.getText().toString()));
-        shareDeviceIdTextView.setOnClickListener(v -> shareDeviceId(deviceId));
-        qrCodeImageView.setImageBitmap(qrCode);
+        for (Device d : devices) {
+            if (d.deviceID.equals(deviceId)) {
+                deviceName = d.getDisplayName();
+                break;
+            }
+        }
 
-        mQrCodeDialog = new AlertDialog.Builder(this)
-                .setTitle(R.string.device_id)
-                .setView(qrCodeDialogView)
-                .setPositiveButton(R.string.finish, null)
-                .create();
-
-        mQrCodeDialog.show();
-    }
-
-    private void shareDeviceId(String deviceId) {
-        Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
-        shareIntent.setType("text/plain");
-        shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, deviceId);
-        startActivity(Intent.createChooser(shareIntent, getString(R.string.share_device_id_chooser)));
+        DeviceIdDialogFragment.Companion.show(
+                getSupportFragmentManager(),
+                deviceName.trim(),
+                deviceId,
+                true
+        );
     }
 
     @Override
