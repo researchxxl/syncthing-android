@@ -253,5 +253,30 @@ jobs:
           name: unsigned-${{ env.APPLICATION_ID }}
           path: |
             app/build/outputs/apk/*/*.apk
+
+      - name: Show lint summary if issues exist
+        run: |
+          BUILD_TYPE_LOWER="$(echo "${{ inputs.buildType }}" | tr '[:upper:]' '[:lower:]')"
+          REPORT="app/build/reports/lint-results-${BUILD_TYPE_LOWER}.txt"
+          if [ -f "${REPORT}" ]; then
+            if ( grep -Fq "No issues found." "${REPORT}" ); then
+              echo "## ✅️ Android Lint Passed" >> ${GITHUB_STEP_SUMMARY}
+            else
+              {
+                echo "## ⚠️ Android Lint Issues Found"
+                echo ""
+                echo '```'
+                cat "${REPORT}"
+                echo '```'
+              } >> ${GITHUB_STEP_SUMMARY}
+            fi
+          else
+            echo "## ❌ Android Lint report not found: ${REPORT}" >> ${GITHUB_STEP_SUMMARY}
+          fi
+
+      - name: Upload reports
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
+        with:
+          name: reports
+          path: |
             app/build/reports/**
-            # app/src/main/jniLibs/**
