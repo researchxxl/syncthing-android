@@ -254,6 +254,32 @@ jobs:
           path: |
             app/build/outputs/apk/*/*.apk
 
+      - name: Check modified files
+        if: ${{ github.event_name == 'pull_request' }}
+        run: |
+          CHANGED_FILES="$(git diff --name-only HEAD^ HEAD)"
+          FILE_REGEX='\.(bash|bat|cmd|jar|kts|ps1|py|sh|yaml|yml)$'
+          FILE_LIST=""
+          FOUND="false"
+          for FILE in ${CHANGED_FILES}; do
+            if [[ "${FILE}" =~ ${FILE_REGEX} ]]; then
+              FOUND="true"
+              if [[ -z "${FILE_LIST}" ]]; then
+                FILE_LIST="${FILE}"
+              else
+                FILE_LIST="${FILE_LIST}, ${FILE}"
+              fi
+            fi
+          done
+          if [[ "${FOUND}" == "true" ]]; then
+            {
+              echo "## ⚠️ Pay attention to changed files"
+              echo '```'
+              echo "${FILE_LIST}"
+              echo '```'
+            } >> ${GITHUB_STEP_SUMMARY}
+          fi
+
       - name: Show lint summary if issues exist
         run: |
           BUILD_TYPE_LOWER="$(echo "${{ inputs.buildType }}" | tr '[:upper:]' '[:lower:]')"
