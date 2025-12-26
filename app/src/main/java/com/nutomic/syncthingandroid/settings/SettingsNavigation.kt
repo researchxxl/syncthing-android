@@ -1,12 +1,13 @@
 package com.nutomic.syncthingandroid.settings
 
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSerializable
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.runtime.toMutableStateList
 import androidx.navigation3.runtime.NavBackStack
-import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.serialization.NavBackStackSerializer
@@ -39,6 +40,15 @@ sealed interface SettingsRoute : NavKey {
 
 }
 
+interface Navigator<T: NavKey> {
+    fun navigateTo(route: T)
+    fun navigateBack()
+}
+
+val LocalSettingsNavigator = staticCompositionLocalOf<Navigator<SettingsRoute>> {
+    error("Navigator not provided")
+}
+
 @Composable
 fun rememberSettingsNavBackStack(startDestination: SettingsRoute): NavBackStack<SettingsRoute> {
     return rememberSerializable(
@@ -59,38 +69,36 @@ fun SettingsNavDisplay(
     onFinishActivity: () -> Unit = {}
 ) {
     val backStack = rememberSettingsNavBackStack(startDestination)
-    val onBack: () -> Unit = {
-        if (backStack.size == 1) {
-            onFinishActivity()
-        } else {
-            backStack.removeLastOrNull()
+    val navigator = remember(backStack, onFinishActivity) {
+        object : Navigator<SettingsRoute> {
+            override fun navigateTo(route: SettingsRoute) {
+                backStack.add(route)
+            }
+            override fun navigateBack() {
+                if (backStack.size == 1) {
+                    onFinishActivity()
+                } else {
+                    backStack.removeLastOrNull()
+                }
+            }
         }
     }
 
-    NavDisplay(
-        backStack = backStack,
-        entryProvider = settingsNavEntryProvider(backStack, onBack),
-        onBack = onBack,
-    )
-}
-
-fun settingsNavEntryProvider(
-    backstack: NavBackStack<SettingsRoute>,
-    onBack: () -> Unit,
-) = entryProvider<SettingsRoute>(
-    fallback = { key ->
-        NavEntry<SettingsRoute>(key) { key ->
-            Text("$key")
-        }
+    CompositionLocalProvider(LocalSettingsNavigator provides navigator) {
+        NavDisplay(
+            backStack = backStack,
+            onBack = { navigator.navigateBack() },
+            entryProvider = entryProvider {
+                settingsRootEntry()
+                settingsRunConditionsEntry()
+                settingsUserInterfaceEntry()
+                settingsBehaviorEntry()
+                settingsSyncthingOptionsEntry()
+                settingsImportExportEntry()
+                settingsTroubleshootingEntry()
+                settingsExperimentalEntry()
+                settingsAboutEntry()
+            },
+        )
     }
-) {
-    settingsRootEntry(backstack, onBack)
-    settingsRunConditionsEntry(backstack, onBack)
-    settingsUserInterfaceEntry(backstack, onBack)
-    settingsBehaviorEntry(backstack, onBack)
-    settingsSyncthingOptionsEntry(backstack, onBack)
-    settingsImportExportEntry(backstack, onBack)
-    settingsTroubleshootingEntry(backstack, onBack)
-    settingsExperimentalEntry(backstack, onBack)
-    settingsAboutEntry(backstack, onBack)
 }

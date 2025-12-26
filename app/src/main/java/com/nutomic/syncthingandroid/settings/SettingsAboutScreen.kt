@@ -4,25 +4,20 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.navigation3.runtime.EntryProviderScope
-import androidx.navigation3.runtime.NavBackStack
 import com.nutomic.syncthingandroid.R
 
 
-fun EntryProviderScope<SettingsRoute>.settingsAboutEntry(
-    backstack: NavBackStack<SettingsRoute>,
-    onBack: () -> Unit
-) {
+fun EntryProviderScope<SettingsRoute>.settingsAboutEntry() {
     entry<SettingsRoute.About> {
-        SettingsAboutScreen(onBack = onBack)
+        SettingsAboutScreen()
     }
 }
 
 
 @Composable
-fun SettingsAboutScreen(onBack: () -> Unit = {}) {
+fun SettingsAboutScreen() {
     SettingsScaffold(
         title = stringResource(R.string.category_backup),
-        onBack = onBack,
     ) {
         Text(stringResource(R.string.category_backup))
     }

@@ -5,49 +5,43 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.navigation3.runtime.EntryProviderScope
-import androidx.navigation3.runtime.NavBackStack
 import com.nutomic.syncthingandroid.R
 
-fun EntryProviderScope<SettingsRoute>.settingsRootEntry(
-    backstack: NavBackStack<SettingsRoute>,
-    onBack: () -> Unit
-) {
+fun EntryProviderScope<SettingsRoute>.settingsRootEntry() {
     entry<SettingsRoute.Root> {
-        SettingsRootScreen(backstack, onBack)
+        SettingsRootScreen()
     }
 }
 
 @Composable
-fun SettingsRootScreen(
-    backstack: NavBackStack<SettingsRoute>,
-    onBack: () -> Unit = {},
-) {
+fun SettingsRootScreen() {
+    val navigator = LocalSettingsNavigator.current
+
     SettingsScaffold(
         title = stringResource(R.string.settings_title),
-        onBack = onBack,
     ) {
-        TextButton(onClick = { backstack.add(SettingsRoute.RunConditions) }) {
+        TextButton(onClick = { navigator.navigateTo(SettingsRoute.RunConditions) }) {
             Text("RunConditions")
         }
-        TextButton(onClick = { backstack.add(SettingsRoute.UserInterface) }) {
+        TextButton(onClick = { navigator.navigateTo(SettingsRoute.UserInterface) }) {
             Text("UserInterface")
         }
-        TextButton(onClick = { backstack.add(SettingsRoute.Behavior) }) {
+        TextButton(onClick = { navigator.navigateTo(SettingsRoute.Behavior) }) {
             Text("Behavior")
         }
-        TextButton(onClick = { backstack.add(SettingsRoute.SyncthingOptions) }) {
+        TextButton(onClick = { navigator.navigateTo(SettingsRoute.SyncthingOptions) }) {
             Text("SyncthingOptions")
         }
-        TextButton(onClick = { backstack.add(SettingsRoute.ImportExport) }) {
+        TextButton(onClick = { navigator.navigateTo(SettingsRoute.ImportExport) }) {
             Text("ImportExport")
         }
-        TextButton(onClick = { backstack.add(SettingsRoute.Troubleshooting) }) {
+        TextButton(onClick = { navigator.navigateTo(SettingsRoute.Troubleshooting) }) {
             Text("Troubleshooting")
         }
-        TextButton(onClick = { backstack.add(SettingsRoute.Experimental) }) {
+        TextButton(onClick = { navigator.navigateTo(SettingsRoute.Experimental) }) {
             Text("Experimental")
         }
-        TextButton(onClick = { backstack.add(SettingsRoute.About) }) {
+        TextButton(onClick = { navigator.navigateTo(SettingsRoute.About) }) {
             Text("About")
         }
     }

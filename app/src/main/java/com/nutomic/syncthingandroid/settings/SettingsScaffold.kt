@@ -32,9 +32,10 @@ import com.nutomic.syncthingandroid.R
 fun SettingsScaffold(
     title: String,
     description: String? = null,
-    onBack: () -> Unit = {},
     content: @Composable (ColumnScope.() -> Unit) = {},
 ) {
+    val navigator = LocalSettingsNavigator.current
+
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
     val collapsedFraction = scrollBehavior.state.collapsedFraction
 
@@ -74,7 +75,7 @@ fun SettingsScaffold(
                     }
                 },
                 navigationIcon = {
-                    IconButton(onClick = onBack) {
+                    IconButton(onClick = { navigator.navigateBack() }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = stringResource(id = R.string.back)

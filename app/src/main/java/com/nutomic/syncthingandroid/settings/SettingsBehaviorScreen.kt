@@ -4,16 +4,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.navigation3.runtime.EntryProviderScope
-import androidx.navigation3.runtime.NavBackStack
 import com.nutomic.syncthingandroid.R
 
 
-fun EntryProviderScope<SettingsRoute>.settingsBehaviorEntry(
-    backstack: NavBackStack<SettingsRoute>,
-    onBack: () -> Unit
-) {
+fun EntryProviderScope<SettingsRoute>.settingsBehaviorEntry() {
     entry<SettingsRoute.Behavior> {
-        SettingsBehaviorScreen(onBack = onBack)
+        SettingsBehaviorScreen()
     }
 }
 
@@ -22,7 +18,6 @@ fun EntryProviderScope<SettingsRoute>.settingsBehaviorEntry(
 fun SettingsBehaviorScreen(onBack: () -> Unit = {}) {
     SettingsScaffold(
         title = stringResource(R.string.category_behaviour),
-        onBack = onBack,
     ) {
         Text(stringResource(R.string.category_behaviour))
     }
