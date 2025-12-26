@@ -35,6 +35,10 @@ sealed interface SettingsRoute : NavKey {
     data object ImportExport : SettingsRoute
     @Serializable
     data object Troubleshooting : SettingsRoute
+    @Serializable
+    data object Experimental : SettingsRoute
+    @Serializable
+    data object About : SettingsRoute
 
 }
 
@@ -62,6 +66,7 @@ fun SettingsNavDisplay(
 
     NavDisplay(
         backStack = backStack,
+        // TODO: fix crash on back from settings root
         onBack = { backStack.removeLastOrNull() },
         entryProvider = settingsNavEntryProvider(backStack),
         sceneStrategy = listDetailSceneStrategy,
@@ -78,14 +83,13 @@ fun settingsNavEntryProvider(
         }
     }
 ) {
-    entry<SettingsRoute.Root>(
-        metadata = ListDetailSceneStrategy.listPane()
-    ) {
-        SettingsRootScreen(backstack)
-    }
-    entry<SettingsRoute.RunConditions>(
-        metadata = ListDetailSceneStrategy.listPane()
-    ) {
-        SettingsRunConditionsScreen()
-    }
+    settingsRootEntry(backstack)
+    settingsRunConditionsEntry(backstack)
+    settingsUserInterfaceEntry(backstack)
+    settingsBehaviorEntry(backstack)
+    settingsSyncthingOptionsEntry(backstack)
+    settingsImportExportEntry(backstack)
+    settingsTroubleshootingEntry(backstack)
+    settingsExperimentalEntry(backstack)
+    settingsAboutEntry(backstack)
 }

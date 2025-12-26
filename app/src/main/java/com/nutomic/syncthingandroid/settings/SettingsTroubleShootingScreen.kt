@@ -9,24 +9,22 @@ import androidx.navigation3.runtime.EntryProviderScope
 import androidx.navigation3.runtime.NavBackStack
 import com.nutomic.syncthingandroid.R
 
-
 @OptIn(ExperimentalMaterial3AdaptiveApi::class)
-fun EntryProviderScope<SettingsRoute>.settingsRunConditionsEntry(backstack: NavBackStack<SettingsRoute>) {
-    entry<SettingsRoute.RunConditions>(
+fun EntryProviderScope<SettingsRoute>.settingsTroubleshootingEntry(backstack: NavBackStack<SettingsRoute>) {
+    entry<SettingsRoute.Troubleshooting>(
         metadata = ListDetailSceneStrategy.detailPane()
     ) {
-        SettingsRunConditionsScreen(onBack = { backstack.removeLastOrNull() })
+        SettingsTroubleshootingScreen(onBack = { backstack.removeLastOrNull() })
     }
 }
 
 
 @Composable
-fun SettingsRunConditionsScreen(onBack: () -> Unit = {}) {
+fun SettingsTroubleshootingScreen(onBack: () -> Unit = {}) {
     SettingsScaffold(
-        title = stringResource(R.string.run_conditions_title),
-        description = stringResource(R.string.run_conditions_summary),
+        title = stringResource(R.string.category_debug),
         onBack = onBack,
     ) {
-        Text(stringResource(R.string.run_conditions_title))
+        Text(stringResource(R.string.category_debug))
     }
 }

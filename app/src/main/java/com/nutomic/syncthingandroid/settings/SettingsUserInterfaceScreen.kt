@@ -11,22 +11,21 @@ import com.nutomic.syncthingandroid.R
 
 
 @OptIn(ExperimentalMaterial3AdaptiveApi::class)
-fun EntryProviderScope<SettingsRoute>.settingsRunConditionsEntry(backstack: NavBackStack<SettingsRoute>) {
-    entry<SettingsRoute.RunConditions>(
+fun EntryProviderScope<SettingsRoute>.settingsUserInterfaceEntry(backstack: NavBackStack<SettingsRoute>) {
+    entry<SettingsRoute.UserInterface>(
         metadata = ListDetailSceneStrategy.detailPane()
     ) {
-        SettingsRunConditionsScreen(onBack = { backstack.removeLastOrNull() })
+        SettingsUserInterfaceScreen(onBack = { backstack.removeLastOrNull() })
     }
 }
 
 
 @Composable
-fun SettingsRunConditionsScreen(onBack: () -> Unit = {}) {
+fun SettingsUserInterfaceScreen(onBack: () -> Unit = {}) {
     SettingsScaffold(
-        title = stringResource(R.string.run_conditions_title),
-        description = stringResource(R.string.run_conditions_summary),
+        title = stringResource(R.string.category_user_interface),
         onBack = onBack,
     ) {
-        Text(stringResource(R.string.run_conditions_title))
+        Text(stringResource(R.string.category_user_interface))
     }
 }
