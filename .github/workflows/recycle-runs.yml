@@ -15,6 +15,7 @@ concurrency:
 jobs:
   recycle-workflow-runs:
     runs-on: ubuntu-latest
+    if: github.repository_owner == 'researchxxl'
     timeout-minutes: 30
 
     steps:
