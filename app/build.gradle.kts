@@ -18,6 +18,7 @@ dependencies {
     implementation(libs.compose.material3)
     implementation(libs.compose.material.icons.extended)
     implementation(libs.compose.ui)
+    implementation(libs.compose.preference)
     implementation(libs.constraintlayout)
     implementation(libs.core.ktx)
     implementation(libs.dagger)

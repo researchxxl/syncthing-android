@@ -1,5 +1,8 @@
 package com.nutomic.syncthingandroid.settings
 
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.togetherWith
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -14,6 +17,7 @@ import androidx.navigation3.runtime.serialization.NavBackStackSerializer
 import androidx.navigation3.runtime.serialization.NavKeySerializer
 import androidx.navigation3.ui.NavDisplay
 import kotlinx.serialization.Serializable
+import me.zhanghai.compose.preference.ProvidePreferenceLocals
 
 @Serializable
 sealed interface SettingsRoute : NavKey {
@@ -85,20 +89,37 @@ fun SettingsNavDisplay(
     }
 
     CompositionLocalProvider(LocalSettingsNavigator provides navigator) {
-        NavDisplay(
-            backStack = backStack,
-            onBack = { navigator.navigateBack() },
-            entryProvider = entryProvider {
-                settingsRootEntry()
-                settingsRunConditionsEntry()
-                settingsUserInterfaceEntry()
-                settingsBehaviorEntry()
-                settingsSyncthingOptionsEntry()
-                settingsImportExportEntry()
-                settingsTroubleshootingEntry()
-                settingsExperimentalEntry()
-                settingsAboutEntry()
-            },
-        )
+        ProvidePreferenceLocals {
+            NavDisplay(
+                backStack = backStack,
+                onBack = { navigator.navigateBack() },
+                entryProvider = entryProvider {
+                    settingsRootEntry()
+                    settingsRunConditionsEntry()
+                    settingsUserInterfaceEntry()
+                    settingsBehaviorEntry()
+                    settingsSyncthingOptionsEntry()
+                    settingsImportExportEntry()
+                    settingsTroubleshootingEntry()
+                    settingsExperimentalEntry()
+                    settingsAboutEntry()
+                },
+                transitionSpec = {
+                    // Slide in from right when navigating forward
+                    slideInHorizontally(initialOffsetX = { it }) togetherWith
+                            slideOutHorizontally(targetOffsetX = { -it })
+                },
+                popTransitionSpec = {
+                    // Slide in from left when navigating back
+                    slideInHorizontally(initialOffsetX = { -it }) togetherWith
+                            slideOutHorizontally(targetOffsetX = { it })
+                },
+                predictivePopTransitionSpec = {
+                    // Slide in from left when navigating back
+                    slideInHorizontally(initialOffsetX = { -it }) togetherWith
+                            slideOutHorizontally(targetOffsetX = { it })
+                },
+            )
+        }
     }
 }

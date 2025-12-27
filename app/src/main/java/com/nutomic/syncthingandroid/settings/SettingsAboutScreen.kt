@@ -17,8 +17,8 @@ fun EntryProviderScope<SettingsRoute>.settingsAboutEntry() {
 @Composable
 fun SettingsAboutScreen() {
     SettingsScaffold(
-        title = stringResource(R.string.category_backup),
+        title = stringResource(R.string.category_about),
     ) {
-        Text(stringResource(R.string.category_backup))
+        Text(stringResource(R.string.category_about))
     }
 }
