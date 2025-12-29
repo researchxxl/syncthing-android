@@ -52,6 +52,7 @@ jobs:
       applicationId: "com.github.catfriend1.syncthingandroid"
       buildType: "Release"
       checkoutRef: ${{ github.event.inputs.tag }}
+      gradleOptions: "bundleRelease"
 
   sign1:
     name: Sign 1

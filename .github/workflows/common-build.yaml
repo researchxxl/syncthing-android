@@ -18,6 +18,10 @@ on:
         description: 'Git ref'
         required: false
         type: string
+      gradleOptions:
+        description: 'Gradle options'
+        required: false
+        type: string
 
 jobs:
   build:
@@ -183,14 +187,7 @@ jobs:
           set -eu
           unset ANDROID_NDK_HOME
           git config --global --add safe.directory '*'
-          ./gradlew --no-daemon buildNative lint${{ inputs.buildType }} assemble${{ inputs.buildType }}
-
-      - name: Build bundle
-        if: ${{ inputs.buildType == 'Release' }}
-        run: |
-          set -eu
-          unset ANDROID_NDK_HOME
-          ./gradlew --no-daemon bundle${{ inputs.buildType }}
+          ./gradlew --no-daemon buildNative lint${{ inputs.buildType }} assemble${{ inputs.buildType }} ${{ inputs.gradleOptions }}
 
       - name: Save prebuilt native libraries to cache
         run: |
@@ -262,7 +259,7 @@ jobs:
             app/build/outputs/apk/*/*.apk
 
       - name: Upload unsigned bundle artifact
-        if: ${{ inputs.buildType == 'Release' }}
+        if: ${{ inputs.gradleOptions == 'bundleRelease' }}
         uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
         with:
           name: unsigned-bundle-${{ env.APPLICATION_ID }}
