@@ -264,7 +264,7 @@ jobs:
         with:
           name: unsigned-bundle-${{ env.APPLICATION_ID }}
           path: |
-            app/build/outputs/bundle/release/app-release-unsigned.aab
+            app/build/outputs/bundle/release/app-release.aab
 
       - name: Check modified files
         if: ${{ github.event_name == 'pull_request' }}
