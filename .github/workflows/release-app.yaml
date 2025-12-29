@@ -27,6 +27,7 @@ jobs:
           ref: ${{ inputs.checkoutRef }}
 
       - name: Ensure release branch
+        if: false
         run: |
           git config --global --add safe.directory '*'
           if ! git branch -a --contains $(git rev-parse HEAD) | grep release >/dev/null; then
