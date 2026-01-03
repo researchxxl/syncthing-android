@@ -38,16 +38,21 @@ fun SettingsAboutScreen() {
     val stService = LocalSyncthingService.current
     val stServiceTick = LocalServiceUpdateTick.current
 
+    val loading = stringResource(R.string.state_loading)
     val unknown = stringResource(R.string.state_unknown)
 
-    val state by produceState(initialValue = AboutState(), stService, stServiceTick) {
+    val state by produceState(initialValue = AboutState(
+            appVersion = loading,
+            coreVersion = loading,
+            dbSize = loading,
+            fileLimit = loading,
+        ), stService, stServiceTick) {
         value = withContext(Dispatchers.IO) {
-            val stVersion = stService?.api?.version ?: unknown
             AboutState(
-                appVersion = getAppVersion(context),
-                coreVersion = stVersion,
-                dbSize = getDatabaseSize(context),
-                fileLimit = getOpenFileLimit()
+                appVersion = getAppVersion(context) ?: unknown,
+                coreVersion = stService?.api?.version ?: unknown,
+                dbSize = getDatabaseSize(context) ?: unknown,
+                fileLimit = getOpenFileLimit() ?: unknown,
             )
         }
     }
@@ -98,41 +103,41 @@ fun SettingsAboutScreen() {
 }
 
 data class AboutState(
-    val appVersion: String = "Loading...",
-    val coreVersion: String = "Loading...",
-    val dbSize: String = "Loading...",
-    val fileLimit: String = "Loading..."
+    val appVersion: String = "",
+    val coreVersion: String = "",
+    val dbSize: String = "",
+    val fileLimit: String = ""
 )
 
-private fun getAppVersion(context: Context): String {
+private fun getAppVersion(context: Context): String? {
     return try {
         val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
         "v${packageInfo.versionName}"
     } catch (e: PackageManager.NameNotFoundException) {
         Log.e(TAG, "Failed to get app version name")
-        "Unknown"
+        null
     }
 }
 
-private fun getOpenFileLimit(): String {
+private fun getOpenFileLimit(): String? {
     val shellCommand = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q)
         "/system/bin/ulimit -n"
     else
         "ulimit -n"
 
     val result = Util.runShellCommandGetOutput(shellCommand)
-    return if (result.isNullOrBlank()) "N/A" else result.trim()
+    return if (result.isNullOrBlank()) null else result.trim()
 }
 
-private fun getDatabaseSize(context: Context): String {
+private fun getDatabaseSize(context: Context): String? {
     val dbPath = Constants.getIndexDbFolder(context).absolutePath
     val result = Util.runShellCommandGetOutput("/system/bin/du -sh $dbPath")
 
     if (result.isNullOrBlank()) {
-        return "N/A"
+        return null
     }
 
     // Split by whitespace and grab the first part (the size)
     val resultParts = result.trim().split(Regex("\\s+"))
-    return resultParts.firstOrNull() ?: "N/A"
+    return resultParts.firstOrNull()
 }
