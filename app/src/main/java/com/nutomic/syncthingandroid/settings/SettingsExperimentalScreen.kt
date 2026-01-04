@@ -1,14 +1,18 @@
 package com.nutomic.syncthingandroid.settings
 
+import android.content.Context
+import android.widget.Toast
+import androidx.annotation.StringRes
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.navigation3.runtime.EntryProviderScope
 import com.nutomic.syncthingandroid.R
+import com.nutomic.syncthingandroid.service.Constants
 import me.zhanghai.compose.preference.SwitchPreference
 import me.zhanghai.compose.preference.TextFieldPreference
+import me.zhanghai.compose.preference.rememberPreferenceState
 
 
 fun EntryProviderScope<SettingsRoute>.settingsExperimentalEntry() {
@@ -20,9 +24,11 @@ fun EntryProviderScope<SettingsRoute>.settingsExperimentalEntry() {
 
 @Composable
 fun SettingsExperimentalScreen() {
-    val useTor = remember { mutableStateOf(false) }
-    val socksProxy = remember { mutableStateOf("") }
-    val httpProxy = remember { mutableStateOf("") }
+    val context = LocalContext.current
+
+    val useTor = rememberPreferenceState(Constants.PREF_USE_TOR, false)
+    val socksProxy = rememberPreferenceState(Constants.PREF_SOCKS_PROXY_ADDRESS, "")
+    val httpProxy = rememberPreferenceState(Constants.PREF_HTTP_PROXY_ADDRESS, "")
 
     SettingsScaffold(
         title = stringResource(R.string.category_experimental),
@@ -41,7 +47,15 @@ fun SettingsExperimentalScreen() {
             title = { Text(stringResource(R.string.socks_proxy_address_title)) },
             summary = { Text(socksProxySummary) },
             state = socksProxy,
-            textToValue = { it },
+            textToValue = {
+                validateProxy(
+                    newValue = it,
+                    regex = Regex("^socks5://.*:\\d{1,5}$"),
+                    errorResId = R.string.toast_invalid_socks_proxy_address,
+                    context = context,
+                )
+            },
+            enabled = !useTor.value,
         )
 
         val httpProxySummary = if (httpProxy.value.isBlank())
@@ -52,7 +66,31 @@ fun SettingsExperimentalScreen() {
             title = { Text(stringResource(R.string.http_proxy_address_title)) },
             summary = { Text(httpProxySummary) },
             state = httpProxy,
-            textToValue = { it },
+            textToValue = {
+                validateProxy(
+                    newValue = it,
+                    regex = Regex("^https?://.*:\\d{1,5}$"),
+                    errorResId = R.string.toast_invalid_http_proxy_address,
+                    context = context,
+                )
+            },
+            enabled = !useTor.value,
         )
+    }
+}
+
+private fun validateProxy(
+    newValue: String,
+    regex: Regex,
+    @StringRes errorResId: Int,
+    context: Context
+): String? {
+    return when {
+        newValue.isEmpty() -> newValue
+        newValue.matches(regex) -> newValue
+        else -> {
+            Toast.makeText(context, errorResId, Toast.LENGTH_SHORT).show()
+            null
+        }
     }
 }

@@ -4,13 +4,13 @@ import android.content.SharedPreferences;
 import androidx.preference.PreferenceManager;
 
 import com.nutomic.syncthingandroid.service.NotificationHandler;
+import com.nutomic.syncthingandroid.settings.SharedPreferenceFlowKt;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
 import kotlinx.coroutines.flow.MutableStateFlow;
-import me.zhanghai.compose.preference.PreferenceFlow_androidKt;
 import me.zhanghai.compose.preference.Preferences;
 
 @Module
@@ -31,7 +31,7 @@ public class SyncthingModule {
     @Provides
     @Singleton
     public MutableStateFlow<Preferences> preferencesMutableStateFlow(SharedPreferences sharedPreferences) {
-        return PreferenceFlow_androidKt.createPreferenceFlow(sharedPreferences);
+        return SharedPreferenceFlowKt.createPreferenceFlow(sharedPreferences);
     }
 
     @Provides
