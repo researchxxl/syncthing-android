@@ -24,4 +24,4 @@ Wiki、常见问题解答和有用的文章：https://github.com/researchxxl/syn
 问题反馈：https://github.com/researchxxl/syncthing-android/issues
 
 请帮助
-翻译：https://hosted.weblate.org/projects/syncthing/android/catfriend1
+翻译：https://hosted.weblate.org/projects/syncthing-fork/app/
