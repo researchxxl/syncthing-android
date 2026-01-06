@@ -58,6 +58,7 @@ fun SettingsTroubleshootingScreen() {
             summary = { Text(stringResource(R.string.open_issue_tracker_summary, issueTrackerUrl)) },
             onClick = { uriHandler.openUri(issueTrackerUrl) }
         )
+        // TODO: show dialog for app restart for toggling verbose logs
         SwitchPreference(
             title = { Text(stringResource(R.string.verbose_log_title)) },
             summary = { Text(stringResource(R.string.verbose_log_summary)) },

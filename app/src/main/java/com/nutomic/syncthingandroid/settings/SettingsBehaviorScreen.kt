@@ -2,12 +2,12 @@ package com.nutomic.syncthingandroid.settings
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.res.stringResource
 import androidx.navigation3.runtime.EntryProviderScope
 import com.nutomic.syncthingandroid.R
+import com.nutomic.syncthingandroid.service.Constants
 import me.zhanghai.compose.preference.SwitchPreference
+import me.zhanghai.compose.preference.rememberPreferenceState
 
 
 fun EntryProviderScope<SettingsRoute>.settingsBehaviorEntry() {
@@ -19,10 +19,10 @@ fun EntryProviderScope<SettingsRoute>.settingsBehaviorEntry() {
 
 @Composable
 fun SettingsBehaviorScreen() {
-    // temp code to make it work
-    val autoStart = remember { mutableStateOf(false) }
-    val broadcast = remember { mutableStateOf(false) }
-    val overwrite = remember { mutableStateOf(false) }
+
+    val autoStart = rememberPreferenceState(Constants.PREF_START_SERVICE_ON_BOOT, false)
+    val broadcast = rememberPreferenceState(Constants.PREF_BROADCAST_SERVICE_CONTROL, false)
+    val overwrite = rememberPreferenceState(Constants.PREF_ALLOW_OVERWRITE_FILES, false)
 
     SettingsScaffold(
         title = stringResource(R.string.category_behaviour),
