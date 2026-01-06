@@ -24,4 +24,4 @@ Wiki, FAQ e articoli utili: https://github.com/researchxxl/syncthing-android/tre
 Problemi: https://github.com/researchxxl/syncthing-android/issues
 
 Aiuto con la
-Traduzione: https://hosted.weblate.org/projects/syncthing/android/catfriend1
+Traduzione: https://hosted.weblate.org/projects/syncthing-fork/app/
