@@ -1,7 +1,11 @@
 changelog:
   exclude:
     labels:
+      - build
       - dependencies
+      - documentation
+      - invalid
+      - java
 
   categories:
     - title: Fixes

@@ -35,4 +35,4 @@ Wiki, FAQ and helpful articles: https://github.com/researchxxl/syncthing-android
 Raportare probleme: https://github.com/researchxxl/syncthing-android/issues
 
 Please help with the
-Traducere: https://hosted.weblate.org/projects/syncthing/android/catfriend1
+Traducere: https://hosted.weblate.org/projects/syncthing-fork/app/

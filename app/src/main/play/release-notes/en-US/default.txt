@@ -1,4 +1,9 @@
-Show state changes in QuickSettingsTileSchedule (thanks @normanre)
+v2.0.13
+Fix the high battery drain if local discovery is in use (thanks @bt90)
+Fix and add material style to device id and license dialogs (thanks @dbhavsar76)
+Fix visual state changes of the schedule quick settings tile (thanks @normanre)
+
+v2.0.12
 Removed libsuperuser dependency for security reasons.
 Dropped wakelock and write secure system settings permission.
 Due to minimum requirements of Androidx dependencies minimum Android version was raised to 6.

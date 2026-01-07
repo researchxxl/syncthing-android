@@ -12,6 +12,7 @@ on:
 jobs:
   copilot-setup-steps:
     runs-on: ubuntu-latest
+    if: github.repository_owner == 'researchxxl'
     timeout-minutes: 15
 
     permissions:
