@@ -735,7 +735,11 @@ public class RunConditionMonitor {
         }
         int plugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
         LogV("isCharging: Battery status intent extras: " + (intent.getExtras() != null ? intent.getExtras().toString() : "null"));
-        
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+            return plugged == BatteryManager.BATTERY_PLUGGED_AC ||
+                plugged == BatteryManager.BATTERY_PLUGGED_USB ||
+                plugged == BatteryManager.BATTERY_PLUGGED_WIRELESS;
+        }
         return plugged == BatteryManager.BATTERY_PLUGGED_AC ||
             plugged == BatteryManager.BATTERY_PLUGGED_USB ||
             plugged == BatteryManager.BATTERY_PLUGGED_WIRELESS ||
