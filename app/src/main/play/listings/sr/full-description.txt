@@ -35,4 +35,4 @@ Syncthing-Fork за Android је обвезник за Syncthing који пру
 Проблеми: https://github.com/researchxxl/syncthing-android/issues
 
 Молимо вас да помогнете са
-Превод: https://hosted.weblate.org/projects/syncthing/android/catfriend1
+Превод: https://hosted.weblate.org/projects/syncthing-fork/app/

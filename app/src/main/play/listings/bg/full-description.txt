@@ -23,4 +23,4 @@ Wiki, въпроси и отговори, и полезни статии: https:
 
 Дефекти: https://github.com/researchxxl/syncthing-android/issues
 
-Помогнете с превода: https://hosted.weblate.org/projects/syncthing/android/catfriend1
+Помогнете с превода: https://hosted.weblate.org/projects/syncthing-fork/app/

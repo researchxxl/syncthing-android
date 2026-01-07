@@ -24,4 +24,4 @@ Viki, SSS ve faydalı makaleler: https://github.com/researchxxl/syncthing-androi
 Sorunlar: https://github.com/researchxxl/syncthing-android/issues
 
 Lütfen çeviri konusunda
-yardım edin: https://hosted.weblate.org/projects/syncthing/android/catfriend1
+yardım edin: https://hosted.weblate.org/projects/syncthing-fork/app/

@@ -34,4 +34,4 @@ Syncthing-Fork لنظام Android هو غلاف لـ Syncthing يوفر واجه
 
 المشكلات: https://github.com/researchxxl/syncthing-android/issues
 
-يرجى المساعدة في الترجمة: https://hosted.weblate.org/projects/syncthing/android/catfriend1
+يرجى المساعدة في الترجمة: https://hosted.weblate.org/projects/syncthing-fork/app/

@@ -35,4 +35,4 @@ Wiki, câu hỏi thường gặp và bài viết hữu ích: https://github.com/
 Các vấn đề: https://github.com/researchxxl/syncthing-android/issues
 
 Vui lòng giúp đỡ việc
-Phiên dịch: https://hosted.weblate.org/projects/syncthing/android/catfriend1
+Phiên dịch: https://hosted.weblate.org/projects/syncthing-fork/app/
