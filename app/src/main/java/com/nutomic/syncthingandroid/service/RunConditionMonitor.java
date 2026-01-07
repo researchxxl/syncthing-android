@@ -456,12 +456,12 @@ public class RunConditionMonitor {
     private SyncConditionResult checkConditionSyncOnPowerSource(String prefNameSyncOnPowerSource) {
         switch (mPreferences.getString(prefNameSyncOnPowerSource, Constants.PowerSource.CHARGER_BATTERY)) {
             case Constants.PowerSource.CHARGER:
-                if (!isCharging_API17()) {
+                if (!isCharging()) {
                     return new SyncConditionResult(false, res.getString(R.string.reason_not_charging));
                 }
                 break;
             case Constants.PowerSource.BATTERY:
-                if (isCharging_API17()) {
+                if (isCharging()) {
                     return new SyncConditionResult(false, res.getString(R.string.reason_not_on_battery_power));
                 }
                 break;
@@ -727,14 +727,15 @@ public class RunConditionMonitor {
     /**
      * Functions for run condition information retrieval.
      */
-    private boolean isCharging_API17() {
+    private boolean isCharging() {
         Intent intent = mContext.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
         if (intent == null) {
-            LogV("isCharging_API17: Checking battery status intent returned null");
+            LogV("isCharging: Checking battery status intent returned null");
             return false;
         }
         int plugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
-        LogV("isCharging_API17: Battery status intent extras: " + (intent.getExtras() != null ? intent.getExtras().toString() : "null"));
+        LogV("isCharging: Battery status intent extras: " + (intent.getExtras() != null ? intent.getExtras().toString() : "null"));
+        
         return plugged == BatteryManager.BATTERY_PLUGGED_AC ||
             plugged == BatteryManager.BATTERY_PLUGGED_USB ||
             plugged == BatteryManager.BATTERY_PLUGGED_WIRELESS ||
