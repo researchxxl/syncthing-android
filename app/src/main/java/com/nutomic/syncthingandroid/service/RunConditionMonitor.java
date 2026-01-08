@@ -170,7 +170,7 @@ public class RunConditionMonitor {
                 new IntentFilter(ACTION_UPDATE_SHOULDRUN_DECISION));
 
         if (!Constants.isRunningOnEmulator()) {
-            int triggeredSyncSleepIntervalS = Integer.parseInt(mPreferences.getString(Constants.PREF_SLEEP_INTERVAL_MINUTES,"60")) * 60;
+            triggeredSyncSleepIntervalS = Integer.parseInt(mPreferences.getString(Constants.PREF_SLEEP_INTERVAL_MINUTES,"60")) * 60;
         }
         long lastSyncTimeSinceBootMillisecs = mPreferences.getLong(Constants.PREF_LAST_RUN_TIME, 0);
         long elapsedRealtime = SystemClock.elapsedRealtime();
