@@ -24,3 +24,4 @@ jobs:
     with:
       applicationId: "com.github.catfriend1.syncthingfork"
       buildType: "debug"
+      environmentName: "dev-sign-untrusted"
