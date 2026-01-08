@@ -24,5 +24,3 @@ jobs:
     with:
       applicationId: "com.github.catfriend1.syncthingfork"
       buildType: "debug"
-      environmentName: ${{ github.event_name == 'workflow_dispatch' && 'dev' || 'dev-sign-untrusted' }}
-    secrets: inherit
