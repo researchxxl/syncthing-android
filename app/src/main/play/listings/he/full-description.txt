@@ -24,4 +24,4 @@ Syncthing-Fork עבור אנדרואיד הוא עטיפה עבור Syncthing ש
 בעיות: https://github.com/researchxxl/syncthing-android/issues
 
 נא לעזור עם
-תרגום: https://hosted.weblate.org/projects/syncthing/android/catfriend1
+תרגום: https://hosted.weblate.org/projects/syncthing-fork/app/

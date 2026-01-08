@@ -35,4 +35,4 @@ Wiki, FAQ és hasznos leírások: https://github.com/researchxxl/syncthing-andro
 Hibajelentés: https://github.com/researchxxl/syncthing-android/issues
 
 Kérem, segítsen
-Fordítás: https://hosted.weblate.org/projects/syncthing/android/catfriend1
+Fordítás: https://hosted.weblate.org/projects/syncthing-fork/app/
