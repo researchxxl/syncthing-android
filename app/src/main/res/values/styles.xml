@@ -17,16 +17,18 @@
     <style name="Widget.Syncthing.TextView" />
 
     <style name="Widget.Syncthing.TextView.Label" parent="@android:style/Widget.TextView">
-        <item name="android:background">?selectableItemBackground</item>
-        <item name="android:drawablePadding">32dp</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:drawablePadding">16dp</item>
         <item name="android:gravity">start|center_vertical</item>
-        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body1</item>
-        <item name="android:paddingLeft">@dimen/abc_action_bar_content_inset_material</item>
-        <item name="android:paddingRight">@dimen/abc_action_bar_content_inset_material</item>
+        <item name="android:textAppearance">@style/TextAppearance.Material3.BodyMedium</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
     </style>
 
     <style name="Widget.Syncthing.TextView.Label.Details">
-        <item name="android:textColor">?attr/editTextColor</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
         <item name="android:minHeight">56dp</item>
         <item name="android:paddingTop">8dp</item>
         <item name="android:paddingBottom">8dp</item>
@@ -48,21 +50,23 @@
 
     <style name="Widget.Syncthing.DrawerArrowToggle" parent="Widget.AppCompat.DrawerArrowToggle">
         <item name="spinBars">false</item>
-        <item name="color">@android:color/white</item>
+        <item name="color">?attr/colorOnSurface</item>
     </style>
 
     <!-- Text appearances -->
     <eat-comment />
 
-    <style name="TextAppearance.Syncthing.ListItemPrimary" parent="TextAppearance.AppCompat.Subhead">
-        <item name="android:textColor">?android:textColorPrimary</item>
+    <style name="TextAppearance.Syncthing.ListItemPrimary" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:textColor">?attr/colorOnSurface</item>
     </style>
 
-    <style name="TextAppearance.Syncthing.ListItemSecondary" parent="TextAppearance.AppCompat.Body1">
-        <item name="android:textColor">?android:textColorSecondary</item>
+    <style name="TextAppearance.Syncthing.ListItemSecondary" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
     </style>
 
-    <style name="TextAppearance.Syncthing.ListItemSmall" parent="TextAppearance.AppCompat.Caption" />
+    <style name="TextAppearance.Syncthing.ListItemSmall" parent="TextAppearance.Material3.LabelSmall">
+        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
+    </style>
 
     <style name="Widget.Syncthing.TextView.SpinnerItem" parent="Widget.AppCompat.TextView.SpinnerItem">
         <item name="android:textSize">18sp</item>
@@ -78,6 +82,6 @@
     </style>
 
     <style name="progressBarBlue" parent="@style/Theme.AppCompat">
-        <item name="colorAccent">@color/text_blue</item>
+        <item name="colorAccent">?attr/colorPrimary</item>
     </style>
 </resources>

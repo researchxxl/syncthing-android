@@ -187,7 +187,7 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
             </LinearLayout>
 
-            <androidx.appcompat.widget.SwitchCompat
+            <com.google.android.material.materialswitch.MaterialSwitch
                 android:id="@+id/introducer"
                 style="@style/Widget.Syncthing.TextView.Label.Details"
                 android:layout_width="match_parent"
@@ -197,7 +197,7 @@
                 app:drawableStartCompat="@drawable/ic_phonelink_black_24dp_active"
                 android:text="@string/introducer" />
 
-            <androidx.appcompat.widget.SwitchCompat
+            <com.google.android.material.materialswitch.MaterialSwitch
                 android:id="@+id/autoAcceptFolders"
                 style="@style/Widget.Syncthing.TextView.Label.Details"
                 android:layout_width="match_parent"
@@ -207,7 +207,7 @@
                 app:drawableStartCompat="@drawable/baseline_auto_fix_high_24"
                 android:text="@string/autoAcceptFolders" />
 
-            <androidx.appcompat.widget.SwitchCompat
+            <com.google.android.material.materialswitch.MaterialSwitch
                 android:id="@+id/devicePause"
                 style="@style/Widget.Syncthing.TextView.Label.Details"
                 android:layout_width="match_parent"
@@ -225,7 +225,7 @@
                 android:orientation="vertical"
                 android:gravity="center_vertical">
 
-                <androidx.appcompat.widget.SwitchCompat
+                <com.google.android.material.materialswitch.MaterialSwitch
                     android:id="@+id/deviceUntrusted"
                     style="@style/Widget.Syncthing.TextView.Label.Details"
                     android:layout_width="match_parent"
@@ -239,8 +239,10 @@
                         android:id="@+id/deviceUntrustedExplanation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="75dp"
-                        android:layout_marginTop="-20dp"
+	                android:layout_marginTop="-10dp"
+	                android:layout_marginEnd="60dp"
+	                android:layout_marginStart="72dp"
+	                android:layout_marginBottom="10dp"
                         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                         android:text="@string/untrusted_device_explanation"
                         android:focusable="false"/>
@@ -256,7 +258,7 @@
                 android:orientation="vertical"
                 android:gravity="center_vertical">
 
-                <androidx.appcompat.widget.SwitchCompat
+                <com.google.android.material.materialswitch.MaterialSwitch
                     android:id="@+id/customSyncConditionsSwitch"
                     style="@style/Widget.Syncthing.TextView.Label.Details"
                     android:layout_width="match_parent"

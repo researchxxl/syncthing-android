@@ -76,35 +76,33 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/folder_title" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/share_button"
+                style="@style/Widget.Material3.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginTop="8dp"
-                android:background="?attr/selectableItemBackground"
                 android:minWidth="60dip"
                 android:text="@string/save_title"
-                android:textColor="@color/accent"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/browse_button"
                 app:layout_constraintVertical_bias="0.965" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/cancel_button"
+                style="@style/Widget.Material3.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:background="?attr/selectableItemBackground"
                 android:minWidth="50dip"
                 android:text="@string/cancel_title"
-                android:textColor="@color/accent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_bias="0.951"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -138,8 +136,9 @@
                 app:layout_constraintRight_toLeftOf="@+id/browse_button"
                 app:layout_constraintTop_toBottomOf="@+id/sub_folder_title" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/browse_button"
+                style="@style/Widget.Material3.Button.TonalButton"
                 android:layout_width="88dp"
                 android:layout_height="48dp"
                 android:layout_marginEnd="8dp"

@@ -7,6 +7,7 @@
         android:id="@+id/add_device"
         android:icon="@drawable/btn_add_device"
         android:title="@string/add_device"
+        app:iconTint="?attr/colorOnSurface"
         app:showAsAction="always|withText" />
 
 </menu>

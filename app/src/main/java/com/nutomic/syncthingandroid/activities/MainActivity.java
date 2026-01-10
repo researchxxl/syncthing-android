@@ -29,6 +29,7 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -49,7 +50,6 @@ import com.nutomic.syncthingandroid.fragments.DeviceIdDialogFragment;
 import com.nutomic.syncthingandroid.fragments.DeviceListFragment;
 import com.nutomic.syncthingandroid.fragments.DrawerFragment;
 import com.nutomic.syncthingandroid.fragments.FolderListFragment;
-import com.nutomic.syncthingandroid.fragments.StatusFragment;
 import com.nutomic.syncthingandroid.model.Device;
 import com.nutomic.syncthingandroid.service.AppPrefs;
 import com.nutomic.syncthingandroid.service.Constants;
@@ -84,7 +84,6 @@ public class MainActivity extends SyncthingActivity
 
     private static final int FOLDER_FRAGMENT_ID = 0;
     private static final int DEVICE_FRAGMENT_ID = 1;
-    private static final int STATUS_FRAGMENT_ID = 2;
     
     /**
      * Intent action to exit app.
@@ -108,7 +107,6 @@ public class MainActivity extends SyncthingActivity
 
     private FolderListFragment mFolderListFragment;
     private DeviceListFragment mDeviceListFragment;
-    private StatusFragment     mStatusFragment;
     private DrawerFragment     mDrawerFragment;
 
     private ActionBarDrawerToggle mDrawerToggle;
@@ -240,8 +238,6 @@ public class MainActivity extends SyncthingActivity
                     savedInstanceState, FolderListFragment.class.getName());
             mDeviceListFragment = (DeviceListFragment) fm.getFragment(
                     savedInstanceState, DeviceListFragment.class.getName());
-            mStatusFragment = (StatusFragment) fm.getFragment(
-                    savedInstanceState, StatusFragment.class.getName());
             mDrawerFragment = (DrawerFragment) fm.getFragment(
                     savedInstanceState, DrawerFragment.class.getName());
         }
@@ -250,9 +246,6 @@ public class MainActivity extends SyncthingActivity
         }
         if (mDeviceListFragment == null) {
             mDeviceListFragment = new DeviceListFragment();
-        }
-        if (mStatusFragment == null) {
-            mStatusFragment = new StatusFragment();
         }
         if (mDrawerFragment == null) {
             mDrawerFragment = new DrawerFragment();
@@ -299,7 +292,7 @@ public class MainActivity extends SyncthingActivity
      * Updates the ViewPager to show tabs depending on the service state.
      */
     private void updateViewPager() {
-        final int numPages = 3;
+        final int numPages = 2;
         FragmentStatePagerAdapter mSectionsPagerAdapter =
                 new FragmentStatePagerAdapter(getSupportFragmentManager()) {
 
@@ -310,8 +303,6 @@ public class MainActivity extends SyncthingActivity
                         return mFolderListFragment;
                     case DEVICE_FRAGMENT_ID:
                         return mDeviceListFragment;
-                    case STATUS_FRAGMENT_ID:
-                        return mStatusFragment;
                     default:
                         return null;
                 }
@@ -334,8 +325,6 @@ public class MainActivity extends SyncthingActivity
                         return getResources().getString(R.string.folders_fragment_title);
                     case DEVICE_FRAGMENT_ID:
                         return getResources().getString(R.string.devices_fragment_title);
-                    case STATUS_FRAGMENT_ID:
-                        return getResources().getString(R.string.status_fragment_title);
                     default:
                         return String.valueOf(position);
                 }
@@ -350,7 +339,7 @@ public class MainActivity extends SyncthingActivity
              * - https://issuetracker.google.com/issues/36956111
              */
             Log.e(TAG, "updateViewPager: IllegalStateException in setAdapter.", e);
-            new AlertDialog.Builder(this)
+            new MaterialAlertDialogBuilder(this)
                     .setMessage(getString(R.string.exception_known_bug_notice, getString(R.string.issue_tracker_url), "108"))
                     .setCancelable(false)
                     .setPositiveButton(android.R.string.ok, (dialog, which) -> {})
@@ -408,7 +397,6 @@ public class MainActivity extends SyncthingActivity
             mSyncthingService.unregisterOnServiceStateChangeListener(mDrawerFragment);
             mSyncthingService.unregisterOnServiceStateChangeListener(mFolderListFragment);
             mSyncthingService.unregisterOnServiceStateChangeListener(mDeviceListFragment);
-            mSyncthingService.unregisterOnServiceStateChangeListener(mStatusFragment);
         }
     }
 
@@ -421,7 +409,6 @@ public class MainActivity extends SyncthingActivity
         syncthingService.registerOnServiceStateChangeListener(mDrawerFragment);
         syncthingService.registerOnServiceStateChangeListener(mFolderListFragment);
         syncthingService.registerOnServiceStateChangeListener(mDeviceListFragment);
-        syncthingService.registerOnServiceStateChangeListener(mStatusFragment);
     }
 
     /**
@@ -440,7 +427,6 @@ public class MainActivity extends SyncthingActivity
         };
         putFragment.accept(mFolderListFragment);
         putFragment.accept(mDeviceListFragment);
-        putFragment.accept(mStatusFragment);
 
         outState.putBoolean(IS_SHOWING_RESTART_DIALOG, mRestartDialog != null && mRestartDialog.isShowing());
         Util.dismissDialogSafe(mRestartDialog, this);
@@ -488,7 +474,7 @@ public class MainActivity extends SyncthingActivity
     }
 
     public void showRestartDialog(){
-        mRestartDialog = new AlertDialog.Builder(this)
+        mRestartDialog = new MaterialAlertDialogBuilder(this)
                 .setMessage(R.string.dialog_confirm_restart)
                 .setPositiveButton(android.R.string.yes, (dialogInterface, i1) -> this.startService(new Intent(this, SyncthingService.class)
                         .setAction(SyncthingService.ACTION_RESTART)))
@@ -616,7 +602,7 @@ public class MainActivity extends SyncthingActivity
             TextView tv = v.findViewById(R.id.example);
             tv.setText(report);
             Util.dismissDialogSafe(mUsageReportingDialog, MainActivity.this);
-            mUsageReportingDialog = new AlertDialog.Builder(MainActivity.this)
+            mUsageReportingDialog = new MaterialAlertDialogBuilder(MainActivity.this)
                     .setTitle(R.string.usage_reporting_dialog_title)
                     .setView(v)
                     .setPositiveButton(R.string.yes, listener)
@@ -730,7 +716,7 @@ public class MainActivity extends SyncthingActivity
      * Shows a dialog with the three important news actions.
      */
     private void showImportantNewsActionsDialog() {
-        new AlertDialog.Builder(this)
+        new MaterialAlertDialogBuilder(this)
             .setTitle(R.string.important_news_title)
             .setMessage(getString(R.string.important_news_description, getString(R.string.important_news_url)))
             .setPositiveButton(R.string.important_news_action_open, (dialog, which) -> 

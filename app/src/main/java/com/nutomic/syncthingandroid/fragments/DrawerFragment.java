@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,7 +13,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
 import androidx.appcompat.app.AlertDialog;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 
@@ -60,10 +66,30 @@ public class DrawerFragment extends Fragment implements SyncthingService.OnServi
     private TextView mDrawerActionSettings;
     private TextView mDrawerActionExit;
 
+    private TextView mStatusRamUsage;
+    private TextView mStatusDownload;
+    private TextView mStatusUpload;
+    private TextView mStatusAnnounceServer;
+    private TextView mStatusSyncthingVersion;
+
     private MainActivity mActivity;
     private SharedPreferences sharedPreferences = null;
 
     private Boolean mRunningOnTV = false;
+
+    private final Handler mRestApiQueryHandler = new Handler();
+    private Runnable mRestApiQueryRunnable = new Runnable() {
+        @Override
+        public void run() {
+            onTimerEvent();
+            mRestApiQueryHandler.postDelayed(this, Constants.REST_UPDATE_INTERVAL);
+        }
+    };
+
+    /**
+     * Object that must be locked upon accessing the status holders.
+     */
+    private final Object mStatusHolderLock = new Object();
 
     @Override
     public void onServiceStateChange(SyncthingService.State currentState) {
@@ -75,10 +101,20 @@ public class DrawerFragment extends Fragment implements SyncthingService.OnServi
     public void onResume() {
         super.onResume();
         updateUI();
+        if (mServiceState == SyncthingService.State.ACTIVE) {
+            startRestApiQueryHandler();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        stopRestApiQueryHandler();
+        super.onPause();
     }
 
     @Override
     public void onDestroy() {
+        stopRestApiQueryHandler();
         super.onDestroy();
     }
 
@@ -95,6 +131,12 @@ public class DrawerFragment extends Fragment implements SyncthingService.OnServi
         mActivity = (MainActivity) getActivity();
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mActivity);
         mRunningOnTV = Util.isRunningOnTV(mActivity);
+
+        mStatusRamUsage             = view.findViewById(R.id.statusRamUsage);
+        mStatusDownload             = view.findViewById(R.id.statusDownload);
+        mStatusUpload               = view.findViewById(R.id.statusUpload);
+        mStatusAnnounceServer       = view.findViewById(R.id.statusAnnounceServer);
+        mStatusSyncthingVersion     = view.findViewById(R.id.statusSyncthingVersion);
 
         mDrawerActionShowQrCode     = view.findViewById(R.id.drawerActionShowQrCode);
         mDrawerRecentChanges        = view.findViewById(R.id.drawerActionRecentChanges);
@@ -113,6 +155,22 @@ public class DrawerFragment extends Fragment implements SyncthingService.OnServi
         mDrawerActionSettings.setOnClickListener(this);
         mDrawerActionExit.setOnClickListener(this);
 
+        // Handle window insets to ensure padding is respected in edge-to-edge mode
+        ViewCompat.setOnApplyWindowInsetsListener(view, (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            int originalLeft = v.getPaddingLeft();
+            int originalTop = v.getPaddingTop();
+            int originalRight = v.getPaddingRight();
+            int originalBottom = v.getPaddingBottom();
+            v.setPadding(
+                    originalLeft + systemBars.left,
+                    originalTop + systemBars.top,
+                    originalRight + systemBars.right,
+                    originalBottom + systemBars.bottom
+            );
+            return WindowInsetsCompat.CONSUMED;
+        });
+
         // Initially fill UI elements.
         updateUI();
     }
@@ -125,6 +183,23 @@ public class DrawerFragment extends Fragment implements SyncthingService.OnServi
     private void updateUI() {
         Boolean syncthingRunning = mServiceState == SyncthingService.State.ACTIVE;
 
+        if (syncthingRunning) {
+            startRestApiQueryHandler();
+        } else {
+            stopRestApiQueryHandler();
+            // Reset status text when not running
+            if (mStatusRamUsage != null)
+                mStatusRamUsage.setText("-");
+            if (mStatusDownload != null)
+                mStatusDownload.setText("-");
+            if (mStatusUpload != null)
+                mStatusUpload.setText("-");
+            if (mStatusAnnounceServer != null)
+                mStatusAnnounceServer.setText("-");
+            if (mStatusSyncthingVersion != null)
+                mStatusSyncthingVersion.setText("-");
+        }
+
         /**
          * Show Web UI menu item on Android TV for debug builds only.
          * Reason: SyncthingNative's Web UI is not approved by Google because
@@ -136,6 +211,77 @@ public class DrawerFragment extends Fragment implements SyncthingService.OnServi
         mDrawerRecentChanges.setEnabled(syncthingRunning);
         mDrawerActionWebGui.setEnabled(syncthingRunning);
         mDrawerActionRestart.setEnabled(syncthingRunning);
+    }
+
+    private void startRestApiQueryHandler() {
+        mRestApiQueryHandler.removeCallbacks(mRestApiQueryRunnable);
+        mRestApiQueryHandler.post(mRestApiQueryRunnable);
+    }
+
+    private void stopRestApiQueryHandler() {
+        mRestApiQueryHandler.removeCallbacks(mRestApiQueryRunnable);
+    }
+
+    /**
+     * Invokes status callbacks via syncthing's REST API.
+     */
+    private void onTimerEvent() {
+        if (mActivity == null || mActivity.isFinishing()) {
+            return;
+        }
+        if (mServiceState != SyncthingService.State.ACTIVE) {
+            return;
+        }
+        com.nutomic.syncthingandroid.service.RestApi restApi = mActivity.getApi();
+        if (restApi == null) {
+            return;
+        }
+
+        // Force a cache-miss to query status of all devices asynchronously.
+        restApi.getRemoteDeviceStatus("");
+
+        // onReceiveSystemStatus will update UI
+        restApi.getSystemStatus(this::onReceiveSystemStatus);
+
+        // Also update version if available
+        String version = restApi.getVersion();
+        if (mStatusSyncthingVersion != null && version != null) {
+            mStatusSyncthingVersion.setText(version);
+        }
+    }
+
+    private void onReceiveSystemStatus(com.nutomic.syncthingandroid.model.SystemStatus systemStatus) {
+        if (mActivity == null || isDetached() || getContext() == null) {
+            return;
+        }
+
+        synchronized (mStatusHolderLock) {
+            // RAM
+            String ramUsage = Util.readableFileSize(mActivity, systemStatus.sys);
+            mStatusRamUsage.setText(ramUsage);
+
+            // Announce Server
+            int announceTotal = systemStatus.discoveryMethods;
+            int announceConnected = announceTotal
+                    - com.google.common.base.Optional.fromNullable(systemStatus.discoveryErrors)
+                            .transform(java.util.Map::size).or(0);
+            String announceServerText = (announceTotal == 0) ? ""
+                    : String.format(java.util.Locale.getDefault(), "%1$d/%2$d", announceConnected, announceTotal);
+            mStatusAnnounceServer.setText(announceServerText);
+
+            // Download / Upload
+            com.nutomic.syncthingandroid.model.Connection total = new com.nutomic.syncthingandroid.model.Connection();
+            com.nutomic.syncthingandroid.service.RestApi restApi = mActivity.getApi();
+            if (restApi != null && restApi.isConfigLoaded()) {
+                total = restApi.getTotalConnectionStatistic();
+            }
+
+            String download = (total.inBits / 8 < 1024) ? "0 B/s" : Util.readableTransferRate(mActivity, total.inBits);
+            mStatusDownload.setText(download);
+
+            String upload = (total.outBits / 8 < 1024) ? "0 B/s" : Util.readableTransferRate(mActivity, total.outBits);
+            mStatusUpload.setText(upload);
+        }
     }
 
     /**
@@ -180,7 +326,7 @@ public class DrawerFragment extends Fragment implements SyncthingService.OnServi
                  * App is running as a service. Show an explanation why exiting syncthing is an
                  * extraordinary request, then ask the user to confirm.
                  */
-                AlertDialog mExitConfirmationDialog = new AlertDialog.Builder(mActivity)
+                new MaterialAlertDialogBuilder(mActivity)
                         .setTitle(R.string.dialog_exit_while_running_as_service_title)
                         .setMessage(R.string.dialog_exit_while_running_as_service_message)
                         .setPositiveButton(R.string.yes, (d, i) -> {

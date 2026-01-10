@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.documentfile.provider.DocumentFile;
@@ -1138,7 +1139,7 @@ public class FileUtils {
     }
 
     private static void suggestFileManagerApp(final Context context) {
-        AlertDialog mSuggestFileManagerAppDialog = new AlertDialog.Builder(context)
+        new MaterialAlertDialogBuilder(context)
                 .setTitle(R.string.suggest_file_manager_app_dialog_title)
                 .setMessage(R.string.suggest_file_manager_app_dialog_text)
                 .setPositiveButton(R.string.yes, (d, i) -> {

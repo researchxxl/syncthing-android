@@ -1,9 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#0288D1</color>
-    <color name="primary_dark">#002171</color>
+    <!-- Material Design 3 Dark Theme Colors -->
+    <!-- Primary colors -->
+    <color name="md_theme_dark_primary">#81D4FF</color>
+    <color name="md_theme_dark_onPrimary">#003547</color>
+    <color name="md_theme_dark_primaryContainer">#004D65</color>
+    <color name="md_theme_dark_onPrimaryContainer">#BDE9FF</color>
+
+    <!-- Secondary colors -->
+    <color name="md_theme_dark_secondary">#B7C9D1</color>
+    <color name="md_theme_dark_onSecondary">#21333A</color>
+    <color name="md_theme_dark_secondaryContainer">#374A51</color>
+    <color name="md_theme_dark_onSecondaryContainer">#D3E5ED</color>
+
+    <!-- Tertiary colors -->
+    <color name="md_theme_dark_tertiary">#C6C2EA</color>
+    <color name="md_theme_dark_onTertiary">#2F2E4D</color>
+    <color name="md_theme_dark_tertiaryContainer">#454365</color>
+    <color name="md_theme_dark_onTertiaryContainer">#E3DFFF</color>
+
+    <!-- Error colors -->
+    <color name="md_theme_dark_error">#FFB4AB</color>
+    <color name="md_theme_dark_onError">#690005</color>
+    <color name="md_theme_dark_errorContainer">#93000A</color>
+    <color name="md_theme_dark_onErrorContainer">#FFDAD6</color>
+
+    <!-- Surface colors - Dark mode tonal surfaces with blue-gray tint -->
+    <color name="md_theme_dark_background">#121417</color>
+    <color name="md_theme_dark_onBackground">#E2E2E6</color>
+    <color name="md_theme_dark_surface">#121417</color>
+    <color name="md_theme_dark_onSurface">#E2E2E6</color>
+    <color name="md_theme_dark_surfaceVariant">#43474E</color>
+    <color name="md_theme_dark_onSurfaceVariant">#C4C6CF</color>
+    <color name="md_theme_dark_outline">#8E9199</color>
+    <color name="md_theme_dark_outlineVariant">#43474E</color>
+
+    <!-- Surface container colors - elevated surfaces with tonal variation -->
+    <!-- Lower surface (navigation drawer, top app bar) - darker tonal -->
+    <color name="md_theme_dark_surfaceContainerLow">#1E1F23</color>
+    <color name="md_theme_dark_surfaceContainer">#1E1F23</color>
+    <color name="md_theme_dark_surfaceContainerHigh">#25262A</color>
+    <color name="md_theme_dark_surfaceContainerHighest">#2E3035</color>
+
+    <!-- Card background - lighter tonal for contrast -->
+    <color name="md_theme_dark_surfaceContainerLowest">#1A1B1F</color>
+
+    <!-- Inverse surface -->
+    <color name="md_theme_dark_inverseSurface">#E2E2E6</color>
+    <color name="md_theme_dark_inverseOnSurface">#2F3033</color>
+
+    <!-- Inverse primary -->
+    <color name="md_theme_dark_inversePrimary">#0288D1</color>
+
+    <!-- Surface tint -->
+    <color name="md_theme_dark_surfaceTint">#81D4FF</color>
+
+    <!-- scrim colors -->
+    <color name="m3_sys_dark_scrim">#80000000</color>
+    <color name="m3_popupmenu_overlay_color">#60000000</color>
+
+    <!-- Legacy colors for compatibility -->
+    <color name="primary">@color/md_theme_dark_primary</color>
+    <color name="primary_dark">#004D65</color>
 
     <!-- MainActivity start -->
-    <color name="bottom_navigation_bar">#263238</color>
+    <color name="bottom_navigation_bar">#1E1F23</color>
     <!-- MainActivity end -->
 </resources>

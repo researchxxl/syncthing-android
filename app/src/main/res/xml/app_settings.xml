@@ -132,6 +132,14 @@
             android:singleLineTitle="false"
             android:defaultValue="-1" /> <!-- -1 is Follow system -->
 
+        <!-- Dynamic Colors -->
+        <CheckBoxPreference
+            android:key="dynamic_colors"
+            android:title="@string/preference_dynamic_colors_title"
+            android:summary="@string/preference_dynamic_colors_summary"
+            android:singleLineTitle="false"
+            android:defaultValue="true" />
+
         <!-- Expert mode -->
         <CheckBoxPreference
             android:key="expert_mode"

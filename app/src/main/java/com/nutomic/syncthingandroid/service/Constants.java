@@ -46,6 +46,7 @@ public class Constants {
 
     // Preferences - User Interface
     public static final String PREF_APP_THEME                   = "app_theme";
+    public static final String PREF_DYNAMIC_COLORS              = "dynamic_colors";
     public static final String PREF_EXPERT_MODE                 = "expert_mode";
     public static final String PREF_START_INTO_WEB_GUI          = "start_into_web_gui";
 

@@ -22,6 +22,11 @@ public abstract class ThemedAppCompatActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         Integer prefAppTheme = Integer.parseInt(sharedPreferences.getString(Constants.PREF_APP_THEME, Constants.APP_THEME_FOLLOW_SYSTEM));
         AppCompatDelegate.setDefaultNightMode(prefAppTheme);
+
+        if (sharedPreferences.getBoolean(Constants.PREF_DYNAMIC_COLORS, true)) {
+            com.google.android.material.color.DynamicColors.applyToActivityIfAvailable(this);
+        }
+
         super.onCreate(savedInstanceState);
     }
 }

@@ -31,6 +31,7 @@ import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.Toast;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -102,7 +103,7 @@ public class SettingsActivity extends SyncthingActivity {
                         this.startService(new Intent(this, SyncthingService.class)
                                 .setAction(SyncthingService.ACTION_REFRESH_NETWORK_INFO));
                     } else {
-                        new AlertDialog.Builder(this)
+                        new MaterialAlertDialogBuilder(this)
                                 .setTitle(R.string.sync_only_wifi_ssids_location_permission_rejected_dialog_title)
                                 .setMessage(R.string.sync_only_wifi_ssids_location_permission_rejected_dialog_content)
                                 .setPositiveButton(android.R.string.ok, null).show();
@@ -616,6 +617,10 @@ public class SettingsActivity extends SyncthingActivity {
                                 .show();
                     }
                     break;
+                case Constants.PREF_DYNAMIC_COLORS:
+                    getAppRestartConfirmationDialog(getActivity())
+                            .show();
+                    break;
             }
             return true;
         }
@@ -798,7 +803,7 @@ public class SettingsActivity extends SyncthingActivity {
                     startActivity(intent);
                     return true;
                 case KEY_EXPORT_CONFIG:
-                    new AlertDialog.Builder(getActivity())
+                    new MaterialAlertDialogBuilder(getActivity())
                             .setMessage(R.string.dialog_confirm_export)
                             .setPositiveButton(android.R.string.yes, (dialog, which) -> {
                                 new ExportConfigTask(this, mSyncthingService)
@@ -808,7 +813,7 @@ public class SettingsActivity extends SyncthingActivity {
                             .show();
                     return true;
                 case KEY_IMPORT_CONFIG:
-                    new AlertDialog.Builder(getActivity())
+                    new MaterialAlertDialogBuilder(getActivity())
                             .setMessage(R.string.dialog_confirm_import)
                             .setPositiveButton(android.R.string.yes, (dialog, which) -> {
                                 // Import will discard our pending config changes.
@@ -830,7 +835,7 @@ public class SettingsActivity extends SyncthingActivity {
                     default:
                         return false;
                 case KEY_CLEAR_STVERSIONS:
-                    new AlertDialog.Builder(getActivity())
+                    new MaterialAlertDialogBuilder(getActivity())
                             .setMessage(R.string.clear_stversions_question)
                             .setPositiveButton(android.R.string.yes, (dialog, which) -> {
                                 ConfigRouter config = new ConfigRouter(getActivity());
@@ -847,7 +852,7 @@ public class SettingsActivity extends SyncthingActivity {
                     onDownloadSupportBundleClick();
                     return true;
                 case KEY_UNDO_IGNORED_DEVICES_FOLDERS:
-                    new AlertDialog.Builder(getActivity())
+                    new MaterialAlertDialogBuilder(getActivity())
                             .setMessage(R.string.undo_ignored_devices_folders_question)
                             .setPositiveButton(android.R.string.yes, (dialog, which) -> {
                                 if (mRestApi == null) {
@@ -869,7 +874,7 @@ public class SettingsActivity extends SyncthingActivity {
                     intent = new Intent(getActivity(), SyncthingService.class)
                             .setAction(SyncthingService.ACTION_RESET_DATABASE);
 
-                    new AlertDialog.Builder(getActivity())
+                    new MaterialAlertDialogBuilder(getActivity())
                             .setTitle(R.string.st_reset_database_title)
                             .setMessage(R.string.st_reset_database_question)
                             .setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {
@@ -884,7 +889,7 @@ public class SettingsActivity extends SyncthingActivity {
                     intent = new Intent(getActivity(), SyncthingService.class)
                             .setAction(SyncthingService.ACTION_RESET_DELTAS);
 
-                    new AlertDialog.Builder(getActivity())
+                    new MaterialAlertDialogBuilder(getActivity())
                             .setTitle(R.string.st_reset_deltas_title)
                             .setMessage(R.string.st_reset_deltas_question)
                             .setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {
@@ -930,8 +935,8 @@ public class SettingsActivity extends SyncthingActivity {
          * whole app including all of its activities and services.
          * Use rarely as it's annoying for a user having to restart the whole app.
          */
-        private static AlertDialog.Builder getAppRestartConfirmationDialog(Activity activity) {
-            return new AlertDialog.Builder(activity)
+        private static MaterialAlertDialogBuilder getAppRestartConfirmationDialog(Activity activity) {
+            return new MaterialAlertDialogBuilder(activity)
                     .setTitle(R.string.dialog_settings_restart_app_title)
                     .setMessage(R.string.dialog_settings_restart_app_question)
                     .setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {

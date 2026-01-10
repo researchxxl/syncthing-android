@@ -1,64 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.FirstStartActivity"
+    tools:showIn="@layout/activity_first_start">
+
+    <com.nutomic.syncthingandroid.views.CustomViewPager
+        android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/primary_dark"
-        tools:context=".activities.FirstStartActivity"
-        tools:showIn="@layout/activity_first_start">
+        android:nextFocusLeft="@+id/btn_back"
+        android:nextFocusRight="@+id/btn_next" />
 
-        <com.nutomic.syncthingandroid.views.CustomViewPager
-                android:id="@+id/view_pager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:nextFocusLeft="@+id/btn_back"
-                android:nextFocusRight="@+id/btn_next" />
+    <LinearLayout
+        android:id="@+id/layoutDots"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dots_height"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/dots_margin_bottom"
+        android:gravity="center"
+        android:orientation="horizontal" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@id/layoutDots"
+        android:alpha=".5"
+        android:background="@android:color/white" />
 
-            <LinearLayout
-                    android:id="@+id/layoutDots"
-                    android:focusable="false"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:importantForAccessibility="no"
-                    android:descendantFocusability="blocksDescendants">
-            </LinearLayout>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_back"
+        style="@style/Widget.Material3.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="10dp"
+        android:text="@string/back"
+        android:visibility="gone" />
 
-            <View
-                    android:focusable="false"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:alpha=".5"
-                    android:layout_above="@id/layoutDots"
-                    android:background="@android:color/white" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_next"
+        style="@style/Widget.Material3.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="10dp"
+        android:text="@string/cont" />
 
-            <Button
-                    android:id="@+id/btn_back"
-                    android:focusable="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentStart="true"
-                    android:text="@string/back"
-                    style="@style/Theme.Syncthing.GreyButton" />
-
-            <Button
-                    android:id="@+id/btn_next"
-                    android:focusable="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentEnd="true"
-                    android:text="@string/cont"
-                    style="@style/Theme.Syncthing.GreyButton" >
-            </Button>
-
-    </RelativeLayout>
 </RelativeLayout>

@@ -1,7 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#03A9F4</color>
-    <color name="primary_dark">#0288D1</color>
+    <!-- Material Design 3 Light Theme Colors -->
+    <!-- Primary colors -->
+    <color name="md_theme_light_primary">#0288D1</color>
+    <color name="md_theme_light_onPrimary">#FFFFFF</color>
+    <color name="md_theme_light_primaryContainer">#BDE9FF</color>
+    <color name="md_theme_light_onPrimaryContainer">#001F2C</color>
+
+    <!-- Secondary colors -->
+    <color name="md_theme_light_secondary">#4F6168</color>
+    <color name="md_theme_light_onSecondary">#FFFFFF</color>
+    <color name="md_theme_light_secondaryContainer">#D3E5ED</color>
+    <color name="md_theme_light_onSecondaryContainer">#0B1E25</color>
+
+    <!-- Tertiary colors -->
+    <color name="md_theme_light_tertiary">#5D5B7E</color>
+    <color name="md_theme_light_onTertiary">#FFFFFF</color>
+    <color name="md_theme_light_tertiaryContainer">#E3DFFF</color>
+    <color name="md_theme_light_onTertiaryContainer">#1A1937</color>
+
+    <!-- Error colors -->
+    <color name="md_theme_light_error">#BA1A1A</color>
+    <color name="md_theme_light_onError">#FFFFFF</color>
+    <color name="md_theme_light_errorContainer">#FFDAD6</color>
+    <color name="md_theme_light_onErrorContainer">#410002</color>
+
+    <!-- Surface colors - Light mode uses white/gray tonal palette -->
+    <color name="md_theme_light_background">#FFFBFE</color>
+    <color name="md_theme_light_onBackground">#1A1B1E</color>
+    <color name="md_theme_light_surface">#FFFBFE</color>
+    <color name="md_theme_light_onSurface">#1A1B1E</color>
+    <color name="md_theme_light_surfaceVariant">#DFE2EB</color>
+    <color name="md_theme_light_onSurfaceVariant">#43474E</color>
+    <color name="md_theme_light_outline">#74777F</color>
+    <color name="md_theme_light_outlineVariant">#C4C6CF</color>
+
+    <!-- Inverse surface for elevated elements -->
+    <color name="md_theme_light_inverseSurface">#2F3033</color>
+    <color name="md_theme_light_inverseOnSurface">#F1F0F4</color>
+
+    <!-- Inverse primary -->
+    <color name="md_theme_light_inversePrimary">#81D4FF</color>
+
+    <!-- Surface tint - the primary color used for tonal surfaces -->
+    <color name="md_theme_light_surfaceTint">#0288D1</color>
+
+    <!-- Legacy colors for compatibility -->
+    <color name="primary">@color/md_theme_light_primary</color>
+    <color name="primary_dark">#0277BD</color>
     <color name="accent">#FFC107</color>
     <color name="divider">#1F000000</color>
 
@@ -16,45 +62,66 @@
     <color name="light_blue">#4fc4ff</color>
 
     <!-- FirstStartActivity welcome wizard start -->
-    <!-- Screens background color-->
-    <color name="bg_screen1">#3395ff</color>
-    <color name="bg_screen2">#20d2bb</color>
-    <color name="bg_screen3">#c873f4</color>
-    <color name="bg_screen4">#5e7c8b</color>
-    <color name="bg_screen5">#3d4db7</color>
-
-    <!-- dots inactive colors -->
-    <color name="dot_dark_screen1">#2278d4</color>
-    <color name="dot_dark_screen2">#14a895</color>
-    <color name="dot_dark_screen3">#a854d4</color>
-    <color name="dot_dark_screen4">#3e5c6b</color>
-    <color name="dot_dark_screen5">#1d2d97</color>
-
-    <!-- dots active colors -->
-    <color name="dot_light_screen1">#93c6fd</color>
-    <color name="dot_light_screen2">#8cf9eb</color>
-    <color name="dot_light_screen3">#e4b5fc</color>
-    <color name="dot_light_screen4">#8eacbb</color>
-    <color name="dot_light_screen5">#6d7de7</color>
-
-    <array name="array_dot_active">
-        <item>@color/dot_light_screen1</item>
-        <item>@color/dot_light_screen2</item>
-        <item>@color/dot_light_screen3</item>
-        <item>@color/dot_light_screen4</item>
-        <item>@color/dot_light_screen5</item>
-    </array>
-
-    <array name="array_dot_inactive">
-        <item>@color/dot_dark_screen1</item>
-        <item>@color/dot_dark_screen2</item>
-        <item>@color/dot_dark_screen3</item>
-        <item>@color/dot_dark_screen4</item>
-        <item>@color/dot_dark_screen5</item>
-    </array>
+    <color name="bg_screen4">#0288D1</color>
     <!-- FirstStartActivity welcome wizard end -->
 
     <!-- MainActivity start -->
     <color name="bottom_navigation_bar">#1d57a1</color>
     <!-- MainActivity end -->
+
+    <!-- Material Design 3 Dark Theme Colors (for night mode fallback) -->
+    <!-- Primary colors -->
+    <color name="md_theme_dark_primary">#81D4FF</color>
+    <color name="md_theme_dark_onPrimary">#003547</color>
+    <color name="md_theme_dark_primaryContainer">#004D65</color>
+    <color name="md_theme_dark_onPrimaryContainer">#BDE9FF</color>
+
+    <!-- Secondary colors -->
+    <color name="md_theme_dark_secondary">#B7C9D1</color>
+    <color name="md_theme_dark_onSecondary">#21333A</color>
+    <color name="md_theme_dark_secondaryContainer">#374A51</color>
+    <color name="md_theme_dark_onSecondaryContainer">#D3E5ED</color>
+
+    <!-- Tertiary colors -->
+    <color name="md_theme_dark_tertiary">#C6C2EA</color>
+    <color name="md_theme_dark_onTertiary">#2F2E4D</color>
+    <color name="md_theme_dark_tertiaryContainer">#454365</color>
+    <color name="md_theme_dark_onTertiaryContainer">#E3DFFF</color>
+
+    <!-- Error colors -->
+    <color name="md_theme_dark_error">#FFB4AB</color>
+    <color name="md_theme_dark_onError">#690005</color>
+    <color name="md_theme_dark_errorContainer">#93000A</color>
+    <color name="md_theme_dark_onErrorContainer">#FFDAD6</color>
+
+    <!-- Surface colors -->
+    <color name="md_theme_dark_background">#121417</color>
+    <color name="md_theme_dark_onBackground">#E2E2E6</color>
+    <color name="md_theme_dark_surface">#121417</color>
+    <color name="md_theme_dark_onSurface">#E2E2E6</color>
+    <color name="md_theme_dark_surfaceVariant">#43474E</color>
+    <color name="md_theme_dark_onSurfaceVariant">#C4C6CF</color>
+    <color name="md_theme_dark_outline">#8E9199</color>
+    <color name="md_theme_dark_outlineVariant">#43474E</color>
+
+    <!-- Surface container colors -->
+    <color name="md_theme_dark_surfaceContainerLow">#1E1F23</color>
+    <color name="md_theme_dark_surfaceContainer">#1E1F23</color>
+    <color name="md_theme_dark_surfaceContainerHigh">#25262A</color>
+    <color name="md_theme_dark_surfaceContainerHighest">#2E3035</color>
+    <color name="md_theme_dark_surfaceContainerLowest">#1A1B1F</color>
+
+    <!-- Inverse surface -->
+    <color name="md_theme_dark_inverseSurface">#E2E2E6</color>
+    <color name="md_theme_dark_inverseOnSurface">#2F3033</color>
+
+    <!-- Inverse primary -->
+    <color name="md_theme_dark_inversePrimary">#0288D1</color>
+
+    <!-- Surface tint -->
+    <color name="md_theme_dark_surfaceTint">#81D4FF</color>
+
+    <!-- Scrim colors -->
+    <color name="m3_sys_dark_scrim">#80000000</color>
+    <color name="m3_popupmenu_overlay_color">#60000000</color>
 </resources>

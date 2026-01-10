@@ -43,7 +43,7 @@
                 android:textSize="@dimen/slide_title"
                 android:textStyle="bold"/>
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnGrantStoragePerm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -59,7 +59,7 @@
                 android:textSize="12sp"
                 style="@style/Theme.Syncthing.GreyButton" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnGrantCameraPerm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -106,7 +106,7 @@
                 android:layout_above="@id/btn_back"
                 android:background="@android:color/white" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_back"
                 android:focusable="true"
                 android:layout_width="wrap_content"
@@ -116,7 +116,7 @@
                 android:text="@string/back"
                 style="@style/Theme.Syncthing.GreyButton" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_go"
                 android:focusable="true"
                 android:layout_width="wrap_content"
@@ -124,8 +124,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
                 android:text="@string/cont"
-                style="@style/Theme.Syncthing.GreyButton" >
-        </Button>
+                style="@style/Theme.Syncthing.GreyButton" />
 
     </RelativeLayout>
 </RelativeLayout>

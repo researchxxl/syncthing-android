@@ -87,4 +87,13 @@
         <item>2</item>
     </string-array>
 
+    <!-- FirstStartActivity welcome wizard dots -->
+    <integer-array name="array_dot_active">
+        <item>@color/primary</item>
+    </integer-array>
+
+    <integer-array name="array_dot_inactive">
+        <item>@android:color/darker_gray</item>
+    </integer-array>
+
 </resources>

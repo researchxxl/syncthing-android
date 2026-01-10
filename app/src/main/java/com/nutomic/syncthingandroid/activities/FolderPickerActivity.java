@@ -26,6 +26,7 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import androidx.core.content.ContextCompat;
 
 import com.google.common.collect.Sets;
@@ -177,7 +178,7 @@ public class FolderPickerActivity extends SyncthingActivity
         int itemId = item.getItemId();
         if (itemId == R.id.create_folder) {
             final EditText et = new EditText(this);
-            AlertDialog dialog = new AlertDialog.Builder(this)
+            AlertDialog dialog = new MaterialAlertDialogBuilder(this)
                     .setTitle(R.string.create_folder)
                     .setView(et)
                     .setPositiveButton(android.R.string.ok,

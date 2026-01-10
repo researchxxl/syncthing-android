@@ -7,18 +7,18 @@
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:minHeight="?attr/actionBarSize"
-    android:background="?colorPrimary"
+    android:background="?attr/colorSurfaceVariant"
     android:elevation="@dimen/toolbar_elevation"
-    app:titleMarginStart="16dp"
-    android:theme="@style/ThemeOverlay.Syncthing.Toolbar"
-    android:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
+    app:titleTextColor="?attr/colorOnSurface"
+    app:layout_scrollFlags="scroll|enterAlways"
+    app:titleMarginStart="16dp">
 
     <RelativeLayout
         android:id="@+id/topRel1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <androidx.appcompat.widget.AppCompatRadioButton
+        <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/btnActive"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
             android:visibility="gone"
             app:buttonTint="#76ff03"/>
 
-        <androidx.appcompat.widget.AppCompatRadioButton
+        <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/btnStarting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -38,7 +38,7 @@
             android:visibility="gone"
             app:buttonTint="#fff103"/>
 
-        <androidx.appcompat.widget.AppCompatRadioButton
+        <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/btnDisabled"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

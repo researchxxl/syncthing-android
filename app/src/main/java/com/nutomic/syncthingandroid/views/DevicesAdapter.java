@@ -17,6 +17,8 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceManager;
 
+import com.google.android.material.color.MaterialColors;
+
 import com.nutomic.syncthingandroid.R;
 import com.nutomic.syncthingandroid.model.Connection;
 import com.nutomic.syncthingandroid.model.Connections;
@@ -129,7 +131,9 @@ public class DevicesAdapter extends ArrayAdapter<Device> {
             holder.rateInOutView.setVisibility(GONE);
             holder.status.setVisibility(VISIBLE);
             holder.status.setText(R.string.device_paused);
-            holder.status.setTextColor(ContextCompat.getColor(getContext(), R.color.text_purple));
+            holder.status
+                    .setTextColor(MaterialColors.getColor(mContext, com.google.android.material.R.attr.colorTertiary,
+                            ContextCompat.getColor(mContext, R.color.text_purple)));
             return;
         }
 
@@ -138,7 +142,8 @@ public class DevicesAdapter extends ArrayAdapter<Device> {
             holder.progressBar.setVisibility(GONE);
             holder.rateInOutView.setVisibility(GONE);
             holder.status.setText(R.string.device_disconnected);
-            holder.status.setTextColor(ContextCompat.getColor(getContext(), R.color.text_red));
+            holder.status.setTextColor(MaterialColors.getColor(mContext, android.R.attr.colorError,
+                    ContextCompat.getColor(mContext, R.color.text_red)));
             return;
         }
 
@@ -171,11 +176,15 @@ public class DevicesAdapter extends ArrayAdapter<Device> {
                 if ((conn.inBits + conn.outBits) >= ACTIVE_SYNC_BITS_PER_SECOND_THRESHOLD) {
                     // case a) device_syncing
                     holder.status.setText(R.string.state_syncing_general);
-                    holder.status.setTextColor(ContextCompat.getColor(getContext(), R.color.text_blue));
+                    holder.status.setTextColor(
+                            MaterialColors.getColor(mContext, android.R.attr.colorPrimary,
+                                    ContextCompat.getColor(mContext, R.color.text_blue)));
                 } else {
                     // case b) device_up_to_date
                     holder.status.setText(R.string.device_up_to_date);
-                    holder.status.setTextColor(ContextCompat.getColor(getContext(), R.color.text_green));
+                    holder.status.setTextColor(
+                            MaterialColors.getColor(mContext, com.google.android.material.R.attr.colorTertiary,
+                                    ContextCompat.getColor(mContext, R.color.text_green)));
                 }
             } else {
                 holder.progressBar.setProgress(completion);
@@ -185,7 +194,9 @@ public class DevicesAdapter extends ArrayAdapter<Device> {
                                 Util.readableFileSize(getContext(), needBytes)
                         )
                 );
-                holder.status.setTextColor(ContextCompat.getColor(getContext(), R.color.text_blue));
+                holder.status
+                        .setTextColor(MaterialColors.getColor(mContext, android.R.attr.colorPrimary,
+                                ContextCompat.getColor(mContext, R.color.text_blue)));
             }
             return;
         }
@@ -203,6 +214,7 @@ public class DevicesAdapter extends ArrayAdapter<Device> {
                     )
             );
         }
-        holder.status.setTextColor(ContextCompat.getColor(getContext(), R.color.text_red));
+        holder.status.setTextColor(MaterialColors.getColor(mContext, android.R.attr.colorError,
+                ContextCompat.getColor(mContext, R.color.text_red)));
     }
 }

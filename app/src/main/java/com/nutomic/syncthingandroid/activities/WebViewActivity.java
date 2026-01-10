@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AlertDialog;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import com.nutomic.syncthingandroid.R;
 import com.nutomic.syncthingandroid.util.Util;
@@ -81,7 +82,7 @@ public class WebViewActivity extends SyncthingActivity {
                     Log.e(TAG, "onReceivedSslError:OnClickListener", e);
                 }
             };
-            mSecurityNoticeDialog = new AlertDialog.Builder(WebViewActivity.this)
+            mSecurityNoticeDialog = new MaterialAlertDialogBuilder(WebViewActivity.this)
                 .setTitle(R.string.security_notice)
                 .setMessage(getString(R.string.ssl_cert_invalid_text, webPageUrl))
                 .setPositiveButton(R.string.cont, listener)

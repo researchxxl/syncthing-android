@@ -7,12 +7,14 @@
         android:id="@+id/rescan_all"
         android:icon="@drawable/outline_autorenew_24"
         android:title="@string/activity_main_bottom_navigation_rescan_all"
+        app:iconTint="?attr/colorOnSurface"
         app:showAsAction="ifRoom|withText" />
 
     <item
         android:id="@+id/add_folder"
         android:icon="@drawable/btn_add_folder"
         android:title="@string/add_folder"
+        app:iconTint="?attr/colorOnSurface"
         app:showAsAction="always|withText" />
 
 </menu>

@@ -14,7 +14,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import androidx.core.content.ContextCompat;
+
+import com.google.android.material.color.MaterialColors;
 
 import com.nutomic.syncthingandroid.R;
 import com.nutomic.syncthingandroid.model.CachedFolderStatus;
@@ -163,57 +166,82 @@ public class FoldersAdapter extends ArrayAdapter<Folder> {
         holder.state.setVisibility(VISIBLE);
         if (outOfSync) {
             holder.state.setText(mContext.getString(R.string.status_outofsync));
-            holder.state.setTextColor(ContextCompat.getColor(mContext, R.color.text_red));
+            holder.state.setTextColor(MaterialColors.getColor(mContext, android.R.attr.colorError,
+                    ContextCompat.getColor(mContext, R.color.text_red)));
         } else if (failedItems) {
             holder.state.setText(mContext.getString(R.string.state_failed_items, folderStatus.errors));
-            holder.state.setTextColor(ContextCompat.getColor(mContext, R.color.text_red));
+            holder.state.setTextColor(MaterialColors.getColor(mContext, android.R.attr.colorError,
+                    ContextCompat.getColor(mContext, R.color.text_red)));
         } else {
             if (folder.paused) {
                 holder.state.setText(mContext.getString(R.string.state_paused));
-                holder.state.setTextColor(ContextCompat.getColor(mContext, R.color.text_purple));
+                holder.state.setTextColor(
+                        MaterialColors.getColor(mContext, android.R.attr.textColorTertiary,
+                                ContextCompat.getColor(mContext, R.color.text_purple)));
             } else {
                 switch(folderStatus.state) {
                     case "clean-waiting":
                         holder.state.setText(R.string.state_clean_waiting);
-                        holder.state.setTextColor(ContextCompat.getColor(mContext, R.color.text_orange));
+                        holder.state.setTextColor(
+                                MaterialColors.getColor(mContext, android.R.attr.textColorSecondary,
+                                        ContextCompat.getColor(mContext, R.color.text_orange)));
                         break;
                     case "cleaning":
                         holder.state.setText(R.string.state_cleaning);
-                        holder.state.setTextColor(ContextCompat.getColor(mContext, R.color.text_blue));
+                        holder.state.setTextColor(
+                                MaterialColors.getColor(mContext, android.R.attr.colorPrimary,
+                                        ContextCompat.getColor(mContext, R.color.text_blue)));
                         break;
                     case "idle":
                         if (folder.getDeviceCount() <= 1) {
                             // Special case: The folder is IDLE and UNSHARED.
                             holder.state.setText(R.string.state_unshared);
-                            holder.state.setTextColor(ContextCompat.getColor(mContext, R.color.text_orange));
+                            holder.state.setTextColor(
+                                    MaterialColors.getColor(mContext, android.R.attr.textColorSecondary,
+                                            ContextCompat.getColor(mContext, R.color.text_orange)));
                         } else if (revertButtonVisible) {
                             holder.state.setText(R.string.state_local_additions);
-                            holder.state.setTextColor(ContextCompat.getColor(mContext, R.color.text_green));
+                            holder.state.setTextColor(
+                                    MaterialColors.getColor(mContext, android.R.attr.textColorTertiary,
+                                            ContextCompat.getColor(mContext, R.color.text_green)));
                         } else {
                             holder.state.setText(R.string.state_up_to_date);
-                            holder.state.setTextColor(ContextCompat.getColor(mContext, R.color.text_green));
+                            holder.state.setTextColor(
+                                    MaterialColors.getColor(mContext, android.R.attr.textColorTertiary,
+                                            ContextCompat.getColor(mContext, R.color.text_green)));
                         }
                         break;
                     case "scan-waiting":
                         holder.state.setText(R.string.state_scan_waiting);
-                        holder.state.setTextColor(ContextCompat.getColor(mContext, R.color.text_orange));
+                        holder.state.setTextColor(
+                                MaterialColors.getColor(mContext, android.R.attr.textColorSecondary,
+                                        ContextCompat.getColor(mContext, R.color.text_orange)));
                         break;
                     case "scanning":
                         holder.state.setText(R.string.state_scanning);
-                        holder.state.setTextColor(ContextCompat.getColor(mContext, R.color.text_blue));
+                        holder.state.setTextColor(
+                                MaterialColors.getColor(mContext, android.R.attr.colorPrimary,
+                                        ContextCompat.getColor(mContext, R.color.text_blue)));
                         break;
                     case "sync-waiting":
                         holder.state.setText(R.string.state_sync_waiting);
-                        holder.state.setTextColor(ContextCompat.getColor(mContext, R.color.text_orange));
+                        holder.state.setTextColor(
+                                MaterialColors.getColor(mContext, android.R.attr.textColorSecondary,
+                                        ContextCompat.getColor(mContext, R.color.text_orange)));
                         break;
                     case "syncing":
                         holder.progressBar.setProgress((int) cachedFolderStatus.completion);
-                        holder.state.setText(mContext.getString(R.string.state_syncing, (int) cachedFolderStatus.completion));
-                        holder.state.setTextColor(ContextCompat.getColor(mContext, R.color.text_blue));
+                        holder.state.setText(
+                                mContext.getString(R.string.state_syncing, (int) cachedFolderStatus.completion));
+                        holder.state.setTextColor(
+                                MaterialColors.getColor(mContext, android.R.attr.colorPrimary,
+                                        ContextCompat.getColor(mContext, R.color.text_blue)));
                         break;
                     case "sync-preparing":
                         holder.state.setText(R.string.state_sync_preparing);
-                        holder.state.setTextColor(ContextCompat.getColor(mContext, R.color.text_blue));
+                        holder.state.setTextColor(
+                                MaterialColors.getColor(mContext, android.R.attr.colorPrimary,
+                                        ContextCompat.getColor(mContext, R.color.text_blue)));
                         break;
                     case "error":
                         if (TextUtils.isEmpty(folderStatus.error)) {
@@ -221,15 +249,21 @@ public class FoldersAdapter extends ArrayAdapter<Folder> {
                         } else {
                             holder.state.setText(mContext.getString(R.string.state_error_message, folderStatus.error));
                         }
-                        holder.state.setTextColor(ContextCompat.getColor(mContext, R.color.text_red));
+                        holder.state.setTextColor(
+                                MaterialColors.getColor(mContext, android.R.attr.colorError,
+                                        ContextCompat.getColor(mContext, R.color.text_red)));
                         break;
                     case "unknown":
                         holder.state.setText(R.string.state_unknown);
-                        holder.state.setTextColor(ContextCompat.getColor(mContext, R.color.text_red));
+                        holder.state.setTextColor(
+                                MaterialColors.getColor(mContext, android.R.attr.colorError,
+                                        ContextCompat.getColor(mContext, R.color.text_red)));
                         break;
                     default:
                         holder.state.setText(folderStatus.state);
-                        holder.state.setTextColor(ContextCompat.getColor(mContext, R.color.text_red));
+                        holder.state.setTextColor(
+                                MaterialColors.getColor(mContext, android.R.attr.colorError,
+                                        ContextCompat.getColor(mContext, R.color.text_red)));
                 }
             }
         }
@@ -320,7 +354,7 @@ public class FoldersAdapter extends ArrayAdapter<Folder> {
     }
 
     private void onClickOverride(View view, Folder folder) {
-        AlertDialog.Builder confirmDialog = new AlertDialog.Builder(mContext)
+        MaterialAlertDialogBuilder confirmDialog = new MaterialAlertDialogBuilder(mContext)
                 .setTitle(R.string.override_changes)
                 .setMessage(R.string.override_changes_question)
                 .setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {
@@ -330,12 +364,13 @@ public class FoldersAdapter extends ArrayAdapter<Folder> {
                     intent.setAction(SyncthingService.ACTION_OVERRIDE_CHANGES);
                     mContext.startService(intent);
                 })
-                .setNegativeButton(android.R.string.no, (dialogInterface, i) -> {});
+                .setNegativeButton(android.R.string.no, (dialogInterface, i) -> {
+                });
         confirmDialog.show();
     }
 
     private void onClickRevert(View view, Folder folder) {
-        AlertDialog.Builder confirmDialog = new AlertDialog.Builder(mContext)
+        MaterialAlertDialogBuilder confirmDialog = new MaterialAlertDialogBuilder(mContext)
                 .setTitle(R.string.revert_local_changes)
                 .setMessage(R.string.revert_local_changes_question)
                 .setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {

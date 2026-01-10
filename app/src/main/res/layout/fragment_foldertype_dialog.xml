@@ -22,14 +22,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/finish_btn"
-                style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
+                style="@style/Widget.Material3.Button.TextButton.Dialog"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_gravity="end"
-                android:text="@string/finish"
-                android:textColor="?attr/colorControlNormal" />
+                android:text="@string/finish" />
 
         </LinearLayout>
     </ScrollView>

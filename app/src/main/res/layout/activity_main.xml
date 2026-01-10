@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -7,7 +8,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="?android:attr/colorBackground">
 
         <include layout="@layout/widget_toolbar" />
 
@@ -15,14 +17,16 @@
             android:id="@+id/tabContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?colorPrimary"
+            android:background="?attr/colorSurfaceVariant"
             android:elevation="@dimen/toolbar_elevation"
-            android:theme="@style/ThemeOverlay.Syncthing.Toolbar" />
+            app:tabIndicatorColor="?attr/colorPrimary"
+            app:tabSelectedTextColor="?attr/colorPrimary"
+            app:tabTextColor="?attr/colorOnSurfaceVariant" />
 
         <RelativeLayout
-            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent"
+            android:background="?android:attr/colorBackground">
 
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/pager"
@@ -38,21 +42,25 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
                 android:contentDescription="@string/exit"
+                android:visibility="gone"
                 app:srcCompat="@drawable/ic_exit_door_arrow"
-                app:backgroundTint="@color/primary"
+                app:backgroundTint="?attr/colorPrimaryContainer"
+                app:tint="?attr/colorOnPrimaryContainer"
                 app:fabSize="normal" />
 
         </RelativeLayout>
 
     </LinearLayout>
 
+    <!-- Navigation Drawer with MD3 surface color -->
     <FrameLayout
         android:id="@+id/drawer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="?android:windowBackground"
+        android:background="?attr/colorSurfaceVariant"
         android:clickable="true"
         android:elevation="16dp"
-        android:focusable="true" />
+        android:focusable="true"
+        android:fitsSystemWindows="true" />
 </androidx.drawerlayout.widget.DrawerLayout>

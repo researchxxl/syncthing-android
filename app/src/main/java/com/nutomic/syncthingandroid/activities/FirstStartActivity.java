@@ -36,6 +36,8 @@ import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.google.common.io.Files;
+import com.google.android.material.color.MaterialColors;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nutomic.syncthingandroid.R;
 import com.nutomic.syncthingandroid.SyncthingApp;
 import com.nutomic.syncthingandroid.service.Constants;
@@ -66,13 +68,9 @@ public class FirstStartActivity extends ThemedAppCompatActivity {
 
     private static class Slide {
         public int layout;
-        public int dotColorActive;
-        public int dotColorInActive;
 
         Slide(int layout, int dotColorActive, int dotColorInActive) {
             this.layout = layout;
-            this.dotColorActive = dotColorActive;
-            this.dotColorInActive = dotColorInActive;
         }
     }
 
@@ -175,23 +173,23 @@ public class FirstStartActivity extends ThemedAppCompatActivity {
         mSlides[slideIndex++] = new Slide(R.layout.activity_firststart_intro, colorsActive[0], colorsInactive[0]);
         if (showSlideStoragePermission) {
             mSlidePosStoragePermission = slideIndex;
-            mSlides[slideIndex++] = new Slide(R.layout.activity_firststart_storage_permission, colorsActive[1], colorsInactive[1]);
+            mSlides[slideIndex++] = new Slide(R.layout.activity_firststart_storage_permission, 0, 0);
         }
         if (showSlideIgnoreDozePermission) {
             mSlidePosIgnoreDozePermission = slideIndex;
-            mSlides[slideIndex++] = new Slide(R.layout.activity_firststart_ignore_doze_permission, colorsActive[4], colorsInactive[4]);
+            mSlides[slideIndex++] = new Slide(R.layout.activity_firststart_ignore_doze_permission, 0, 0);
         }
         if (showSlideLocationPermission) {
             mSlideLocationPermission = slideIndex;
-            mSlides[slideIndex++] = new Slide(R.layout.activity_firststart_location_permission, colorsActive[2], colorsInactive[2]);
+            mSlides[slideIndex++] = new Slide(R.layout.activity_firststart_location_permission, 0, 0);
         }
         if (showSlideNotificationPermission) {
             mSlideNotificationPermission = slideIndex;
-            mSlides[slideIndex++] = new Slide(R.layout.activity_firststart_notification_permission, colorsActive[0], colorsInactive[0]);
+            mSlides[slideIndex++] = new Slide(R.layout.activity_firststart_notification_permission, 0, 0);
         }
         if (showSlideKeyGeneration) {
             mSlidePosKeyGeneration = slideIndex;
-            mSlides[slideIndex++] = new Slide(R.layout.activity_firststart_key_generation, colorsActive[3], colorsInactive[3]);
+            mSlides[slideIndex++] = new Slide(R.layout.activity_firststart_key_generation, 0, 0);
         }
 
         // Add bottom dots
@@ -287,7 +285,7 @@ public class FirstStartActivity extends ThemedAppCompatActivity {
                  * b) TVs: The ignore doze permission is optional as it can only set by ADB on Android 8+.
                  */
                 if (!mUserDecisionIgnoreDozePermission && !mRunningOnTV) {
-                    new AlertDialog.Builder(FirstStartActivity.this)
+                    new MaterialAlertDialogBuilder(FirstStartActivity.this)
                             .setMessage(R.string.dialog_confirm_skip_ignore_doze_permission)
                             .setPositiveButton(android.R.string.yes, (dialog, which) -> {
                                     mUserDecisionIgnoreDozePermission = true;
@@ -345,12 +343,15 @@ public class FirstStartActivity extends ThemedAppCompatActivity {
     private void addBottomDots(int currentPage) {
         mDots = new TextView[mSlides.length];
 
+        int colorActive = MaterialColors.getColor(this, android.R.attr.colorPrimary, Color.BLACK);
+        int colorInactive = MaterialColors.getColor(this, android.R.attr.textColorSecondary, Color.GRAY);
+
         mDotsLayout.removeAllViews();
         for (int i = 0; i < mDots.length; i++) {
             mDots[i] = new TextView(this);
             mDots[i].setText(Html.fromHtml("&#8226;"));
             mDots[i].setTextSize(35);
-            mDots[i].setTextColor(mSlides[currentPage].dotColorInActive);
+            mDots[i].setTextColor(colorInactive);
 
             // Prevent TalkBack from announcing a decorative TextView.
             mDots[i].setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
@@ -359,7 +360,7 @@ public class FirstStartActivity extends ThemedAppCompatActivity {
         }
 
         if (mDots.length > 0)
-            mDots[currentPage].setTextColor(mSlides[currentPage].dotColorActive);
+            mDots[currentPage].setTextColor(colorActive);
     }
 
     private int getItem(int i) {

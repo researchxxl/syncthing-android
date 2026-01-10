@@ -1,7 +1,13 @@
 package com.nutomic.syncthingandroid;
 
 import android.app.Application;
+import android.content.SharedPreferences;
 import android.os.StrictMode;
+
+import androidx.preference.PreferenceManager;
+
+import com.google.android.material.color.DynamicColors;
+import com.nutomic.syncthingandroid.service.Constants;
 
 import javax.inject.Inject;
 
