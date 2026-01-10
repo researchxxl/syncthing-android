@@ -3,12 +3,15 @@ package com.nutomic.syncthingandroid.util;
 import android.app.Dialog;
 import android.app.UiModeManager;
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 
 import com.google.common.base.Charsets;
 import com.nutomic.syncthingandroid.R;
