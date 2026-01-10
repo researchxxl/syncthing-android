@@ -20,7 +20,7 @@ import kotlinx.coroutines.withContext
 import me.zhanghai.compose.preference.Preference
 
 
-const val TAG = "SettingsAboutScreen"
+private const val TAG = "SettingsAboutScreen"
 
 fun EntryProviderScope<SettingsRoute>.settingsAboutEntry() {
     entry<SettingsRoute.About> {
