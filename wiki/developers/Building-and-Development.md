@@ -28,21 +28,17 @@ export ANDROID_HOME=~/git/syncthing-android-prereq
 ./gradlew assembleDebug
 #
 # Flavor: release
-## Remember to setup signing first
-## or remove the section "signingConfigs" from "app/build.gradle.kts" for an unsigned build.
-### sed -i -e '/signingConfig/,+2d' "app/build.gradle.kts"
 ./gradlew lintRelease
 ./gradlew assembleRelease
 #
 # Artifacts: Grab output APK.
 ## Flavor: debug
-cp "app/build/outputs/apk/debug/app-debug.apk" "/mnt/x/app-debug.apk"
+ll "app/build/outputs/apk/debug/app-debug.apk"
+ll "app/build/outputs/apk/debug/app-debug-unsigned.apk"
 ##
 ## Flavor: release
-cp "app/build/outputs/apk/release/app-universal-release.apk" "/mnt/x/app-universal-release.apk"
-##
-## Flavor: release-unsigned
-cp "app/build/outputs/apk/release/app-universal-release-unsigned.apk" "/mnt/x/app-universal-release-unsigned.apk"
+ll "app/build/outputs/apk/release/app-universal-release.apk"
+ll "app/build/outputs/apk/release/app-universal-release-unsigned.apk"
 #
 # Cleanup.
 ## To clean up all files generated during build, use the following commands.
