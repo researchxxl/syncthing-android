@@ -138,6 +138,7 @@ fun SettingsRunConditionsScreen() {
             summary = { Text(stringResource(R.string.run_on_time_schedule_summary)) },
             state = runScheduled,
         )
+        val syncDurationError = stringResource(R.string.invalid_integer_value, 1, 1440/* 24h */)
         TextFieldPreference(
             title = { Text(stringResource(R.string.sync_duration_minutes_title)) },
             summary = { Text(stringResource(R.string.sync_duration_minutes_summary, syncDuration.value)) },
@@ -145,14 +146,14 @@ fun SettingsRunConditionsScreen() {
             textToValue = { text ->
                 val mins = text.toIntOrNull()
                 if (mins == null || mins !in 1..1440) {
-                    val message = context.getString(R.string.invalid_integer_value, 1, 1440/* 24h */)
-                    Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, syncDurationError, Toast.LENGTH_LONG).show()
                     null
                 } else {
                     mins
                 }
             }
         )
+        val sleepIntervalError = stringResource(R.string.invalid_integer_value, 1, 30240/* 3w */)
         TextFieldPreference(
             title = { Text(stringResource(R.string.sleep_interval_minutes_title)) },
             summary = { Text(stringResource(R.string.sync_duration_minutes_summary, sleepInterval.value)) },
@@ -160,8 +161,7 @@ fun SettingsRunConditionsScreen() {
             textToValue = { text ->
                 val mins = text.toIntOrNull()
                 if (mins == null || mins !in 1..30240) {
-                    val message = context.getString(R.string.invalid_integer_value, 1, 30240/* 3w */)
-                    Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, sleepIntervalError, Toast.LENGTH_LONG).show()
                     null
                 } else {
                     mins
