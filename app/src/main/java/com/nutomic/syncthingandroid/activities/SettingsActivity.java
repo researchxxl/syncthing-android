@@ -154,7 +154,6 @@ public class SettingsActivity extends SyncthingActivity {
         private static final String KEY_SYNCTHING_API_KEY = "syncthing_api_key";
         private static final String KEY_SYNCTHING_DATABASE_SIZE = "syncthing_database_size";
         private static final String KEY_OS_OPEN_FILE_LIMIT = "os_open_file_limit";
-        private static final String KEY_OPEN_SOURCE_LICENSES = "open_source_licenses";
 
         private static final String BIND_ALL = "0.0.0.0";
         private static final String BIND_LOCALHOST = "127.0.0.1";
@@ -393,8 +392,6 @@ public class SettingsActivity extends SyncthingActivity {
             }
             screen.findPreference(KEY_SYNCTHING_DATABASE_SIZE).setSummary(getDatabaseSize());
             screen.findPreference(KEY_OS_OPEN_FILE_LIMIT).setSummary(getOpenFileLimit());
-            mLicensePref            = findPreference(KEY_OPEN_SOURCE_LICENSES);
-            mLicensePref.setOnPreferenceClickListener(this);
 
             // Check if we should directly show a sub preference screen.
             Bundle bundle = getArguments();
@@ -894,9 +891,6 @@ public class SettingsActivity extends SyncthingActivity {
                             .setNegativeButton(android.R.string.no, (dialogInterface, i) -> {
                             })
                             .show();
-                    return true;
-                case KEY_OPEN_SOURCE_LICENSES:
-                    startActivity(new Intent(getActivity(), LicenseActivity.class));
                     return true;
             }
         }
