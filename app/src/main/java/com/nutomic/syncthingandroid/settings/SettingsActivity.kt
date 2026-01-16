@@ -6,8 +6,6 @@ import android.os.IBinder
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -64,19 +62,6 @@ class SettingsActivity : SyncthingActivity() {
                 }
             }
 
-            // If we are on syncthing options and service stop, pop out to settings root
-            val shouldExitStOptions by remember { derivedStateOf {
-                val isNotActive = syncthingServiceState?.currentState != SyncthingService.State.ACTIVE
-                val isOnStOptions = backStack.last() == SettingsRoute.SyncthingOptions
-                isNotActive && isOnStOptions
-            } }
-
-            LaunchedEffect(shouldExitStOptions) {
-                if (shouldExitStOptions) {
-                    navigator.navigateBack()
-                }
-            }
-
             ApplicationTheme {
                 CompositionLocalProvider(
                     LocalSettingsNavigator provides navigator,
@@ -107,6 +92,10 @@ class SettingsActivity : SyncthingActivity() {
         serviceUpdateTick++
     }
 
+    override fun onDestroy() {
+        syncthingServiceState?.unregisterOnServiceStateChangeListener(stateChangeListener)
+        super.onDestroy()
+    }
 
     companion object {
         const val EXTRA_START_DESTINATION = "com.nutomic.syncthingandroid.settings.EXTRA_START_DESTINATION"
