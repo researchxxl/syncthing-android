@@ -3,8 +3,8 @@ import java.io.File
 import org.gradle.api.internal.project.ProjectInternal
 import org.gradle.process.ExecOperations
 
-inline fun <reified T> org.gradle.api.Project.service(): T =
-    (this as ProjectInternal).services.get(T::class.java)
+inline fun <reified T : Any> org.gradle.api.Project.service(): T =
+    (this as ProjectInternal).services.get(T::class.java) as T
 
 fun getGitOutput(execOps: ExecOperations, command: List<String>, workingDir: File): String {
     val output = ByteArrayOutputStream()
