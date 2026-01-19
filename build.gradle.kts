@@ -16,5 +16,10 @@ buildscript {
 }
 
 tasks.register<Delete>("clean") {
-    delete(layout.buildDirectory)
+    delete(
+        layout.buildDirectory,
+        file("$projectDir/../app/src/main/jniLibs/"),
+        file("gobuild"),
+        file("go"),
+    )
 }

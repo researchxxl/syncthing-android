@@ -42,7 +42,6 @@ ll "app/build/outputs/apk/release/app-universal-release-unsigned.apk"
 #
 # Cleanup.
 ## To clean up all files generated during build, use the following commands.
-./gradlew cleanNative
 ./gradlew clean
 ```
 

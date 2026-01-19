@@ -146,14 +146,22 @@ android {
 
 }
 
-tasks.register("validateAppVersionCode") {
-    doFirst {
-        val versionName = libs.versions.version.name.get()
-        val versionCode = libs.versions.version.code.get().toInt()
+abstract class ValidateAppVersionCode : DefaultTask() {
 
-        val parts = versionName.split(".")
+    @get:Input
+    abstract val versionName: Property<String>
+
+    @get:Input
+    abstract val versionCode: Property<Int>
+
+    @TaskAction
+    fun validate() {
+        val name = versionName.get()
+        val code = versionCode.get()
+
+        val parts = name.split(".")
         if (parts.size != 4) {
-            throw GradleException("Invalid versionName format: '$versionName'. Expected format 'major.minor.patch.wrapper'.")
+            throw GradleException("Invalid versionName format: '$name'. Expected format 'major.minor.patch.wrapper'.")
         }
 
         val calculatedCode = parts[0].toInt() * 1_000_000 +
@@ -161,10 +169,15 @@ tasks.register("validateAppVersionCode") {
                              parts[2].toInt() * 100 +
                              parts[3].toInt()
 
-        if (calculatedCode != versionCode) {
-            throw GradleException("Version mismatch: Calculated versionCode ($calculatedCode) does not match declared versionCode ($versionCode). Please review 'gradle/libs.versions.toml'.")
+        if (calculatedCode != code) {
+            throw GradleException("Version mismatch: Calculated versionCode ($calculatedCode) does not match declared versionCode ($code). Please review 'gradle/libs.versions.toml'.")
         }
     }
+}
+
+tasks.register<ValidateAppVersionCode>("validateAppVersionCode") {
+    versionName.set(libs.versions.version.name)
+    versionCode.set(libs.versions.version.code.map { it.toInt() })
 }
 
 project.afterEvaluate {
