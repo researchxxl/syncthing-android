@@ -1,74 +1,51 @@
-import java.io.ByteArrayOutputStream
-import java.io.File
-import org.gradle.api.internal.project.ProjectInternal
+import javax.inject.Inject
 import org.gradle.process.ExecOperations
-
-inline fun <reified T> org.gradle.api.Project.service(): T =
-    (this as ProjectInternal).services.get(T::class.java)
-
-fun getGitOutput(execOps: ExecOperations, command: List<String>, workingDir: File): String {
-    val output = ByteArrayOutputStream()
-    execOps.exec {
-        commandLine(command)
-        setWorkingDir(workingDir)
-        setStandardOutput(output)
-    }
-    return output.toString().trim()
-}
-
-fun getSyncthingNativeVersion(execOps: ExecOperations): String {
-    val dir = File(rootDir, "syncthing/src/github.com/syncthing/syncthing")
-    val describe = getGitOutput(execOps, listOf("git", "describe", "--always"), dir)
-    val regex = Regex("""v?(\d+)\.(\d+)\.(\d+)(?:-.+)?""")
-    val match = regex.find(describe)
-    return match?.let {
-        "${it.groupValues[1]}.${it.groupValues[2]}.${it.groupValues[3]}"
-    } ?: throw GradleException("getSyncthingNativeVersion: FAILED to extract from '$describe'")
-}
-
-fun getSourceDateEpoch(execOps: ExecOperations): String {
-    val dir = File(rootDir, "syncthing/src/github.com/syncthing/syncthing")
-    return getGitOutput(execOps, listOf("git", "log", "-1", "--format=%ct"), dir)
-}
-
-fun verifySyncthingNativeVersionMatchesApp(execOps: ExecOperations) {
-    val nativeVersion = getSyncthingNativeVersion(execOps)
-    val appVersion = libs.versions.version.name.get()
-        .split(".")
-        .take(3)
-        .joinToString(".")
-    if (nativeVersion != appVersion) {
-        throw GradleException("SyncthingNative version ($nativeVersion) differs from App version ($appVersion).")
-    }
-}
+import org.gradle.api.DefaultTask
+import org.gradle.api.file.DirectoryProperty
+import org.gradle.api.provider.Property
+import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.InputDirectory
+import org.gradle.api.tasks.OutputDirectory
+import org.gradle.api.tasks.TaskAction
 
 fun detectPythonBinary(): String {
     val osName = System.getProperty("os.name").lowercase()
     return if (osName.contains("windows")) "python" else "python3"
 }
 
-tasks.register("buildNative") {
-    group = "build"
-    description = "Builds native Syncthing binaries"
+abstract class BuildNativeTask @Inject constructor(
+    private val execOps: ExecOperations
+) : DefaultTask() {
 
-    val execOps = project.service<ExecOperations>()
-    val workingDir = project.projectDir
-    val outputDir = file("$projectDir/../app/src/main/jniLibs/")
-    val inputDir = file("$projectDir/src/")
+    @get:InputDirectory
+    abstract val inputDir: DirectoryProperty
 
-    inputs.dir(inputDir)
-    outputs.dir(outputDir)
+    @get:InputDirectory
+    abstract val workingDir: DirectoryProperty
 
-    doLast {
+    @get:OutputDirectory
+    abstract val outputDir: DirectoryProperty
+
+    @get:Input
+    abstract val ndkVersion: Property<String>
+
+    @get:Input
+    abstract val sourceDateEpoch: Property<String>
+
+    @get:Input
+    abstract val pythonBinary: Property<String>
+
+    @TaskAction
+    fun run() {
+        val workDirFile = workingDir.get().asFile
+
         val env = mapOf(
-            "NDK_VERSION" to libs.versions.ndk.version.get(),
-            "SOURCE_DATE_EPOCH" to getSourceDateEpoch(execOps),
+            "NDK_VERSION" to ndkVersion.get(),
+            "SOURCE_DATE_EPOCH" to sourceDateEpoch.get(),
             "BUILD_HOST" to "researchxxl-syncthing-android",
             "BUILD_USER" to "reproducible-build",
             "STTRACE" to ""
         )
-
-        verifySyncthingNativeVersionMatchesApp(execOps)
 
         val fullEnv = System.getenv().toMutableMap().apply {
             putAll(env)
@@ -90,23 +67,22 @@ tasks.register("buildNative") {
             }
         }
 
-        val pythonBinary = detectPythonBinary()
-
         execOps.exec {
-            setEnvironment(fullEnv)
-            setWorkingDir(workingDir)
-            commandLine(pythonBinary, "-u", "./build-syncthing.py")
+            environment(fullEnv)
+            workingDir(workDirFile)
+            commandLine(pythonBinary.get(), "-u", "./build-syncthing.py")
         }
     }
 }
 
-/**
- * Use separate task instead of standard clean(), so these folders aren't deleted by `gradle clean`.
- */
-tasks.register<Delete>("cleanNative") {
-    delete(
-        file("$projectDir/../app/src/main/jniLibs/"),
-        file("gobuild"),
-        file("go"),
-    )
+tasks.register<BuildNativeTask>("buildNative") {
+    group = "build"
+    description = "Builds native Syncthing binaries"
+
+    inputDir.set(layout.projectDirectory.dir("src"))
+    workingDir.set(layout.projectDirectory)
+    outputDir.set(layout.projectDirectory.dir("../app/src/main/jniLibs"))
+    ndkVersion.set(libs.versions.ndk.version)
+    sourceDateEpoch.set(System.getenv("SOURCE_DATE_EPOCH") ?: "0")
+    pythonBinary.set(detectPythonBinary())
 }
