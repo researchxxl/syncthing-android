@@ -1,10 +1,11 @@
 from __future__ import print_function
 import os
 import os.path
+import platform
+import re
 import shutil
 import subprocess
 import sys
-import platform
 
 PLATFORM_DIRS = {
     'Windows': 'windows-x86_64',
@@ -92,6 +93,35 @@ def change_permissions_recursive(path, mode):
             os.chmod(dir, mode)
         for file in [os.path.join(root, f) for f in files]:
             os.chmod(file, mode)
+
+def extract_native_version(describe_output):
+    """
+    Extract major.minor.patch from git describe output.
+    Examples:
+      v1.23.4 - 1.23.4
+      1.23.4-12-gabcdef - 1.23.4
+      v1.23.4-preview.1 - 1.23.4
+    """
+    m = re.search(r"v?(\d+)\.(\d+)\.(\d+)", describe_output)
+    if not m:
+        fail("Could not extract version from git describe output: %s", describe_output)
+    return f"{m.group(1)}.{m.group(2)}.{m.group(3)}"
+
+def get_app_version(project_dir):
+    """Extract version-name from gradle/libs.versions.toml"""
+    toml_path = os.path.join(project_dir, "gradle", "libs.versions.toml")
+    if not os.path.isfile(toml_path):
+        fail("Could not find versions catalog at %s", toml_path)
+
+    with open(toml_path, "r") as f:
+        for line in f:
+            if "version-name" in line and "=" in line:
+                # Extract "2.0.13.1"
+                parts = line.split("=", 1)
+                version = parts[1].strip().strip('"').strip("'")
+                return version
+
+    fail("version-name not found in versions catalog")
 
 def get_expected_go_version():
     import os
@@ -234,6 +264,19 @@ def install_go():
     os.environ["PATH"] = go_bin_path + os.pathsep + os.environ["PATH"]
     os.environ["GOROOT"] = go_build_dir
 
+def verify_native_version_matches_app(project_dir, syncthing_version_raw):
+    """Compare native version with app version and fail if mismatch."""
+    native_version = extract_native_version(syncthing_version_raw)
+
+    app_version_full = get_app_version(project_dir)
+    app_version = ".".join(app_version_full.split(".")[:3])  # take major.minor.patch
+
+    if native_version != app_version:
+        fail(
+            "SyncthingNative version (%s) differs from App version (%s). "
+            "Please update gradle/libs.versions.toml.",
+            native_version, app_version
+        )
 
 def write_file(fullfn, text):
     with open(fullfn, 'w') as hFile:
@@ -405,6 +448,8 @@ else:
         '--always'
     ]).strip();
     syncthingVersion = syncthingVersion.decode().replace("rc", "preview");
+
+verify_native_version_matches_app(project_dir, syncthingVersion)
 
 print('Building syncthing version', syncthingVersion);
 print('SOURCE_DATE_EPOCH=[' + os.environ['SOURCE_DATE_EPOCH'] + ']');

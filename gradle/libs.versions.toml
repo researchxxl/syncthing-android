@@ -13,16 +13,16 @@ version-name = "2.0.13.1"
 # External SDK versions
 go_version = "1.25.5"
 
-aboutLibraries = "13.2.1"
+aboutLibraries = "14.0.0-a01"
 activity = "1.12.2"
 android-material = "1.13.0"
-android-gradle-plugin = "8.13.2"
+android-gradle-plugin = "9.0.0"
 compose-material3 = "1.4.0"
 compose-material-icons = "1.7.8"
-compose-ui = "1.10.0"
+compose-ui = "1.10.1"
 constraintlayout = "2.2.1"
 core-ktx = "1.17.0"
-dagger = "2.57.2"
+dagger = "2.58"
 documentfile = "1.1.0"
 fragment-ktx = "1.8.9"
 gson = "2.13.2"
@@ -72,5 +72,4 @@ zxing-core = { module = "com.google.zxing:core", version.ref = "zxing-core" }
 aboutLibraries = { id = "com.mikepenz.aboutlibraries.plugin.android", version.ref = "aboutLibraries" }
 android-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
