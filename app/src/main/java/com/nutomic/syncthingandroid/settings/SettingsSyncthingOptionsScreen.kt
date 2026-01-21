@@ -100,7 +100,9 @@ fun SettingsSyncthingOptionsScreen() {
     val isStServiceActive by remember(stService, stServiceTick) { derivedStateOf {
         stService?.currentState == SyncthingService.State.ACTIVE && stService.api?.isConfigLoaded == true
     } }
-    val apiPrefFlow: MutableStateFlow<Preferences> = remember { MutableStateFlow(MapPreferences()) }
+    val apiPrefFlow: MutableStateFlow<Preferences> = remember {
+        MutableStateFlow(stService?.api?.preferences ?: MapPreferences())
+    }
 
     LaunchedEffect(stService?.api, isStServiceActive) {
         val currentApi = stService?.api
