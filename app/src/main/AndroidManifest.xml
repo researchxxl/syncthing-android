@@ -183,6 +183,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.MainActivity" />
         </activity>
+        <activity android:name=".settings.SettingsActivity"
+            android:label="@string/settings_title"
+            android:configChanges="orientation|screenSize"
+            android:parentActivityName=".activities.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.MainActivity" />
+        </activity>
         <service
             android:name=".service.SyncthingService"
             android:foregroundServiceType="specialUse">
@@ -241,14 +249,6 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.nutomic.syncthingandroid.activities.DeviceActivity" />
-        </activity>
-        <activity android:name=".activities.LicenseActivity"
-            android:label="@string/open_source_licenses_title"
-            android:exported="false"
-            android:parentActivityName=".activities.SettingsActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.SettingsActivity" />
         </activity>
         <property
             android:name="android.content.MEDIA_CAPABILITIES"
