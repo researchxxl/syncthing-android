@@ -23,9 +23,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.layout
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.nutomic.syncthingandroid.R
+import com.nutomic.syncthingandroid.util.isTelevision
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -34,6 +36,7 @@ fun SettingsScaffold(
     description: String? = null,
     content: @Composable (ColumnScope.() -> Unit) = {},
 ) {
+    val configuration = LocalConfiguration.current
     val navigator = LocalSettingsNavigator.current
 
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
@@ -75,11 +78,15 @@ fun SettingsScaffold(
                     }
                 },
                 navigationIcon = {
-                    IconButton(onClick = { navigator.navigateBack() }) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = stringResource(id = R.string.back)
-                        )
+                    // TVs remotes have dedicated back buttons, so material guidelines
+                    // suggest to not show the back button
+                    if (!configuration.isTelevision) {
+                        IconButton(onClick = { navigator.navigateBack() }) {
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                contentDescription = stringResource(id = R.string.back)
+                            )
+                        }
                     }
                 },
                 scrollBehavior = scrollBehavior,

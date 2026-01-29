@@ -89,7 +89,7 @@ private fun validateProxy(
         newValue.isEmpty() -> newValue
         newValue.matches(regex) -> newValue
         else -> {
-            Toast.makeText(context, errorResId, Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, errorResId, Toast.LENGTH_LONG).show()
             null
         }
     }

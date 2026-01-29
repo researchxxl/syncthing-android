@@ -171,7 +171,7 @@ private fun validateEnvVars(input: String, context: Context): String? {
     }
 
     // Found an invalid "VAR=VALUE" pair.
-    Toast.makeText(context, R.string.toast_invalid_environment_variables, Toast.LENGTH_SHORT).show()
+    Toast.makeText(context, R.string.toast_invalid_environment_variables, Toast.LENGTH_LONG).show()
     return null
 }
 
