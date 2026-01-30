@@ -189,6 +189,8 @@ private fun ImportConfigPreference() {
                                                 ?: Constants.APP_THEME_FOLLOW_SYSTEM.toInt()
                                             AppCompatDelegate.setDefaultNightMode(theme)
 
+                                            service.evaluateRunConditions()
+
                                             navigator.navigateUp()
                                         } else {
                                             Toast.makeText(
