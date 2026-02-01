@@ -7,8 +7,8 @@ ndk-version = "29.0.14206865"
 target-sdk = "36"
 
 # App version
-version-code = "2001301"
-version-name = "2.0.13.1"
+version-code = "2001400"
+version-name = "2.0.14.0"
 
 # External SDK versions
 go_version = "1.25.6"
