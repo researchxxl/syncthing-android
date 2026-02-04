@@ -1,7 +1,9 @@
 name: Release App
 
 permissions:
+  attestations: write
   contents: write
+  id-token: write
 
 on:
   workflow_dispatch:
@@ -95,6 +97,12 @@ jobs:
         with:
           name: signed-com.github.catfriend1.syncthingandroid
           path: ./artifacts
+
+      - name: Create GitHub build provenance attestations
+        uses: actions/attest-build-provenance@96278af6caaf10aea03fd8d33a09a777ca52d62f # v3.2.0
+        if: github.repository_owner == 'researchxxl'
+        with:
+          subject-path: ./artifacts/*
 
       - name: Create draft release
         uses: ncipollo/release-action@b7eabc95ff50cbeeedec83973935c8f306dfcd0b # v1.20.0
