@@ -491,12 +491,12 @@ for target in BUILD_TARGETS:
     # See why "-checklinkname=0" is required: https://github.com/wlynxg/anet?tab=readme-ov-file#how-to-build-with-go-1230-or-later 
     environ = os.environ.copy()
     environ.update({
-        'GOPATH': module_dir,
-        'GO111MODULE': 'on',
-        'BUILD_USER': 'reproducible-build',
         'BUILD_HOST': repository,
+        'BUILD_USER': 'reproducible-build',
         'CGO_ENABLED': '1',
         'EXTRA_LDFLAGS': '-checklinkname=0',
+        'GOPATH': module_dir,
+        'GO111MODULE': 'on',
         'SOURCE_DATE_EPOCH': '0',
         'STTRACE': '',
     })
