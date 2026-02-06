@@ -30,9 +30,6 @@ abstract class BuildNativeTask @Inject constructor(
     abstract val ndkVersion: Property<String>
 
     @get:Input
-    abstract val sourceDateEpoch: Property<String>
-
-    @get:Input
     abstract val pythonBinary: Property<String>
 
     @TaskAction
@@ -41,10 +38,6 @@ abstract class BuildNativeTask @Inject constructor(
 
         val env = mapOf(
             "NDK_VERSION" to ndkVersion.get(),
-            "SOURCE_DATE_EPOCH" to sourceDateEpoch.get(),
-            "BUILD_HOST" to "researchxxl-syncthing-android",
-            "BUILD_USER" to "reproducible-build",
-            "STTRACE" to ""
         )
 
         val fullEnv = System.getenv().toMutableMap().apply {
@@ -83,6 +76,5 @@ tasks.register<BuildNativeTask>("buildNative") {
     workingDir.set(layout.projectDirectory)
     outputDir.set(layout.projectDirectory.dir("../app/src/main/jniLibs"))
     ndkVersion.set(libs.versions.ndk.version)
-    sourceDateEpoch.set(System.getenv("SOURCE_DATE_EPOCH") ?: "0")
     pythonBinary.set(detectPythonBinary())
 }

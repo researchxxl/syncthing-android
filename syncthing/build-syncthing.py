@@ -300,6 +300,27 @@ def get_ndk_ready():
     return
 
 
+def get_repository():
+    """Extract repository from remote URL."""
+    try:
+        remote_url = subprocess.check_output(
+            [git_bin, "-C", project_dir, "remote", "get-url", "origin"]
+        ).decode().strip()
+        if remote_url.endswith(".git"):
+            remote_url = remote_url[:-4]
+        # HTTPS
+        m = re.search(r"github\.com/([^/]+)/([^/]+)$", remote_url)
+        if m:
+            return f"{m.group(1)}-{m.group(2)}"
+        # SSH
+        m = re.search(r"github\.com:([^/]+)/([^/]+)$", remote_url)
+        if m:
+            return f"{m.group(1)}-{m.group(2)}"
+        return None
+    except Exception as e:
+        fail("get_repo: cannot derive from remote url", e)
+
+
 #
 # BUILD SCRIPT MAIN.
 #
@@ -312,8 +333,6 @@ project_dir = os.path.realpath(os.path.join(module_dir, '..'))
 syncthing_dir = os.path.join(module_dir, 'src', 'github.com', 'syncthing', 'syncthing')
 prerequisite_tools_dir = os.path.dirname(os.path.realpath(__file__)) + os.path.sep + ".." + os.path.sep + ".." + os.path.sep + "syncthing-android-prereq"
 min_sdk = get_min_sdk(project_dir)
-
-# print ('Info: min_sdk = ' + str(min_sdk))
 
 # Check if git is available.
 git_bin = which("git");
@@ -451,8 +470,10 @@ else:
 
 verify_native_version_matches_app(project_dir, syncthingVersion)
 
+repository = get_repository()
+print('Parent repository:', repository);
+
 print('Building syncthing version', syncthingVersion);
-print('SOURCE_DATE_EPOCH=[' + os.environ['SOURCE_DATE_EPOCH'] + ']');
 for target in BUILD_TARGETS:
     print('')
     print('*** Building for', target['arch'])
@@ -470,10 +491,14 @@ for target in BUILD_TARGETS:
     # See why "-checklinkname=0" is required: https://github.com/wlynxg/anet?tab=readme-ov-file#how-to-build-with-go-1230-or-later 
     environ = os.environ.copy()
     environ.update({
-        'GOPATH': module_dir,
-        'GO111MODULE': 'on',
+        'BUILD_HOST': repository,
+        'BUILD_USER': 'reproducible-build',
         'CGO_ENABLED': '1',
         'EXTRA_LDFLAGS': '-checklinkname=0',
+        'GOPATH': module_dir,
+        'GO111MODULE': 'on',
+        'SOURCE_DATE_EPOCH': '0',
+        'STTRACE': '',
     })
 
     subprocess.check_call([go_bin, 'mod', 'download'], cwd=syncthing_dir)
