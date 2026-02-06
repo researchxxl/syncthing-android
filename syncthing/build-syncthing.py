@@ -471,9 +471,11 @@ for target in BUILD_TARGETS:
     environ.update({
         'GOPATH': module_dir,
         'GO111MODULE': 'on',
+        'BUILD_USER': 'reproducible-build',
         'CGO_ENABLED': '1',
         'EXTRA_LDFLAGS': '-checklinkname=0',
         'SOURCE_DATE_EPOCH': '0',
+        'STTRACE': '',
     })
 
     subprocess.check_call([go_bin, 'mod', 'download'], cwd=syncthing_dir)
