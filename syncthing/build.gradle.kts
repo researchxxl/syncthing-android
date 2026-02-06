@@ -38,7 +38,6 @@ abstract class BuildNativeTask @Inject constructor(
 
         val env = mapOf(
             "NDK_VERSION" to ndkVersion.get(),
-            "BUILD_HOST" to "researchxxl-syncthing-android",
         )
 
         val fullEnv = System.getenv().toMutableMap().apply {
