@@ -452,7 +452,6 @@ else:
 verify_native_version_matches_app(project_dir, syncthingVersion)
 
 print('Building syncthing version', syncthingVersion);
-print('SOURCE_DATE_EPOCH=[' + os.environ['SOURCE_DATE_EPOCH'] + ']');
 for target in BUILD_TARGETS:
     print('')
     print('*** Building for', target['arch'])
@@ -474,6 +473,7 @@ for target in BUILD_TARGETS:
         'GO111MODULE': 'on',
         'CGO_ENABLED': '1',
         'EXTRA_LDFLAGS': '-checklinkname=0',
+        'SOURCE_DATE_EPOCH': '0',
     })
 
     subprocess.check_call([go_bin, 'mod', 'download'], cwd=syncthing_dir)
