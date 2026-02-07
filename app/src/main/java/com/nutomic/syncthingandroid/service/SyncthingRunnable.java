@@ -47,6 +47,8 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import javax.inject.Inject;
 
+import eu.chainfire.libsuperuser.Shell;
+
 import static com.nutomic.syncthingandroid.service.SyncthingService.EXTRA_STOP_AFTER_CRASHED_NATIVE;
 
 /**
@@ -68,6 +70,7 @@ public class SyncthingRunnable implements Runnable {
     private final File mSyncthingBinary;
     private String[] mCommand;
     private final File mSyncthingLogFile;
+    private final boolean mUseRoot;
 
     @Inject
     SharedPreferences mPreferences;
@@ -97,6 +100,7 @@ public class SyncthingRunnable implements Runnable {
         mSyncthingLogFile = Constants.getSyncthingLogFile(mContext);
 
         // Get preferences relevant to starting syncthing core.
+        mUseRoot = mPreferences.getBoolean(Constants.PREF_USE_ROOT, false) && Shell.SU.available();
         switch (command) {
             case deviceid:
                 mCommand = new String[]{mSyncthingBinary.getPath(), "device-id"};
@@ -270,7 +274,7 @@ public class SyncthingRunnable implements Runnable {
      */
     private List<String> getSyncthingPIDs(Boolean enableLog) {
         List<String> syncthingPIDs = new ArrayList<String>();
-        String output = Util.runShellCommandGetOutput("ps\n");
+        String output = Util.runShellCommandGetOutput("ps\n", mUseRoot);
         if (TextUtils.isEmpty(output)) {
             Log.w(TAG, "Failed to list SyncthingNative processes. ps command returned empty.");
             return syncthingPIDs;
@@ -306,7 +310,7 @@ public class SyncthingRunnable implements Runnable {
             return;
         }
         for (String syncthingPID : syncthingPIDs) {
-            exitCode = Util.runShellCommand("kill -SIGINT " + syncthingPID + "\n");
+            exitCode = Util.runShellCommand("kill -SIGINT " + syncthingPID + "\n", mUseRoot);
             if (exitCode == 0) {
                 LogV("Sent kill SIGINT to process " + syncthingPID);
             } else {
@@ -458,9 +462,30 @@ public class SyncthingRunnable implements Runnable {
                 throw new ExecutableNotFoundException(mCommand[0]);
             }
         }
-        ProcessBuilder pb = new ProcessBuilder(mCommand);
-        pb.environment().putAll(env);
-        return pb.start();
+
+        if (mUseRoot) {
+            ProcessBuilder pb = new ProcessBuilder("su");
+            Process process = pb.start();
+            // The su binary prohibits the inheritance of environment variables.
+            // Even with --preserve-environment the environment gets messed up.
+            // We therefore start a root shell, and set all the environment variables manually.
+            DataOutputStream suOut = new DataOutputStream(process.getOutputStream());
+            for (Map.Entry<String, String> entry : env.entrySet()) {
+                suOut.writeBytes(String.format("export %s=\"%s\"\n", entry.getKey(), entry.getValue()));
+            }
+            suOut.flush();
+            // Exec will replace the su process image by Syncthing as execlp in C does.
+            // Without using exec, the process will drop to the root shell as soon as Syncthing terminates like a normal shell does.
+            // If we did not use exec, we would wait infinitely for the process to terminate (ret = process.waitFor(); in run()).
+            // With exec the whole process terminates when Syncthing exits.
+            suOut.writeBytes("exec " + TextUtils.join(" ", mCommand) + "\n");
+            suOut.flush();
+            return process;
+        } else {
+            ProcessBuilder pb = new ProcessBuilder(mCommand);
+            pb.environment().putAll(env);
+            return pb.start();
+        }
     }
 
     public class ExecutableNotFoundException extends Exception {
