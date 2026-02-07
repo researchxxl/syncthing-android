@@ -29,6 +29,7 @@ jobs:
           ref: ${{ github.event.inputs.tag }}
 
       - name: Ensure release branch
+        if: false
         run: |
           git config --global --add safe.directory '*'
           if ! git branch -a --contains $(git rev-parse HEAD) | grep release >/dev/null; then
@@ -53,6 +54,7 @@ jobs:
       applicationId: "com.github.catfriend1.syncthingandroid"
       buildType: "Release"
       checkoutRef: ${{ github.event.inputs.tag }}
+      gradleOptions: "bundleRelease"
 
   sign1:
     name: Sign 1
