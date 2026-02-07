@@ -29,10 +29,12 @@ import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -133,7 +135,26 @@ public abstract class ApiRequest {
 
             @Override
             protected Response<String> parseNetworkResponse(NetworkResponse response) {
-                String parsed = new String(response.data, StandardCharsets.UTF_8);
+                Charset charset = StandardCharsets.ISO_8859_1; // Volley default
+                Map<String, String> headers = response.headers;
+
+                if (headers != null) {
+                    // explicit charset
+                    String parsedCharset = HttpHeaderParser.parseCharset(headers, null);
+                    if (parsedCharset != null) {
+                        charset = Charset.forName(parsedCharset);
+                    }
+                    // application/json without charset → UTF-8
+                    else {
+                        String contentType = headers.get("Content-Type");
+                        if (contentType != null &&
+                                contentType.toLowerCase(Locale.US).startsWith("application/json")) {
+                            charset = StandardCharsets.UTF_8;
+                        }
+                    }
+                }
+
+                String parsed = new String(response.data, charset);
                 return Response.success(parsed, HttpHeaderParser.parseCacheHeaders(response));
             }
         };
