@@ -300,25 +300,26 @@ def get_ndk_ready():
     return
 
 
-def get_repository():
-    """Extract repository from remote URL."""
+def get_repository(git_bin: str = "git", project_dir: str = ".") -> str:
+    """
+    Return '<owner>-<repo>' from git origin remote.
+    Strict: raises RuntimeError if parsing fails.
+    """
+
     try:
-        remote_url = subprocess.check_output(
-            [git_bin, "-C", project_dir, "remote", "get-url", "origin"]
-        ).decode().strip()
-        if remote_url.endswith(".git"):
-            remote_url = remote_url[:-4]
-        # HTTPS
-        m = re.search(r"github\.com/([^/]+)/([^/]+)$", remote_url)
-        if m:
-            return f"{m.group(1)}-{m.group(2)}"
-        # SSH
-        m = re.search(r"github\.com:([^/]+)/([^/]+)$", remote_url)
-        if m:
-            return f"{m.group(1)}-{m.group(2)}"
-        return None
-    except Exception as e:
-        fail("get_repo: cannot derive from remote url", e)
+        remote = subprocess.check_output(
+            [git_bin, "-C", project_dir, "remote", "get-url", "origin"],
+            text=True,
+        ).strip()
+    except subprocess.CalledProcessError as e:
+        raise RuntimeError("Cannot read git origin remote") from e
+
+    m = re.compile(r"[:/]([^/]+)/([^/]+?)(?:\.git)?$").search(remote)
+    if not m:
+        raise RuntimeError(f"Cannot parse owner/repo from remote: {remote}")
+
+    owner, repo = m.group(1), m.group(2)
+    return f"{owner}-{repo}"
 
 
 #
@@ -335,7 +336,7 @@ prerequisite_tools_dir = os.path.dirname(os.path.realpath(__file__)) + os.path.s
 min_sdk = get_min_sdk(project_dir)
 
 # Check if git is available.
-git_bin = which("git");
+git_bin = which("git")
 if not git_bin:
     fail('Error: git is not available on the PATH.')
 
@@ -422,7 +423,7 @@ if check_and_copy_prebuilt_libraries():
     sys.exit(0)
 
 # Check if go is available.
-go_bin = which("go");
+go_bin = which("go")
 if not go_bin:
     fail('Error: go is not available on the PATH. Please install go to build go itself.')
 
@@ -456,7 +457,7 @@ subprocess.check_call([
 subprocess.check_call([go_bin, 'env', '-w', 'GOFLAGS=-buildvcs=false'], cwd=syncthing_dir)
 
 if FORCE_DISPLAY_SYNCTHING_VERSION:
-    syncthingVersion = FORCE_DISPLAY_SYNCTHING_VERSION.replace("rc", "preview");
+    syncthingVersion = FORCE_DISPLAY_SYNCTHING_VERSION.replace("rc", "preview")
 else:
     print('Invoking git describe ...')
     syncthingVersion = subprocess.check_output([
@@ -465,15 +466,15 @@ else:
         syncthing_dir,
         'describe',
         '--always'
-    ]).strip();
-    syncthingVersion = syncthingVersion.decode().replace("rc", "preview");
+    ]).strip()
+    syncthingVersion = syncthingVersion.decode().replace("rc", "preview")
 
 verify_native_version_matches_app(project_dir, syncthingVersion)
 
-repository = get_repository()
-print('Parent repository:', repository);
+repository = get_repository(git_bin, project_dir)
+print('Parent repository:', repository)
 
-print('Building syncthing version', syncthingVersion);
+print('Building syncthing version', syncthingVersion)
 for target in BUILD_TARGETS:
     print('')
     print('*** Building for', target['arch'])
@@ -488,7 +489,7 @@ for target in BUILD_TARGETS:
         target['cc'].format(min_sdk),
     )
 
-    # See why "-checklinkname=0" is required: https://github.com/wlynxg/anet?tab=readme-ov-file#how-to-build-with-go-1230-or-later 
+    # See why "-checklinkname=0" is required: https://github.com/wlynxg/anet?tab=readme-ov-file#how-to-build-with-go-1230-or-later
     environ = os.environ.copy()
     environ.update({
         'BUILD_HOST': repository,
