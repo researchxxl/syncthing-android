@@ -1,11 +1,11 @@
 import java.util.Properties
-import java.io.FileInputStream
 
 plugins {
     alias(libs.plugins.aboutLibraries)
     alias(libs.plugins.android.application)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.jetbrains.kotlin.serialization)
 }
 
 dependencies {
@@ -13,10 +13,12 @@ dependencies {
     implementation(libs.aboutlibraries.core)
     implementation(libs.activity.compose)
     implementation(libs.activity.ktx)
+    implementation(libs.androidx.appcompat)
     implementation(libs.android.material)
     implementation(libs.compose.material3)
     implementation(libs.compose.material.icons.extended)
     implementation(libs.compose.ui)
+    implementation(libs.compose.preference)
     implementation(libs.constraintlayout)
     implementation(libs.core.ktx)
     implementation(libs.dagger)
@@ -25,8 +27,11 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.guava)
     implementation(libs.jbcrypt)
+    implementation(libs.kotlinx.serialization.core)
     implementation(libs.lingala.zip4j)
     implementation(libs.localbroadcastmanager)
+    implementation(libs.navigation3.runtime)
+    implementation(libs.navigation3.ui)
     implementation(libs.preference.ktx)
     implementation(libs.recyclerview)
     implementation(libs.stream)
