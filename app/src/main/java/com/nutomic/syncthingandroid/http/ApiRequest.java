@@ -10,8 +10,11 @@ import android.widget.ImageView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkResponse;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.StringRequest;
@@ -26,9 +29,12 @@ import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -125,6 +131,31 @@ public abstract class ApiRequest {
             @Override
             public byte[] getBody() throws AuthFailureError {
                 return Optional.fromNullable(requestBody).transform(String::getBytes).orNull();
+            }
+
+            @Override
+            protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                Charset charset = StandardCharsets.ISO_8859_1; // Volley default
+                Map<String, String> headers = response.headers;
+
+                if (headers != null) {
+                    // explicit charset
+                    String parsedCharset = HttpHeaderParser.parseCharset(headers, null);
+                    if (parsedCharset != null) {
+                        charset = Charset.forName(parsedCharset);
+                    }
+                    // application/json without charset → UTF-8
+                    else {
+                        String contentType = headers.get("Content-Type");
+                        if (contentType != null &&
+                                contentType.toLowerCase(Locale.US).startsWith("application/json")) {
+                            charset = StandardCharsets.UTF_8;
+                        }
+                    }
+                }
+
+                String parsed = new String(response.data, charset);
+                return Response.success(parsed, HttpHeaderParser.parseCacheHeaders(response));
             }
         };
 
