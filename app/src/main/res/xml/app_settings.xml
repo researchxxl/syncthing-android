@@ -386,12 +386,6 @@
                 android:action=".activities.LogActivity" />
         </Preference>
 
-        <!-- STTRACE facility chooser dialog -->
-        <com.nutomic.syncthingandroid.views.SttracePreference
-            android:key="debug_facilities_enabled"
-            android:title="@string/sttrace_title"
-            android:singleLineTitle="false" />
-
         <!-- Environment variables -->
         <EditTextPreference
             android:key="environment_variables"
