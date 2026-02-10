@@ -23,15 +23,11 @@ A wrapper of [Syncthing](https://github.com/syncthing/syncthing) for Android. He
 [//]: # (F-droid download image provided by F-Droid documentation)
 [//]: # (https://f-droid.org/docs/Badges/)
 
-<a href="https://f-droid.org/packages/com.github.catfriend1.syncthingfork" style="text-decoration:none;">
-    <img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" align="center" height="80"/>
-</a>
-<a href="https://apps.obtainium.imranr.dev/redirect?r=obtainium://add/https://github.com/researchxxl/syncthing-android" style="text-decoration:none;">
-    <img src="https://github.com/ImranR98/Obtainium/blob/main/assets/graphics/badge_obtainium.png" alt="Get it on Obtainium" align="center" height="55"/>
-</a>
-<a href="https://github.com/researchxxl/syncthing-android/releases" style="text-decoration:none;">
-    <img src="https://raw.githubusercontent.com/rubenpgrady/get-it-on-github/refs/heads/main/get-it-on-github.png" alt="Download from GitHub" align="center" height="80"/>
-</a>
+[//]: # (Github for whatever reason likes to add zero width space behind each image link, smushing everything together like this should maybe fix it)
+
+<p align="left">
+  <a href="https://f-droid.org/packages/com.github.catfriend1.syncthingfork"><img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="80" align="middle"></a><a href="https://apps.obtainium.imranr.dev/redirect?r=obtainium://add/https://github.com/researchxxl/syncthing-android"><img src="https://raw.githubusercontent.com/ImranR98/Obtainium/main/assets/graphics/badge_obtainium.png" alt="Get it on Obtainium" height="55" align="middle"></a><a href="https://github.com/researchxxl/syncthing-android/releases"><img src="https://raw.githubusercontent.com/rubenpgrady/get-it-on-github/refs/heads/main/get-it-on-github.png" alt="Download from GitHub" height="80" align="middle"></a>
+</p>
 
 ## Switching from the deprecated official version
 
