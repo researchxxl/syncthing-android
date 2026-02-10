@@ -14,20 +14,24 @@ A wrapper of [Syncthing](https://github.com/syncthing/syncthing) for Android. He
 
 ## Download
 
-[//]: # (Download image provided by)
+[//]: # (Github download image provided by)
 [//]: # (https://github.com/rubenpgrady/get-it-on-github)
-[<img src="https://raw.githubusercontent.com/rubenpgrady/get-it-on-github/refs/heads/main/get-it-on-github.png" alt="Download from GitHub" 
-align="center" height="80" />](https://github.com/researchxxl/syncthing-android/releases)
 
-[//]: # (Download image provided by offical Obtainium repo)
+[//]: # (Obtainum download image provided by offical Obtainium repo)
 [//]: # (https://github.com/ImranR98/Obtainium)
-[<img src="https://github.com/ImranR98/Obtainium/blob/main/assets/graphics/badge_obtainium.png" alt="Get it on Obtainium" 
-align="center" height="80" />](https://apps.obtainium.imranr.dev/redirect?r=obtainium://add/https://github.com/researchxxl/syncthing-android)
 
-[//]: # (Dowload image provided by F-Droid documentation)
+[//]: # (F-droid download image provided by F-Droid documentation)
 [//]: # (https://f-droid.org/docs/Badges/)
-[<img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid"
-align="center" height="80">](https://f-droid.org/packages/com.github.catfriend1.syncthingfork)
+
+<a href="https://f-droid.org/packages/com.github.catfriend1.syncthingfork">
+    <img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" align="center" height="80"/>
+</a>
+<a href="https://apps.obtainium.imranr.dev/redirect?r=obtainium://add/https://github.com/researchxxl/syncthing-android">
+    <img src="https://github.com/ImranR98/Obtainium/blob/main/assets/graphics/badge_obtainium.png" alt="Get it on Obtainium" align="center" height="60"/>
+</a>
+<a href="https://github.com/researchxxl/syncthing-android/releases">
+    <img src="https://raw.githubusercontent.com/rubenpgrady/get-it-on-github/refs/heads/main/get-it-on-github.png" alt="Download from GitHub" align="center" height="80"/>
+</a>
 
 ## Switching from the deprecated official version
 
