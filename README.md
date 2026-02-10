@@ -12,6 +12,23 @@ A wrapper of [Syncthing](https://github.com/syncthing/syncthing) for Android. He
 
 <img src="app/src/main/play/listings/en-US/graphics/phone-screenshots/1.png" alt="screenshot 1" width="200" /> · <img src="app/src/main/play/listings/en-US/graphics/phone-screenshots/2.png" alt="screenshot 2" width="200" /> · <img src="app/src/main/play/listings/en-US/graphics/phone-screenshots/4.png" alt="screenshot 3" width="200" />
 
+## Download
+
+[//]: # (Download image provided by)
+[//]: # (https://github.com/rubenpgrady/get-it-on-github)
+[<img src="https://raw.githubusercontent.com/rubenpgrady/get-it-on-github/refs/heads/main/get-it-on-github.png" alt="Download from GitHub" 
+align="center" height="80" />](https://github.com/researchxxl/syncthing-android/releases)
+
+[//]: # (Download image provided by offical Obtainium repo)
+[//]: # (https://github.com/ImranR98/Obtainium)
+[<img src="https://github.com/ImranR98/Obtainium/blob/main/assets/graphics/badge_obtainium.png" alt="Get it on Obtainium" 
+align="center" height="80" />](https://apps.obtainium.imranr.dev/redirect?r=obtainium://add/https://github.com/researchxxl/syncthing-android)
+
+[//]: # (Dowload image provided by F-Droid documentation)
+[//]: # (https://f-droid.org/docs/Badges/)
+[<img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid"
+align="center" height="80">](https://f-droid.org/packages/com.github.catfriend1.syncthingfork)
+
 ## Switching from the deprecated official version
 
 Switching is easier than you may think! See our [wiki article](wiki/migration/Switching-from-the-deprecated-official-version.md) for detailed instructions.
