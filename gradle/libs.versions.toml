@@ -11,7 +11,7 @@ version-code = "2001500"
 version-name = "2.0.15.0"
 
 # External SDK versions
-go_version = "1.25.6"
+go_version = "1.26.0"
 
 aboutLibraries = "14.0.0-a01"
 activity = "1.12.3"
