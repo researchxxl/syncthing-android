@@ -24,6 +24,7 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.guava)
     implementation(libs.jbcrypt)
+    implementation(libs.libsuperuser)
     implementation(libs.lingala.zip4j)
     implementation(libs.localbroadcastmanager)
     implementation(libs.preference.ktx)
