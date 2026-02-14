@@ -323,7 +323,7 @@
     <string name="photo_shoot_take_picture_failure">사진 촬영에 실패했거나 사용자가 사진 촬영을 취소했습니다.</string>
     <string name="default_syncthing_camera_folder_label">Syncthing 카메라</string>
     <string name="close_main_menu">메인 메뉴 닫기</string>
-    <string name="exception_known_bug_notice">아직 해결되지 않은 노운 버그가 발생했습니다. 자세한 내용은 %1$s/%2$s를 참조해주세요. 이전에 발생한 상황에 대해 정확한 설명을 남겨주세요.</string>
+    <string name="exception_known_bug_notice">아직 해결되지 않은 알려진 버그가 발생했습니다. 자세한 내용은 %1$s/%2$s를 참조해주세요. 이전에 발생한 상황에 대해 정확한 설명을 남겨주세요.</string>
     <string name="dialog_exit_while_running_as_service_title">응용 프로그램을 종료하려면 확인하세요</string>
     <string name="notification_permission_desc">해당 권한은 새 기기 연결 및 폴더 공유 요청 알림을 표시하고, 서비스가 활성화되고 연결된 상태를 유지하기 위해 필요합니다.</string>
     <string name="activity_main_bottom_navigation_rescan_all">전체 재검색</string>
@@ -347,9 +347,7 @@
     <string name="main_menu">메인 메뉴</string>
     <string name="generic_help">도움말</string>
     <string name="open_main_menu">메인 메뉴 열기</string>
-    <string name="welcome_text">Syncthing은 오픈 소스 파일 동기화 응용 프로그램입니다. 다른 기기와 데이터를 공유하려면 기기 목록에 고유한 기기 ID를 추가해야 합니다. 그런 다음 어떤 폴더를 어떤 기기와 공유할지 선택할 수 있습니다.
-\n
-\n문제가 발생하면 GitHub를 통해 알려주시기 바랍니다.</string>
+    <string name="welcome_text">Syncthing은 오픈 소스 파일 동기화 응용 프로그램입니다. 다른 기기와 데이터를 공유하려면 기기 목록에 고유한 기기 ID를 추가해야 합니다. 그런 다음 어떤 폴더를 어떤 기기와 공유할지 선택할 수 있습니다. \n \n문제가 발생하면 GitHub를 통해 알려주시기 바랍니다.</string>
     <string name="storage_permission_title">저장소 권한</string>
     <string name="ignore_doze_permission_desc">Android에서는 일정 시간이 지나면 동기화가 중지될 수 있습니다. 이를 방지하려면 배터리 최적화 옵션을 끄시기 바랍니다. 일부 기기에는 사전 설치된 추가적인 작업 종료 응용 프로그램이 있습니다. Syncthing을 정상적으로 작동하게 하기 위해서는 해당 응용프로그램의 화이트리스트에 Syncthing을 추가해야 합니다.</string>
     <string name="location_permission_desc">Syncthing은 선택한 Wi-Fi 네트워크에서 작동하도록 구성할 수 있습니다. Android에서는 활성화된 Wi-Fi 네트워크 이름을 읽기 위해 응용 프로그램에 위치 권한이 필요합니다. 이 기능을 사용하려면 위의 버튼을 누르십시오. 이 단계를 건너뛸 수 있습니다. 자세한 내용은 개인정보 처리방침을 참고하세요.</string>
