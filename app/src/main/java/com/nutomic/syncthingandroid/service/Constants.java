@@ -5,8 +5,6 @@ import android.content.pm.ApplicationInfo;
 import android.os.Build;
 import android.text.TextUtils;
 
-import com.nutomic.syncthingandroid.util.FileUtils;
-
 import java.io.File;
 import java.util.concurrent.TimeUnit;
 
@@ -175,11 +173,6 @@ public class Constants {
     public static final Integer DEFAULT_WEBGUI_TCP_PORT         = 8384;
     public static final Integer DEFAULT_DATA_TCP_PORT           = 22000;
 
-    /**
-     * On Android 8.1, ACCESS_COARSE_LOCATION is required to access WiFi SSID.
-     * This is the request code used when requesting the permission.
-     */
-    public static final int PERM_REQ_ACCESS_LOCATION = 999;
 
     /**
      * Interval in ms at which RestAPI is polled.

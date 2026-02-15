@@ -139,14 +139,14 @@
         <activity
             android:name=".activities.LogActivity"
             android:exported="true"
-            android:parentActivityName=".activities.SettingsActivity">
+            android:parentActivityName=".settings.SettingsActivity">
             <intent-filter>
                 <action android:name=".activities.LogActivity" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.SettingsActivity" />
+                android:value=".settings.SettingsActivity" />
         </activity>
         <activity
             android:name=".activities.FolderPickerActivity"
@@ -175,7 +175,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.MainActivity" />
         </activity>
-        <activity android:name=".activities.SettingsActivity"
+        <activity android:name=".settings.SettingsActivity"
             android:label="@string/settings_title"
             android:configChanges="orientation|screenSize"
             android:parentActivityName=".activities.MainActivity">
@@ -241,14 +241,6 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.nutomic.syncthingandroid.activities.DeviceActivity" />
-        </activity>
-        <activity android:name=".activities.LicenseActivity"
-            android:label="@string/open_source_licenses_title"
-            android:exported="false"
-            android:parentActivityName=".activities.SettingsActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.SettingsActivity" />
         </activity>
         <property
             android:name="android.content.MEDIA_CAPABILITIES"

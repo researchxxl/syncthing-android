@@ -2,7 +2,6 @@ package com.nutomic.syncthingandroid.fragments;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -16,20 +15,14 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 
-import com.google.zxing.common.BitMatrix;
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.MultiFormatWriter;
-import com.google.zxing.WriterException;
 import com.nutomic.syncthingandroid.R;
 import com.nutomic.syncthingandroid.activities.MainActivity;
 import com.nutomic.syncthingandroid.activities.RecentChangesActivity;
-import com.nutomic.syncthingandroid.activities.SettingsActivity;
 import com.nutomic.syncthingandroid.activities.WebGuiActivity;
 import com.nutomic.syncthingandroid.service.Constants;
 import com.nutomic.syncthingandroid.service.SyncthingService;
+import com.nutomic.syncthingandroid.settings.SettingsActivity;
 import com.nutomic.syncthingandroid.util.Util;
-
-import java.net.URL;
 
 
 /**
@@ -41,8 +34,6 @@ public class DrawerFragment extends Fragment implements SyncthingService.OnServi
     private SyncthingService.State mServiceState = SyncthingService.State.INIT;
 
     private static final String TAG = "DrawerFragment";
-
-    private static final int SETTINGS_SCREEN_REQUEST = 3460;
 
     /**
      * These buttons might be accessible if the screen is big enough
@@ -165,14 +156,14 @@ public class DrawerFragment extends Fragment implements SyncthingService.OnServi
             mActivity.closeDrawer();
         } else if (id == R.id.drawerActionImportExport) {
             intent = new Intent(mActivity, SettingsActivity.class);
-            intent.putExtra(SettingsActivity.EXTRA_OPEN_SUB_PREF_SCREEN, "category_import_export");
+            intent.putExtra(SettingsActivity.EXTRA_START_DESTINATION, "ImportExport");
             startActivity(intent);
             mActivity.closeDrawer();
         } else if (id == R.id.drawerActionRestart) {
             mActivity.showRestartDialog();
             mActivity.closeDrawer();
         } else if (id == R.id.drawerActionSettings) {
-            startActivityForResult(new Intent(mActivity, SettingsActivity.class), SETTINGS_SCREEN_REQUEST);
+            startActivity(new Intent(mActivity, SettingsActivity.class));
             mActivity.closeDrawer();
         } else if (id == R.id.drawerActionExit) {
             if (sharedPreferences != null && sharedPreferences.getBoolean(Constants.PREF_START_SERVICE_ON_BOOT, false)) {
@@ -205,18 +196,5 @@ public class DrawerFragment extends Fragment implements SyncthingService.OnServi
         mActivity.stopService(new Intent(mActivity, SyncthingService.class));
         mActivity.finishAndRemoveTask();
         return true;
-    }
-
-    /**
-     * Receives result of SettingsActivity.
-     */
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        if (requestCode == SETTINGS_SCREEN_REQUEST && resultCode == SettingsActivity.RESULT_RESTART_APP) {
-            Log.d(TAG, "Got request to restart MainActivity");
-            if (doExit()) {
-                startActivity(new Intent(getActivity(), MainActivity.class));
-            }
-        }
     }
 }
