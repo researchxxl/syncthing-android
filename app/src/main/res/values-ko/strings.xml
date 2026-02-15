@@ -156,7 +156,7 @@
     <string name="export_config">설정 내보내기</string>
     <string name="use_tor_title">Tor 사용</string>
     <!-- Dialog shown before config export -->
-    <string name="dialog_confirm_export">정말로 설정을 내보내시겠습니까? 현재 존재하는 파일이 덮어쓰기됩니다. \n \n경고! 다른 애플리케이션이 백업 경로에 저장된 비밀 키를 읽어들여, 동기화 중인 파일을 다운로드하거나 수정하는 데 사용할 수도 있습니다.</string>
+    <string name="dialog_confirm_export">정말로 설정을 내보내시겠습니까? 현재 존재하는 파일이 덮어쓰기 됩니다.</string>
     <!-- Dialog shown before config import -->
     <string name="dialog_confirm_import">정말 새로운 설정을 불러오시겠습니까? 기존 파일을 덮어씁니다.</string>
     <!-- Toast shown after config was exported -->
@@ -216,9 +216,7 @@
     <string name="nothing_share">공유 할 것이 없음</string>
     <!-- Copy success toast partially -->
     <plurals name="copy_success_partially">
-        <item quantity="other">%1$d 파일이 \"%2$s\" 폴더로 복사 되었습니다, %3$d는 이미 존재합니다
-\n
-\n%1$d 파일들이 \"%2$s\" 폴더로 복사 되었습니다, %3$d는 이미 존재합니다</item>
+        <item quantity="other">\"%2$s\" 폴더로 %1$d 파일이 복사 되었습니다, %3$d는 이미 존재합니다</item>
     </plurals>
     <!-- Copy success toast -->
     <plurals name="copy_success">
@@ -325,7 +323,7 @@
     <string name="photo_shoot_take_picture_failure">사진 촬영에 실패했거나 사용자가 사진 촬영을 취소했습니다.</string>
     <string name="default_syncthing_camera_folder_label">Syncthing 카메라</string>
     <string name="close_main_menu">메인 메뉴 닫기</string>
-    <string name="exception_known_bug_notice">아직 해결되지 않은 노운 버그가 발생했습니다. 자세한 내용은 %1$s/%2$s를 참조해주세요. 이전에 발생한 상황에 대해 정확한 설명을 남겨주세요.</string>
+    <string name="exception_known_bug_notice">아직 해결되지 않은 알려진 버그가 발생했습니다. 자세한 내용은 %1$s/%2$s를 참조해주세요. 이전에 발생한 상황에 대해 정확한 설명을 남겨주세요.</string>
     <string name="dialog_exit_while_running_as_service_title">응용 프로그램을 종료하려면 확인하세요</string>
     <string name="notification_permission_desc">해당 권한은 새 기기 연결 및 폴더 공유 요청 알림을 표시하고, 서비스가 활성화되고 연결된 상태를 유지하기 위해 필요합니다.</string>
     <string name="activity_main_bottom_navigation_rescan_all">전체 재검색</string>
@@ -349,9 +347,7 @@
     <string name="main_menu">메인 메뉴</string>
     <string name="generic_help">도움말</string>
     <string name="open_main_menu">메인 메뉴 열기</string>
-    <string name="welcome_text">Syncthing은 오픈 소스 파일 동기화 응용 프로그램입니다. 다른 기기와 데이터를 공유하려면 기기 목록에 고유한 기기 ID를 추가해야 합니다. 그런 다음 어떤 폴더를 어떤 기기와 공유할지 선택할 수 있습니다.
-\n
-\n문제가 발생하면 GitHub를 통해 알려주시기 바랍니다.</string>
+    <string name="welcome_text">Syncthing은 오픈 소스 파일 동기화 응용 프로그램입니다. 다른 기기와 데이터를 공유하려면 기기 목록에 고유한 기기 ID를 추가해야 합니다. 그런 다음 어떤 폴더를 어떤 기기와 공유할지 선택할 수 있습니다. \n \n문제가 발생하면 GitHub를 통해 알려주시기 바랍니다.</string>
     <string name="storage_permission_title">저장소 권한</string>
     <string name="ignore_doze_permission_desc">Android에서는 일정 시간이 지나면 동기화가 중지될 수 있습니다. 이를 방지하려면 배터리 최적화 옵션을 끄시기 바랍니다. 일부 기기에는 사전 설치된 추가적인 작업 종료 응용 프로그램이 있습니다. Syncthing을 정상적으로 작동하게 하기 위해서는 해당 응용프로그램의 화이트리스트에 Syncthing을 추가해야 합니다.</string>
     <string name="location_permission_desc">Syncthing은 선택한 Wi-Fi 네트워크에서 작동하도록 구성할 수 있습니다. Android에서는 활성화된 Wi-Fi 네트워크 이름을 읽기 위해 응용 프로그램에 위치 권한이 필요합니다. 이 기능을 사용하려면 위의 버튼을 누르십시오. 이 단계를 건너뛸 수 있습니다. 자세한 내용은 개인정보 처리방침을 참고하세요.</string>
@@ -366,7 +362,7 @@
     <string name="no_devices_configured">설정된 기기가 없습니다.
 \n지금 기기를 추가하여 시작하세요.</string>
     <string name="device_paused">일시정지</string>
-    <string name="device_last_seen_never">절대로</string>
+    <string name="device_last_seen_never">연결된 적 없음</string>
     <string name="shared_folders_title_colon">"폴더목록: "</string>
     <string name="button_follow_run_conditions">실행 조건을 따라주세요</string>
     <string name="button_force_stop">강제 중지
@@ -513,9 +509,7 @@
     <string name="reason_not_within_time_frame">사용자가 \'시간 일정에 따라 실행\'을 활성화했으며 마지막 동기화가 1시간 이내에 이루어졌습니다.</string>
     <string name="reason_force_stop">사용자가 실행 조건과 상관없이 강제로 중지하였기 때문에 Syncthing이 실행 중이지 않습니다.</string>
     <plurals name="reason_not_within_time_frame_minutes">
-        <item quantity="other">%d 분
-\n
-\n%d 분</item>
+        <item quantity="other">%d 분</item>
     </plurals>
     <string name="reason_not_within_time_frame_0_min">1분 미만</string>
     <string name="run_in_flight_mode_summary">이 옵션을 활성화하면 오프라인 상태에서도 Syncthing이 실행됩니다. 기기가 비행 모드에서 수동 Wi-Fi 연결을 감지하는 데 문제가 있는 경우 이 옵션을 활성화하세요.</string>
@@ -582,9 +576,7 @@
     <string name="custom_wifi_ssid_whitelist_empty">화이트리스트에 등록된 WiFi SSID가 없습니다. 설정에서 WIFI SSID를 화이트리스트에 등록해주세요.</string>
     <string name="no_remote_devices_connected">연결된 무선 기기가 없음</string>
     <plurals name="syncthing_active_syncing_device_online">
-        <item quantity="other">동기화 중: %1$d%% 완료, %2$d개의 기기가 온라인 상태
-\n
-\n동기화 중: %1$d%% 완료, %2$d개의 기기가 온라인 상태</item>
+        <item quantity="other">동기화 중: %1$d%% 완료, %2$d개의 기기가 온라인 상태</item>
     </plurals>
     <string name="syncthing_disabled">Syncthing이 수면모드에 있음</string>
     <string name="executable_not_found">코어 실행 파일 \"%s\"가 없습니다. 빌드와 로그캣 출력을 확인하세요.</string>
@@ -616,11 +608,32 @@
     <string name="syncthing_active_details">Syncthing이 실행 중입니다: %1$s</string>
     <string name="reason_on_flight_mode">비행기 모드가 활성화되었을 때 Syncthing이 실행되도록 설정했기 때문에 Syncthing이 실행 중입니다.</string>
     <plurals name="device_online_up_to_date">
-        <item quantity="other">%1$d개의 기기가 온라인 상태이며 최신 상태로 유지되고 있음
-\n
-\n%1$d개의 기기가 온라인 상태이며 최신 상태로 유지되고 있음</item>
+        <item quantity="other">%1$d개의 기기가 온라인 상태이며 최신 상태임</item>
     </plurals>
     <string name="syncthing_terminated">Syncthing이 종료되었습니다</string>
     <string name="config_file_missing">실행에 필수적인 설정 파일이 누락됨</string>
     <string name="folder_type_sendonly_description">파일은 다른 기기에서 이루어진 변경으로부터 보호되지만, 이 기기에서 이루어진 변경은 클러스터의 나머지 부분으로 전송됩니다.</string>
+    <plurals name="conflicts">
+        <item quantity="other">%1$d 충돌</item>
+    </plurals>
+    <string name="folder_run_script_caption">스크립트 실행</string>
+    <string name="folder_run_script_description">폴더가 동기화 된 뒤 실행되는 전문가용 옵션입니다. \'.stfolder/*.sh\' 에 있는 스크립트가 실행되며, 다른 위치는 보안상의 이유로 지원되지 않습니다.\n예제 스크립트 호출: \'.stfolder/rename-files.sh sync_complete\'</string>
+    <string name="device_id_qr_code">기기 ID QR 코드</string>
+    <string name="sleep_interval_minutes_title">동기화 일시중지 간격</string>
+    <string name="allow_overwrite_files_title">기존 파일에 대한 덮어쓰기 허용</string>
+    <string name="start_into_web_gui_title">web GUI 로 시작하기</string>
+    <string name="start_into_web_gui_summary">응용 프로그램을 시작할 때, 메인 화면 대신 web GUI 를 엽니다</string>
+    <string name="clear_stversions_summary">Syncthing 에서 파일이 교체되거나 삭제될 때, 파일을 .stversions 디렉토리로 이동합니다. 실수로 삭제된 파일을 이곳에서 찾아 복수할 수 있지만, 오래된 버전의 파일들이 기기의 저장공간을 차지하게 됩니다.</string>
+    <string name="backup_password_summary">ℹ️ 권고사항:\n가져오기 및 내보내기 시 암호화와 복호화에 사용될 강력한 비밀번호를 입력하십시오. 복구를 위해 안전한 장소에 암호를 보관하세요. 이 암호는 가져오기 시 다시 사용됩니다.\n\n⚠️ 비 권고사항:\n비밀빈호를 사용하지 않을 시, 다른 어플리케이션이 Syncthing의 설정을 읽고 조작 할 수 있습니다. 설정 정보의 노출은 악의적인 공격자가 내보내기 된 설정 파일을 훔쳐 미승인된 연결과 함께 파일에 접근할 수 있습니다.</string>
+    <string name="backup_password_set">✅ 비밀번호 설정: %1$s</string>
+    <string name="backup_password_set_masked">✅ 비밀번호 설정됨 - 터치해서 수정하기</string>
+    <string name="backup_password_not_set">⚠ 비밀번호 미설정.</string>
+    <string name="syncthing_forum_title">Syncthing 포럼</string>
+    <string name="privacy_title">개인정보 보호정책</string>
+    <string name="privacy_summary">Syncthing-android 의 개인정보 보호정책 열기. 이곳에는 위치 정보 등 개인 데이터(있는 경우)에 대한 사용 여부 등에 대한 내용을 포함하고 있습니다.</string>
+    <string name="open_source_licenses_title">오픈 소스 라이센스</string>
+    <string name="open_source_licenses_summary">사용중인 오픈 소스 라이센스 보기</string>
+    <string name="important_news_title">중요 사항 - 작업 조치 필요</string>
+    <string name="config_export_successful_no_path">설정 내보내기 완료. 이후 가져오기를 위해 비밀번호를 반드시 기억하십시오.</string>
+    <string name="config_import_failed_no_path">설정 가져오기 실패. 설정-문제해결-로그열기 에서 자세한 사항을 볼 수 있습니다.</string>
 </resources>
