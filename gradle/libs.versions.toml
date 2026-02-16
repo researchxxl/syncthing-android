@@ -14,7 +14,7 @@ version-name = "2.0.15.0"
 go_version = "1.26.0"
 
 aboutLibraries = "14.0.0-a01"
-activity = "1.12.3"
+activity = "1.12.4"
 android-material = "1.13.0"
 android-gradle-plugin = "9.0.0"
 compose-material3 = "1.4.0"
