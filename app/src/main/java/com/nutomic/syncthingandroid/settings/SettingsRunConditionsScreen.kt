@@ -326,7 +326,7 @@ private fun WifiSsidPreference(
         }
 
         knownSsids = updatedKnown
-        specifiedSsids =  updatedSelection
+        specifiedSsids = updatedSelection
     }
 
     val specifiedSsidSummary = if (specifiedSsids.isNotEmpty())
