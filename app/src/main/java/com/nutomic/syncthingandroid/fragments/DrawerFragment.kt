@@ -52,6 +52,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
@@ -362,6 +363,7 @@ private fun DrawerHeader() {
                 text = stringResource(R.string.app_name),
                 style = MaterialTheme.typography.titleLarge,
                 color = MaterialTheme.colorScheme.primary,
+                fontWeight = FontWeight.SemiBold,
             )
         }
     }
