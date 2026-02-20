@@ -1,12 +1,2 @@
-v2.0.14
-Fix the high battery drain if local discovery is in use (thanks @bt90)
-Update dependencies
-
-v2.0.13
-Fix and add material style to device id and license dialogs (thanks @dbhavsar76)
-Fix visual state changes of the schedule quick settings tile (thanks @normanre)
-
-v2.0.12
-Removed libsuperuser dependency for security reasons.
-Dropped wakelock and write secure system settings permission.
-Due to requirements of Androidx dependencies minimum Android version was raised to 6.
+Updated settings screen to material design (thanks @dbhavsar76)
+Updated dependencies and translations (thanks weblate community)
