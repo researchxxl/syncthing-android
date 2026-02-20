@@ -59,42 +59,53 @@ fun SettingsAboutScreen() {
     SettingsScaffold(
         title = stringResource(R.string.category_about),
     ) {
-        Preference(
-            title = { Text(stringResource(R.string.app_version_title)) },
-            summary = { Text(state.appVersion) },
-        )
-        Preference(
-            title = { Text(stringResource(R.string.syncthing_version_title)) },
-            summary = { Text(state.coreVersion) },
-        )
-        Preference(
-            title = { Text(stringResource(R.string.syncthing_database_size)) },
-            summary = { Text(state.dbSize) },
-        )
-        Preference(
-            title = { Text(stringResource(R.string.os_open_file_limit)) },
-            summary = { Text(state.fileLimit) },
-        )
-
-        val stForumUri = stringResource(R.string.syncthing_forum_url)
-        Preference(
-            title = { Text(stringResource(R.string.syncthing_forum_title)) },
-            summary = { Text(stringResource(R.string.syncthing_forum_summary)) },
-            onClick = { uriHandler.openUri(stForumUri) },
-        )
-
-        val stPrivacyPolicyUri = stringResource(R.string.privacy_policy_url)
-        Preference(
-            title = { Text(stringResource(R.string.privacy_title)) },
-            summary = { Text(stringResource(R.string.privacy_summary)) },
-            onClick = { uriHandler.openUri(stPrivacyPolicyUri) },
-        )
-
-        Preference(
-            title = { Text(stringResource(R.string.open_source_licenses_title)) },
-            summary = { Text(stringResource(R.string.open_source_licenses_summary)) },
-            onClick = { navigator.navigateTo(SettingsRoute.Licenses) },
-        )
+        item {
+            Preference(
+                title = { Text(stringResource(R.string.app_version_title)) },
+                summary = { Text(state.appVersion) },
+            )
+        }
+        item {
+            Preference(
+                title = { Text(stringResource(R.string.syncthing_version_title)) },
+                summary = { Text(state.coreVersion) },
+            )
+        }
+        item {
+            Preference(
+                title = { Text(stringResource(R.string.syncthing_database_size)) },
+                summary = { Text(state.dbSize) },
+            )
+        }
+        item {
+            Preference(
+                title = { Text(stringResource(R.string.os_open_file_limit)) },
+                summary = { Text(state.fileLimit) },
+            )
+        }
+        item {
+            val stForumUri = stringResource(R.string.syncthing_forum_url)
+            Preference(
+                title = { Text(stringResource(R.string.syncthing_forum_title)) },
+                summary = { Text(stringResource(R.string.syncthing_forum_summary)) },
+                onClick = { uriHandler.openUri(stForumUri) },
+            )
+        }
+        item {
+            val stPrivacyPolicyUri = stringResource(R.string.privacy_policy_url)
+            Preference(
+                title = { Text(stringResource(R.string.privacy_title)) },
+                summary = { Text(stringResource(R.string.privacy_summary)) },
+                onClick = { uriHandler.openUri(stPrivacyPolicyUri) },
+            )
+        }
+        item {
+            Preference(
+                title = { Text(stringResource(R.string.open_source_licenses_title)) },
+                summary = { Text(stringResource(R.string.open_source_licenses_summary)) },
+                onClick = { navigator.navigateTo(SettingsRoute.Licenses) },
+            )
+        }
     }
 }
 

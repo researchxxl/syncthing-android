@@ -67,29 +67,45 @@ fun SettingsImportExportScreen() {
     SettingsScaffold(
         title = stringResource(R.string.category_backup),
     ) {
-        PreferenceCategory(
-            title = { Text(stringResource(R.string.preference_category_explanation)) },
-        )
-        Preference(
-            title = { Text(stringResource(R.string.backup_password_summary)) },
-        )
+        item {
+            PreferenceCategory(
+                title = { Text(stringResource(R.string.preference_category_explanation)) },
+            )
+        }
+        item {
+            Preference(
+                title = { Text(stringResource(R.string.backup_password_summary)) },
+            )
+        }
 
-        PreferenceCategory(
-            title = { Text(stringResource(R.string.preference_category_prepare)) },
-        )
-        TextFieldPreference(
-            title = { Text(stringResource(R.string.backup_rel_path_to_zip)) },
-            summary = { Text(backupPath.value.ifBlank { defaultBackupPath }) },
-            state = backupPath,
-            textToValue = { it.ifBlank { defaultBackupPath } },
-        )
-        PasswordPreference()
+        item {
+            PreferenceCategory(
+                title = { Text(stringResource(R.string.preference_category_prepare)) },
+            )
+        }
+        item {
+            TextFieldPreference(
+                title = { Text(stringResource(R.string.backup_rel_path_to_zip)) },
+                summary = { Text(backupPath.value.ifBlank { defaultBackupPath }) },
+                state = backupPath,
+                textToValue = { it.ifBlank { defaultBackupPath } },
+            )
+        }
+        item {
+            PasswordPreference()
+        }
 
-        PreferenceCategory(
-            title = { Text(stringResource(R.string.preference_category_actions)) },
-        )
-        ExportConfigPreference()
-        ImportConfigPreference()
+        item {
+            PreferenceCategory(
+                title = { Text(stringResource(R.string.preference_category_actions)) },
+            )
+        }
+        item {
+            ExportConfigPreference()
+        }
+        item {
+            ImportConfigPreference()
+        }
     }
 }
 

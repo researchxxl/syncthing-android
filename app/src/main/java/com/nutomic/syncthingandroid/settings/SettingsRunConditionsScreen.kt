@@ -116,162 +116,196 @@ fun SettingsRunConditionsScreen() {
         title = stringResource(R.string.run_conditions_title),
         description = stringResource(R.string.run_conditions_summary),
     ) {
-        PreferenceCategory(
-            title = { Text(stringResource(R.string.category_wifi)) },
-        )
-        SwitchPreference(
-            title = { Text(stringResource(R.string.run_on_wifi_title)) },
-            summary = { Text(stringResource(R.string.run_on_wifi_summary)) },
-            value = runOnWifi,
-            onValueChange = {
-                runOnWifi = it
-                pendingEvaluation = true
-            }
-        )
-        SwitchPreference(
-            title = { Text(stringResource(R.string.run_on_metered_wifi_title)) },
-            summary = { Text(stringResource(R.string.run_on_metered_wifi_summary)) },
-            value = runOnMeteredWifi,
-            onValueChange = {
-                runOnMeteredWifi = it
-                pendingEvaluation = true
-            },
-            enabled = runOnWifi,
-        )
-        SwitchPreference(
-            title = { Text(stringResource(R.string.run_on_whitelisted_wifi_title)) },
-            summary = { Text(stringResource(R.string.run_on_whitelisted_wifi_summary)) },
-            value = runOnSpecifiedSsid,
-            onValueChange = {
-                runOnSpecifiedSsid = it
-                pendingEvaluation = true
-            },
-            enabled = runOnWifi,
-        )
-        WifiSsidPreference(
-            enabled = runOnWifi && runOnSpecifiedSsid,
-            setPendingEvaluation = {
-                pendingEvaluation = true
-            }
-        )
-
-        PreferenceCategory(
-            title = { Text(stringResource(R.string.category_mobile_data)) }
-        )
-        SwitchPreference(
-            title = { Text(stringResource(R.string.run_on_mobile_data_title)) },
-            summary = { Text(stringResource(R.string.run_on_mobile_data_summary)) },
-            value = runOnMobileData,
-            onValueChange = {
-                runOnMobileData = it
-                pendingEvaluation = true
-            }
-        )
-        SwitchPreference(
-            title = { Text(stringResource(R.string.run_on_roaming_title)) },
-            summary = { Text(stringResource(R.string.run_on_roaming_summary)) },
-            value = runOnRoaming,
-            onValueChange = {
-                runOnRoaming = it
-                pendingEvaluation = true
-            },
-            enabled = runOnMobileData,
-        )
-
-        PreferenceCategory(
-            title = { Text(stringResource(R.string.category_battery)) },
-        )
-        ListPreference(
-            title = { Text(stringResource(R.string.power_source_title)) },
-            summary = { Text(powerSourceNames[powerSourceValues.indexOf(powerSource)]) },
-            value = powerSource,
-            onValueChange = {
-                powerSource = it
-                pendingEvaluation = true
-            },
-            values = powerSourceValues.toList(),
-            valueToText = { value ->
-                AnnotatedString(powerSourceNames[powerSourceValues.indexOf(value)])
-            }
-        )
-        SwitchPreference(
-            title = { Text(stringResource(R.string.respect_battery_saving_title)) },
-            summary = { Text(stringResource(R.string.respect_battery_saving_summary)) },
-            value = respectBatterySaving,
-            onValueChange = {
-                respectBatterySaving = it
-                pendingEvaluation = true
-            }
-        )
-        SwitchPreference(
-            title = { Text(stringResource(R.string.respect_master_sync_title)) },
-            summary = { Text(stringResource(R.string.respect_master_sync_summary)) },
-            value = respectMasterSync,
-            onValueChange = {
-                respectMasterSync = it
-                pendingEvaluation = true
-            }
-        )
-        SwitchPreference(
-            title = { Text(stringResource(R.string.run_in_flight_mode_title)) },
-            summary = { Text(stringResource(R.string.run_in_flight_mode_summary)) },
-            value = flightMode,
-            onValueChange = {
-                flightMode = it
-                pendingEvaluation = true
-            }
-        )
-
-        PreferenceCategory(
-            title = { Text(stringResource(R.string.category_schedule)) },
-        )
-        SwitchPreference(
-            title = { Text(stringResource(R.string.run_on_time_schedule_title)) },
-            summary = { Text(stringResource(R.string.run_on_time_schedule_summary)) },
-            value = runScheduled,
-            onValueChange = {
-                runScheduled = it
-                pendingEvaluation = true
-            }
-        )
-        val syncDurationError = stringResource(R.string.invalid_integer_value, 1, 1440/* 24h */)
-        TextFieldPreference(
-            title = { Text(stringResource(R.string.sync_duration_minutes_title)) },
-            summary = { Text(stringResource(R.string.sync_duration_minutes_summary, syncDuration)) },
-            value = syncDuration,
-            onValueChange = {
-                syncDuration = it
-                pendingEvaluation = true
-            },
-            textToValue = { text ->
-                val mins = text.toIntOrNull()
-                if (mins == null || mins !in 1..1440) {
-                    Toast.makeText(context, syncDurationError, Toast.LENGTH_LONG).show()
-                    null
-                } else {
-                    text
+        item {
+            PreferenceCategory(
+                title = { Text(stringResource(R.string.category_wifi)) },
+            )
+        }
+        item {
+            SwitchPreference(
+                title = { Text(stringResource(R.string.run_on_wifi_title)) },
+                summary = { Text(stringResource(R.string.run_on_wifi_summary)) },
+                value = runOnWifi,
+                onValueChange = {
+                    runOnWifi = it
+                    pendingEvaluation = true
                 }
-            }
-        )
-        val sleepIntervalError = stringResource(R.string.invalid_integer_value, 1, 30240/* 3w */)
-        TextFieldPreference(
-            title = { Text(stringResource(R.string.sleep_interval_minutes_title)) },
-            summary = { Text(stringResource(R.string.sync_duration_minutes_summary, sleepInterval)) },
-            value = sleepInterval,
-            onValueChange = {
-                sleepInterval = it
-                pendingEvaluation = true
-            },
-            textToValue = { text ->
-                val mins = text.toIntOrNull()
-                if (mins == null || mins !in 1..30240) {
-                    Toast.makeText(context, sleepIntervalError, Toast.LENGTH_LONG).show()
-                    null
-                } else {
-                    text
+            )
+        }
+        item {
+            SwitchPreference(
+                title = { Text(stringResource(R.string.run_on_metered_wifi_title)) },
+                summary = { Text(stringResource(R.string.run_on_metered_wifi_summary)) },
+                value = runOnMeteredWifi,
+                onValueChange = {
+                    runOnMeteredWifi = it
+                    pendingEvaluation = true
+                },
+                enabled = runOnWifi,
+            )
+        }
+        item {
+            SwitchPreference(
+                title = { Text(stringResource(R.string.run_on_whitelisted_wifi_title)) },
+                summary = { Text(stringResource(R.string.run_on_whitelisted_wifi_summary)) },
+                value = runOnSpecifiedSsid,
+                onValueChange = {
+                    runOnSpecifiedSsid = it
+                    pendingEvaluation = true
+                },
+                enabled = runOnWifi,
+            )
+        }
+        item {
+            WifiSsidPreference(
+                enabled = runOnWifi && runOnSpecifiedSsid,
+                setPendingEvaluation = {
+                    pendingEvaluation = true
                 }
-            }
-        )
+            )
+        }
+
+        item {
+            PreferenceCategory(
+                title = { Text(stringResource(R.string.category_mobile_data)) }
+            )
+        }
+        item {
+            SwitchPreference(
+                title = { Text(stringResource(R.string.run_on_mobile_data_title)) },
+                summary = { Text(stringResource(R.string.run_on_mobile_data_summary)) },
+                value = runOnMobileData,
+                onValueChange = {
+                    runOnMobileData = it
+                    pendingEvaluation = true
+                }
+            )
+        }
+        item {
+            SwitchPreference(
+                title = { Text(stringResource(R.string.run_on_roaming_title)) },
+                summary = { Text(stringResource(R.string.run_on_roaming_summary)) },
+                value = runOnRoaming,
+                onValueChange = {
+                    runOnRoaming = it
+                    pendingEvaluation = true
+                },
+                enabled = runOnMobileData,
+            )
+        }
+
+        item {
+            PreferenceCategory(
+                title = { Text(stringResource(R.string.category_battery)) },
+            )
+        }
+        item {
+            ListPreference(
+                title = { Text(stringResource(R.string.power_source_title)) },
+                summary = { Text(powerSourceNames[powerSourceValues.indexOf(powerSource)]) },
+                value = powerSource,
+                onValueChange = {
+                    powerSource = it
+                    pendingEvaluation = true
+                },
+                values = powerSourceValues.toList(),
+                valueToText = { value ->
+                    AnnotatedString(powerSourceNames[powerSourceValues.indexOf(value)])
+                }
+            )
+        }
+        item {
+            SwitchPreference(
+                title = { Text(stringResource(R.string.respect_battery_saving_title)) },
+                summary = { Text(stringResource(R.string.respect_battery_saving_summary)) },
+                value = respectBatterySaving,
+                onValueChange = {
+                    respectBatterySaving = it
+                    pendingEvaluation = true
+                }
+            )
+        }
+        item {
+            SwitchPreference(
+                title = { Text(stringResource(R.string.respect_master_sync_title)) },
+                summary = { Text(stringResource(R.string.respect_master_sync_summary)) },
+                value = respectMasterSync,
+                onValueChange = {
+                    respectMasterSync = it
+                    pendingEvaluation = true
+                }
+            )
+        }
+        item {
+            SwitchPreference(
+                title = { Text(stringResource(R.string.run_in_flight_mode_title)) },
+                summary = { Text(stringResource(R.string.run_in_flight_mode_summary)) },
+                value = flightMode,
+                onValueChange = {
+                    flightMode = it
+                    pendingEvaluation = true
+                }
+            )
+        }
+
+        item {
+            PreferenceCategory(
+                title = { Text(stringResource(R.string.category_schedule)) },
+            )
+        }
+        item {
+            SwitchPreference(
+                title = { Text(stringResource(R.string.run_on_time_schedule_title)) },
+                summary = { Text(stringResource(R.string.run_on_time_schedule_summary)) },
+                value = runScheduled,
+                onValueChange = {
+                    runScheduled = it
+                    pendingEvaluation = true
+                }
+            )
+        }
+        item {
+            val syncDurationError = stringResource(R.string.invalid_integer_value, 1, 1440/* 24h */)
+            TextFieldPreference(
+                title = { Text(stringResource(R.string.sync_duration_minutes_title)) },
+                summary = { Text(stringResource(R.string.sync_duration_minutes_summary, syncDuration)) },
+                value = syncDuration,
+                onValueChange = {
+                    syncDuration = it
+                    pendingEvaluation = true
+                },
+                textToValue = { text ->
+                    val mins = text.toIntOrNull()
+                    if (mins == null || mins !in 1..1440) {
+                        Toast.makeText(context, syncDurationError, Toast.LENGTH_LONG).show()
+                        null
+                    } else {
+                        text
+                    }
+                }
+            )
+        }
+        item {
+            val sleepIntervalError = stringResource(R.string.invalid_integer_value, 1, 30240/* 3w */)
+            TextFieldPreference(
+                title = { Text(stringResource(R.string.sleep_interval_minutes_title)) },
+                summary = { Text(stringResource(R.string.sync_duration_minutes_summary, sleepInterval)) },
+                value = sleepInterval,
+                onValueChange = {
+                    sleepInterval = it
+                    pendingEvaluation = true
+                },
+                textToValue = { text ->
+                    val mins = text.toIntOrNull()
+                    if (mins == null || mins !in 1..30240) {
+                        Toast.makeText(context, sleepIntervalError, Toast.LENGTH_LONG).show()
+                        null
+                    } else {
+                        text
+                    }
+                }
+            )
+        }
     }
 }
 

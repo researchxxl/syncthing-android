@@ -4,13 +4,12 @@ import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.rememberSplineBasedDecay
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -38,7 +37,7 @@ import com.nutomic.syncthingandroid.util.isTelevision
 fun SettingsScaffold(
     title: String,
     description: String? = null,
-    content: @Composable (ColumnScope.() -> Unit) = {},
+    content: (LazyListScope.() -> Unit) = {},
 ) {
     val configuration = LocalConfiguration.current
     val navigator = LocalSettingsNavigator.current
@@ -57,7 +56,10 @@ fun SettingsScaffold(
     val heightScale = (1f - ((collapsedFraction - 0.25f) / 0.75f)).coerceIn(0f, 1f)
 
     Scaffold(
-        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        modifier = if (configuration.isTelevision)
+            Modifier
+        else
+            Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             if (configuration.isTelevision) {
                 // Use normal top app bar because of low vertical space
@@ -105,9 +107,8 @@ fun SettingsScaffold(
             }
         },
         content = { paddingValues ->
-            Column(
+            LazyColumn(
                 modifier = Modifier
-                    .verticalScroll(rememberScrollState())
                     .fillMaxSize()
                     .padding(paddingValues),
                 content = content,

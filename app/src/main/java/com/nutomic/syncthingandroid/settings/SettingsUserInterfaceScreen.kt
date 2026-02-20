@@ -48,46 +48,52 @@ fun SettingsUserInterfaceScreen() {
     SettingsScaffold(
         title = stringResource(R.string.category_user_interface),
     ) {
-        ListPreference(
-            title = { Text(stringResource(R.string.preference_app_theme_title)) },
-            summary = { Text(themeNames[themeValues.indexOf(theme)]) },
-            value = theme,
-            onValueChange = { newTheme ->
-                val newThemeInt = newTheme.toIntOrNull()
-                if (newTheme != theme && newThemeInt != null) {
-                    theme = newTheme
-                    AppCompatDelegate.setDefaultNightMode(newThemeInt)
-                    scope.launch(Dispatchers.IO) {
-                        withContext(NonCancellable) {
-                            try {
-                                val config = ConfigRouter(context)
-                                val restApi = stService?.api
-                                val gui = config.getGui(restApi)
-                                gui.theme = when (newTheme) {
-                                    Constants.APP_THEME_DARK -> "dark"
-                                    Constants.APP_THEME_LIGHT -> "light"
-                                    else -> "default"
+        item {
+            ListPreference(
+                title = { Text(stringResource(R.string.preference_app_theme_title)) },
+                summary = { Text(themeNames[themeValues.indexOf(theme)]) },
+                value = theme,
+                onValueChange = { newTheme ->
+                    val newThemeInt = newTheme.toIntOrNull()
+                    if (newTheme != theme && newThemeInt != null) {
+                        theme = newTheme
+                        AppCompatDelegate.setDefaultNightMode(newThemeInt)
+                        scope.launch(Dispatchers.IO) {
+                            withContext(NonCancellable) {
+                                try {
+                                    val config = ConfigRouter(context)
+                                    val restApi = stService?.api
+                                    val gui = config.getGui(restApi)
+                                    gui.theme = when (newTheme) {
+                                        Constants.APP_THEME_DARK -> "dark"
+                                        Constants.APP_THEME_LIGHT -> "light"
+                                        else -> "default"
+                                    }
+                                    config.updateGui(restApi, gui)
+                                } catch (e: Exception) {
+                                    Log.e(TAG, "Error updating theme with config router", e)
                                 }
-                                config.updateGui(restApi, gui)
-                            } catch (e: Exception) {
-                                Log.e(TAG, "Error updating theme with config router", e)
                             }
                         }
                     }
-                }
-            },
-            values = themeValues.toList(),
-            valueToText = { value -> AnnotatedString(themeNames[themeValues.indexOf(value)]) }
-        )
-        SwitchPreference(
-            title = { Text(stringResource(R.string.expert_mode_title)) },
-            summary = { Text(stringResource(R.string.expert_mode_summary)) },
-            state = expertMode,
-        )
-        SwitchPreference(
-            title = { Text(stringResource(R.string.start_into_web_gui_title)) },
-            summary = { Text(stringResource(R.string.start_into_web_gui_summary)) },
-            state = startInWebGui,
-        )
+                },
+                values = themeValues.toList(),
+                valueToText = { value -> AnnotatedString(themeNames[themeValues.indexOf(value)]) }
+            )
+        }
+        item {
+            SwitchPreference(
+                title = { Text(stringResource(R.string.expert_mode_title)) },
+                summary = { Text(stringResource(R.string.expert_mode_summary)) },
+                state = expertMode,
+            )
+        }
+        item {
+            SwitchPreference(
+                title = { Text(stringResource(R.string.start_into_web_gui_title)) },
+                summary = { Text(stringResource(R.string.start_into_web_gui_summary)) },
+                state = startInWebGui,
+            )
+        }
     }
 }
