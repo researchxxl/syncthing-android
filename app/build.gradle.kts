@@ -5,13 +5,16 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.jetbrains.kotlin.serialization)
 }
 
 dependencies {
     implementation(libs.aboutlibraries.compose.m3)
     implementation(libs.aboutlibraries.core)
+    implementation(libs.accompanist.permissions)
     implementation(libs.activity.compose)
     implementation(libs.activity.ktx)
+    implementation(libs.androidx.appcompat)
     implementation(libs.android.material)
     implementation(libs.compose.material3)
     implementation(libs.compose.material.icons.extended)
@@ -24,12 +27,16 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.guava)
     implementation(libs.jbcrypt)
+    implementation(libs.kotlinx.serialization.core)
     implementation(libs.lingala.zip4j)
     implementation(libs.localbroadcastmanager)
+    implementation(libs.navigation3.runtime)
+    implementation(libs.navigation3.ui)
     implementation(libs.preference.ktx)
     implementation(libs.recyclerview)
     implementation(libs.stream)
     implementation(libs.volley)
+    implementation(libs.zhanghai.compose.preference)
     implementation(libs.zxing.android.embedded) { isTransitive = false }
     implementation(libs.zxing.core)
     ksp(libs.dagger.compiler)

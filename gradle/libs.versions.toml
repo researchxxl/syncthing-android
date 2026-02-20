@@ -14,7 +14,9 @@ version-name = "2.0.15.0"
 go_version = "1.26.0"
 
 aboutLibraries = "14.0.0-a01"
+accompanist = "0.37.3"
 activity = "1.12.4"
+androidx-appcompat = "1.7.1"
 android-material = "1.13.0"
 android-gradle-plugin = "9.0.1"
 compose-material3 = "1.4.0"
@@ -29,13 +31,17 @@ gson = "2.13.2"
 guava = "33.5.0-android"
 jbcrypt = "0.4"
 kotlin = "2.3.10"
+kotlinSerialization = "2.2.21"
+kotlinxSerializationCore = "1.10.0"
 ksp = "2.3.5"
 lingala-zip4j = "2.11.6"
 localbroadcastmanager = "1.1.0"
+nav3Core = "1.0.1"
 preference-ktx = "1.2.1"
 recyclerview = "1.4.0"
 stream = "1.2.2"
 volley = "1.2.1"
+zhanghai-compose-preference = "2.1.1"
 zxing-android-embedded = "4.3.0"
 # Do not upgrade zxing:core beyond 3.3.0 to ensure Android 6.0 compatibility.
 zxing-core = "3.3.0"
@@ -43,8 +49,10 @@ zxing-core = "3.3.0"
 [libraries]
 aboutlibraries-core = { module = "com.mikepenz:aboutlibraries-core", version.ref = "aboutLibraries" }
 aboutlibraries-compose-m3 = { module = "com.mikepenz:aboutlibraries-compose-m3", version.ref = "aboutLibraries" }
+accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist" }
 activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity" }
 activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activity" }
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
 android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "android-gradle-plugin" }
 android-material = { module = "com.google.android.material:material", version.ref = "android-material" }
 compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "compose-material3" }
@@ -59,12 +67,16 @@ fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragm
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 guava = { module = "com.google.guava:guava", version.ref = "guava" }
 jbcrypt = { module = "org.mindrot:jbcrypt", version.ref = "jbcrypt" }
+kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinxSerializationCore" }
 lingala-zip4j = { module = "net.lingala.zip4j:zip4j", version.ref = "lingala-zip4j" }
 localbroadcastmanager = { module = "androidx.localbroadcastmanager:localbroadcastmanager", version.ref = "localbroadcastmanager" }
+navigation3-runtime = { module = "androidx.navigation3:navigation3-runtime", version.ref = "nav3Core" }
+navigation3-ui = { module = "androidx.navigation3:navigation3-ui", version.ref = "nav3Core" }
 preference-ktx = { module = "androidx.preference:preference-ktx", version.ref = "preference-ktx" }
 recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "recyclerview" }
 stream = { module = "com.annimon:stream", version.ref = "stream" }
 volley = { module = "com.android.volley:volley", version.ref = "volley" }
+zhanghai-compose-preference = { module = "me.zhanghai.compose.preference:preference", version.ref = "zhanghai-compose-preference" }
 zxing-android-embedded = { module = "com.journeyapps:zxing-android-embedded", version.ref = "zxing-android-embedded" }
 zxing-core = { module = "com.google.zxing:core", version.ref = "zxing-core" }
 
@@ -73,3 +85,4 @@ aboutLibraries = { id = "com.mikepenz.aboutlibraries.plugin.android", version.re
 android-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+jetbrains-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinSerialization"}

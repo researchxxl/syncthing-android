@@ -447,6 +447,13 @@
     <string name="settings_title">Settings</string>
 
     <string name="category_run_conditions">Run Conditions</string>
+    <string name="category_wifi">Wi-Fi</string>
+    <string name="category_mobile_data">Mobile Data</string>
+    <string name="category_battery">Battery</string>
+    <string name="category_schedule">Schedule</string>
+    <string name="category_general">General</string>
+    <string name="category_connections">Connections</string>
+    <string name="category_advanced">Advanced</string>
 
     <string name="category_user_interface">User Interface</string>
 
@@ -677,6 +684,7 @@
 
     <!-- Title for the preference to set STTRACE parameters -->
     <string name="sttrace_title">STTRACE Options</string>
+    <string name="sttrace_none_selected">No debug facility</string>
 
     <string name="environment_variables">Environment variables</string>
 
@@ -1001,6 +1009,9 @@
     <string name="state_paused">Paused</string>
     <string name="status_outofsync">Out of Sync</string>
     <string name="state_unshared">Unshared</string>
+
+    <!-- small inline loading indicator -->
+    <string name="state_loading">Loading...</string>
 
     <!-- Format string for folder size, eg "500 MiB / 1 GiB" -->
     <string name="folder_size_format">%1$s / %2$s</string>
