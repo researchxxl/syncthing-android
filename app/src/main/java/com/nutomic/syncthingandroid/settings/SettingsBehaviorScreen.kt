@@ -27,20 +27,26 @@ fun SettingsBehaviorScreen() {
     SettingsScaffold(
         title = stringResource(R.string.category_behaviour),
     ) {
-        SwitchPreference(
-            title = { Text(stringResource(R.string.behaviour_autostart_title)) },
-            summary = { Text(stringResource(R.string.behaviour_autostart_summary)) },
-            state = autoStart,
-        )
-        SwitchPreference(
-            title = { Text(stringResource(R.string.broadcast_service_control_title))},
-            summary = { Text(stringResource(R.string.broadcast_service_control_summary))},
-            state = broadcast,
-        )
-        SwitchPreference(
-            title = { Text(stringResource(R.string.allow_overwrite_files_title)) },
-            summary = { Text(stringResource(R.string.allow_overwrite_files_summary))},
-            state = overwrite,
-        )
+        item {
+            SwitchPreference(
+                title = { Text(stringResource(R.string.behaviour_autostart_title)) },
+                summary = { Text(stringResource(R.string.behaviour_autostart_summary)) },
+                state = autoStart,
+            )
+        }
+        item {
+            SwitchPreference(
+                title = { Text(stringResource(R.string.broadcast_service_control_title))},
+                summary = { Text(stringResource(R.string.broadcast_service_control_summary))},
+                state = broadcast,
+            )
+        }
+        item {
+            SwitchPreference(
+                title = { Text(stringResource(R.string.allow_overwrite_files_title)) },
+                summary = { Text(stringResource(R.string.allow_overwrite_files_summary))},
+                state = overwrite,
+            )
+        }
     }
 }

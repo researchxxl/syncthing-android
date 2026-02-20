@@ -33,49 +33,53 @@ fun SettingsExperimentalScreen() {
     SettingsScaffold(
         title = stringResource(R.string.category_experimental),
     ) {
-        SwitchPreference(
-            title = { Text(stringResource(R.string.use_tor_title)) },
-            summary = { Text(stringResource(R.string.use_tor_summary)) },
-            state = useTor,
-        )
-
-        val socksProxySummary = if (socksProxy.value.isBlank())
-            "${stringResource(R.string.do_not_use_proxy)} ${stringResource(R.string.generic_example)}: ${stringResource(R.string.socks_proxy_address_example)}"
-        else
-            "${stringResource(R.string.use_proxy)} ${socksProxy.value}"
-        TextFieldPreference(
-            title = { Text(stringResource(R.string.socks_proxy_address_title)) },
-            summary = { Text(socksProxySummary) },
-            state = socksProxy,
-            textToValue = {
-                validateProxy(
-                    newValue = it,
-                    regex = Regex("^socks5://.*:\\d{1,5}$"),
-                    errorResId = R.string.toast_invalid_socks_proxy_address,
-                    context = context,
-                )
-            },
-            enabled = !useTor.value,
-        )
-
-        val httpProxySummary = if (httpProxy.value.isBlank())
-            "${stringResource(R.string.do_not_use_proxy)} ${stringResource(R.string.generic_example)}: ${stringResource(R.string.http_proxy_address_example)}"
-        else
-            "${stringResource(R.string.use_proxy)} ${httpProxy.value}"
-        TextFieldPreference(
-            title = { Text(stringResource(R.string.http_proxy_address_title)) },
-            summary = { Text(httpProxySummary) },
-            state = httpProxy,
-            textToValue = {
-                validateProxy(
-                    newValue = it,
-                    regex = Regex("^https?://.*:\\d{1,5}$"),
-                    errorResId = R.string.toast_invalid_http_proxy_address,
-                    context = context,
-                )
-            },
-            enabled = !useTor.value,
-        )
+        item {
+            SwitchPreference(
+                title = { Text(stringResource(R.string.use_tor_title)) },
+                summary = { Text(stringResource(R.string.use_tor_summary)) },
+                state = useTor,
+            )
+        }
+        item {
+            val socksProxySummary = if (socksProxy.value.isBlank())
+                "${stringResource(R.string.do_not_use_proxy)} ${stringResource(R.string.generic_example)}: ${stringResource(R.string.socks_proxy_address_example)}"
+            else
+                "${stringResource(R.string.use_proxy)} ${socksProxy.value}"
+            TextFieldPreference(
+                title = { Text(stringResource(R.string.socks_proxy_address_title)) },
+                summary = { Text(socksProxySummary) },
+                state = socksProxy,
+                textToValue = {
+                    validateProxy(
+                        newValue = it,
+                        regex = Regex("^socks5://.*:\\d{1,5}$"),
+                        errorResId = R.string.toast_invalid_socks_proxy_address,
+                        context = context,
+                    )
+                },
+                enabled = !useTor.value,
+            )
+        }
+        item {
+            val httpProxySummary = if (httpProxy.value.isBlank())
+                "${stringResource(R.string.do_not_use_proxy)} ${stringResource(R.string.generic_example)}: ${stringResource(R.string.http_proxy_address_example)}"
+            else
+                "${stringResource(R.string.use_proxy)} ${httpProxy.value}"
+            TextFieldPreference(
+                title = { Text(stringResource(R.string.http_proxy_address_title)) },
+                summary = { Text(httpProxySummary) },
+                state = httpProxy,
+                textToValue = {
+                    validateProxy(
+                        newValue = it,
+                        regex = Regex("^https?://.*:\\d{1,5}$"),
+                        errorResId = R.string.toast_invalid_http_proxy_address,
+                        context = context,
+                    )
+                },
+                enabled = !useTor.value,
+            )
+        }
     }
 }
 

@@ -51,45 +51,56 @@ fun SettingsTroubleshootingScreen() {
     SettingsScaffold(
         title = stringResource(R.string.category_debug),
     ) {
-        Preference(
-            title = { Text(stringResource(R.string.report_issue_title)) },
-            summary = { Text(stringResource(R.string.open_issue_tracker_summary, issueTrackerUrl)) },
-            onClick = { uriHandler.openUri(issueTrackerUrl) }
-        )
-        VerboseLogPreference()
-        Preference(
-            title = { Text(stringResource(R.string.open_log)) },
-            summary = { Text(stringResource(R.string.open_log_summary)) },
-            onClick = {
-                val intent = Intent(context, LogActivity::class.java)
-                context.startActivity(intent)
-            }
-        )
-
-        val selectedValues = stTraceSelection.value.intersect(stTraceOptions)
-        MultiSelectListPreference(
-            title = { Text(stringResource(R.string.sttrace_title)) },
-            summary = {
-                Text(text =
-                    if (selectedValues.isNotEmpty())
-                        stTraceSelection.value.joinToString()
-                    else
-                        stringResource(R.string.sttrace_none_selected)
-                )
-            },
-            value = selectedValues,
-            onValueChange = { stTraceSelection.value = it },
-            values = stTraceOptions.sorted(),
-        )
-
-        TextFieldPreference(
-            title = { Text(stringResource(R.string.environment_variables)) },
-            state = envVars,
-            textToValue = { validateEnvVars(it, context) }
-        )
-
-        ResetDatabasePreference()
-        ResetDeltasPreference()
+        item {
+            Preference(
+                title = { Text(stringResource(R.string.report_issue_title)) },
+                summary = { Text(stringResource(R.string.open_issue_tracker_summary, issueTrackerUrl)) },
+                onClick = { uriHandler.openUri(issueTrackerUrl) }
+            )
+        }
+        item {
+            VerboseLogPreference()
+        }
+        item {
+            Preference(
+                title = { Text(stringResource(R.string.open_log)) },
+                summary = { Text(stringResource(R.string.open_log_summary)) },
+                onClick = {
+                    val intent = Intent(context, LogActivity::class.java)
+                    context.startActivity(intent)
+                }
+            )
+        }
+        item {
+            val selectedValues = stTraceSelection.value.intersect(stTraceOptions)
+            MultiSelectListPreference(
+                title = { Text(stringResource(R.string.sttrace_title)) },
+                summary = {
+                    Text(text =
+                        if (selectedValues.isNotEmpty())
+                            stTraceSelection.value.joinToString()
+                        else
+                            stringResource(R.string.sttrace_none_selected)
+                    )
+                },
+                value = selectedValues,
+                onValueChange = { stTraceSelection.value = it },
+                values = stTraceOptions.sorted(),
+            )
+        }
+        item {
+            TextFieldPreference(
+                title = { Text(stringResource(R.string.environment_variables)) },
+                state = envVars,
+                textToValue = { validateEnvVars(it, context) }
+            )
+        }
+        item {
+            ResetDatabasePreference()
+        }
+        item {
+            ResetDeltasPreference()
+        }
     }
 }
 
