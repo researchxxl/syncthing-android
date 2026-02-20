@@ -37,12 +37,17 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.graphicsLayer
@@ -58,7 +63,6 @@ import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 
 import com.nutomic.syncthingandroid.R
-import com.nutomic.syncthingandroid.SyncthingApp
 import com.nutomic.syncthingandroid.activities.MainActivity
 import com.nutomic.syncthingandroid.activities.RecentChangesActivity
 import com.nutomic.syncthingandroid.activities.WebGuiActivity
@@ -68,11 +72,11 @@ import com.nutomic.syncthingandroid.service.SyncthingService.OnServiceStateChang
 import com.nutomic.syncthingandroid.settings.SettingsActivity
 import com.nutomic.syncthingandroid.theme.ApplicationTheme
 import com.nutomic.syncthingandroid.util.isTelevision
-import jakarta.inject.Inject
 
 class DrawerFragment : Fragment(), OnServiceStateChangeListener {
 
-    val stServiceRunning = mutableStateOf(false)
+    private val stServiceRunning = mutableStateOf(false)
+    private val focusRequested = mutableStateOf(false)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -83,7 +87,7 @@ class DrawerFragment : Fragment(), OnServiceStateChangeListener {
 
         setContent {
             ApplicationTheme {
-                DrawerContent(stServiceRunning.value)
+                DrawerContent(stServiceRunning.value, focusRequested)
             }
         }
     }
@@ -116,13 +120,29 @@ class DrawerFragment : Fragment(), OnServiceStateChangeListener {
     override fun onServiceStateChange(currentState: SyncthingService.State?) {
         stServiceRunning.value = currentState == SyncthingService.State.ACTIVE
     }
+
+    fun drawerOpened() {
+        focusRequested.value = true
+    }
 }
 
 
 @Composable
-private fun DrawerContent(stServiceRunning: Boolean) {
+private fun DrawerContent(
+    stServiceRunning: Boolean,
+    focusRequested: MutableState<Boolean>,
+) {
     val activity = LocalActivity.current as MainActivity
     val config = LocalConfiguration.current
+
+    val firstItemFocusRequester = remember { FocusRequester() }
+
+    LaunchedEffect(focusRequested.value) {
+        if (focusRequested.value) {
+            firstItemFocusRequester.requestFocus()
+            focusRequested.value = false
+        }
+    }
 
     ModalDrawerSheet(
         modifier = Modifier.fillMaxSize()
@@ -147,6 +167,7 @@ private fun DrawerContent(stServiceRunning: Boolean) {
                             activity.showQrCodeDialog()
                             activity.closeDrawer()
                         },
+                        modifier = Modifier.focusRequester(firstItemFocusRequester)
                     )
                 }
                 item {
@@ -305,6 +326,7 @@ private fun DrawerItem(
     icon: @Composable () -> Unit,
     label: @Composable () -> Unit,
     onClick: () -> Unit,
+    modifier: Modifier = Modifier,
     enabled: Boolean = true,
 ) {
     if (enabled) {
@@ -313,12 +335,13 @@ private fun DrawerItem(
             label = label,
             onClick = onClick,
             selected = false,
+            modifier = modifier
         )
     } else {
         val color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
         Surface(
             color = Color.Transparent,
-            modifier = Modifier
+            modifier = modifier
                 .heightIn(min = 56.dp)
                 .fillMaxWidth(),
         ) {

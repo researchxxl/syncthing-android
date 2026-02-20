@@ -254,7 +254,7 @@ public class MainActivity extends SyncthingActivity
         }
 
         fm.beginTransaction().replace(R.id.drawer, mDrawerFragment).commitAllowingStateLoss();
-        mDrawerToggle = new Toggle(this, mDrawerLayout);
+        mDrawerToggle = new Toggle(this, mDrawerLayout, mDrawerFragment);
         mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
         mDrawerLayout.addDrawerListener(mDrawerToggle);
 
@@ -518,9 +518,19 @@ public class MainActivity extends SyncthingActivity
      * Handles drawer opened and closed events, toggling option menu state.
      */
     private static class Toggle extends ActionBarDrawerToggle {
-        public Toggle(AppCompatActivity activity, DrawerLayout drawerLayout) {
+
+        private final DrawerFragment drawerFragment;
+
+        public Toggle(AppCompatActivity activity, DrawerLayout drawerLayout, DrawerFragment drawerFragment) {
             super(activity, drawerLayout, R.string.open_main_menu, R.string.close_main_menu);
             setDrawerIndicatorEnabled(false);
+            this.drawerFragment = drawerFragment;
+        }
+
+        @Override
+        public void onDrawerOpened(View drawerView) {
+            super.onDrawerOpened(drawerView);
+            drawerFragment.drawerOpened();
         }
 
         @Override
