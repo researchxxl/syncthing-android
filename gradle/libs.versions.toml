@@ -22,7 +22,6 @@ android-gradle-plugin = "9.0.1"
 compose-material3 = "1.4.0"
 compose-material-icons = "1.7.8"
 compose-ui = "1.10.3"
-compose-preference = "2.1.1"
 constraintlayout = "2.2.1"
 core-ktx = "1.17.0"
 dagger = "2.59.1"
@@ -42,6 +41,7 @@ preference-ktx = "1.2.1"
 recyclerview = "1.4.0"
 stream = "1.2.2"
 volley = "1.2.1"
+zhanghai-compose-preference = "2.1.1"
 zxing-android-embedded = "4.3.0"
 # Do not upgrade zxing:core beyond 3.3.0 to ensure Android 6.0 compatibility.
 zxing-core = "3.3.0"
@@ -58,7 +58,6 @@ android-material = { module = "com.google.android.material:material", version.re
 compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "compose-material3" }
 compose-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "compose-material-icons" }
 compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose-ui" }
-compose-preference = { module = "me.zhanghai.compose.preference:preference", version.ref = "compose-preference" }
 constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
 core-ktx = { module = "androidx.core:core-ktx", version.ref = "core-ktx" }
 dagger = { module = "com.google.dagger:dagger", version.ref = "dagger" }
@@ -77,6 +76,7 @@ preference-ktx = { module = "androidx.preference:preference-ktx", version.ref = 
 recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "recyclerview" }
 stream = { module = "com.annimon:stream", version.ref = "stream" }
 volley = { module = "com.android.volley:volley", version.ref = "volley" }
+zhanghai-compose-preference = { module = "me.zhanghai.compose.preference:preference", version.ref = "zhanghai-compose-preference" }
 zxing-android-embedded = { module = "com.journeyapps:zxing-android-embedded", version.ref = "zxing-android-embedded" }
 zxing-core = { module = "com.google.zxing:core", version.ref = "zxing-core" }
 
