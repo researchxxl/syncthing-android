@@ -90,7 +90,7 @@ android {
             isDebuggable = true
             isJniDebuggable = true
             isMinifyEnabled = false
-            signingConfig = signingConfigs.getByName("debug")
+            signingConfig = null
         }
         getByName("release") {
             isMinifyEnabled = false
