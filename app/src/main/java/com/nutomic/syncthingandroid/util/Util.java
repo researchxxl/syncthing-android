@@ -216,6 +216,10 @@ public class Util {
         return exitCode;
     }
 
+    public static String runShellCommandGetOutput(String cmd) {
+        return runShellCommandGetOutput(cmd, false);
+    }
+
     public static String runShellCommandGetOutput(String cmd, Boolean useRoot) {
         // Note: redirectErrorStream(true); System.getProperty("line.separator");
         int exitCode = 255;
@@ -274,7 +278,7 @@ public class Util {
      */
     public static Boolean isTcpPortListening(Integer port) {
         // t: tcp, l: listening, n: numeric
-        String output = runShellCommandGetOutput("netstat -t -l -n", false);
+        String output = runShellCommandGetOutput("netstat -t -l -n");
         if (TextUtils.isEmpty(output)) {
             Log.w(TAG, "isTcpPortListening: Failed to run netstat. Returning false.");
             return false;
@@ -495,7 +499,7 @@ public class Util {
             // Execute script.
             String command = cmdBuilder.toString();
             // Log.d(TAG, "runScriptSet: Exec [" + command + "]");
-            Log.v(TAG, "runScriptSet: Exec result [" + runShellCommandGetOutput(command, false) + "]");
+            Log.v(TAG, "runScriptSet: Exec result [" + runShellCommandGetOutput(command) + "]");
         }
     }
     
@@ -510,7 +514,7 @@ public class Util {
         cmdBuilder.append("find -type f -name \"*\\.sync-conflict-[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]-[0-9][0-9][0-9][0-9][0-9][0-9]-[a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9]*\" -not -path \"\\.\\/\\" + Constants.FOLDER_NAME_STVERSIONS + "\\/*\" -print | sed \"s~\\\\.\\/~~\"");
         String command = cmdBuilder.toString();
         // Log.v(TAG, "getSyncConflictFileCount: Exec [" + command + "]");
-        String output = runShellCommandGetOutput(command, false);
+        String output = runShellCommandGetOutput(command);
         // Log.v(TAG, "getSyncConflictFileCount: Exec result [" + output + "]");
         if (output == null || output.isEmpty()) {
             return new String[]{};
