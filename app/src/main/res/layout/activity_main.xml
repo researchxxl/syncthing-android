@@ -51,7 +51,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="?android:windowBackground"
         android:clickable="true"
         android:elevation="16dp"
         android:focusable="true" />
