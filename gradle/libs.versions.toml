@@ -24,16 +24,16 @@ compose-material-icons = "1.7.8"
 compose-ui = "1.10.3"
 constraintlayout = "2.2.1"
 core-ktx = "1.17.0"
-dagger = "2.59.1"
+dagger = "2.59.2"
 documentfile = "1.1.0"
 fragment-ktx = "1.8.9"
 gson = "2.13.2"
 guava = "33.5.0-android"
 jbcrypt = "0.4"
 kotlin = "2.3.10"
-kotlinSerialization = "2.2.21"
+kotlinSerialization = "2.3.10"
 kotlinxSerializationCore = "1.10.0"
-ksp = "2.3.5"
+ksp = "2.3.6"
 lingala-zip4j = "2.11.6"
 localbroadcastmanager = "1.1.0"
 nav3Core = "1.0.1"
@@ -85,4 +85,4 @@ aboutLibraries = { id = "com.mikepenz.aboutlibraries.plugin.android", version.re
 android-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-jetbrains-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinSerialization"}
+jetbrains-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinSerialization" }

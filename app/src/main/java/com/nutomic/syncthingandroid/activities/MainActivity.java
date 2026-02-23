@@ -13,17 +13,16 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
-import android.util.DisplayMetrics;
+import android.text.TextUtils;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.ActionBar;
@@ -66,8 +65,6 @@ import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
-import static java.lang.Math.min;
-
 /**
  * Shows {@link FolderListFragment} and
  * {@link DeviceListFragment} in different tabs, and
@@ -79,8 +76,6 @@ public class MainActivity extends SyncthingActivity
     private static final String TAG = "MainActivity";
 
     private Boolean ENABLE_VERBOSE_LOG = false;
-
-    private static final String IS_SHOWING_RESTART_DIALOG = "RESTART_DIALOG_STATE";
 
     private static final int FOLDER_FRAGMENT_ID = 0;
     private static final int DEVICE_FRAGMENT_ID = 1;
@@ -121,7 +116,7 @@ public class MainActivity extends SyncthingActivity
     // Session flag to track if user chose "remind later" for important news
     private boolean mImportantNewsRemindLaterThisSession = false;
 
-    @Inject SharedPreferences mPreferences;
+    @Inject public SharedPreferences mPreferences;
     private ConfigRouter mConfig;
     private final Handler mUIRefreshHandler = new Handler();
 
@@ -258,17 +253,10 @@ public class MainActivity extends SyncthingActivity
             mDrawerFragment = new DrawerFragment();
         }
 
-        if (savedInstanceState != null) {
-            if (savedInstanceState.getBoolean(IS_SHOWING_RESTART_DIALOG)){
-                showRestartDialog();
-            }
-        }
-
         fm.beginTransaction().replace(R.id.drawer, mDrawerFragment).commitAllowingStateLoss();
-        mDrawerToggle = new Toggle(this, mDrawerLayout);
+        mDrawerToggle = new Toggle(this, mDrawerLayout, mDrawerFragment);
         mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
         mDrawerLayout.addDrawerListener(mDrawerToggle);
-        setOptimalDrawerWidth(findViewById(R.id.drawer));
 
         /**
          * SyncthingService needs to be started from this activity as the user
@@ -442,7 +430,6 @@ public class MainActivity extends SyncthingActivity
         putFragment.accept(mDeviceListFragment);
         putFragment.accept(mStatusFragment);
 
-        outState.putBoolean(IS_SHOWING_RESTART_DIALOG, mRestartDialog != null && mRestartDialog.isShowing());
         Util.dismissDialogSafe(mRestartDialog, this);
         Util.dismissDialogSafe(mUsageReportingDialog, this);
     }
@@ -497,7 +484,12 @@ public class MainActivity extends SyncthingActivity
         mRestartDialog.show();
     }
 
-    public void showQrCodeDialog(String deviceId) {
+    public void showQrCodeDialog() {
+        String deviceId = mPreferences.getString(Constants.PREF_LOCAL_DEVICE_ID, "");
+        if (TextUtils.isEmpty(deviceId)) {
+            Toast.makeText(this, R.string.could_not_access_deviceid, Toast.LENGTH_SHORT).show();
+            return;
+        }
         RestApi restApi = getApi();
         List<Device> devices = mConfig.getDevices(restApi, true);
         String deviceName = "";
@@ -525,10 +517,20 @@ public class MainActivity extends SyncthingActivity
     /**
      * Handles drawer opened and closed events, toggling option menu state.
      */
-    private class Toggle extends ActionBarDrawerToggle {
-        public Toggle(AppCompatActivity activity, DrawerLayout drawerLayout) {
+    private static class Toggle extends ActionBarDrawerToggle {
+
+        private final DrawerFragment drawerFragment;
+
+        public Toggle(AppCompatActivity activity, DrawerLayout drawerLayout, DrawerFragment drawerFragment) {
             super(activity, drawerLayout, R.string.open_main_menu, R.string.close_main_menu);
             setDrawerIndicatorEnabled(false);
+            this.drawerFragment = drawerFragment;
+        }
+
+        @Override
+        public void onDrawerOpened(View drawerView) {
+            super.onDrawerOpened(drawerView);
+            drawerFragment.drawerOpened();
         }
 
         @Override
@@ -561,25 +563,6 @@ public class MainActivity extends SyncthingActivity
             return true;
         }
         return super.onKeyDown(keyCode, e);
-    }
-
-    /**
-     * Calculating width based on
-     * http://www.google.com/design/spec/patterns/navigation-drawer.html#navigation-drawer-specs.
-     */
-    private void setOptimalDrawerWidth(View drawerContainer) {
-        int actionBarSize = 0;
-        TypedValue tv = new TypedValue();
-        if (getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
-            actionBarSize = TypedValue.complexToDimensionPixelSize(tv.data,getResources().getDisplayMetrics());
-        }
-
-        ViewGroup.LayoutParams params = drawerContainer.getLayoutParams();
-        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-        int minScreenWidth = min(displayMetrics.widthPixels, displayMetrics.heightPixels);
-
-        params.width = min(minScreenWidth - actionBarSize, 5 * actionBarSize);
-        drawerContainer.requestLayout();
     }
 
     /**
@@ -795,12 +778,13 @@ public class MainActivity extends SyncthingActivity
     /**
      * Exits the application by stopping the service and finishing the activity.
      * This method is called directly from the FAB since it's only visible when safe to exit.
+     * Also called from drawer's exit button
      */
-    private void doExit() {
+    public void doExit() {
         if (isFinishing()) {
             return;
         }
-        Log.i(TAG, "Exiting app on user request via FAB");
+        Log.i(TAG, "Exiting app on user request");
         stopService(new Intent(this, SyncthingService.class));
         finishAndRemoveTask();
     }
