@@ -748,4 +748,6 @@
     <string name="category_connections">连接</string>
     <string name="category_advanced">高级</string>
     <string name="state_loading">正在加载…</string>
+    <string name="category_schedule">时间表</string>
+    <string name="sttrace_none_selected">无调试功能</string>
 </resources>
