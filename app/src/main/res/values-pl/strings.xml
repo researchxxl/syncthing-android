@@ -412,7 +412,7 @@
     <string name="simple_versioning_info">Trzymaj wersje: %1$s</string>
     <string name="show_device_id">Pokaż identyfikator urządzenia</string>
     <!-- error message if the deviceID/QRCode dialog for some reason cannot be displayed.-->
-    <string name="could_not_access_deviceid">Nie można uzyskać dostępu do identyfikatora urządzenia</string>
+    <string name="could_not_access_deviceid">Nie można uzyskać dostępu do identyfikatora urządzenia.</string>
     <string name="browse">Przeglądaj</string>
     <string name="no_sub_folder_is_selected">Żaden podfolder nie został wybrany</string>
     <string name="share_device_id_chooser">Udostępnij identyfikator urządzenia</string>
@@ -702,4 +702,16 @@
     <string name="backup_password_set_masked">✅ Hasło ustawione – stuknij, aby zmienić</string>
     <string name="allow_overwrite_files_title">Zezwól na nadpisywanie istniejących plików</string>
     <string name="allow_overwrite_files_summary">Gdy inna aplikacja udostępnia pliki jednemu z naszych folderów.</string>
+    <string name="close_device_id">Zamknij identyfikator urządzenia</string>
+    <string name="copy">Skopiuj</string>
+    <string name="device_id_qr_code">Kod QR identyfikatora urządzenia</string>
+    <string name="category_wifi">Wi-Fi</string>
+    <string name="category_mobile_data">Dane mobilne</string>
+    <string name="category_battery">Bateria</string>
+    <string name="category_schedule">Harmonogram</string>
+    <string name="category_general">Ogólne</string>
+    <string name="category_connections">Połączenia</string>
+    <string name="category_advanced">Zaawansowane</string>
+    <string name="sttrace_none_selected">Brak funkcji debugowania</string>
+    <string name="state_loading">Ładowanie...</string>
 </resources>
