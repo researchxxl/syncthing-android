@@ -1,5 +1,6 @@
 package com.nutomic.syncthingandroid.settings
 
+import android.content.Intent
 import android.widget.Toast
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -8,6 +9,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation3.runtime.EntryProviderScope
 import com.nutomic.syncthingandroid.R
 import com.nutomic.syncthingandroid.service.Constants
+import com.nutomic.syncthingandroid.service.SyncthingService
 import com.nutomic.syncthingandroid.util.Util
 import eu.chainfire.libsuperuser.Shell
 import kotlinx.coroutines.Dispatchers
@@ -34,11 +36,22 @@ fun SettingsBehaviorScreen() {
     val overwrite = rememberPreferenceState(Constants.PREF_ALLOW_OVERWRITE_FILES, false)
     val useRoot = rememberPreferenceState(Constants.PREF_USE_ROOT, false)
 
+    val restartSt = {
+        val intent = Intent(context, SyncthingService::class.java).apply {
+            action = SyncthingService.ACTION_RESTART
+        }
+        context.startService(intent)
+    }
+
     val toggleRoot = { enabled: Boolean ->
         scope.launch(Dispatchers.IO) {
             if (enabled) {
                 if (Shell.SU.available()) {
-                    useRoot.value = true
+                    withContext(Dispatchers.Main) {
+                        useRoot.value = true
+                    }
+                    // restart after enabling root
+                    restartSt()
                 } else {
                     withContext(Dispatchers.Main) {
                         Toast.makeText(
@@ -50,7 +63,10 @@ fun SettingsBehaviorScreen() {
                 }
             } else {
                 Util.fixAppDataPermissions(context)
-                useRoot.value = false
+                withContext(Dispatchers.Main) {
+                    useRoot.value = false
+                }
+                restartSt()
             }
         }
     }
