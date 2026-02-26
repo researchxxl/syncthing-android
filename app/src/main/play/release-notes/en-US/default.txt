@@ -1,2 +1,2 @@
-Updated settings screen to material design (thanks @dbhavsar76)
+Updated settings screen and drawer to material design (thanks @dbhavsar76)
 Updated dependencies and translations (thanks weblate community)
