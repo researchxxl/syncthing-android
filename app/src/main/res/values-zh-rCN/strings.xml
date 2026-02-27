@@ -8,13 +8,11 @@
     <!-- Welcome wizard -->
     <!-- Slide "Introduction" -->
     <string name="introduction">介绍</string>
-    <string name="welcome_text">Syncthing 是开源的文件同步应用程序。要与其他设备共享数据，您需要将它们的唯一设备 ID 添加到设备列表中。之后，您可以选择与哪些设备共享哪些文件夹。
-\n
-\n请通过 GitHub 报告您遇到的任何问题。</string>
+    <string name="welcome_text">Syncthing 是开源的文件同步应用程序。要与其他设备共享数据，您需要将它们的唯一设备 ID 添加到设备列表中。之后，您可以选择要与哪些设备共享哪些文件夹。\n\n如果您遇到任何问题，请通过 GitHub 报告。</string>
     <!-- Slide "Storage Permission" -->
     <string name="storage_permission_title">存储权限</string>
-    <string name="storage_permission_desc">Syncthing 需要访问您的存储才能进行文件同步。</string>
-    <string name="dialog_all_files_access_not_supported">您的设备不支持访问所有文件</string>
+    <string name="storage_permission_desc">Syncthing 需要访问您的存储空间才能进行文件同步。</string>
+    <string name="dialog_all_files_access_not_supported">您的设备不支持“所有文件访问权限”</string>
     <!-- Slide "Ignore battery optimizations" -->
     <string name="ignore_doze_permission_title">电池优化</string>
     <string name="ignore_doze_permission_os_notice">众所周知，当应用程序在后台运行时，Android TV 偶尔会终止它。维基上的“%1$s/%2$s”提供了解决方案。</string>
@@ -27,7 +25,7 @@
     <string name="location_permission_desc_api_29">适用于 Android 10+ 提示：“始终允许”</string>
     <!-- Slide "Key Generation" -->
     <string name="key_generation_title">密钥生成</string>
-    <string name="key_generation_success">已成功生成用于私人数据交换的安全密钥。</string>
+    <string name="key_generation_success">用于私密数据交换的安全密钥已成功生成。</string>
     <!-- Generic texts used everywhere -->
     <string name="back">返回</string>
     <string name="cont">继续</string>
@@ -38,13 +36,13 @@
     <string name="grant_permission">授予权限</string>
     <string name="permission_granted">权限已授予</string>
     <string name="reason">原因：</string>
-    <string name="accept">同意</string>
+    <string name="accept">接受</string>
     <string name="ignore">忽略</string>
     <string name="page_x_of_y">第 %1$s 页，共 %2$s 页</string>
     <string name="main_menu">主菜单</string>
     <string name="refresh">刷新</string>
     <!-- PhotoShootActivity -->
-    <string name="photo_shoot_launcher_title">同步相机</string>
+    <string name="photo_shoot_launcher_title">Sync. 相机</string>
     <string name="photo_shoot_activity_title">Syncthing-Fork 相机</string>
     <string name="photo_shoot_intro_welcome_title">欢迎使用 Syncthing 相机</string>
     <string name="photo_shoot_intro_permission_title">必需的权限</string>
@@ -81,13 +79,13 @@
     <string name="yes">是</string>
     <string name="no">否</string>
     <string name="open_website">打开网站</string>
-    <string name="toast_write_storage_permission_required">此应用需要写入存储权限</string>
+    <string name="toast_write_storage_permission_required">此应用需要写入存储空间的权限</string>
     <string name="device_rejected">设备“%1$s”想要连接</string>
     <string name="folder_rejected">设备“%1$s”想要共享文件夹“%2$s”</string>
     <!-- StateDialogActivity -->
     <!-- Text for FoldersFragment and DevicesFragment loading view -->
     <!-- Shown instead of web_gui_loading if the key does not exist and has to be created -->
-    <string name="web_gui_creating_key">正在生成安全密钥。这可能需要几分钟…</string>
+    <string name="web_gui_creating_key">正在生成安全密钥。这可能需要几分钟的时间…</string>
     <!-- FolderListFragment -->
     <string name="folders_fragment_title">文件夹</string>
     <!-- Shown if no folders exist -->
@@ -104,7 +102,7 @@
     <!-- Revert Local Changes Confirmation Dialog -->
     <string name="revert_local_changes_question">这将撤销在此设备的该文件夹内所做的所有更改。继续吗\?</string>
     <string name="open_file_manager">打开文件管理器</string>
-    <string name="open_file_with">选择用于打开文件的方式</string>
+    <string name="open_file_with">文件打开方式</string>
     <string name="open_file_no_compatible_app">没找到用于打开该文件的应用。</string>
     <!-- Suggest File Manager App Dialog -->
     <string name="suggest_file_manager_app_dialog_title">没有找到兼容的文件管理器</string>
@@ -150,7 +148,7 @@
 \n忽略运行条件</string>
     <string name="syncthing_starting">Syncthing 正在启动。</string>
     <string name="syncthing_running">Syncthing 正在运行。</string>
-    <string name="syncthing_not_running">Syncthing 未在运行。</string>
+    <string name="syncthing_not_running">Syncthing 未运行。</string>
     <string name="syncthing_has_crashed">Syncthing 已崩溃。</string>
     <!-- DrawerFragment -->
     <!-- Same as download_title with a colon and space appended -->
@@ -254,7 +252,7 @@
     <!-- Toast shown when trying to create a device with an empty ID -->
     <string name="device_id_invalid">设备 ID 的格式不正确。请重试并输入正确的 ID。</string>
     <!-- Toast shown when trying to create a device with an empty name -->
-    <string name="device_name_required">设备名不可为空</string>
+    <string name="device_name_required">设备名称不能为空</string>
     <!-- Toast shown when trying to create a device with invalid addresses -->
     <string name="device_addresses_invalid">设备地址格式不正确。请重试。查看Syncthing文档了解更多信息。</string>
     <!-- Content description for device ID qr code icon -->
@@ -280,8 +278,7 @@
     <!-- Dialog message if an invalid ssl certificate was detected -->
     <string name="ssl_cert_invalid_text">位于 %1$s 的网站似乎具有无效的 SSL 加密证书。继续？</string>
     <!-- Text for WebViewActivity loading page -->
-    <string name="web_page_loading">正在加载网页：
-\n%1$s …</string>
+    <string name="web_page_loading">正在加载网页：\n%1$s …</string>
     <!-- Text for WebViewActivity openBrowser action button -->
     <string name="open_in_browser">在浏览器中打开</string>
     <!-- SettingsFragment -->
@@ -354,7 +351,7 @@
     <string name="versioning_type_simple">简单</string>
     <string name="versioning_type_staggered">阶段</string>
     <string name="versioning_type_external">外部</string>
-    <string name="device_name">设备名</string>
+    <string name="device_name">设备名称</string>
     <string name="listen_address">同步协议监听地址</string>
     <string name="max_recv_kbps">传入速率限制（KiB/s）</string>
     <string name="max_send_kbps">传出速率限制（KiB/s）</string>
@@ -747,4 +744,14 @@
     <string name="backup_password_set_masked">✅ 密码已设置 – 点击更改</string>
     <string name="allow_overwrite_files_title">允许覆盖现有文件</string>
     <string name="allow_overwrite_files_summary">当另一个应用分享文件到我们文件夹中的一个时。</string>
+    <string name="device_id_qr_code">设备 ID 二维码</string>
+    <string name="close_device_id">关闭设备 ID</string>
+    <string name="copy">复制</string>
+    <string name="category_wifi">Wi-Fi</string>
+    <string name="category_mobile_data">移动数据</string>
+    <string name="category_battery">电池</string>
+    <string name="category_general">常规</string>
+    <string name="category_connections">连接</string>
+    <string name="category_advanced">高级</string>
+    <string name="state_loading">正在加载…</string>
 </resources>
