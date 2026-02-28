@@ -755,4 +755,13 @@
     <string name="important_news_action_view_options">VER OPCIONES</string>
     <string name="allow_overwrite_files_title">Permitir sobreescritura de archivos existentes</string>
     <string name="allow_overwrite_files_summary">Cuando otra aplicación comparte archivos en una de nuestras carpetas.</string>
+    <string name="category_wifi">Wi-Fi</string>
+    <string name="category_mobile_data">Datos móviles</string>
+    <string name="category_battery">Batería</string>
+    <string name="category_schedule">Programación</string>
+    <string name="category_general">General</string>
+    <string name="category_connections">Conexiones</string>
+    <string name="category_advanced">Avanzado</string>
+    <string name="sttrace_none_selected">Sin función de depuración</string>
+    <string name="state_loading">Cargando...</string>
 </resources>
