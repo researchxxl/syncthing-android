@@ -710,4 +710,15 @@
     <string name="allow_overwrite_files_title">Permitir substituir arquivos existentes</string>
     <string name="allow_overwrite_files_summary">Quando outro aplicativo compartilha arquivos com uma de nossas pastas.</string>
     <string name="category_wifi">Wi-Fi</string>
+    <string name="device_id_qr_code">QR code do ID do dispositivo</string>
+    <string name="close_device_id">Fechar ID do dispositivo</string>
+    <string name="copy">Copiar</string>
+    <string name="category_mobile_data">Dados móveis</string>
+    <string name="category_battery">Bateria</string>
+    <string name="category_schedule">Agendar</string>
+    <string name="category_general">Geral</string>
+    <string name="category_connections">Conexões</string>
+    <string name="category_advanced">Avançado</string>
+    <string name="sttrace_none_selected">Sem opção de depuração</string>
+    <string name="state_loading">Carregando...</string>
 </resources>
