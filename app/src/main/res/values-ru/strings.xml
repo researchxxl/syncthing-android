@@ -246,7 +246,7 @@ Android требует разрешение доступа к геолокаци
     <string name="category_syncthing_options_summary">Это меню доступно только во время работы Syncthing.</string>
     <string name="category_backup">Импорт и экспорт</string>
     <string name="category_debug">Отладка</string>
-    <string name="category_experimental">Экспериментальное</string>
+    <string name="category_experimental">Экспериментальные</string>
     <!-- Preference screen - Run conditions -->
     <string name="run_conditions_title">Условия выполнения</string>
     <string name="specify_wifi_ssid_whitelist">Выбрать Wi-Fi сети</string>
@@ -534,7 +534,7 @@ Android требует разрешение доступа к геолокаци
     <string name="ssl_cert_invalid_text">Похоже, сайт %1$s, имеет недействительный сертификат шифрования SSL. Продолжить?</string>
     <string name="web_page_loading">Загрузка веб-страницы:
 \n%1$s …</string>
-    <string name="preference_app_theme_follow_system">Системная</string>
+    <string name="preference_app_theme_follow_system">Как в системе</string>
     <string name="preference_app_theme_follow_dark">Тёмная</string>
     <string name="preference_app_theme_follow_light">Светлая</string>
     <string name="run_on_mobile_data_summary">Работать, когда устройство подключено к мобильной сети. Предупреждение: это может потреблять много данных из тарифного плана вашего мобильного оператора, если вы синхронизируете большие объемы данных.</string>
@@ -578,7 +578,7 @@ Android требует разрешение доступа к геолокаци
     <string name="sync_duration_minutes_summary">%1$s минут</string>
     <string name="respect_master_sync_title">Соблюдать настройку Android \'Автоматическая синхронизация данных\'</string>
     <string name="respect_master_sync_summary">Отключать Syncthing, если опция \'Автоматическая синхронизация данных\' отключена.</string>
-    <string name="webui_tcp_port_title">TCP порт веб-интерфейса</string>
+    <string name="webui_tcp_port_title">TCP-порт веб-интерфейса</string>
     <string name="crash_reporting">Анонимные отчеты о сбоях</string>
     <string name="webui_remote_access_title">Удалённый доступ к веб-интерфейсу</string>
     <string name="syncthing_database_size">Размер базы данных Synthing</string>
@@ -696,8 +696,8 @@ Android требует разрешение доступа к геолокаци
     <string name="syncthing_forum_title">Форум Syncthing</string>
     <string name="share_log_file_missing">Отсутствует файл журнала для отправки.</string>
     <string name="backup_rel_path_to_zip">Относительный путь к архиву конфигурации</string>
-    <string name="backup_password_set">✅ Пароль установлен: %1$s</string>
-    <string name="backup_password_not_set">⚠ Пароль не установлен.</string>
+    <string name="backup_password_set">✅ Пароль задан: %1$s</string>
+    <string name="backup_password_not_set">⚠ Пароль не задан.</string>
     <string name="preference_category_actions">Действия</string>
     <string name="preference_category_explanation">Объяснение</string>
     <string name="config_export_successful_no_path">Конфигурация была экспортирована. Пожалуйста, не забудьте запомнить пароль для последующего импорта.</string>
@@ -715,4 +715,20 @@ Android требует разрешение доступа к геолокаци
     <string name="share_log_file">Отправить файл журнала</string>
     <string name="reason_location_unavailable">Вы включили опцию \'Запуск в выбранных сетях Wi-Fi\' в настройках. Службы определения местоположения Android в настоящее время отключены. В соответствии с ограничениями Android, Syncthing не может определить текущее имя сети Wi-Fi, чтобы решить, должен ли он запуститься. Решение: Включите функцию определения местоположения, предоставьте разрешение на определение местоположения и повторно подключите Wi-Fi.</string>
     <string name="preference_category_prepare">Подготовить</string>
+    <string name="backup_password_set_masked">✅ Пароль задан – Нажмите, чтобы изменить</string>
+    <string name="toggle_password_visibility">Изменить отображение пароля</string>
+    <string name="device_id_qr_code">QR-код ИД этого устройства</string>
+    <string name="copy">Копировать</string>
+    <string name="category_wifi">Wi-Fi</string>
+    <string name="category_mobile_data">Мобильный интернет</string>
+    <string name="category_schedule">Расписание</string>
+    <string name="category_connections">Подключения</string>
+    <string name="category_advanced">Расширенные</string>
+    <string name="category_general">Общие</string>
+    <string name="allow_overwrite_files_title">Разрешить перезаписывать существующие файлы</string>
+    <string name="important_news_title">Важные новости – Требуется действие</string>
+    <string name="important_news_description">Пожалуйста, ознакомьтесь с этим объявлением о том, как продолжить нормальную работу приложения: %1$s</string>
+    <string name="important_news_action_open">Открыть в браузере</string>
+    <string name="important_news_action_remind">Уведомить меня позже</string>
+    <string name="important_news_action_no_remind">Отклонить</string>
 </resources>
