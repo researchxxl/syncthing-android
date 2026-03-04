@@ -286,7 +286,7 @@
     <string name="category_run_conditions">运行条件</string>
     <string name="category_user_interface">用户界面</string>
     <string name="preference_app_theme_title">主题</string>
-    <string name="preference_app_theme_follow_system">跟随系统</string>
+    <string name="preference_app_theme_follow_system">遵循系统</string>
     <string name="preference_app_theme_follow_light">浅色</string>
     <string name="preference_app_theme_follow_dark">深色</string>
     <string name="category_behaviour">行为</string>
@@ -297,16 +297,16 @@
     <string name="category_experimental">实验性</string>
     <!-- Preference screen - Run conditions -->
     <string name="run_conditions_title">运行条件</string>
-    <string name="run_conditions_summary">使用以下选项控制何时运行 Syncthing。</string>
-    <string name="run_on_mobile_data_title">用移动数据运行</string>
-    <string name="run_on_mobile_data_summary">当设备通过移动数据网络连接时运行。警告：如果要同步大量数据，这可能会消耗移动运营商数据套餐里的很多流量。</string>
+    <string name="run_conditions_summary">使用以下选项控制 Syncthing 何时运行。</string>
+    <string name="run_on_mobile_data_title">使用移动数据时运行</string>
+    <string name="run_on_mobile_data_summary">当设备通过移动数据网络连接时运行。警告：如果同步大量数据，这可能会消耗移动运营商数据套餐中的很多流量。</string>
     <string name="run_on_roaming_title">漫游时运行</string>
-    <string name="run_on_roaming_summary">允许 Syncthing 漫游时使用移动数据。</string>
-    <string name="run_on_wifi_title">用 Wi-Fi 运行</string>
+    <string name="run_on_roaming_summary">允许 Syncthing 在漫游时使用移动数据。</string>
+    <string name="run_on_wifi_title">使用 Wi-Fi 时运行</string>
     <string name="run_on_wifi_summary">当设备连接到 Wi-Fi 或以太网时运行。</string>
-    <string name="run_on_metered_wifi_title">用计量 Wi-Fi 运行</string>
-    <string name="run_on_metered_wifi_summary">在设备连接到按流量付费 Wi-Fi 网络环境，如热点或有线网络时运行。警告：如果同步大量数据，这可能会消耗许多流量，并由此产生大量费用。</string>
-    <string name="run_on_whitelisted_wifi_title">用指定 Wi-Fi 网络运行</string>
+    <string name="run_on_metered_wifi_title">使用按流量计费的 Wi-Fi 时运行</string>
+    <string name="run_on_metered_wifi_summary">当设备连接到按流量计费的 Wi-Fi 网络时运行，如热点或网络共享。注意：如果同步大量数据，这可能会消耗数据套餐中的很多流量。</string>
+    <string name="run_on_whitelisted_wifi_title">使用指定的 Wi-Fi 网络时运行</string>
     <string name="specify_wifi_ssid_whitelist">选择 Wi-Fi 网络</string>
     <string name="run_on_whitelisted_wifi_networks">已选择的 Wi-Fi 网络：%1$s</string>
     <string name="wifi_ssid_whitelist_empty">未指定 Wi-Fi 网络。单击以指定网络。</string>
@@ -315,17 +315,17 @@
     <string name="sync_only_wifi_ssids_need_to_grant_location_permission">您需要授予位置权限才能使用此功能。</string>
     <string name="sync_only_wifi_ssids_location_permission_rejected_dialog_title">需要权限</string>
     <string name="sync_only_wifi_ssids_location_permission_rejected_dialog_content">从 Android 8.1 开始，读取 Wi-Fi 名称需要获取位置权限。只有授予此权限，才能使用此功能。</string>
-    <string name="power_source_title">当设备处于以下供电方式时运行</string>
+    <string name="power_source_title">当设备由以下电源供电时运行</string>
     <string name="power_source_ac_and_battery_power">交流电源和电池电源。</string>
     <string name="power_source_ac_power">交流电源。</string>
     <string name="power_source_battery_power">电池电源。</string>
     <string name="respect_battery_saving_title">遵循 Android 省电模式设置</string>
     <string name="respect_battery_saving_summary">省电模式开启时禁用 Syncthing。</string>
     <string name="respect_master_sync_title">遵循 Android 的“自动同步数据”设置</string>
-    <string name="respect_master_sync_summary">关闭快速设置磁贴“自动同步数据”时，禁用 Syncthing。</string>
-    <string name="run_in_flight_mode_title">在没有网络连接的情况下运行</string>
-    <string name="run_in_flight_mode_summary">启用此选项将导致 Syncthing 即使在离线时也会运行。如果您的设备在飞行模式下检测手动 Wi-Fi 连接时出现问题，请启用。</string>
-    <string name="run_on_time_schedule_title">按照时间表运行</string>
+    <string name="respect_master_sync_summary">当快捷设置图块中的“自动同步数据”关闭时，禁用 Syncthing。</string>
+    <string name="run_in_flight_mode_title">无网络连接时运行</string>
+    <string name="run_in_flight_mode_summary">启用此选项后，即使离线时，Syncthing 仍会运行。如果您的设备在飞行模式下检测手动 Wi-Fi 连接时出现问题，请启用。</string>
+    <string name="run_on_time_schedule_title">按时间表运行</string>
     <string name="run_on_time_schedule_summary">如果满足运行条件并且自上次同步以来一些指定的间隔期已过，那么启用此选项将尝试在配置的持续时间内进行同步。这可以节省很多电量，但需要同步伙伴在线。请注意：这可能会在下一次计划同步发生前留下不完整的临时文件。</string>
     <string name="sync_duration_minutes_title">同步周期的持续时间</string>
     <string name="sync_duration_minutes_summary">%1$s 分钟</string>
@@ -342,10 +342,10 @@
     <string name="folder_type_receive_only">仅接收</string>
     <string name="pull_order_random">随机</string>
     <string name="pull_order_alphabetic">字母顺序</string>
-    <string name="pull_order_smallest_first">最小优先</string>
-    <string name="pull_order_largest_first">最大优先</string>
-    <string name="pull_order_oldest_first">最旧优先</string>
-    <string name="pull_order_newest_first">最新优先</string>
+    <string name="pull_order_smallest_first">从小到大</string>
+    <string name="pull_order_largest_first">从大到小</string>
+    <string name="pull_order_oldest_first">从旧到新</string>
+    <string name="pull_order_newest_first">从新到旧</string>
     <string name="versioning_type_none">无</string>
     <string name="versioning_type_trashcan">回收站</string>
     <string name="versioning_type_simple">简单</string>
@@ -533,7 +533,7 @@
     <string name="reason_wifi_disallowed">Syncthing 不允许在 WiFi 或以太网上运行。</string>
     <string name="reason_on_wifi">Syncthing 允许在 WiFi 上运行，WiFi 当前已连接。</string>
     <string name="reason_not_on_wifi">Syncthing 允许在 WiFi 上运行，但 WiFi 未连接或手机处于飞行模式。</string>
-    <string name="reason_on_metered_nonmetered_wifi">Syncthing 允许在计量和非计量 WiFi 连接上运行。</string>
+    <string name="reason_on_metered_nonmetered_wifi">Syncthing 允许在按流量计费和不按流量计费的 Wi-Fi 连接上运行。</string>
     <string name="reason_on_whitelisted_wifi">Syncthing 允许在当前 WiFi 网络上运行。</string>
     <string name="reason_not_on_whitelisted_wifi">Syncthing 未运行，因为当前 WiFi 网络的名称未列入白名单。</string>
     <string name="reason_on_nonmetered_wifi">Syncthing 允许在非计量 WiFi 连接上运行。活动 WiFi 连接不按流量计费。</string>
@@ -547,7 +547,7 @@
     <!-- Text for the exit button on the drawer -->
     <string name="exit">退出</string>
     <!-- Title of the notification shown while syncthing is running and enabled -->
-    <string name="syncthing_active">运行中</string>
+    <string name="syncthing_active">正在运行</string>
     <string name="syncthing_active_details">正在运行：%1$s</string>
     <string name="no_remote_devices_connected">未连接远程设备</string>
     <plurals name="device_online_up_to_date">
@@ -556,7 +556,7 @@
     <plurals name="syncthing_active_syncing_device_online">
         <item quantity="other">正在同步：%1$d%% 已完成，%2$d 台设备在线</item>
     </plurals>
-    <string name="syncthing_disabled">睡眠中</string>
+    <string name="syncthing_disabled">睡眠</string>
     <string name="syncthing_terminated">已终止</string>
     <!-- Toast shown if syncthing failed to create or read the config -->
     <string name="executable_not_found">缺少核心可执行文件“%s”。请检查构建和日志输出。</string>
@@ -635,17 +635,17 @@
     <!-- Displays the current pull order type in the Folder activity -->
     <string name="pull_order_type_random">随机</string>
     <string name="pull_order_type_alphabetic">字母顺序</string>
-    <string name="pull_order_type_smallestFirst">小文件优先</string>
-    <string name="pull_order_type_largestFirst">大文件优先</string>
-    <string name="pull_order_type_oldestFirst">旧文件优先</string>
-    <string name="pull_order_type_newestFirst">新文件优先</string>
+    <string name="pull_order_type_smallestFirst">从小到大</string>
+    <string name="pull_order_type_largestFirst">从大到小</string>
+    <string name="pull_order_type_oldestFirst">从旧到新</string>
+    <string name="pull_order_type_newestFirst">从新到旧</string>
     <!-- Pull order dialog descriptions for pull order types -->
     <string name="pull_order_type_random_description">以随机顺序拉取文件。</string>
     <string name="pull_order_type_alphabetic_description">按文件名字母顺序拉取文件。</string>
     <string name="pull_order_type_smallestFirst_description">按文件大小从小到大拉取文件。</string>
     <string name="pull_order_type_largestFirst_description">按文件大小从大到小拉取文件。</string>
-    <string name="pull_order_type_oldestFirst_description">按修改时间顺序从旧到新拉取文件。</string>
-    <string name="pull_order_type_newestFirst_description">按修改时间顺序从新到旧拉取文件。</string>
+    <string name="pull_order_type_oldestFirst_description">按修改时间从旧到新拉取文件。</string>
+    <string name="pull_order_type_newestFirst_description">按修改时间从新到旧拉取文件。</string>
     <!-- Titles used in the file versioning dialog and file versioning button in the folder activity -->
     <string name="maximum_age">最长保留时间</string>
     <string name="clean_out_after">在该时间后清除</string>
@@ -731,7 +731,7 @@
     <string name="backup_password_title">配置保护密码</string>
     <string name="backup_password_set">✅ 设置了密码： %1$s</string>
     <string name="backup_password_not_set">⚠ 未设置密码。</string>
-    <string name="preference_category_explanation">解释</string>
+    <string name="preference_category_explanation">说明</string>
     <string name="config_export_successful_no_path">导出了配置。请确保记得此密码用于之后的导入。</string>
     <string name="backup_password_summary">ℹ️推荐：\n建议导入时输入用以在导出和解密期间加密配置的强密码。 将此密码存放在安全地方用于恢复过程。 你需要这个密码来使用导入功能。\n\n⚠️ 不推荐：\n不使用密码，,其他应用可能可以读取并篡改 Syncthing 配置。暴露配置可能有让坏蛋使用窃取的配置导出文件获得对文件未经授权的访问的风险。</string>
     <string name="important_news_title">重要新闻 — 需要采取行动</string>
