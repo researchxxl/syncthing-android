@@ -368,6 +368,7 @@ public class RunConditionMonitor {
     public void updateShouldRunDecision() {
         if (!Constants.isRunningOnEmulator()) {
             triggeredSyncDurationS = Integer.parseInt(mPreferences.getString(Constants.PREF_SYNC_DURATION_MINUTES, "5")) * 60;
+            triggeredSyncSleepIntervalS = Integer.parseInt(mPreferences.getString(Constants.PREF_SLEEP_INTERVAL_MINUTES, "60")) * 60;
         }
 
         boolean newShouldRun = decideShouldRun();
