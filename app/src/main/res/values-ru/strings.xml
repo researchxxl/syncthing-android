@@ -32,7 +32,7 @@ Android требует разрешение доступа к геолокаци
     <!-- Generic texts used everywhere -->
     <string name="back">Назад</string>
     <string name="cont">Продолжить</string>
-    <string name="finish">Принять</string>
+    <string name="finish">Завершить</string>
     <string name="generic_example">Пример</string>
     <string name="generic_error">Ошибка</string>
     <string name="generic_help">Помощь</string>
@@ -154,7 +154,7 @@ Android требует разрешение доступа к геолокаци
     <!-- Setting title -->
     <string name="folder_label">Ярлык папки</string>
     <!-- Setting title -->
-    <string name="directory">Папка</string>
+    <string name="directory">Каталог</string>
     <!-- Setting title and description -->
     <string name="folder_fileWatcher">Следить за изменениями</string>
     <string name="folder_fileWatcherDescription">Запросить операционную систему сообщать об изменениях в файлах. Если отключено, сканирование будет происходить ежечасно.</string>
@@ -238,7 +238,7 @@ Android требует разрешение доступа к геолокаци
     <string name="open_in_browser">Открыть в браузере</string>
     <!-- SettingsFragment -->
     <string name="settings_title">Настройки</string>
-    <string name="category_run_conditions">Режимы работы</string>
+    <string name="category_run_conditions">Условия запуска</string>
     <string name="category_user_interface">Интерфейс</string>
     <string name="preference_app_theme_title">Тема</string>
     <string name="category_behaviour">Поведение</string>
@@ -246,7 +246,7 @@ Android требует разрешение доступа к геолокаци
     <string name="category_syncthing_options_summary">Это меню доступно только во время работы Syncthing.</string>
     <string name="category_backup">Импорт и экспорт</string>
     <string name="category_debug">Отладка</string>
-    <string name="category_experimental">Экспериментальное</string>
+    <string name="category_experimental">Экспериментальные</string>
     <!-- Preference screen - Run conditions -->
     <string name="run_conditions_title">Условия выполнения</string>
     <string name="specify_wifi_ssid_whitelist">Выбрать Wi-Fi сети</string>
@@ -493,9 +493,9 @@ Android требует разрешение доступа к геолокаци
     <string name="run_conditions_summary">Выберите режимы работы Syncthing.</string>
     <string name="undo_ignored_devices_folders_done">Успешно отменено.</string>
     <string name="do_not_use_proxy">Прокси не настроены.</string>
-    <string name="power_source_ac_and_battery_power">От сети и батареи</string>
-    <string name="power_source_ac_power">От сети</string>
-    <string name="power_source_battery_power">От батареи</string>
+    <string name="power_source_ac_and_battery_power">От сети и аккумулятора.</string>
+    <string name="power_source_ac_power">От сети.</string>
+    <string name="power_source_battery_power">От аккумулятора.</string>
     <string name="respect_battery_saving_summary">Отключить Syncthing в режиме энергосбережения.</string>
     <string name="photo_shoot_take_picture_failure">Не удалось получить изображение или вы отменили его получение.</string>
     <string name="photo_shoot_take_picture_success">Изображение успешно сохранено в папку Камеры Syncthing.</string>
@@ -534,7 +534,7 @@ Android требует разрешение доступа к геолокаци
     <string name="ssl_cert_invalid_text">Похоже, сайт %1$s, имеет недействительный сертификат шифрования SSL. Продолжить?</string>
     <string name="web_page_loading">Загрузка веб-страницы:
 \n%1$s …</string>
-    <string name="preference_app_theme_follow_system">Системная</string>
+    <string name="preference_app_theme_follow_system">Как в системе</string>
     <string name="preference_app_theme_follow_dark">Тёмная</string>
     <string name="preference_app_theme_follow_light">Светлая</string>
     <string name="run_on_mobile_data_summary">Работать, когда устройство подключено к мобильной сети. Предупреждение: это может потреблять много данных из тарифного плана вашего мобильного оператора, если вы синхронизируете большие объемы данных.</string>
@@ -555,7 +555,7 @@ Android требует разрешение доступа к геолокаци
     <string name="config_export_failed">Не удалось выполнить экспорт конфигурации. Перейдите в Настройки-Устранение неполадок-Открыть журнал, чтобы просмотреть подробную информацию.</string>
     <string name="dialog_settings_restart_app_title">Требуется перезапуск</string>
     <string name="syncthing_api_key">Ключ API Syncthing (нажмите, чтобы скопировать)</string>
-    <string name="reason_not_on_battery_power">Телефон не работает от батареи.</string>
+    <string name="reason_not_on_battery_power">Устройство работает не от аккумулятора.</string>
     <string name="reason_wifi_disallowed">Syncthing не разрешено работать по Wi-Fi или Ethernet.</string>
     <string name="reason_on_wifi">Syncthing разрешено работать от Wi-Fi, и Wi-Fi сейчас подключён.</string>
     <string name="reason_not_on_wifi">Syncthing разрешено работать от Wi-Fi, но Wi-Fi не подключён или телефон в режиме полёта.</string>
@@ -578,7 +578,7 @@ Android требует разрешение доступа к геолокаци
     <string name="sync_duration_minutes_summary">%1$s минут</string>
     <string name="respect_master_sync_title">Соблюдать настройку Android \'Автоматическая синхронизация данных\'</string>
     <string name="respect_master_sync_summary">Отключать Syncthing, если опция \'Автоматическая синхронизация данных\' отключена.</string>
-    <string name="webui_tcp_port_title">TCP порт веб-интерфейса</string>
+    <string name="webui_tcp_port_title">TCP-порт веб-интерфейса</string>
     <string name="crash_reporting">Анонимные отчеты о сбоях</string>
     <string name="webui_remote_access_title">Удалённый доступ к веб-интерфейсу</string>
     <string name="syncthing_database_size">Размер базы данных Synthing</string>
@@ -696,8 +696,8 @@ Android требует разрешение доступа к геолокаци
     <string name="syncthing_forum_title">Форум Syncthing</string>
     <string name="share_log_file_missing">Отсутствует файл журнала для отправки.</string>
     <string name="backup_rel_path_to_zip">Относительный путь к архиву конфигурации</string>
-    <string name="backup_password_set">✅ Пароль установлен: %1$s</string>
-    <string name="backup_password_not_set">⚠ Пароль не установлен.</string>
+    <string name="backup_password_set">✅ Пароль задан: %1$s</string>
+    <string name="backup_password_not_set">⚠ Пароль не задан.</string>
     <string name="preference_category_actions">Действия</string>
     <string name="preference_category_explanation">Объяснение</string>
     <string name="config_export_successful_no_path">Конфигурация была экспортирована. Пожалуйста, не забудьте запомнить пароль для последующего импорта.</string>
@@ -715,4 +715,26 @@ Android требует разрешение доступа к геолокаци
     <string name="share_log_file">Отправить файл журнала</string>
     <string name="reason_location_unavailable">Вы включили опцию \'Запуск в выбранных сетях Wi-Fi\' в настройках. Службы определения местоположения Android в настоящее время отключены. В соответствии с ограничениями Android, Syncthing не может определить текущее имя сети Wi-Fi, чтобы решить, должен ли он запуститься. Решение: Включите функцию определения местоположения, предоставьте разрешение на определение местоположения и повторно подключите Wi-Fi.</string>
     <string name="preference_category_prepare">Подготовить</string>
+    <string name="backup_password_set_masked">✅ Пароль задан - Нажмите, чтобы изменить</string>
+    <string name="toggle_password_visibility">Переключить видимость пароля</string>
+    <string name="device_id_qr_code">QR-код идентификатора устройства</string>
+    <string name="copy">Скопировать</string>
+    <string name="category_wifi">Wi-Fi</string>
+    <string name="category_mobile_data">Мобильный интернет</string>
+    <string name="category_schedule">Расписание</string>
+    <string name="category_connections">Соединения</string>
+    <string name="category_advanced">Расширенные</string>
+    <string name="category_general">Общие</string>
+    <string name="allow_overwrite_files_title">Разрешить перезапись существующих файлов</string>
+    <string name="important_news_title">Важные новости - Требуется действие</string>
+    <string name="important_news_description">Пожалуйста, прочитайте наше объявление о том, как продолжить нормально пользоваться приложением на %1$s</string>
+    <string name="important_news_action_open">Открыть в браузере</string>
+    <string name="important_news_action_remind">Напомнить мне позже</string>
+    <string name="important_news_action_no_remind">Отказаться в этот раз</string>
+    <string name="close_device_id">Закрыть идентификатор устройства</string>
+    <string name="category_battery">Аккумулятор</string>
+    <string name="allow_overwrite_files_summary">Когда другое приложение помещает файлы в одну из наших папок.</string>
+    <string name="sttrace_none_selected">Отсутствует средство отладки (дебага)</string>
+    <string name="state_loading">Загрузка...</string>
+    <string name="important_news_action_view_options">ПРОСМОТРЕТЬ ВАРИАНТЫ</string>
 </resources>
