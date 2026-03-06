@@ -41,7 +41,7 @@ fun SettingsUserInterfaceScreen() {
     val themeNames = stringArrayResource(R.array.app_theme_names)
     val themeValues = stringArrayResource(R.array.app_theme_values)
 
-    var theme by rememberPreferenceState(Constants.PREF_APP_THEME, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+    var theme by rememberPreferenceState(Constants.PREF_APP_THEME, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM.toString())
     val expertMode = rememberPreferenceState(Constants.PREF_EXPERT_MODE, false)
     val startInWebGui = rememberPreferenceState(Constants.PREF_START_INTO_WEB_GUI, false)
 
@@ -65,8 +65,8 @@ fun SettingsUserInterfaceScreen() {
                                     val restApi = stService?.api
                                     val gui = config.getGui(restApi)
                                     gui.theme = when (newTheme) {
-                                        AppCompatDelegate.MODE_NIGHT_YES -> "dark"
-                                        AppCompatDelegate.MODE_NIGHT_NO -> "light"
+                                        AppCompatDelegate.MODE_NIGHT_YES.toString() -> "dark"
+                                        AppCompatDelegate.MODE_NIGHT_NO.toString() -> "light"
                                         else -> "default"
                                     }
                                     config.updateGui(restApi, gui)
