@@ -662,4 +662,17 @@
     <string name="share_log_file_missing">Chybí soubor logu pro sdílení.</string>
     <string name="backup_password_set_masked">✅ Nasatvení hesla - Klepnutím změnit</string>
     <string name="toggle_password_visibility">Zobrazit/skrýt heslo</string>
+    <string name="device_id_qr_code">QR kód identifikátoru zařízení</string>
+    <string name="copy">Kopírovat</string>
+    <string name="category_wifi">Wi-Fi</string>
+    <string name="category_mobile_data">Mobilní data</string>
+    <string name="category_battery">Baterie</string>
+    <string name="category_schedule">Plán</string>
+    <string name="category_general">Obecné</string>
+    <string name="category_connections">Spojení</string>
+    <string name="category_advanced">Rozšířené</string>
+    <string name="allow_overwrite_files_title">Povolit přepsání existujících souborů</string>
+    <string name="allow_overwrite_files_summary">Když jiná aplikace uloží soubory do některé z našich složek.</string>
+    <string name="sttrace_none_selected">Bez ladicích funkcí</string>
+    <string name="state_loading">Načítání...</string>
 </resources>
