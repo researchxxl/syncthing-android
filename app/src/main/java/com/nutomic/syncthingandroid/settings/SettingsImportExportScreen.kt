@@ -300,7 +300,7 @@ private fun ImportConfigPreference() {
 
                                             // apply theme from restored config
                                             val theme = prefs.value.get<Int>(Constants.PREF_APP_THEME)
-                                                ?: Constants.APP_THEME_FOLLOW_SYSTEM.toInt()
+                                                ?: AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM.toInt()
                                             AppCompatDelegate.setDefaultNightMode(theme)
 
                                             service.evaluateRunConditions()
