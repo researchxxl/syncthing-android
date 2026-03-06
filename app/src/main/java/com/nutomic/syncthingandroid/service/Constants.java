@@ -153,13 +153,6 @@ public class Constants {
     public static final String PREF_DEBUG_FACILITIES_AVAILABLE  = "debug_facilities_available";
 
     /**
-     * Available app themes
-     */
-    public static final String APP_THEME_FOLLOW_SYSTEM          = "-1";
-    public static final String APP_THEME_LIGHT                  = "1";
-    public static final String APP_THEME_DARK                   = "2";
-
-    /**
      * Available folder types.
      */
     public static final String FOLDER_TYPE_SEND_ONLY            = "sendonly";
