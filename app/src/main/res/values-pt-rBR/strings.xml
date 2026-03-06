@@ -715,4 +715,5 @@
     <string name="toggle_password_visibility">Exibir/ocultar senha</string>
     <string name="allow_overwrite_files_title">Permitir substituir arquivos existentes</string>
     <string name="allow_overwrite_files_summary">Quando outro aplicativo compartilha arquivos com uma de nossas pastas.</string>
+    <string name="category_wifi">Wi-Fi</string>
 </resources>
