@@ -3,12 +3,15 @@ package com.nutomic.syncthingandroid.util;
 import android.app.Dialog;
 import android.app.UiModeManager;
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 
 import com.google.common.base.Charsets;
 import com.nutomic.syncthingandroid.R;
@@ -30,6 +33,8 @@ import java.time.ZonedDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.util.Locale;
+
+import eu.chainfire.libsuperuser.Shell;
 
 public class Util {
 
@@ -67,15 +72,75 @@ public class Util {
     }
 
     /**
+     * Normally an application's data directory is only accessible by the corresponding application.
+     * Therefore, every file and directory is owned by an application's user and group. When running Syncthing as root,
+     * it writes to the application's data directory. This leaves files and directories behind which are owned by root having 0600.
+     * Moreover, those actions performed as root changes a file's type in terms of SELinux.
+     * A subsequent start of Syncthing will fail due to insufficient permissions.
+     * Hence, this method fixes the owner, group and the files' type of the data directory.
+     *
+     * @return true if the operation was successfully performed. False otherwise.
+     */
+    public static boolean fixAppDataPermissions(Context context) {
+        // We can safely assume that root magic is somehow available, because readConfig and saveChanges check for
+        // read and write access before calling us.
+        // Be paranoid :) and check if root is available.
+        // Ignore the 'use_root' preference, because we might want to fix the permission
+        // just after the root option has been disabled.
+        if (!Shell.SU.available()) {
+            Log.e(TAG, "Root is not available. Cannot fix permissions.");
+            return false;
+        }
+
+        String packageName;
+        ApplicationInfo appInfo;
+        try {
+            packageName = context.getPackageName();
+            appInfo = context.getPackageManager().getApplicationInfo(packageName, 0);
+
+        } catch (NameNotFoundException e) {
+            // This should not happen!
+            // One should always be able to retrieve the application info for its own package.
+            Log.w(TAG, "Error getting current package name", e);
+            return false;
+        }
+        Log.d(TAG, "Uid of '" + packageName + "' is " + appInfo.uid);
+
+        // Get private app's "files" dir residing in "/data/data/[packageName]".
+        String dir = context.getFilesDir().getAbsolutePath();
+        String cmd = "chown -R " + appInfo.uid + ":" + appInfo.uid + " " + dir + "; ";
+        // Running Syncthing as root might change a file's or directories type in terms of SELinux.
+        // Leaving them as they are, the Android service won't be able to access them.
+        // At least for those files residing in an application's data folder.
+        // Simply reverting the type to its default should do the trick.
+        cmd += "restorecon -R " + dir + "\n";
+        Log.d(TAG, "Running: '" + cmd);
+        int exitCode = runShellCommand(cmd, true);
+        if (exitCode == 0) {
+            Log.i(TAG, "Fixed app data permissions on '" + dir + "'.");
+        } else {
+            Log.w(TAG, "Failed to fix app data permissions on '" + dir + "'. Result: " +
+                Integer.toString(exitCode));
+        }
+        return exitCode == 0;
+    }
+
+    /**
      * Returns if the syncthing binary would be able to write a file into
      * the given folder given the configured access level.
      */
     public static boolean nativeBinaryCanWriteToPath(Context context, String absoluteFolderPath) {
         final String TOUCH_FILE_NAME = ".stwritetest";
+        Boolean useRoot = false;
+        Boolean prefUseRoot = PreferenceManager.getDefaultSharedPreferences(context)
+            .getBoolean(Constants.PREF_USE_ROOT, false);
+        if (prefUseRoot && Shell.SU.available()) {
+            useRoot = true;
+        }
 
         // Write permission test file.
         String touchFile = absoluteFolderPath + "/" + TOUCH_FILE_NAME;
-        int exitCode = runShellCommand("echo \"\" > \"" + touchFile + "\"\n");
+        int exitCode = runShellCommand("echo \"\" > \"" + touchFile + "\"\n", useRoot);
         if (exitCode != 0) {
             String error;
             switch (exitCode) {
@@ -94,7 +159,7 @@ public class Util {
         Log.i(TAG, "Successfully wrote test file '" + touchFile + "'");
 
         // Remove test file.
-        if (runShellCommand("rm \"" + touchFile + "\"\n") != 0) {
+        if (runShellCommand("rm \"" + touchFile + "\"\n", useRoot) != 0) {
             // This is very unlikely to happen, so we have less error handling.
             Log.i(TAG, "Failed to remove test file");
         }
@@ -104,14 +169,14 @@ public class Util {
     /**
      * Run command in a shell and return the exit code.
      */
-    public static int runShellCommand(String cmd) {
+    public static int runShellCommand(String cmd, Boolean useRoot) {
         // Assume "failure" exit code if an error is caught.
         // Note: redirectErrorStream(true); System.getProperty("line.separator");
         int exitCode = 255;
         Process shellProc = null;
         DataOutputStream shellOut = null;
         try {
-            shellProc = Runtime.getRuntime().exec("sh");
+            shellProc = Runtime.getRuntime().exec((useRoot) ? "su" : "sh");
             shellOut = new DataOutputStream(shellProc.getOutputStream());
             BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(shellOut));
             Log.d(TAG, "runShellCommand: " + cmd);
@@ -152,13 +217,17 @@ public class Util {
     }
 
     public static String runShellCommandGetOutput(String cmd) {
+        return runShellCommandGetOutput(cmd, false);
+    }
+
+    public static String runShellCommandGetOutput(String cmd, Boolean useRoot) {
         // Note: redirectErrorStream(true); System.getProperty("line.separator");
         int exitCode = 255;
         String capturedStdOut = "";
         Process shellProc = null;
         DataOutputStream shellOut = null;
         try {
-            shellProc = Runtime.getRuntime().exec("sh");
+            shellProc = Runtime.getRuntime().exec((useRoot) ? "su" : "sh");
             shellOut = new DataOutputStream(shellProc.getOutputStream());
             BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(shellOut));
             Log.d(TAG, "runShellCommandGetOutput: " + cmd);

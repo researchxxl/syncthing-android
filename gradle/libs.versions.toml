@@ -34,6 +34,7 @@ kotlin = "2.3.10"
 kotlinSerialization = "2.3.10"
 kotlinxSerializationCore = "1.10.0"
 ksp = "2.3.6"
+libsuperuser = "1.1.1"
 lingala-zip4j = "2.11.6"
 localbroadcastmanager = "1.1.0"
 nav3Core = "1.0.1"
@@ -68,6 +69,7 @@ gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 guava = { module = "com.google.guava:guava", version.ref = "guava" }
 jbcrypt = { module = "org.mindrot:jbcrypt", version.ref = "jbcrypt" }
 kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinxSerializationCore" }
+libsuperuser = { module = "eu.chainfire:libsuperuser", version.ref = "libsuperuser" }
 lingala-zip4j = { module = "net.lingala.zip4j:zip4j", version.ref = "lingala-zip4j" }
 localbroadcastmanager = { module = "androidx.localbroadcastmanager:localbroadcastmanager", version.ref = "localbroadcastmanager" }
 navigation3-runtime = { module = "androidx.navigation3:navigation3-runtime", version.ref = "nav3Core" }
