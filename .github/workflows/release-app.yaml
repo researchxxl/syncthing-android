@@ -66,19 +66,9 @@ jobs:
       environmentName: prod
     secrets: inherit
 
-  sign2:
-    name: Sign 2
-    needs: [prepare, build2]
-    uses: ./.github/workflows/common-sign.yaml
-    with:
-      applicationId: "com.github.catfriend1.syncthingandroid"
-      buildType: "release"
-      environmentName: prod-v1
-    secrets: inherit
-
   release:
     name: Create release and attach artifacts
-    needs: [sign1, sign2]
+    needs: [sign1]
     if: ${{ github.event.inputs.tag != '' }}
     runs-on: ubuntu-latest
     steps:
@@ -92,12 +82,6 @@ jobs:
         uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
         with:
           name: signed-com.github.catfriend1.syncthingfork
-          path: ./artifacts
-
-      - name: "Download sign2"
-        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
-        with:
-          name: signed-com.github.catfriend1.syncthingandroid
           path: ./artifacts
 
       - name: Create GitHub build provenance attestations
