@@ -570,4 +570,20 @@
     <string name="share_log_file_missing">ملف السجل للمشاركة مفقود.</string>
     <string name="share_log_file">مشاركة ملف السجل</string>
     <string name="backup_password_summary">ℹ️ موصى به:\nأدخل كلمة مرور قوية تُستخدم لتشفير التهيئة أثناء التصدير وفك التشفير عند الاستيراد. احتفظ بكلمة المرور هذه في مكان آمن لعملية الاسترداد. ستحتاج إليها لاستخدام ميزة الاستيراد.\n\n⚠️ غير مستحسن:\nعدم استخدام كلمة مرور، من المحتمل أن تكون التطبيقات الأخرى قادرة على قراءة تكوين Syncthing الخاص بك والتلاعب به. ينطوي تعريض التهيئة على خطر أن يتمكن فاعل سيء من الوصول غير المصرح به إلى ملفاتك باستخدام صادرات التهيئة المسروقة.</string>
+    <string name="device_id_qr_code">رمز الاستجابة السريعة (QR Code) لمعرف الجهاز</string>
+    <string name="close_device_id">إغلاق معرف الجهاز</string>
+    <string name="copy">نسخ</string>
+    <string name="category_wifi">الواي فاي</string>
+    <string name="category_mobile_data">بيانات الهاتف المحمول</string>
+    <string name="category_battery">البطارية</string>
+    <string name="category_schedule">جدول</string>
+    <string name="category_general">عام</string>
+    <string name="category_connections">الاتصالات</string>
+    <string name="category_advanced">متقدم</string>
+    <string name="allow_overwrite_files_title">السماح بالكتابة فوق الملفات الموجودة</string>
+    <string name="allow_overwrite_files_summary">عندما يقوم تطبيق آخر بمشاركة الملفات إلى أحد مجلداتنا.</string>
+    <string name="backup_password_set_masked">✅ تم تعيين كلمة المرور - انقر للتغيير</string>
+    <string name="toggle_password_visibility">إظهار/إخفاء كلمة المرور</string>
+    <string name="sttrace_none_selected">لا توجد خاصية تصحيح الأخطاء</string>
+    <string name="state_loading">جارٍ التحميل...</string>
 </resources>
