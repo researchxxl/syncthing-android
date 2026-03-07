@@ -753,4 +753,11 @@
     <string name="toggle_password_visibility">Passwort ein-/ausblenden</string>
     <string name="allow_overwrite_files_title">Überschreiben vorhandener Dateien zulassen</string>
     <string name="allow_overwrite_files_summary">Wenn eine andere App Dateien in einem unserer Ordner freigibt.</string>
+    <string name="state_loading">Laden...</string>
+    <string name="sttrace_none_selected">Keine Debugging-Funktion</string>
+    <string name="category_advanced">Erweiterung</string>
+    <string name="category_connections">Verbindungen</string>
+    <string name="category_general">Allgemein</string>
+    <string name="category_schedule">Planen</string>
+    <string name="category_battery">Akku</string>
 </resources>
