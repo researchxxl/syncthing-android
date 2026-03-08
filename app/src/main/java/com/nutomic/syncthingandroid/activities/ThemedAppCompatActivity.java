@@ -19,7 +19,10 @@ public abstract class ThemedAppCompatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         // Load theme.
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        Integer prefAppTheme = Integer.parseInt(sharedPreferences.getString(Constants.PREF_APP_THEME, Constants.APP_THEME_FOLLOW_SYSTEM));
+        Integer prefAppTheme = Integer.parseInt(sharedPreferences.getString(
+                Constants.PREF_APP_THEME, 
+                Integer.toString(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM))
+        );
         AppCompatDelegate.setDefaultNightMode(prefAppTheme);
         EdgeToEdge.enable(this);
         super.onCreate(savedInstanceState);
