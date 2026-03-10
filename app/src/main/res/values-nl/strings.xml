@@ -43,7 +43,7 @@
     <string name="yes">Ja</string>
     <string name="no">Nee</string>
     <string name="open_website">Website openen</string>
-    <string name="toast_write_storage_permission_required">Deze app vereist schrijftoegang</string>
+    <string name="toast_write_storage_permission_required">Deze app vereist toegang tot opslag</string>
     <!-- StateDialogActivity -->
     <!-- Text for FoldersFragment and DevicesFragment loading view -->
     <!-- Shown instead of web_gui_loading if the key does not exist and has to be created -->
@@ -57,7 +57,7 @@
         <item quantity="one">%1$d / %2$d bestand</item>
         <item quantity="other">%1$d / %2$d bestanden</item>
     </plurals>
-    <string name="open_file_manager">Bestandsbeheerder openen</string>
+    <string name="open_file_manager">Bestandsbeheer openen</string>
     <!-- DeviceListFragment -->
     <!-- Devices tab title -->
     <string name="devices_fragment_title">Apparaten</string>
@@ -157,12 +157,12 @@
     <string name="web_gui_loading">Wachten op interface</string>
     <!-- SettingsFragment -->
     <string name="settings_title">Instellingen</string>
-    <string name="category_run_conditions">Uitvoervoorwaarden</string>
+    <string name="category_run_conditions">Syncvoorwaarden</string>
     <string name="category_behaviour">Gedrag</string>
     <string name="category_syncthing_options">Syncthing-opties</string>
     <string name="category_experimental">Experimenteel</string>
     <!-- Preference screen - Run conditions -->
-    <string name="run_conditions_title">Uitvoervoorwaarden</string>
+    <string name="run_conditions_title">Syncvoorwaarden</string>
     <string name="sync_only_wifi_ssids_wifi_turn_on_wifi">Schakel wifi in om netwerken te selecteren.</string>
     <string name="sync_only_wifi_ssids_need_to_grant_location_permission">Geef de LOCATIE-toestemming om deze functie te gebruiken.</string>
     <string name="sync_only_wifi_ssids_location_permission_rejected_dialog_title">Toestemming vereist</string>
@@ -186,7 +186,7 @@
     <string name="global_announce_server">Globale ontdekkingsservers</string>
     <string name="enable_relaying">Relayen inschakelen</string>
     <string name="usage_reporting">Anoniem gebruiksrapportage</string>
-    <string name="export_config">Configuratie exporteren</string>
+    <string name="export_config">Instellingen exporteren</string>
     <!-- Toast after entering invalid integer value -->
     <string name="invalid_integer_value" tools:ignore="PluralsCandidate">Ongeldige waarde ingevoerd. Voer een waarde in tussen %1$d en %2$d.</string>
     <!-- Experimental options -->
@@ -201,13 +201,13 @@
     <!-- Toast after entering invalid http proxy address -->
     <string name="toast_invalid_http_proxy_address">Invoer is geen correcte proxysyntax \'http://[IP/HOSTNAME]:[PORT]\'</string>
     <!-- Dialog shown before config export -->
-    <string name="dialog_confirm_export">Wil je je configuratie echt exporteren? Bestaande bestanden worden overschreven. \n \nWAARSCHUWING: Andere apps kunnen mogelijkerwijs bij de geheime sleutel van de back-up en gesyncte bestanden downloaden/wijzigen.</string>
+    <string name="dialog_confirm_export">Wil je de instellingen echt exporteren? Een bestaand instellingenarchief wordt overschreven.</string>
     <!-- Dialog shown before config import -->
-    <string name="dialog_confirm_import">Wil je een nieuwe configuratie echt importeren? Bestaande bestanden zullen worden overschreven.</string>
+    <string name="dialog_confirm_import">Wil je de instellingen echt importeren? Bestaande instellingen, inclusief de gedeelde mappen en apparaten, zullen worden vervangen.</string>
     <!-- Toast shown after config was exported -->
-    <string name="import_config">Configuratie importeren</string>
+    <string name="import_config">Instellingen importeren</string>
     <!-- Toast shown after config was imported -->
-    <string name="config_imported_successful">Configuratie geïmporteerd</string>
+    <string name="config_imported_successful">Instellingen geïmporteerd</string>
     <!-- Title for the preference to set STTRACE parameters -->
     <string name="sttrace_title">STTRACE-opties</string>
     <string name="environment_variables">Omgevingsvariabelen</string>
@@ -293,14 +293,14 @@
     <!-- Text for the exit button on the drawer -->
     <string name="exit">Afsluiten</string>
     <!-- Title of the notification shown while syncthing is running and enabled -->
-    <string name="syncthing_active">Syncthing draait</string>
+    <string name="syncthing_active">Syncthing synchroniseert</string>
     <string name="syncthing_terminated">Syncthing is beëindigd</string>
     <string name="config_create_failed">Aanmaken van configuratiebestand mislukt</string>
     <!-- ID of the default folder created on first start (camera folder). Must only contain 'a-z0-9_-'. Parameter is the device name-->
     <string name="default_folder_id">%1$s-foto\'s</string>
     <string name="notification_crash_title">Syncthing is gecrasht %1$s</string>
     <string name="notifications_persistent_channel">Syncthing is actief</string>
-    <string name="notification_persistent_waiting_channel">Uitvoervoorwaarden controleren</string>
+    <string name="notification_persistent_waiting_channel">Syncvoorwaarden worden gecontroleerd</string>
     <string name="notifications_other_channel">Overige meldingen</string>
     <!-- RestApi -->
     <!-- Title of the notification shown when a restart is needed -->
@@ -348,7 +348,7 @@
 \nDe volgende intervallen worden gebruikt: het eerste uur wordt elke 30 seconden een versie bijgehouden, de eerste dag elk uur, de eerste 30 dagen elke dag, en tot de maximumleeftijd een versie elke week.</string>
     <string name="maximum_age_description">Maximale duur waarvoor een versie bijgehouden dient te worden (in dagen, stel dit in op 0 om versies voorgoed bij te houden).</string>
     <string name="versions_path_description">Pad waar versies moeten worden opgeslagen (laat dit leeg om de standaardmap \'.stversions\' in de gedeelde map te gebruiken).</string>
-    <string name="cleanout_after_description">Het aantal dagen dat bestanden in de prullenbak bijgehouden dienen te worden. Nul betekent voorgoed</string>
+    <string name="cleanout_after_description">Het aantal dagen dat bestanden in de prullenbak bijgehouden dienen te worden. Nul betekent voor altijd</string>
     <string name="external_versioning_description">De eerste opdrachtregelparameter is het mappad, de tweede parameter het relatieve pad in de map.</string>
     <string name="no_versioning_description">Kies een versiebeheertype om versiebeheer in te schakelen.</string>
     <!-- Displays the current file versioning type in the Folder activity -->
@@ -378,27 +378,27 @@
     <string name="folder_rejected">Apparaat “%1$s” wil map “%2$s” delen</string>
     <string name="notification_permission_title">Toestemming voor meldingen</string>
     <string name="toast_notification_permission_required">Syncthing heeft de meldingstoestemming nodig om zijn dienst in leven en verbonden te houden.</string>
-    <string name="grant_storage_permission">Opslagtoestemming verlenen</string>
+    <string name="grant_storage_permission">Opslagtoestemming geven</string>
     <string name="photo_shoot_intro_welcome_title">Welkom bij Syncthing Camera</string>
-    <string name="grant_camera_permission">Camera toestemming geven</string>
+    <string name="grant_camera_permission">Cameratoestemming geven</string>
     <string name="open_main_menu">Hoofdmenu openen</string>
     <string name="close_main_menu">Hoofdmenu sluiten</string>
     <string name="dialog_confirm_skip_ignore_doze_permission">Voorzichtig: Als SyncthingNative wordt onderbroken en iets vreemds doet, is dat jouw schuld. Sla alleen over als je apparaat het verlenen van de toestemming niet ondersteunt. Echt overslaan?</string>
     <string name="refresh">Ververs</string>
     <string name="photo_shoot_launcher_title">Camera synchroniseren</string>
     <string name="photo_shoot_activity_title">Syncthing-Fork Camera</string>
-    <string name="dialog_all_files_access_not_supported">Uw apparaat ondersteunt niet de toegang tot alle bestanden</string>
-    <string name="toast_ignore_doze_permission_required">Deze app werkt alleen betrouwbaar als hij is vrijgesteld van de spaarstand “doze”.</string>
-    <string name="location_permission_desc">Syncthing kan worden geconfigureerd om te werken op geselecteerde Wi-Fi-netwerken. Android vereist dat de app locatie-toestemming heeft om de naam van het actieve Wi-Fi-netwerk te lezen. Als je deze functie wilt gebruiken, druk dan op de knop hierboven. Je kunt deze stap overslaan. Zie ons privacybeleid voor meer informatie.</string>
-    <string name="ignore_doze_permission_os_notice">Android TV\'s staan erom bekend dat ze af en toe de app beëindigen wanneer deze op de achtergrond draait. Een oplossing is beschikbaar op de wiki bij ‘%1$s/%2$s’.</string>
-    <string name="ignore_doze_permission_desc">Android kan na enige tijd stoppen met synchroniseren. Schakel batterijoptimalisatie uit om dit te voorkomen. Sommige apparaten hebben extra taakdodende apps voorgeïnstalleerd. Je moet Syncthing ook toevoegen aan hun witte lijst.</string>
-    <string name="exception_known_bug_notice">Er is een bekende bug gevonden die nog niet is opgelost. Zie %1$s/%2$s voor meer informatie. Verschaf ons a.u.b. een nauwkeurige beschrijving van wat hiervoor gebeurde.</string>
+    <string name="dialog_all_files_access_not_supported">Jouw apparaat ondersteunt geen toegang tot alle bestanden</string>
+    <string name="toast_ignore_doze_permission_required">Deze app werkt alleen betrouwbaar als het is vrijgesteld van de spaarstand “doze”.</string>
+    <string name="location_permission_desc">Syncthing kan ingesteld worden om te werken op geselecteerde wifi-netwerken. Android vereist dat de app locatie-toestemming heeft om de naam van het actieve wifi-netwerk te lezen. Als je deze functie wilt gebruiken, druk dan op de knop hierboven. Je kunt deze stap overslaan. Zie ons privacybeleid voor meer informatie.</string>
+    <string name="ignore_doze_permission_os_notice">Android TV\'s staan erom bekend dat ze af en toe de app beëindigen wanneer deze op de achtergrond werkt. Een oplossing is beschikbaar op de wiki bij ‘%1$s/%2$s’.</string>
+    <string name="ignore_doze_permission_desc">Android kan na enige tijd stoppen met synchroniseren. Schakel batterijoptimalisatie uit om dit te voorkomen. Sommige apparaten hebben extra app-dodende apps voorgeïnstalleerd. Voeg Syncthing daar toe aan de uitzonderingenlijst.</string>
+    <string name="exception_known_bug_notice">Er is een bekende bug gevonden die nog niet is opgelost. Zie %1$s/%2$s voor meer informatie. Verschaf ons a.j.b. een nauwkeurige beschrijving van wat hiervoor gebeurde.</string>
     <string name="page_x_of_y">Pagina %1$s van %2$s</string>
-    <string name="photo_shoot_intro_missing_permissions">Wij hebben toestemming voor opslag en camera\'s nodig om door te gaan.</string>
+    <string name="photo_shoot_intro_missing_permissions">Om door te gaan heeft Syncthing toestemming nodig voor het gebruik van opslag en camera.</string>
     <string name="location_permission_desc_api_29">Tip voor Android 10+: “Altijd toestaan”</string>
     <string name="photo_shoot_intro_permission_title">Vereiste machtigingen</string>
     <string name="photo_shoot_intro_no_camera">Sorry, dit apparaat heeft geen camera.</string>
-    <string name="dialog_exit_while_running_as_service_message">Ter overweging: Je hebt de app geconfigureerd om automatisch te starten bij het opstarten. Daarom controleert het de run-condities en synchroniseert het op elk moment op de achtergrond wanneer de condities overeenkomen. Je moet alleen handmatig stoppen als je tegen ernstige problemen aanloopt. Schakel anders ‘Automatisch starten bij opstarten’ uit in de instellingen. Wil je nu stoppen totdat het apparaat opnieuw wordt opgestart?</string>
+    <string name="dialog_exit_while_running_as_service_message">Ter overweging: Je hebt de app ingesteld om automatisch te starten. Daarom controleert het continu de uitvoeringsvoorwaarden en synchroniseert in de achtergrond zolang aan de voorwaarden voldaan wordt. Je moet alleen handmatig stoppen als je tegen ernstige problemen aanloopt. Schakel anders ‘Automatisch starten bij opstarten’ uit in de instellingen. Wil je nu stoppen totdat het apparaat opnieuw wordt opgestart?</string>
     <string name="notification_permission_desc">Vereist om meldingen weer te geven over nieuwe apparaatverbindingen, aanvragen voor het delen van mappen en om de service levend en verbonden te houden.</string>
     <string name="main_menu">Hoofdmenu</string>
     <string name="dialog_exit_while_running_as_service_title">Bevestigen om app te verlaten</string>
@@ -406,7 +406,7 @@
     <string name="override_changes_question">Hierdoor worden alle wijzigingen ongedaan gemaakt die zijn aangebracht op de andere apparaten die deze map delen. Doorgaan?</string>
     <string name="open_file_with">Open bestand met</string>
     <string name="revert_local_changes_question">Hiermee worden alle wijzigingen ongedaan gemaakt die op dit apparaat in die map zijn gemaakt. Doorgaan?</string>
-    <string name="button_force_stop">STOP FORCEREN.\nUITVOERINGSVOORWAARDEN NEGEREN</string>
+    <string name="button_force_stop">STOP FORCEREN\nSyncvoorwaarden negeren</string>
     <string name="uptime">Uptime</string>
     <string name="discovered_devices_title">Ontdekte apparaten - Tik om te selecteren</string>
     <string name="toast_invalid_folder_selected">Sorry. De geselecteerde map kan niet worden gebruikt. Selecteer een map in de interne of externe opslag.</string>
@@ -415,7 +415,7 @@
     <string name="autoAcceptFolders">Automatisch accepteren</string>
     <string name="untrusted_device">Niet-vertrouwd apparaat</string>
     <string name="device_name_required">De apparaatnaam mag niet leeg zijn</string>
-    <string name="folders_list_empty">Geen mappen geconfigureerd. Tik om een nieuwe map toe te voegen.</string>
+    <string name="folders_list_empty">Geen mappen ingesteld. Tik om een nieuwe map toe te voegen.</string>
     <string name="no_recent_changes">Er zijn geen recente wijzigingen.</string>
     <string name="recent_changes_title">Recente wijzigingen</string>
     <string name="this_device">Dit apparaat</string>
@@ -425,8 +425,8 @@
     <string name="preference_app_theme_follow_system">Volg systeem</string>
     <string name="preference_app_theme_follow_dark">Donker</string>
     <string name="preference_app_theme_follow_light">Licht</string>
-    <string name="run_conditions_summary">Gebruik de volgende opties om te bepalen wanneer Syncthing draait.</string>
-    <string name="run_on_wifi_summary">Wordt uitgevoerd wanneer het apparaat is verbonden met een Wi-Fi- of Ethernet-netwerk.</string>
+    <string name="run_conditions_summary">Gebruik de volgende opties om te bepalen wanneer Syncthing synchroniseert.</string>
+    <string name="run_on_wifi_summary">Synchroniseer als het apparaat is verbonden met een wifi- of ethernet-netwerk.</string>
     <string name="revert_local_changes">Lokale wijzigingen ongedaan maken</string>
     <string name="delete_unexpected_items">Onverwachte items verwijderen</string>
     <string name="open_file_no_compatible_app">Geen app gevonden om het bestand te openen.</string>
@@ -434,47 +434,47 @@
     <string name="device_last_seen">Laatst gezien: %1$s</string>
     <string name="device_disconnected_not_synced">Losgekoppeld (%1$s in afwachting)</string>
     <string name="device_last_seen_never">Nooit</string>
-    <string name="syncthing_running">Syncthing is actief.</string>
-    <string name="syncthing_not_running">Syncthing is niet actief.</string>
+    <string name="syncthing_running">Syncthing synchroniseert.</string>
+    <string name="syncthing_not_running">Syncthing synchroniseert niet.</string>
     <string name="syncthing_starting">Syncthing wordt gestart.</string>
     <string name="folder_ignore_delete_caption">Negeer verwijderen</string>
     <string name="local_discovery_disabled">Je hebt lokale detectie uitgeschakeld in ‘Instellingen’ &gt; ‘Syncthing-opties’ &gt; ‘Lokale detectie’. Schakel dit in om te zoeken naar apparaten op het lokale netwerk.</string>
     <string name="category_debug">Probleemoplossing</string>
     <string name="suggest_file_manager_app_dialog_text">We raden je aan om de open-source bestandsbeheer-app ‘Material Files’ te installeren. Wil je de app store openen?</string>
     <string name="device_id_invalid">De apparaat-ID is niet correct geformatteerd. Probeer het opnieuw en voer de juiste ID in.</string>
-    <string name="button_force_start">START FORCEREN.\nUITVOERINGSVOORWAARDEN NEGEREN</string>
+    <string name="button_force_start">START FORCEREN\nSyncvoorwaarden negeren</string>
     <string name="folder_path_readonly">Je Android versie geeft Syncthing alleen lees-toegang tot de geselecteerde map.</string>
     <string name="folder_path_readwrite">Je Android versie geeft Syncthing lees- en schrijftoegang tot de geselecteerde map.</string>
-    <string name="button_follow_run_conditions">UITVOERINGSVOORWAARDEN OPVOLGEN</string>
+    <string name="button_follow_run_conditions">Syncvoorwaarden volgen</string>
     <string name="deviceEncryptionPasswordHint">Als het niet vertrouwd is, voer dan een versleutelingswachtwoord in</string>
     <string name="status_fragment_title">Status</string>
-    <string name="devices_list_empty">Geen apparaten geconfigureerd. Tik om een nieuw apparaat toe te voegen.</string>
-    <string name="no_devices_configured">Geen apparaten geconfigureerd. \nBegin nu met het toevoegen van een apparaat.</string>
+    <string name="devices_list_empty">Geen apparaten ingesteld. Tik om een nieuw apparaat toe te voegen.</string>
+    <string name="no_devices_configured">Geen apparaten ingesteld. \nBegin nu met het toevoegen van een apparaat.</string>
     <string name="shared_folders_title_colon">"Mappen: "</string>
     <string name="device_syncing_percent_bytes">Synchroniseren (%1$d%%, %2$s)</string>
     <string name="device_state_unused">Ongebruikt</string>
     <string name="syncthing_has_crashed">Syncthing is vastgelopen.</string>
     <string name="untrusted_device_explanation">Alle mappen die worden gedeeld met dit apparaat moeten worden beveiligd met een wachtwoord, zodat alle verzonden gegevens onleesbaar zijn zonder het opgegeven wachtwoord.</string>
-    <string name="discovered_device_list_empty">Lokale detectie heeft geen apparaten gevonden op het lokale netwerk. Voer deze app uit op een tweede telefoon. Installatiebestanden voor computers zijn beschikbaar op: %1$s</string>
+    <string name="discovered_device_list_empty">Lokale detectie heeft geen apparaten gevonden op het lokale netwerk. Start Syncthing op een tweede telefoon of computer. Installatiebestanden voor computers zijn beschikbaar op: %1$s</string>
     <string name="advanced_directory_selection">Geavanceerde mappenselectie</string>
     <string name="folder_ignore_delete_description">Expertoptie die de afhandeling van inkomende indexupdates beïnvloedt. Als deze optie is ingeschakeld, worden inkomende updates met de verwijdervlag genegeerd. Zie https://docs.syncthing.net/advanced/folder-ignoredelete.html</string>
     <string name="install_barcode_scanner_app_message">Hiervoor heb je een barcodescanner-app nodig. Wil je de app ‘Binary Eye’ van F-Droid installeren?</string>
     <string name="folder_label_required">Het maplabel mag niet leeg zijn</string>
     <string name="modified_by_device">Apparaat: %1$s</string>
     <string name="category_backup">Importeren en exporteren</string>
-    <string name="device_addresses_invalid">De apparaatadressen zijn niet correct geformatteerd. Probeer het opnieuw. Kijk in de Syncthing docs voor meer informatie.</string>
-    <string name="run_on_wifi_title">Uitvoeren via Wi-Fi</string>
-    <string name="run_on_mobile_data_summary">Uitvoeren wanneer het apparaat is verbonden via het mobiele datanetwerk. Waarschuwing: Dit kan veel gegevens verbruiken van het data-abonnement van je mobiele provider als je grote hoeveelheden gegevens synchroniseert.</string>
-    <string name="run_on_roaming_summary">Syncthing toestaan om mobiele data te gebruiken tijdens roaming. (!) Plaats alsjeblieft feedback op GitHub als dit goed werkt.</string>
+    <string name="device_addresses_invalid">De apparaatadressen zijn niet correct geformatteerd. Probeer het opnieuw. Kijk in de Syncthing documentatie voor meer informatie.</string>
+    <string name="run_on_wifi_title">Synchroniseer via wifi</string>
+    <string name="run_on_mobile_data_summary">Synchroniseer als het apparaat verbonden is via het mobiele datanetwerk. Waarschuwing: als je veel of grote bestanden synchroniseert, kan deze app veel gegevens verbruiken van het data-abonnement van je mobiele provider. Dit kan tot hoge kosten leiden.</string>
+    <string name="run_on_roaming_summary">Syncthing toestaan om mobiele data te gebruiken tijdens roaming.</string>
     <string name="modification_time">Tijd: %1$s</string>
-    <string name="category_syncthing_options_summary">Dit menu is alleen beschikbaar als Syncthing actief is.</string>
+    <string name="category_syncthing_options_summary">Dit menu is alleen beschikbaar als Syncthing synchroniseert.</string>
     <string name="preference_app_theme_title">Thema</string>
     <string name="web_page_loading">Webpagina wordt geladen: \n%1$s …</string>
     <string name="open_in_browser">Openen in browser</string>
-    <string name="run_on_mobile_data_title">Draaien op mobiele data</string>
-    <string name="run_on_roaming_title">Uitvoeren tijdens roaming</string>
-    <string name="run_on_metered_wifi_summary">Uitvoeren wanneer het apparaat is verbonden met een Wi-Fi-netwerk met een meter, bijvoorbeeld een hotspot of een gekoppeld netwerk. Let op: Dit kan een groot deel van je data-abonnement in beslag nemen als je veel gegevens synchroniseert.</string>
-    <string name="photo_shoot_take_picture_success">Foto succesvol opgeslagen in de Syncthing Camera folder.</string>
+    <string name="run_on_mobile_data_title">Synchroniseer via mobiele data</string>
+    <string name="run_on_roaming_title">Synchroniseer tijdens roaming</string>
+    <string name="run_on_metered_wifi_summary">Synchroniseer wanneer het apparaat is verbonden met een wifi-netwerk met databesparing, bijvoorbeeld een hotspot of een \'tethering\' netwerk. Let op: als je veel gegevens synchroniseert kan dit een groot deel van je data-abonnement verbruiken.</string>
+    <string name="photo_shoot_take_picture_success">Foto opgeslagen in de Syncthing Camera folder.</string>
     <string name="activity_main_bottom_navigation_rescan_all">Alles opnieuw scannen</string>
     <plurals name="conflicts">
         <item quantity="one">%1$d conflict</item>
@@ -482,6 +482,104 @@
     </plurals>
     <string name="folder_run_script_description">Geavanceerde optie om scripts uit te voeren nadat de sync-status van een map is gewijzigd. Scripts met naampatroon \".stfolder/*.sh\" zullen worden uitgevoerd; andere locaties worden om veiligheidsredenen niet ondersteund.\nVoorbeeld van een script-aanroep: \".stfolder/rename-files.sh sync_complete\"</string>
     <string name="photo_shoot_take_picture_failure">Het nemen van een foto is mislukt of afgebroken.</string>
-    <string name="photo_shoot_intro_permission_desc">Syncthing Camera heeft uw toestemming nodig om foto\'s te nemen en op uw apparaat op te slaan. Deze functie is optioneel. Geef de toestemmingen om hem te activeren en tik op \"Doorgaan\". We zullen een Syncthing Camera folder aanmaken die u later kunt delen met andere Syncthing apparaten.</string>
+    <string name="photo_shoot_intro_permission_desc">Syncthing Camera heeft je toestemming nodig om foto\'s te nemen en op je apparaat op te slaan. Deze functie is optioneel. Geef de toestemmingen om het te activeren en tik op \"Doorgaan\". We zullen een Syncthing Camera folder aanmaken die je later kunt delen met andere Syncthing apparaten.</string>
     <string name="default_syncthing_camera_folder_label">Syncthing Camera</string>
+    <string name="run_on_metered_wifi_title">Synchroniseer op netwerken met databesparing</string>
+    <string name="run_on_whitelisted_wifi_title">Synchroniseer op specifieke wifi netwerken</string>
+    <string name="power_source_title">Synchroniseer als het apparaat werkt op</string>
+    <string name="respect_battery_saving_summary">Stop Syncthing als batterijbesparing actief is.</string>
+    <string name="respect_master_sync_summary">Stop Syncthing als de snelle instelling \'Automatische synchronisatie\' uitgezet wordt.</string>
+    <string name="run_in_flight_mode_title">Synchroniseer zonder netwerk verbinding</string>
+    <string name="run_in_flight_mode_summary">Deze optie zal Syncthing laten synchroniseren, zelfs als je offline bent. Gebruik dit als je apparaat problemen heeft met het detecteren van handmatige wifi verbindingen terwijl vliegtuigmodus aan staat.</string>
+    <string name="run_on_time_schedule_title">Synchroniseer volgens tijdschema</string>
+    <string name="run_on_time_schedule_summary">Door deze optie zal Syncthing gedurende een ingestelde tijd synchroniseren, zolang aan alle syncvoorwaarden voldaan wordt en een (instelbare) tijd verstreken is sinds de vorige synchronisatie. Dit kan veel batterij besparen maar vereist dat de synchronisatie partners online zijn. Let op: dit kan onvolledige, tijdelijke bestanden achterlaten totdat de volgende geplande synchronisatie plaatsvindt.</string>
+    <string name="sync_duration_minutes_title">Duur van de synchronisatiecyclus</string>
+    <string name="sync_duration_minutes_summary">%1$s minuten</string>
+    <string name="sleep_interval_minutes_title">Duur van de synchronisatiepauze</string>
+    <string name="behaviour_autostart_title">Automatisch starten</string>
+    <string name="behaviour_autostart_summary">Start Syncthing automatisch als je je apparaat aan zet.</string>
+    <string name="allow_overwrite_files_title">Sta overschrijven van bestaande bestanden toe</string>
+    <string name="allow_overwrite_files_summary">Als een andere app bestanden deelt in een van onze mappen.</string>
+    <string name="expert_mode_title">Expertmodus</string>
+    <string name="expert_mode_summary">Deze optie toont geavanceerde instellingen. Je wordt aangeraden eerst de Syncthing documentatie te bekijken zodat je zeker weet dat je deze instellingen correct gebruikt. Incorrecte instellingen kunnen je batterij snel laten leeg lopen, een te kort aan systeem bronnen, of incomplete synchronisatie verzaken.</string>
+    <string name="start_into_web_gui_title">Start direct in de web interface</string>
+    <string name="start_into_web_gui_summary">Als de app gestart word, toon de web interface in plaats van het hoofdscherm.</string>
+    <string name="pull_order_random">Willekeurig</string>
+    <string name="pull_order_alphabetic">Alfabetisch</string>
+    <string name="pull_order_smallest_first">Kleinste eerst</string>
+    <string name="pull_order_largest_first">Grootste eerst</string>
+    <string name="pull_order_oldest_first">Oudste eerst</string>
+    <string name="pull_order_newest_first">Nieuwste eerst</string>
+    <string name="crash_reporting">Anonieme crashrapportage</string>
+    <string name="webui_tcp_port_title">Web interface TCP poort</string>
+    <string name="webui_remote_access_title">Web interface externe toegang</string>
+    <string name="webui_username_title">Web interface gebruikersnaam</string>
+    <string name="webui_password_title">Web interface wachtwoord</string>
+    <string name="webui_remote_access_summary">Activeer om de web interface toegankelijk te maken vanaf een ander apparaat. Je kunt inloggen met de gebruiker \'syncthing\' en de API sleutel als wachtwoord. Standaard: uit (het veiligst)</string>
+    <string name="clear_stversions_title">Leeg all versiemappen</string>
+    <string name="clear_stversions_summary">Als Syncthing bestanden gaat aanpassen of verwijderen, worden ze eerst verplaatst naar de .stversions map. Je kunt hier waarschijnlijk per ongeluk verwijderde bestanden terug vinden en herstellen, maar de oude versies gebruiken extra opslagruimte op je apparaat.</string>
+    <string name="clear_stversions_question">Dit zal alle oudere versies van de door Syncthing beheerde bestanden wissen. Doorgaan?</string>
+    <string name="clear_stversions_done">Alle .stversions mappen zijn geleegd.</string>
+    <string name="folder_run_script_caption">Start script</string>
+    <string name="download_support_bundle_title">Download ondersteuningsbestand (Support Bundle)</string>
+    <string name="download_support_bundle_in_progress">Downloaden van ondersteuningsbestand wordt voorbereid …</string>
+    <string name="download_support_bundle_succeeded">Het ondersteuningsbestand is gedownload naar %s.</string>
+    <string name="download_support_bundle_failed">Downloaden van ondersteuningsbestand is mislukt. Controleer de logs.</string>
+    <string name="undo_ignored_devices_folders_question">Alle eerdere beslissingen om apparaten en mappen te negeren, worden ongedaan gemaakt. Doorgaan?</string>
+    <string name="undo_ignored_devices_folders_done">Beslissingen ongedaan gemaakt.</string>
+    <string name="backup_rel_path_to_zip">Relatief pad naar instellingenarchief</string>
+    <string name="backup_password_title">Wachtwoord voor instellingenarchief</string>
+    <string name="backup_password_summary">ℹ️ Aanbevolen:\nGebruik een sterk wachtwoord om je geëxporteerde instellingenarchief te versleutelen. Bewaar het wachtwoord op een veilige plaats. Je hebt het wachtwoord weer nodig tijdens het importeren.\n\n⚠️ Niet aanbevolen:\nGeen wachtwoord gebruiken. Andere apps kunnen mogelijk je Syncthing instellingen lezen of stiekem aanpassen. Een gestolen, onbeveiligd instellingenarchief kan anderen ongewenst toegang geven tot jouw bestanden.</string>
+    <string name="config_export_successful_no_path">Instellingenarchief is geëxporteerd. Bewaar het wachtwoord om de instellingen later te kunnen importeren.</string>
+    <string name="config_export_failed">Instellingenarchief exporteren is mislukt. Ga naar Instellingen-Probleemoplossing-Log openen om de details te zien.</string>
+    <string name="config_import_failed_no_path">Instellingen importeren is mislukt. Ga naar Instellingen-Probleemoplossing-Log openen voor meer details.</string>
+    <string name="reason_force_start">Syncthing synchroniseert omdat je een start geforceerd hebt, ongeacht de syncvoorwaarden.</string>
+    <string name="reason_force_stop">Syncthing synchroniseert niet omdat je een stop geforceerd hebt, ongeacht de syncvoorwaarden.</string>
+    <string name="reason_not_within_time_frame">Je hebt synchronisatie op een tijdschema ingesteld en de laatste sync was korter dan een uur geleden.</string>
+    <string name="reason_not_within_time_frame_2">Je hebt synchronisatie op een tijdschema ingesteld en de laatste sync was %s geleden.</string>
+    <string name="reason_not_on_battery_power">De telefoon draait niet op batterij.</string>
+    <string name="reason_not_while_power_saving">Syncthing synchroniseert niet omdat Android’s batterijbesparing aan staat.</string>
+    <string name="reason_not_while_auto_sync_data_disabled">Syncthing synchroniseert niet omdat Android’s ‘auto-sync’ uit staat.</string>
+    <string name="reason_mobile_data_disallowed">Syncthing is niet ingesteld om te synchroniseren via mobiele data verbindingen.</string>
+    <string name="reason_on_mobile_data">Syncthing mag synchroniseren via mobiele data verbindingen.</string>
+    <string name="reason_not_on_mobile_data">Syncthing mag synchroniseren via mobiele data verbindingen, maar er is geen mobiele data verbinding.</string>
+    <string name="reason_on_roaming_nonroaming_mobile_data">Syncthing mag synchroniseren via roaming en niet-roaming mobiele data verbindingen.</string>
+    <string name="reason_on_nonroaming_mobile_data">Syncthing mag synchroniseren via niet-roaming mobiele data verbindingen. De huidige verbinding is niet-roaming.</string>
+    <string name="reason_not_nonroaming_mobile_data">Syncthing synchroniseert niet omdat je het hebt ingesteld om geen roaming mobiele data verbindingen te gebruiken.</string>
+    <string name="reason_wifi_disallowed">Syncthing mag niet synchroniseren via wifi of ethernet.</string>
+    <string name="reason_on_wifi">Syncthing mag synchroniseren via wifi en wifi is verbonden.</string>
+    <string name="reason_not_on_wifi">Syncthing mag synchroniseren via wifi maar wifi is nu niet verbonden of de telefoon staat in vliegtuigmodus.</string>
+    <string name="reason_on_metered_nonmetered_wifi">Syncthing mag synchroniseren via wifi met en zonder databesparing.</string>
+    <string name="reason_on_whitelisted_wifi">Syncthing mag synchroniseren via het huidige wifi netwerk.</string>
+    <string name="reason_not_on_whitelisted_wifi">Syncthing synchroniseert niet omdat het huidige wifi netwerk ontbreekt op de lijst met toegestane netwerken.</string>
+    <string name="reason_on_nonmetered_wifi">Syncthing mag synchroniseren via wifi zonder databesparing. Het huidige wifi netwerk heeft geen databesparing.</string>
+    <string name="reason_not_nonmetered_wifi">Syncthing synchroniseert niet omdat je het hebt ingesteld dat het geen wifi met databesparing mag gebruiken.</string>
+    <string name="reason_location_unavailable">Je hebt ‘Synchroniseer op specifieke wifi netwerken’ ingesteld. Android locatiebepaling staat uit en hierdoor mag Syncthing de huidige wifi netwerknaam niet ophalen om te bepalen of het moet synchroniseren. Oplossing: zet locatie aan, geef de app locatie machtiging en verbind opnieuw met wifi.</string>
+    <string name="reason_on_flight_mode">Syncthing synchroniseert omdat je het hebt ingesteld dat dat mag in vliegtuigmodus.</string>
+    <string name="reason_run_condition_monitor_not_instantiated">De syncvoorwaardenmonitor is niet gestart. Herstart de app. Als deze foutmelding daarna niet verdwijnt, rapporteer dan alsjeblieft een bug.</string>
+    <string name="syncthing_active_details">Wordt uitgevoerd: %1$s</string>
+    <string name="qs_force_label">Forceer synchroniseren</string>
+    <string name="qs_forced_to_run">Geforceerd synchroniseren</string>
+    <string name="qs_following_run_conditions">Syncvoorwaarden volgen</string>
+    <string name="qs_schedule_label">Synchroniseer voor 5 minuten</string>
+    <string name="qs_schedule_label_minutes" tools:ignore="PluralsCandidate">Synchroniseer voor %1$d minuten</string>
+    <string name="pull_order_type_newestFirst">Nieuwste eerst</string>
+    <string name="pull_order_type_random_description">Synchroniseer bestanden in willekeurige volgorde.</string>
+    <string name="pull_order_type_alphabetic_description">Synchroniseer bestanden in alfabetische volgorde.</string>
+    <string name="pull_order_type_smallestFirst_description">Synchroniseer de kleinste bestanden eerst.</string>
+    <string name="pull_order_type_largestFirst_description">Synchroniseer de grootste bestanden eerst.</string>
+    <string name="pull_order_type_oldestFirst_description">Synchroniseer bestanden op volgorde van wijzigingsdatum, de oudste bestanden eerst.</string>
+    <string name="pull_order_type_newestFirst_description">Synchroniseer bestanden op volgorde van wijzigingsdatum, de nieuwste bestanden eerst.</string>
+    <string name="file_versioning_generic_description">Syncthing kan oude versies van een bestand bewaren als het bestand wordt gewist of vervangen door een nieuwere versie. Selecteer om de verschillende versiestrategiën te zien. Een versiestrategie wordt per map, op elk apparaat afzonderlijk ingesteld. Geselecteerde strategie:</string>
+    <string name="backup_password_set">✅ Wachtwoord ingesteld: %1$s</string>
+    <string name="backup_password_set_masked">✅ Wachtwoord ingesteld - Tap om te veranderen</string>
+    <string name="backup_password_not_set">⚠ Wachtwoord niet ingesteld.</string>
+    <string name="toggle_password_visibility">Wissel wachtwoord zichtbaarheid</string>
+    <string name="invalid_port_number" tools:ignore="PluralsCandidate">Ongeldig poort nummer. Voer een poort in tussen de %1$d en %2$d.</string>
+    <string name="preference_category_actions">Acties</string>
+    <string name="preference_category_explanation">Uitleg</string>
+    <string name="preference_category_prepare">Voorbereiden</string>
+    <string name="dialog_settings_restart_app_title">Herstart nodig</string>
+    <string name="dialog_settings_restart_app_question">Het veranderen van deze instelling vereist een onmiddellijke herstart van de app. Alle andere veranderingen worden weggegooid. Doorgaan?</string>
+    <string name="pizza_url_title">» Katten houden van pizza « 😺🍕</string>
 </resources>

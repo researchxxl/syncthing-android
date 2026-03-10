@@ -18,7 +18,7 @@ accompanist = "0.37.3"
 activity = "1.12.4"
 androidx-appcompat = "1.7.1"
 android-material = "1.13.0"
-android-gradle-plugin = "9.0.1"
+android-gradle-plugin = "9.1.0"
 compose-material3 = "1.4.0"
 compose-material-icons = "1.7.8"
 compose-ui = "1.10.4"
@@ -27,6 +27,7 @@ core-ktx = "1.17.0"
 dagger = "2.59.2"
 documentfile = "1.1.0"
 fragment-ktx = "1.8.9"
+freedroidwarn = "V1.7"
 gson = "2.13.2"
 guava = "33.5.0-android"
 jbcrypt = "0.4"
@@ -64,6 +65,7 @@ dagger = { module = "com.google.dagger:dagger", version.ref = "dagger" }
 dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
 documentfile = { module = "androidx.documentfile:documentfile", version.ref = "documentfile" }
 fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragment-ktx" }
+freedroidwarn = { module = "com.github.woheller69:FreeDroidWarn", version.ref = "freedroidwarn" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 guava = { module = "com.google.guava:guava", version.ref = "guava" }
 jbcrypt = { module = "org.mindrot:jbcrypt", version.ref = "jbcrypt" }

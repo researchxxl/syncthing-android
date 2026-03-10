@@ -117,11 +117,6 @@ public class Constants {
     public static final String PREF_LAST_RUN_TIME               = "last_run_time";
 
     /**
-     * Important news notification preferences
-     */
-    public static final String PREF_IMPORTANT_NEWS_SHOWN_VERSION = "important_news_shown_version";
-
-    /**
      * Cached device stats.
      */
     public static final String PREF_CACHE_DEVICE_LASTSEEN_PREFIX        = "device_lastseen_";
@@ -151,13 +146,6 @@ public class Constants {
      * Read via REST API call in {@link RestApi#updateDebugFacilitiesCache} after first successful binary startup.
      */
     public static final String PREF_DEBUG_FACILITIES_AVAILABLE  = "debug_facilities_available";
-
-    /**
-     * Available app themes
-     */
-    public static final String APP_THEME_FOLLOW_SYSTEM          = "-1";
-    public static final String APP_THEME_LIGHT                  = "1";
-    public static final String APP_THEME_DARK                   = "2";
 
     /**
      * Available folder types.
