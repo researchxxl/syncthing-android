@@ -239,7 +239,7 @@
     <string name="custom_wifi_ssid_whitelist_empty">لا توجد معرّفات SSID لشبكات Wi-Fi في القائمة البيضاء. يرجى تحديد بعضها في الإعدادات.</string>
     <string name="no_remote_devices_connected">لا توجد أجهزة بعيدة متصلة</string>
     <string name="executable_not_found">الملف التنفيذي الأساسي \"‏‎%s\" مفقود. تحقق من البناء ومخرجات بيانات logcat.</string>
-    <string name="default_android_camera_folder_label">كاميرا أندرويد</string>
+    <string name="default_android_camera_folder_label">آلة تصوير أندرويد</string>
     <string name="notification_persistent_waiting_channel">مراقبة شروط التشغيل</string>
     <string name="restart_title">إعادة التشغيل ضرورية</string>
     <string name="versions_path">مسار الإصدارات</string>
