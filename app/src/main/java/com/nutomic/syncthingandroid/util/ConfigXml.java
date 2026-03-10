@@ -1101,7 +1101,7 @@ public class ConfigXml {
         options.stunKeepaliveMinS = getContentOrDefault(elementOptions.getElementsByTagName("stunKeepaliveMinS").item(0), options.stunKeepaliveMinS);
         options.stunServer = getContentOrDefault(elementOptions.getElementsByTagName("stunServer").item(0), options.stunServer);
         options.maxConcurrentIncomingRequestKiB = getContentOrDefault(elementOptions.getElementsByTagName("maxConcurrentIncomingRequestKiB").item(0), options.maxConcurrentIncomingRequestKiB);
-        options.announceLanAddresses = getContentOrDefault(elementOptions.getElementsByTagName("announceLANAddresses").item(0), options.announceLanAddresses);
+        options.announceLANAddresses = getContentOrDefault(elementOptions.getElementsByTagName("announceLANAddresses").item(0), options.announceLANAddresses);
         options.sendFullIndexOnUpgrade = getContentOrDefault(elementOptions.getElementsByTagName("sendFullIndexOnUpgrade").item(0), options.sendFullIndexOnUpgrade);
         options.featureFlag = getContentOrDefault(elementOptions.getElementsByTagName("featureFlag").item(0), options.featureFlag);
         options.connectionLimitEnough = getContentOrDefault(elementOptions.getElementsByTagName("connectionLimitEnough").item(0), options.connectionLimitEnough);

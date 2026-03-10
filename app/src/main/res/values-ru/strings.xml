@@ -726,15 +726,9 @@ Android требует разрешение доступа к геолокаци
     <string name="category_advanced">Расширенные</string>
     <string name="category_general">Общие</string>
     <string name="allow_overwrite_files_title">Разрешить перезапись существующих файлов</string>
-    <string name="important_news_title">Важные новости - Требуется действие</string>
-    <string name="important_news_description">Пожалуйста, прочитайте наше объявление о том, как продолжить нормально пользоваться приложением на %1$s</string>
-    <string name="important_news_action_open">Открыть в браузере</string>
-    <string name="important_news_action_remind">Напомнить мне позже</string>
-    <string name="important_news_action_no_remind">Отказаться в этот раз</string>
     <string name="close_device_id">Закрыть идентификатор устройства</string>
     <string name="category_battery">Аккумулятор</string>
     <string name="allow_overwrite_files_summary">Когда другое приложение помещает файлы в одну из наших папок.</string>
     <string name="sttrace_none_selected">Отсутствует средство отладки (дебага)</string>
     <string name="state_loading">Загрузка...</string>
-    <string name="important_news_action_view_options">ПРОСМОТРЕТЬ ВАРИАНТЫ</string>
 </resources>
