@@ -754,4 +754,5 @@
     <string name="category_general">Allgemein</string>
     <string name="category_schedule">Planen</string>
     <string name="category_battery">Akku</string>
+    <string name="device_id_qr_code">Geräte ID QR Code</string>
 </resources>
