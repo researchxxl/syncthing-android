@@ -683,4 +683,13 @@
     <string name="allow_overwrite_files_title">Permettre le remplacement de fichiers</string>
     <string name="allow_overwrite_files_summary">Lorsqu\'une autre application partage des fichiers avec un des partages ST.</string>
     <string name="device_id_qr_code">Code QR d\'identification de l\'appareil</string>
+    <string name="copy">Copier</string>
+    <string name="category_wifi">Wi-Fi</string>
+    <string name="category_mobile_data">Données mobiles</string>
+    <string name="category_battery">Batterie</string>
+    <string name="category_schedule">Planifier</string>
+    <string name="category_general">Général</string>
+    <string name="category_connections">Connexions</string>
+    <string name="category_advanced">Avancé</string>
+    <string name="state_loading">Chargement…</string>
 </resources>
