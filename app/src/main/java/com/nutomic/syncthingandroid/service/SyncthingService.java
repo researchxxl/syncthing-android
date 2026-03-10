@@ -1096,13 +1096,13 @@ public class SyncthingService extends Service {
                         case "restartOnWakeup":
                         case "wakelock_while_binary_running":
                         case "use_root":
+                        case "important_news_shown_version":
                             LogV("importConfig: Ignoring deprecated pref \"" + prefKey + "\".");
                             break;
                         // Cached information which is not available on SettingsActivity.
                         case Constants.PREF_BTNSTATE_FORCE_START_STOP:
                         case Constants.PREF_DEBUG_FACILITIES_AVAILABLE:
                         case Constants.PREF_EVENT_PROCESSOR_LAST_SYNC_ID:
-                        case Constants.PREF_IMPORTANT_NEWS_SHOWN_VERSION:
                         case Constants.PREF_LAST_BINARY_VERSION:
                         case Constants.PREF_LOCAL_DEVICE_ID:
                         case Constants.PREF_LAST_RUN_TIME:
