@@ -633,7 +633,6 @@
     <string name="privacy_summary">Syncthing-android 의 개인정보 보호정책 열기. 이곳에는 위치 정보 등 개인 데이터(있는 경우)에 대한 사용 여부 등에 대한 내용을 포함하고 있습니다.</string>
     <string name="open_source_licenses_title">오픈 소스 라이센스</string>
     <string name="open_source_licenses_summary">사용중인 오픈 소스 라이센스 보기</string>
-    <string name="important_news_title">중요 사항 - 작업 조치 필요</string>
     <string name="config_export_successful_no_path">설정 내보내기 완료. 이후 가져오기를 위해 비밀번호를 반드시 기억하십시오.</string>
     <string name="config_import_failed_no_path">설정 가져오기 실패. 설정-문제해결-로그열기 에서 자세한 사항을 볼 수 있습니다.</string>
 </resources>

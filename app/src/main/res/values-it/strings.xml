@@ -755,10 +755,4 @@
     <string name="allow_overwrite_files_summary">Quando un\'altra app condivide file con una delle nostre cartelle.</string>
     <string name="backup_password_set_masked">✅ Password impostata - Tocca per cambiare</string>
     <string name="toggle_password_visibility">Attiva/disattiva la visibilità della password</string>
-    <string name="important_news_title">Notizie importanti - Azione richiesta</string>
-    <string name="important_news_description">Leggi il nostro annuncio su come continuare a utilizzare senza problemi la tua app su %1$s</string>
-    <string name="important_news_action_open">Apri nel browser</string>
-    <string name="important_news_action_remind">Ricordamelo più tardi</string>
-    <string name="important_news_action_no_remind">Ignora per ora</string>
-    <string name="important_news_action_view_options">MOSTRA OPZIONI</string>
 </resources>

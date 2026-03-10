@@ -747,12 +747,6 @@
     <string name="pizza_url_summary">Con un solo toque puedes dejar una cálida porción de bondad aderezadas con extra de buenas vibraciones para mantener a los gatos ronroneando felices.</string>
     <string name="share_log_file_missing">Falta el registro para compartir.</string>
     <string name="share_log_file">Compartir registro</string>
-    <string name="important_news_title">Noticias importantes. Acción requerida</string>
-    <string name="important_news_description">Por favor, lee nuestro anuncio sobre cómo continuar tu experiencia fluida con la app en %1$s</string>
-    <string name="important_news_action_open">Abrir en Navegador</string>
-    <string name="important_news_action_remind">Recordar más tarde</string>
-    <string name="important_news_action_no_remind">Descartar por ahora</string>
-    <string name="important_news_action_view_options">VER OPCIONES</string>
     <string name="allow_overwrite_files_title">Permitir sobreescritura de archivos existentes</string>
     <string name="allow_overwrite_files_summary">Cuando otra aplicación comparte archivos en una de nuestras carpetas.</string>
     <string name="category_wifi">Wi-Fi</string>
