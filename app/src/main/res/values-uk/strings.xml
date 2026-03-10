@@ -640,13 +640,7 @@
     <string name="backup_password_set_masked">✅ Пароль заданий - Натисніть, щоб змінити</string>
     <string name="sttrace_none_selected">Відсутній засіб налагодження (дебага)</string>
     <string name="state_loading">Завантаження...</string>
-    <string name="important_news_title">Важливі новини - Потрібна дія</string>
-    <string name="important_news_action_open">Відкрити в браузері</string>
-    <string name="important_news_action_remind">Нагадати мені пізніше</string>
-    <string name="important_news_action_view_options">ПЕРЕГЛЯНУТИ ВАРІАНТИ</string>
     <string name="category_mobile_data">Мобільний інтернет</string>
     <string name="category_schedule">Розклад</string>
     <string name="toggle_password_visibility">Переключити видимість пароля</string>
-    <string name="important_news_description">Будь ласка, прочитайте наше оголошення про те, як продовжити нормально користуватися застосунком на %1$s</string>
-    <string name="important_news_action_no_remind">Відмовитися цього разу</string>
 </resources>

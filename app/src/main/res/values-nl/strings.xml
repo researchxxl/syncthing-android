@@ -533,7 +533,6 @@
     <string name="config_export_successful_no_path">Instellingenarchief is geëxporteerd. Bewaar het wachtwoord om de instellingen later te kunnen importeren.</string>
     <string name="config_export_failed">Instellingenarchief exporteren is mislukt. Ga naar Instellingen-Probleemoplossing-Log openen om de details te zien.</string>
     <string name="config_import_failed_no_path">Instellingen importeren is mislukt. Ga naar Instellingen-Probleemoplossing-Log openen voor meer details.</string>
-    <string name="important_news_title">Belangrijk nieuws - Actie nodig</string>
     <string name="reason_force_start">Syncthing synchroniseert omdat je een start geforceerd hebt, ongeacht de syncvoorwaarden.</string>
     <string name="reason_force_stop">Syncthing synchroniseert niet omdat je een stop geforceerd hebt, ongeacht de syncvoorwaarden.</string>
     <string name="reason_not_within_time_frame">Je hebt synchronisatie op een tijdschema ingesteld en de laatste sync was korter dan een uur geleden.</string>
@@ -564,8 +563,6 @@
     <string name="qs_following_run_conditions">Syncvoorwaarden volgen</string>
     <string name="qs_schedule_label">Synchroniseer voor 5 minuten</string>
     <string name="qs_schedule_label_minutes" tools:ignore="PluralsCandidate">Synchroniseer voor %1$d minuten</string>
-    <string name="important_news_action_remind">Herinner me later</string>
-    <string name="important_news_action_no_remind">Deze keer negeren</string>
     <string name="pull_order_type_newestFirst">Nieuwste eerst</string>
     <string name="pull_order_type_random_description">Synchroniseer bestanden in willekeurige volgorde.</string>
     <string name="pull_order_type_alphabetic_description">Synchroniseer bestanden in alfabetische volgorde.</string>
