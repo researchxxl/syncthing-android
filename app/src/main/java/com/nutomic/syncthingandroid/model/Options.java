@@ -58,7 +58,7 @@ public class Options {
 
     // Since v1.10.0
     // See https://github.com/syncthing/syncthing/pull/6896
-    public boolean announceLanAddresses = true;
+    public boolean announceLANAddresses = true;
 
     // Since v1.11.0
     // See https://github.com/calmh/syncthing/commit/e57eec8660606fa65fd3080b9c5d98447f54abeb
