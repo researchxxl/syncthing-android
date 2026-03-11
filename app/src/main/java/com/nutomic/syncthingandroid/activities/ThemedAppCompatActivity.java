@@ -3,7 +3,6 @@ package com.nutomic.syncthingandroid.activities;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
-import androidx.activity.EdgeToEdge;
 import androidx.preference.PreferenceManager;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -24,7 +23,6 @@ public abstract class ThemedAppCompatActivity extends AppCompatActivity {
                 Integer.toString(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM))
         );
         AppCompatDelegate.setDefaultNightMode(prefAppTheme);
-        EdgeToEdge.enable(this);
         super.onCreate(savedInstanceState);
     }
 }

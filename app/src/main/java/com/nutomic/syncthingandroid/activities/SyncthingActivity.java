@@ -7,9 +7,9 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 
 import com.nutomic.syncthingandroid.R;
@@ -25,6 +25,14 @@ public abstract class SyncthingActivity extends ThemedAppCompatActivity implemen
     private static final String TAG = "SyncthingActivity";
 
     private SyncthingService mSyncthingService;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // Opt-in to edge-to-edge
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+    }
 
     /**
      * Look for a Toolbar in the layout and bind it as the activity's actionbar with reasonable
