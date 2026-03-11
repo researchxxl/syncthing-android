@@ -40,6 +40,9 @@ project.properties
 gradle/wrapper/gradle/
 gradle/wrapper/gradlew*
 
+# FIXME remove when Gradle Daemon JVM can be auto-provisioned - see configureGradleDaemonJvm()
+gradle/gradle-daemon-jvm.properties
+
 # Go modules
 syncthing/pkg/mod/
 syncthing/pkg/sumdb/
