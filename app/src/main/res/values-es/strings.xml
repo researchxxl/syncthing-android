@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Syncthing-Fork</string>
-    <string name="app_description">Una aplicación de sincronización de ficheros abierta, de confianza y descentralizada.</string>
+    <string name="app_description">Una aplicación de sincronización de archivos abierta, fiable y descentralizada.</string>
     <!-- FirstStartActivity -->
     <!-- Title for dialog displayed on first start -->
-    <string name="welcome_title">Bienvenido a Syncthing para Android</string>
+    <string name="welcome_title">Te damos la bienvenida a Syncthing para Android</string>
     <!-- Welcome wizard -->
     <!-- Slide "Introduction" -->
     <string name="introduction">Introducción</string>
@@ -49,7 +49,7 @@
     <string name="photo_shoot_intro_no_camera">Lo sentimos, este dispositivo no tiene cámara.</string>
     <string name="photo_shoot_intro_missing_permissions">Necesitamos el permiso de almacenamiento y de cámara para continuar.</string>
     <string name="grant_storage_permission">Conceder permiso de almacenamiento</string>
-    <string name="grant_camera_permission">Otorge el permiso de cámara</string>
+    <string name="grant_camera_permission">Conceder permiso de cámara</string>
     <string name="photo_shoot_intro_permission_desc">La cámara de Syncthing requiere tu consentimiento para tomar fotos y almacenarlas en tu dispositivo. Esta función es opcional. Para usarla, concede los permisos y pulsa «Continuar». Configuraremos una carpeta de cámara Syncthing para ti, que podrás compartir con otros dispositivos Syncthing más adelante.</string>
     <string name="photo_shoot_take_picture_success">Foto guardada con éxito en la carpeta de la cámara de Syncthing.</string>
     <string name="photo_shoot_take_picture_failure">No se ha podido tomar una foto o la has cancelado.</string>
@@ -179,7 +179,7 @@
     <!-- Setting title -->
     <string name="devices">Dispositivos</string>
     <!-- Setting title -->
-    <string name="keep_versions">Versiones a mantener</string>
+    <string name="keep_versions">Versiones a conservar</string>
     <!-- Setting title -->
     <string name="delete_folder">Eliminar carpeta</string>
     <!-- Title for FolderSettingsFragment in create mode -->
@@ -527,25 +527,25 @@
     <string name="reason_not_while_auto_sync_data_disabled">Syncthing no se está ejecutando porque Android tiene desactivada la función «Sincronización automática de datos».</string>
     <!-- … Mobile data -->
     <string name="reason_mobile_data_disallowed">Syncthing no está configurado para ejecutarse con datos móviles.</string>
-    <string name="reason_on_mobile_data">Syncthing tiene permitido ejecutarse con datos móviles.</string>
-    <string name="reason_not_on_mobile_data">Syncthing tiene permitido ejecutarse con datos móviles, pero no están activos.</string>
+    <string name="reason_on_mobile_data">Syncthing tiene permiso para ejecutarse con datos móviles.</string>
+    <string name="reason_not_on_mobile_data">Syncthing tiene permitido ejecutarse con datos móviles, pero no hay una conexión de datos móviles activa.</string>
     <!-- … Roaming -->
-    <string name="reason_on_roaming_nonroaming_mobile_data">Syncthing tiene permitido ejecutarse con datos móviles con o sin itinerancia.</string>
-    <string name="reason_on_nonroaming_mobile_data">Syncthing tiene permitido ejecutarse con datos móviles sin itinerancia. La conexión activa es sin itinerancia.</string>
-    <string name="reason_not_nonroaming_mobile_data">Syncthing no se está ejecutando porque no lo permites con datos móviles en itinerancia.</string>
-    <string name="reason_wifi_disallowed">Syncthing no tiene permitido ejecutarse con wifi o ethernet.</string>
-    <string name="reason_on_wifi">Syncthing tiene permitido ejecutarse con wifi y está conectado a una wifi.</string>
-    <string name="reason_not_on_wifi">Syncthing tiene permitido ejecutarse con wifi, pero la wifi no está conectada o el teléfono está en modo avión.</string>
-    <string name="reason_on_metered_nonmetered_wifi">Syncthing tiene permitido ejecutarse con wifi de uso medido y no medido.</string>
-    <string name="reason_on_whitelisted_wifi">Syncthing tiene permitido ejecutarse con la red wifi actual.</string>
-    <string name="reason_not_on_whitelisted_wifi">Syncthing no se está ejecutando porque el nombre de la wifi actual no está en la lista blanca.</string>
-    <string name="reason_on_nonmetered_wifi">Syncthing no tiene permitido ejecutarse con wifi de uso no medido. La wifi activa no es de uso medido.</string>
-    <string name="reason_not_nonmetered_wifi">Syncthing no se está ejecutando porque no lo permites con wifi de uso medido.</string>
-    <string name="reason_location_unavailable">Has activado \"Ejecutar en redes wifi seleccionadas\" en los ajustes. Los servicios de localización de Android están actualmente desactivados. Según las restricciones de Android, Syncthing no puede determinar el nombre de la red wifi actual para decidir si debe ejecutarse. Solución: Activa la ubicación, concede el permiso de ubicación y vuelve a conectar la wifi.</string>
-    <string name="reason_on_flight_mode">Syncthing se está ejecutando porque has permitido hacerlo cuando el modo avión está activado.</string>
-    <string name="reason_run_condition_monitor_not_instantiated">RunConditionMonitor no está instanciado. Por favor, reinicie la aplicación y presente un informe de error si este error no desaparece después del reinicio.</string>
+    <string name="reason_on_roaming_nonroaming_mobile_data">Syncthing tiene permiso para ejecutarse con datos móviles, con o sin itinerancia.</string>
+    <string name="reason_on_nonroaming_mobile_data">Syncthing tiene permiso para ejecutarse con datos móviles sin itinerancia. La conexión activa no está en itinerancia.</string>
+    <string name="reason_not_nonroaming_mobile_data">Syncthing no se está ejecutando porque no has permitido el uso de datos en itinerancia.</string>
+    <string name="reason_wifi_disallowed">Syncthing no tiene permiso para ejecutarse con Wi-Fi o ethernet.</string>
+    <string name="reason_on_wifi">Syncthing tiene permiso para ejecutarse con Wi‑Fi y la conexión Wi‑Fi está activa.</string>
+    <string name="reason_not_on_wifi">Syncthing tiene permiso para ejecutarse con Wi‑Fi, pero la Wi‑Fi no está conectada o el teléfono está en modo avión.</string>
+    <string name="reason_on_metered_nonmetered_wifi">Syncthing tiene permiso para ejecutarse con Wi‑Fi de uso medido y no medido.</string>
+    <string name="reason_on_whitelisted_wifi">Syncthing tiene permiso para ejecutarse en la red Wi‑Fi actual.</string>
+    <string name="reason_not_on_whitelisted_wifi">Syncthing no se está ejecutando porque el nombre de la Wi‑Fi actual no está en la lista de redes permitidas.</string>
+    <string name="reason_on_nonmetered_wifi">Syncthing tiene permiso para ejecutarse con Wi‑Fi de uso no medido. La conexión Wi‑Fi activa no es de uso medido.</string>
+    <string name="reason_not_nonmetered_wifi">Syncthing no se está ejecutando porque no permites su uso con Wi‑Fi de uso medido.</string>
+    <string name="reason_location_unavailable">Has activado «Ejecutar en redes Wi‑Fi seleccionadas» en los ajustes. Los servicios de ubicación de Android están actualmente desactivados. Debido a las restricciones de Android, Syncthing no puede determinar el nombre de la red Wi‑Fi actual para decidir si debe ejecutarse. Solución: activa la ubicación, concede el permiso de ubicación y vuelve a conectar la Wi‑Fi.</string>
+    <string name="reason_on_flight_mode">Syncthing se está ejecutando porque has permitido que se ejecute cuando el modo avión está activado.</string>
+    <string name="reason_run_condition_monitor_not_instantiated">RunConditionMonitor no se ha instanciado. Reinicia la aplicación y envía un informe de error si este problema no desaparece tras el reinicio.</string>
     <!-- Sync Conditions Dialog -->
-    <string name="custom_wifi_ssid_whitelist_empty">Ningún SSID de wifi en la lista blanca. Por favor, especifica alguno en la configuración.</string>
+    <string name="custom_wifi_ssid_whitelist_empty">No hay ningún SSID de Wi‑Fi en la lista de redes permitidas. Especifica alguno en los ajustes.</string>
     <!-- SyncthingService -->
     <!-- Text for the exit button on the drawer -->
     <string name="exit">Salir</string>
@@ -563,36 +563,36 @@
         <item quantity="many">Sincronizando: %1$d%% completado, %2$d dispositivos en línea</item>
         <item quantity="other">Sincronizando: %1$d%% completado, %2$d dispositivos en línea</item>
     </plurals>
-    <string name="syncthing_disabled">Deshabilitado</string>
-    <string name="syncthing_terminated">Cerrado</string>
+    <string name="syncthing_disabled">En reposo</string>
+    <string name="syncthing_terminated">Finalizado</string>
     <!-- Toast shown if syncthing failed to create or read the config -->
-    <string name="executable_not_found">Falta el ejecutable principal \"%s\". Compruebe la salida de build y logcat.</string>
-    <string name="config_create_failed">No se ha podido crear la configuración. Compruebe la salida de logcat.</string>
-    <string name="config_read_failed">No se ha podido leer la configuración. Considere hacer una copia de seguridad de los datos de sus carpetas sincronizadas, luego borre los datos de esta aplicación desde los ajustes de Android y láncela de nuevo.</string>
+    <string name="executable_not_found">Falta el ejecutable principal «%s». Revisa la compilación y la salida de logcat.</string>
+    <string name="config_create_failed">No se ha podido crear la configuración. Revisa la salida de logcat.</string>
+    <string name="config_read_failed">No se pudo leer la configuración. Haz una copia de seguridad de los datos de tus carpetas sincronizadas, luego borra los datos de esta aplicación desde los ajustes de Android y ábrela de nuevo.</string>
     <!-- Toast shown if a config file crucial to operation is missing -->
-    <string name="config_file_missing">Falta un archivo de configuración crucial para el funcionamiento</string>
+    <string name="config_file_missing">Falta un archivo de configuración esencial para el funcionamiento</string>
     <!-- Toast shown if a listening tcp port is unavailable -->
-    <string name="webui_tcp_port_unavailable">Puerto TCP %s de la interfaz web ocupado. ¿Segunda instancia\?</string>
+    <string name="webui_tcp_port_unavailable">El puerto TCP %s de la interfaz web está ocupado. ¿Hay otra instancia en ejecución?</string>
     <!-- Label of the default folder created of first start (camera folder). -->
-    <string name="default_android_camera_folder_label">Android Cámara</string>
+    <string name="default_android_camera_folder_label">Cámara de Android</string>
     <!-- ID of the default folder created on first start (camera folder). Must only contain 'a-z0-9_-'. Parameter is the device name-->
     <string name="default_folder_id">%1$s-fotos</string>
-    <string name="notification_crash_title">Error (con código %1$s)</string>
-    <string name="notification_crash_text">Pulsa para ver los registros (%1$s)</string>
-    <string name="notifications_persistent_channel">Syncthing está activo</string>
-    <string name="notification_persistent_waiting_channel">Monitoreando condiciones de ejecución</string>
+    <string name="notification_crash_title">Cierre inesperado (código de salida %1$s)</string>
+    <string name="notification_crash_text">Toca para ver los registros (%1$s)</string>
+    <string name="notifications_persistent_channel">Syncthing activo</string>
+    <string name="notification_persistent_waiting_channel">Supervisando condiciones de ejecución</string>
     <string name="notifications_other_channel">Otras notificaciones</string>
     <!-- EventProcessor -->
     <string name="notification_out_of_disk_space">La tarjeta SD está llena. Archivo %1$s</string>
     <!-- RestApi -->
     <!-- Title of the notification shown when a restart is needed -->
-    <string name="restart_title">Es necesario reiniciar</string>
+    <string name="restart_title">Reinicio necesario</string>
     <!-- Text for positive button in restart dialog -->
     <!-- Text for the dismiss button of the restart Activity -->
     <!-- Text of the notification shown when a restart is needed -->
-    <string name="restart_notification_text">Haga clic aquí para reiniciar Syncthing ahora</string>
+    <string name="restart_notification_text">Toca aquí para reiniciar Syncthing ahora</string>
     <!-- Shown when a device ID is copied to the clipboard -->
-    <string name="device_id_copied_to_clipboard">ID de dispositivo copiado al portapapeles</string>
+    <string name="device_id_copied_to_clipboard">ID del dispositivo copiado al portapapeles</string>
     <!-- Strings representing units for file sizes, from smallest to largest -->
     <string name="file_size_unit_B">B</string>
     <string name="file_size_unit_KiB">KiB</string>
@@ -607,70 +607,70 @@
     <string name="transfer_rate_unit_TiB_s">TiB/s</string>
     <!-- Possible folder states -->
     <string name="state_failed_items">Elementos Fallidos (%1$d)</string>
-    <string name="state_up_to_date">Actualizado</string>
-    <string name="state_local_additions">Adiciones Locales</string>
-    <string name="state_cleaning">Limpiando Versiones</string>
-    <string name="state_clean_waiting">Esperando para Limpiar</string>
+    <string name="state_up_to_date">Sincronizado</string>
+    <string name="state_local_additions">Cambios locales</string>
+    <string name="state_cleaning">Limpiando versiones</string>
+    <string name="state_clean_waiting">Esperando para limpiar</string>
     <string name="state_scanning">Escaneando</string>
-    <string name="state_scan_waiting">Esperando para Escanear</string>
-    <string name="state_sync_waiting">Esperando para Sincronizar</string>
-    <string name="state_sync_preparing">Preparándose para Sincronizar</string>
-    <string name="state_syncing_general">Sincronizado</string>
+    <string name="state_scan_waiting">Esperando para escanear</string>
+    <string name="state_sync_waiting">Esperando para sincronizar</string>
+    <string name="state_sync_preparing">Preparándose para sincronizar</string>
+    <string name="state_syncing_general">Sincronizando</string>
     <string name="state_syncing">Sincronizando (%1$d%%)</string>
     <string name="state_error">Error</string>
     <string name="state_error_message">Error (%1$s)</string>
     <string name="state_unknown">Desconocido</string>
-    <string name="state_paused">Pausado</string>
+    <string name="state_paused">En pausa</string>
     <string name="status_outofsync">No sincronizado</string>
     <string name="state_unshared">No compartido</string>
     <!-- Format string for folder size, eg "500 MiB / 1 GiB" -->
     <string name="folder_size_format">%1$s / %2$s</string>
     <!-- Titles used in the folder type dialog and folder type button in the folder activity -->
-    <string name="folder_type">Tipo de Carpeta</string>
+    <string name="folder_type">Tipo de carpeta</string>
     <!-- Displays the current folder type in the folder activity -->
-    <string name="folder_type_sendreceive">Enviar y Recibir</string>
-    <string name="folder_type_sendonly">Sólo Enviar</string>
-    <string name="folder_type_receiveonly">Sólo Recibir</string>
-    <string name="folder_type_receive_encrypted">Recibir Encriptado</string>
+    <string name="folder_type_sendreceive">Enviar y recibir</string>
+    <string name="folder_type_sendonly">Solo enviar</string>
+    <string name="folder_type_receiveonly">Solo recibir</string>
+    <string name="folder_type_receive_encrypted">Recibir cifrado</string>
     <!-- Folder type dialog descriptions for folder types -->
     <string name="folder_type_sendreceive_description">La carpeta enviará y recibirá cambios de los dispositivos remotos.</string>
-    <string name="folder_type_sendonly_description">Los archivos están protegidos de los cambios en los demás dispositivos, pero los cambios realizados en este se enviarán al resto.</string>
+    <string name="folder_type_sendonly_description">Los archivos están protegidos frente a los cambios realizados en otros dispositivos, pero los cambios hechos en este dispositivo se enviarán al resto del clúster.</string>
     <string name="folder_type_receiveonly_description">Los archivos se sincronizan desde el clúster, pero cualquier cambio realizado localmente no se enviará a otros dispositivos.</string>
-    <string name="folder_type_receive_encrypted_description">Almacena y sincroniza solo datos encriptados. Las carpetas de todos los dispositivos conectados deben estar configuradas con la misma contraseña o ser también del tipo \"Recibir Encriptado\".</string>
+    <string name="folder_type_receive_encrypted_description">Almacena y sincroniza solo datos cifrados. Las carpetas de todos los dispositivos conectados deben estar configuradas con la misma contraseña o ser también del tipo «Recibir cifrado».</string>
     <!-- Titles used in the pull order dialog and pull order button in the folder activity -->
-    <string name="pull_order">Orden de Obtención de los Archivos</string>
+    <string name="pull_order">Orden de obtención de archivos</string>
     <!-- Displays the current pull order type in the Folder activity -->
     <string name="pull_order_type_random">Aleatorio</string>
     <string name="pull_order_type_alphabetic">Alfabético</string>
-    <string name="pull_order_type_smallestFirst">Más Pequeños Primero</string>
-    <string name="pull_order_type_largestFirst">Más Grandes Primero</string>
-    <string name="pull_order_type_oldestFirst">Más Antiguos Primero</string>
-    <string name="pull_order_type_newestFirst">Más Nuevos Primero</string>
+    <string name="pull_order_type_smallestFirst">Más pequeños primero</string>
+    <string name="pull_order_type_largestFirst">Más grandes primero</string>
+    <string name="pull_order_type_oldestFirst">Más antiguos primero</string>
+    <string name="pull_order_type_newestFirst">Más nuevos primero</string>
     <!-- Pull order dialog descriptions for pull order types -->
-    <string name="pull_order_type_random_description">Obtiene los archivos aleatoriamente.</string>
-    <string name="pull_order_type_alphabetic_description">Obtiene los archivos por orden alfabético del nombre.</string>
-    <string name="pull_order_type_smallestFirst_description">Obtiene los archivos por orden de tamaño. Más pequeños primero.</string>
-    <string name="pull_order_type_largestFirst_description">Obtiene los archivos por orden de tamaño. Más grandes primero.</string>
-    <string name="pull_order_type_oldestFirst_description">Obtiene los archivos por orden de tiempo de modificación. Más antiguos primero.</string>
-    <string name="pull_order_type_newestFirst_description">Obtiene los archivos por orden de tiempo de modificación. Más nuevos primero.</string>
+    <string name="pull_order_type_random_description">Obtiene los archivos en orden aleatorio.</string>
+    <string name="pull_order_type_alphabetic_description">Obtiene los archivos en orden alfabético por nombre.</string>
+    <string name="pull_order_type_smallestFirst_description">Obtiene los archivos en orden de tamaño, empezando por los más pequeños.</string>
+    <string name="pull_order_type_largestFirst_description">Obtiene los archivos en orden de tamaño, empezando por los más grandes.</string>
+    <string name="pull_order_type_oldestFirst_description">Obtiene los archivos en orden de tiempo de modificación, empezando por los más antiguos.</string>
+    <string name="pull_order_type_newestFirst_description">Obtiene los archivos en orden de tiempo de modificación, empezando por los más nuevos.</string>
     <!-- Titles used in the file versioning dialog and file versioning button in the folder activity -->
-    <string name="maximum_age">Antigüedad Máxima</string>
-    <string name="clean_out_after">Limpiar luego</string>
-    <string name="file_versioning">Versionado de Archivos</string>
-    <string name="file_versioning_generic_description">Syncthing permite archivar la versión antigua de un archivo cuando se elimina o se sustituye por una versión más reciente desde el clúster. Pulsa para ver las estrategias de versionado disponibles. El versionado de archivos se configura por carpeta, en función de cada dispositivo. Estrategia seleccionada:</string>
-    <string name="none">Ninguno/a</string>
-    <string name="versions_path">Ruta de Versiones</string>
+    <string name="maximum_age">Antigüedad máxima</string>
+    <string name="clean_out_after">Limpiar después de</string>
+    <string name="file_versioning">Versionado de archivos</string>
+    <string name="file_versioning_generic_description">Syncthing permite archivar la versión anterior de un archivo cuando se elimina o se sustituye por otra más reciente procedente del clúster. Toca para ver las estrategias de versionado disponibles. El versionado de archivos se configura por carpeta y por dispositivo. Estrategia seleccionada:</string>
+    <string name="none">Ninguno</string>
+    <string name="versions_path">Ruta de versiones</string>
     <string name="command">Comando</string>
     <!-- File versioning dialog descriptions for file versioning types and file versioning configuration options. -->
-    <string name="keep_versions_description">Número de versiones antiguas para conservar por archivo.</string>
-    <string name="simple_file_versioning_description">Los archivos se mueven a versiones fechadas en un directorio .stversions cuando son reemplazados o eliminados por Syncthing.</string>
-    <string name="trashcan_versioning_description">Los archiovs se mueven al directorio .stversions cuando son reemplazados o eliminados por Syncthing.</string>
-    <string name="staggered_versioning_description">Los archivos se mueven a versiones fechadas en un directorio .stversions cuando son reemplazados o eliminados por Syncthing. Las versiones se eliminan automáticamente si son más antiguas que la edad máxima o exceden el número de archivos permitidos en un intervalo. \n \nSe usan los siguientes intervalos: durante la primera hora se mantiene una versión cada 30 segundos, durante el primer día se mantiene una versión cada hora, durante los primeros 30 días se mantiene una versión cada día, y hasta llegar a la edad máxima se mantiene una versión cada semana.</string>
-    <string name="maximum_age_description">El tiempo máximo de conservación de una versión (en días, ingrese 0 para conservar las versiones para siempre).</string>
-    <string name="versions_path_description">Ruta donde se deben almacenar las versiones (dejar vacío para usar el directorio .stversions predeterminado en la carpeta compartida).</string>
-    <string name="cleanout_after_description">El número de días para guardar los archivos en la papelera. Cero significa para siempre</string>
-    <string name="external_versioning_description">El primer parámetro de línea de comandos es la ruta de la carpeta y el segundo parámetro es la ruta relativa en la carpeta.</string>
-    <string name="no_versioning_description">Seleccione un tipo de versionado para habilitar el versionado.</string>
+    <string name="keep_versions_description">Número de versiones antiguas que se conservarán por cada archivo.</string>
+    <string name="simple_file_versioning_description">Los archivos se mueven al directorio .stversions con una marca de fecha cuando Syncthing los reemplaza o elimina.</string>
+    <string name="trashcan_versioning_description">Los archivos se mueven al directorio .stversions cuando son reemplazados o eliminados por Syncthing.</string>
+    <string name="staggered_versioning_description">Los archivos se mueven al directorio .stversions como versiones con una marca de fecha cuando Syncthing los reemplaza o elimina. Las versiones se eliminan automáticamente si superan la antigüedad máxima o si exceden el número de archivos permitido en un intervalo.\n\nSe aplican los siguientes intervalos: durante la primera hora se conserva una versión cada 30 segundos; durante el primer día, una versión cada hora; durante los primeros 30 días, una versión cada día; y hasta alcanzar la antigüedad máxima, una versión cada semana.</string>
+    <string name="maximum_age_description">Tiempo máximo durante el que se conservará una versión (en días; establece 0 para conservar las versiones para siempre).</string>
+    <string name="versions_path_description">Ruta donde se almacenarán las versiones (déjalo vacío para usar el directorio .stversions predeterminado en la carpeta compartida).</string>
+    <string name="cleanout_after_description">Número de días durante los que se conservarán los archivos en la papelera. Cero significa para siempre</string>
+    <string name="external_versioning_description">El primer parámetro de la línea de comandos es la ruta de la carpeta y el segundo es la ruta relativa dentro de ella.</string>
+    <string name="no_versioning_description">Selecciona un tipo de versionado para activar el versionado.</string>
     <!-- Displays the current file versioning type in the Folder activity -->
     <string name="type_simple">Tipo: Simple</string>
     <string name="type_trashcan">Tipo: Papelera</string>
@@ -678,25 +678,24 @@
     <string name="type_external">Tipo: Externo</string>
     <!-- Information displayed about the current file versioning configuration in the folder activity -->
     <string name="trashcan_versioning_info">Limpiar después de: %1$s</string>
-    <string name="staggered_versioning_info">Antigüedad Máxima: %1$d
-\nRuta de Versiones: %2$s</string>
+    <string name="staggered_versioning_info">Antigüedad máxima: %1$d \nRuta de versiones: %2$s</string>
     <string name="external_versioning_info">Comando: %1$s</string>
-    <string name="simple_versioning_info">Conservar versiones: %1$s</string>
-    <string name="show_device_id">ID del dispositivo</string>
+    <string name="simple_versioning_info">Versiones a conservar: %1$s</string>
+    <string name="show_device_id">Mostrar ID del dispositivo</string>
     <!-- error message if the deviceID/QRCode dialog for some reason cannot be displayed.-->
-    <string name="could_not_access_deviceid">No se puede acceder al ID del dispositivo.</string>
-    <string name="browse">Navegar</string>
+    <string name="could_not_access_deviceid">No se ha podido acceder al ID del dispositivo.</string>
+    <string name="browse">Explorar</string>
     <string name="no_sub_folder_is_selected">Ninguna subcarpeta seleccionada</string>
-    <string name="share_device_id_chooser">Compartir ID del dispositivo con</string>
-    <string name="run_on_whitelisted_wifi_summary">Activa la lista blanca para restringir la sincronización a las redes wifi especificadas.</string>
+    <string name="share_device_id_chooser">Compartir el ID del dispositivo con</string>
+    <string name="run_on_whitelisted_wifi_summary">Activa la lista de redes permitidas para limitar la sincronización a las Wi‑Fi especificadas.</string>
     <string name="custom_sync_conditions_title">Condiciones de sincronización personalizadas</string>
-    <string name="custom_sync_conditions_description">Permite especificar excepciones a las condiciones globales de ejecución.</string>
-    <string name="custom_sync_conditions_dialog">Especificar condiciones de sincronización</string>
+    <string name="custom_sync_conditions_description">Permite definir excepciones a las condiciones globales de ejecución.</string>
+    <string name="custom_sync_conditions_dialog">Definir condiciones de sincronización</string>
     <!-- Quick Setting icon names and labels -->
-    <string name="qs_force_label">Ejecutar forzosamente</string>
-    <string name="qs_forced_to_run">Forzado a ejecutarse</string>
-    <string name="qs_forced_to_stop">Forzado a detenerse</string>
-    <string name="qs_following_run_conditions">Siguiendo las condiciones de ejecución</string>
+    <string name="qs_force_label">Forzar ejecución</string>
+    <string name="qs_forced_to_run">Ejecución forzada</string>
+    <string name="qs_forced_to_stop">Detención forzada</string>
+    <string name="qs_following_run_conditions">Cumpliendo las condiciones de ejecución</string>
     <string name="qs_schedule_label">Ejecutar durante 5 minutos</string>
     <string name="qs_schedule_disabled">Horario desactivado</string>
     <string name="notification_permission_title">Permiso de notificación</string>
