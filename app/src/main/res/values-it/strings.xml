@@ -4,7 +4,7 @@
     <string name="app_description">Un\'applicazione affidabile, decentralizzata e aperta per la sincronizzazione di file.</string>
     <!-- FirstStartActivity -->
     <!-- Title for dialog displayed on first start -->
-    <string name="welcome_title">Benvenuto in Syncthing per Android</string>
+    <string name="welcome_title">Benvenuti in Syncthing per Android</string>
     <!-- Welcome wizard -->
     <!-- Slide "Introduction" -->
     <string name="introduction">Introduzione</string>
@@ -39,14 +39,14 @@
     <string name="accept">Accetta</string>
     <string name="ignore">Ignora</string>
     <string name="page_x_of_y">Pagina %1$s di %2$s</string>
-    <string name="main_menu">Menu Principale</string>
+    <string name="main_menu">Menu principale</string>
     <string name="refresh">Aggiorna</string>
     <!-- PhotoShootActivity -->
     <string name="photo_shoot_launcher_title">Sync. Camera</string>
     <string name="photo_shoot_activity_title">Fotocamera Syncthing-Fork</string>
     <string name="photo_shoot_intro_welcome_title">Benvenuto in Fotocamera Syncthing</string>
     <string name="photo_shoot_intro_permission_title">Permessi necessari</string>
-    <string name="photo_shoot_intro_no_camera">Purtroppo questo dispositivo non ha una fotocamera.</string>
+    <string name="photo_shoot_intro_no_camera">Questo dispositivo non ha una fotocamera.</string>
     <string name="photo_shoot_intro_missing_permissions">Sono necessari i permessi di memoria e fotocamera per continuare.</string>
     <string name="grant_storage_permission">Concedi permesso memoria</string>
     <string name="grant_camera_permission">Concedi permesso fotocamera</string>
