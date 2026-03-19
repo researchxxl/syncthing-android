@@ -73,9 +73,7 @@
     <!-- Shown in the chooser dialog when sharing a Device ID -->
     <string name="send_device_id_to">将设备 ID 发送至</string>
     <string name="usage_reporting_dialog_title">允许发送匿名使用报告吗？</string>
-    <string name="usage_reporting_dialog_description">加密的使用情况报告每天发送一次。它用于跟踪常见平台、文件夹大小和应用版本。如果报告的数据集发生更改，系统将再次弹出此对话框提示您。
-\n
-\n综合统计数据可在以下网址公开获取 https://data.syncthing.net 。</string>
+    <string name="usage_reporting_dialog_description">加密的使用情况报告每天发送一次。它用于跟踪常见平台、文件夹大小和应用版本。如果报告的数据集发生更改，系统将再次弹出此对话框提示您。 \n \n综合统计数据可在以下网址公开获取 https://data.syncthing.net 。</string>
     <string name="yes">是</string>
     <string name="no">否</string>
     <string name="open_website">打开网站</string>
@@ -100,7 +98,7 @@
     <string name="revert_local_changes">还原本地更改</string>
     <string name="delete_unexpected_items">删除意外项目</string>
     <!-- Revert Local Changes Confirmation Dialog -->
-    <string name="revert_local_changes_question">这将撤销在此设备的该文件夹内所做的所有更改。继续吗\?</string>
+    <string name="revert_local_changes_question">这将撤销在此设备的该文件夹内所做的所有更改。继续吗?</string>
     <string name="open_file_manager">打开文件管理器</string>
     <string name="open_file_with">文件打开方式</string>
     <string name="open_file_no_compatible_app">没找到用于打开该文件的应用。</string>
@@ -113,8 +111,7 @@
     <!-- Shown if no devices are configured in add folder dialog -->
     <string name="devices_list_empty">未配置任何设备。点击以添加新设备。</string>
     <!-- Shown in ListView if no devices are configured -->
-    <string name="no_devices_configured">未配置任何设备。
-\n现在开始添加设备。</string>
+    <string name="no_devices_configured">未配置任何设备。 \n现在开始添加设备。</string>
     <string name="deviceEncryptionPasswordHint">如果不受信任，请输入加密密码</string>
     <!-- Indicates that a folder is fully synced to the local device -->
     <string name="device_up_to_date">最新</string>
@@ -142,10 +139,8 @@
     <!-- StatusFragment -->
     <string name="status_fragment_title">状态</string>
     <string name="button_follow_run_conditions">遵循运行条件</string>
-    <string name="button_force_start">强制启动
-\n忽略运行条件</string>
-    <string name="button_force_stop">强制停止
-\n忽略运行条件</string>
+    <string name="button_force_start">强制启动 \n忽略运行条件</string>
+    <string name="button_force_stop">强制停止 \n忽略运行条件</string>
     <string name="syncthing_starting">Syncthing 正在启动。</string>
     <string name="syncthing_running">Syncthing 正在运行。</string>
     <string name="syncthing_not_running">Syncthing 未运行。</string>
@@ -413,15 +408,13 @@
     <!-- Title for the preference to reset Syncthing indexes -->
     <string name="st_reset_database_title">重置数据库</string>
     <!-- Syncthing was reset -->
-    <string name="st_reset_database_question">此操作只能根据我们的支持团队的建议执行。
-\n是否确定要清除 Syncthing 的数据库？</string>
+    <string name="st_reset_database_question">此操作只能根据我们的支持团队的建议执行。 \n是否确定要清除 Syncthing 的数据库？</string>
     <!-- Syncthing was reset -->
     <string name="st_reset_database_done">已成功重置 Syncthing 的数据库</string>
     <!-- Title for the preference to reset Syncthing indexes -->
     <string name="st_reset_deltas_title">重置增量索引</string>
     <!-- Syncthing was reset -->
-    <string name="st_reset_deltas_question">此操作只能根据我们的支持团队的建议执行。
-\n是否确定要清除 Syncthing 的增量索引？</string>
+    <string name="st_reset_deltas_question">此操作只能根据我们的支持团队的建议执行。 \n是否确定要清除 Syncthing 的增量索引？</string>
     <!-- Syncthing was reset -->
     <string name="st_reset_deltas_done">已成功重置 Syncthing 的增量索引</string>
     <string name="category_about">关于</string>
@@ -658,9 +651,7 @@
     <string name="keep_versions_description">每个文件要保留的旧版本数。</string>
     <string name="simple_file_versioning_description">当 Syncthing 替换或删除文件时，文件将移动到 .stversions 目录中，并在文件名中加入时间戳信息。</string>
     <string name="trashcan_versioning_description">当 Syncthing 替换或删除文件时，文件将移动到 .stversions 目录。</string>
-    <string name="staggered_versioning_description">当 Syncthing 替换或删除文件时，文件将移动到 .stversions 目录中，并在文件名中加入时间戳信息。若文件的某些版本超过最长保留时间，或者在某一间隔内保存了过多版本的相同文件，这些版本的文件将会自动删除。
-\n
-\n使用以下间隔：最近一小时内的历史版本，更新间隔小于三十秒的仅保留一份。最近一天内的历史版本，更新间隔小于一小时的仅保留一份。最近一个月内的历史版本，更新间隔小于一天的仅保留一份。距离现在超过一个月且小于最长保留时间的，更新间隔小于一周的仅保留一份。</string>
+    <string name="staggered_versioning_description">当 Syncthing 替换或删除文件时，文件将移动到 .stversions 目录中，并在文件名中加入时间戳信息。若文件的某些版本超过最长保留时间，或者在某一间隔内保存了过多版本的相同文件，这些版本的文件将会自动删除。 \n \n使用以下间隔：最近一小时内的历史版本，更新间隔小于三十秒的仅保留一份。最近一天内的历史版本，更新间隔小于一小时的仅保留一份。最近一个月内的历史版本，更新间隔小于一天的仅保留一份。距离现在超过一个月且小于最长保留时间的，更新间隔小于一周的仅保留一份。</string>
     <string name="maximum_age_description">历史版本保留的最长天数，0 为永久保存。</string>
     <string name="versions_path_description">历史版本储存路径（留空则会默认存储在共享文件夹中的 .stversions 目录）。</string>
     <string name="cleanout_after_description">文件保存在回收站的天数。0 表示永久</string>
@@ -673,8 +664,7 @@
     <string name="type_external">类型：外部</string>
     <!-- Information displayed about the current file versioning configuration in the folder activity -->
     <string name="trashcan_versioning_info">在该时间后清除：%1$s</string>
-    <string name="staggered_versioning_info">最长保留时间：%1$d
-\n历史版本路径：%2$s</string>
+    <string name="staggered_versioning_info">最长保留时间：%1$d \n历史版本路径：%2$s</string>
     <string name="external_versioning_info">命令：%1$s</string>
     <string name="simple_versioning_info">保留版本数量：%1$s</string>
     <string name="show_device_id">显示设备 ID</string>
