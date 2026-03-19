@@ -36,7 +36,7 @@
     <!-- Indicates that a folder is fully synced to the local device -->
     <string name="device_up_to_date">Синхронизирано</string>
     <!-- Indicates that the device is currently syncing. Parameter is sync percentage -->
-    <string name="device_syncing">Синхронизиране (%1$d %%)</string>
+    <string name="device_syncing">Синхронизиране (%1$d %%)</string>
     <!-- Indicates that there is no connection to the device -->
     <string name="device_disconnected">Няма връзка</string>
     <!-- Indicates that the device connection is unknown -->
@@ -55,7 +55,7 @@
     <!-- Title for announce server status -->
     <string name="announce_server">Сървър за откриване на устройства</string>
     <string name="restart">Рестартиране</string>
-    <string name="dialog_confirm_restart">Желаете ли Syncthing да бъде рестартиран\?</string>
+    <string name="dialog_confirm_restart">Желаете ли Syncthing да бъде рестартиран?</string>
     <!-- FolderActivity -->
     <!-- Setting title -->
     <string name="folder_id">Идентификатор на папката</string>
@@ -81,7 +81,7 @@
     <string name="folder_id_required">Идентификаторът на папката не може да бъде празен</string>
     <!-- Toast shown when trying to create a folder with an empty path -->
     <string name="folder_path_required">Пътят до папката не може да бъде празен</string>
-    <string name="dialog_discard_changes">Отказвате ли се от направените промени\?</string>
+    <string name="dialog_discard_changes">Отказвате ли се от направените промени?</string>
     <!-- DeviceActivity -->
     <!-- Setting title -->
     <string name="device_id">Идентификатор на устройството</string>
@@ -206,7 +206,7 @@
     <string name="transfer_rate_unit_GiB_s">ГБ/с</string>
     <string name="transfer_rate_unit_TiB_s">ТБ/с</string>
     <string name="state_scanning">Обхождане</string>
-    <string name="state_syncing">Синхронизиране (%1$d %%)</string>
+    <string name="state_syncing">Синхронизиране (%1$d %%)</string>
     <string name="state_error">Грешка</string>
     <string name="state_unknown">Неизвестно</string>
     <string name="status_outofsync">Несинхронизирано</string>
@@ -309,7 +309,7 @@
     </plurals>
     <string name="delete_unexpected_items">Премахване на неочаквани елементи</string>
     <string name="open_file_with">Отваряне от</string>
-    <string name="device_syncing_percent_bytes">Синхронизиране (%1$d %%, %2$s)</string>
+    <string name="device_syncing_percent_bytes">Синхронизиране (%1$d %%, %2$s)</string>
     <string name="device_disconnected_not_synced">Изключено (%1$s на изчакване)</string>
     <string name="device_paused">На пауза</string>
     <string name="device_state_unused">Неизползвано</string>
@@ -329,7 +329,7 @@
     <string name="versioning_type_none">Изключено</string>
     <plurals name="syncthing_active_syncing_device_online">
         <item quantity="one">Syncing: %1$d %% готови, %2$d свързано у-во</item>
-        <item quantity="other">Syncing: %1$d %% готови, %2$d свързани у-ва</item>
+        <item quantity="other">Syncing: %1$d %% готови, %2$d свързани у-ва</item>
     </plurals>
     <string name="syncthing_disabled">Почива</string>
     <string name="folder_type_receiveonly">Само получава</string>
@@ -621,7 +621,7 @@
     <string name="config_export_successful_no_path">Настройките са изнесени. Запомнете паролата при последващо внасяне.</string>
     <string name="share_log_file_missing">Дневникът, който ще споделяте липсва.</string>
     <string name="backup_password_summary">ℹ️ Препоръчително:\nВъведете силна парола, която ще бъде използвана за шифроване на настройките при изнасяне и разшифроване при внасяне. Пазете паролата на сигурно място, в случай на необходимост от внасяне на настройките. Трябва да използвате възможността за внасяне.\n\n⚠️ Непрепоръчително:\nДа не използвате парола. В този случай е възможно други приложения да получат достъп и да променят настройките на Syncthing. Достъпът до настройките носи риска от несанкциониран достъп до вашите файлове, използвайки откраднатите настройки.</string>
-    <string name="backup_password_set_masked">✅ Паролата е зададена - докоснете за промяна</string>
+    <string name="backup_password_set_masked">✅ Паролата е зададена - докоснете за промяна</string>
     <string name="toggle_password_visibility">Превключване видимостта на паролата</string>
     <string name="allow_overwrite_files_title">Презаписване на съществуващи файлове</string>
     <string name="allow_overwrite_files_summary">Когато друго приложение споделя файлове в някоя от управляваните папки.</string>
