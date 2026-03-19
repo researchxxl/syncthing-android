@@ -18,10 +18,8 @@
     <string name="share_device_id">Sdílet ID přístroje</string>
     <!-- Shown in the chooser dialog when sharing a Device ID -->
     <string name="send_device_id_to">Poslat ID přístroje přes</string>
-    <string name="usage_reporting_dialog_title">Povolit anonymní hlášení o používání\?</string>
-    <string name="usage_reporting_dialog_description">Zašifrované hlášení o používání je odesíláno denně. Je použito k zjišťování obvyklých platforem, velikosti adresářů a verzi aplikace. Pokud se změní množství odesílaných detailů, budete znovu upozorněni tímto dialogem.
-\n
-\nSouhrnné statistiky jsou veřejně dostupné na https://data.syncthing.net.</string>
+    <string name="usage_reporting_dialog_title">Povolit anonymní hlášení o používání?</string>
+    <string name="usage_reporting_dialog_description">Zašifrované hlášení o používání je odesíláno denně. Je použito k zjišťování obvyklých platforem, velikosti adresářů a verzi aplikace. Pokud se změní množství odesílaných detailů, budete znovu upozorněni tímto dialogem. \n \nSouhrnné statistiky jsou veřejně dostupné na https://data.syncthing.net.</string>
     <string name="yes">Ano</string>
     <string name="no">Ne</string>
     <string name="open_website">Otevřít webovou stránku</string>
@@ -66,7 +64,7 @@
     <!-- Title for announce server status -->
     <string name="announce_server">Globální oznamování</string>
     <string name="restart">Restartovat</string>
-    <string name="dialog_confirm_restart">Opravdu chcete restartovat Syncthing\?</string>
+    <string name="dialog_confirm_restart">Opravdu chcete restartovat Syncthing?</string>
     <!-- FolderActivity -->
     <!-- Setting title -->
     <string name="folder_id">ID složky</string>
@@ -295,9 +293,7 @@
     <string name="keep_versions_description">Počet udržovaných starších verzí souboru.</string>
     <string name="simple_file_versioning_description">Po nahrazení nebo smazání aplikací Syncthing jsou soubory přesunuty do verzí označených daty ve složce .stversions.</string>
     <string name="trashcan_versioning_description">Po nahrazení nebo smazání aplikací Syncthing jsou soubory přesunuty do složky .stversions.</string>
-    <string name="staggered_versioning_description">Po nahrazení nebo smazání aplikací Syncthing jsou soubory přesunuty do verzí označených daty ve složce .stversions. Verze jsou automaticky smazány, pokud jsou starší než maximální časový limit nebo překročí počet souborů povolených pro interval.
-\n
-\nJsou použity následující intervaly: za první hodinu jsou ponechány verze pro každých 30 sekund, za první den jsou ponechány verze pro každou hodinu, za prvních 30 dní jsou ponechány verze pro každý den a do nejvyššího nastaveného stáří jsou ponechány verze pro každý týden.</string>
+    <string name="staggered_versioning_description">Po nahrazení nebo smazání aplikací Syncthing jsou soubory přesunuty do verzí označených daty ve složce .stversions. Verze jsou automaticky smazány, pokud jsou starší než maximální časový limit nebo překročí počet souborů povolených pro interval. \n \nJsou použity následující intervaly: za první hodinu jsou ponechány verze pro každých 30 sekund, za první den jsou ponechány verze pro každou hodinu, za prvních 30 dní jsou ponechány verze pro každý den a do nejvyššího nastaveného stáří jsou ponechány verze pro každý týden.</string>
     <string name="maximum_age_description">Maximální doba pro zachování verze (dny, zapsáním hodnoty 0 bude ponecháno navždy).</string>
     <string name="versions_path_description">Cesta pro ukládání verzí (ponechte prázdné pro výchozí adresář .stversions ve sdíleném adresáři).</string>
     <string name="cleanout_after_description">Počet dní, po který budou soubory uchovány v koši. Nula znamená navždy</string>
@@ -310,8 +306,7 @@
     <string name="type_external">Typ: Externí</string>
     <!-- Information displayed about the current file versioning configuration in the folder activity -->
     <string name="trashcan_versioning_info">Vyčistit po: %1$s</string>
-    <string name="staggered_versioning_info">Maximální stáří: %1$d
-\nCesta k verzím: %2$s</string>
+    <string name="staggered_versioning_info">Maximální stáří: %1$d \nCesta k verzím: %2$s</string>
     <string name="external_versioning_info">Příkaz: %1$s</string>
     <string name="simple_versioning_info">Udržovat verze: %1$s</string>
     <string name="show_device_id">Ukázat ID zařízení</string>
@@ -332,8 +327,7 @@
     <string name="sync_only_wifi_ssids_need_to_grant_location_permission">Pro použití této funkce je nutné udělit oprávnění k poloze.</string>
     <string name="respect_battery_saving_summary">Vypnout Syncthing pokud je zapnuto šetření energie.</string>
     <string name="respect_master_sync_title">Dodržovat nastavení automatické synchronizace dat z Androidu</string>
-    <string name="st_reset_database_question">Tato akce by měla být provedena pouze na základě doporučení naší podpory.
-\nSkutečně chcete vymazat databázi Syncthing?</string>
+    <string name="st_reset_database_question">Tato akce by měla být provedena pouze na základě doporučení naší podpory. \nSkutečně chcete vymazat databázi Syncthing?</string>
     <string name="st_reset_deltas_title">Resetovat rejstříky přírůstků</string>
     <string name="syncthing_terminated">Ukončeno</string>
     <string name="config_file_missing">Soubor s nastaveními nezbytný pro fungování nebyl nalezen</string>
@@ -356,8 +350,7 @@
     <string name="power_source_title">Spouštět když je zařízení napájeno z</string>
     <string name="toast_invalid_socks_proxy_address">Vstup neodpovídá syntaxi proxy \'socks5://[IP/HOSTNAME]:[PORT]\'</string>
     <string name="sync_only_wifi_ssids_location_permission_rejected_dialog_content">Počínaje Androidem 8.1 je jméno Wi-Fi přístupné jen s oprávněním k přístupu k poloze. Tuto funkci lze použít jen pokud oprávnění povolíte.</string>
-    <string name="st_reset_deltas_question">Tato akce by měla být provedena pouze na základě doporučení naší podpory.
-\nSkutečně chcete vymazat delta indexy Syncthing?</string>
+    <string name="st_reset_deltas_question">Tato akce by měla být provedena pouze na základě doporučení naší podpory. \nSkutečně chcete vymazat delta indexy Syncthing?</string>
     <string name="pull_order_oldest_first">Od nejstaršího</string>
     <string name="st_reset_deltas_done">Delta indexy aplikace Syncthing úspěšně resetovány</string>
     <string name="override_changes">Vynutit změny</string>
@@ -427,6 +420,7 @@
     <plurals name="syncthing_active_syncing_device_online">
         <item quantity="one">Synchronizace: %1$d%% hotovo, %2$d zařízení je připojeno</item>
         <item quantity="few">Synchronizace: %1$d%% hotovo, %2$d zařízení je připojena</item>
+        <item quantity="many">Synchronizace: %1$d%% hotovo, %2$d zařízení je připojeno</item>
         <item quantity="other">Synchronizace: %1$d%% hotovo, %2$d zařízení je připojeno</item>
     </plurals>
     <string name="devices_list_empty">Nejsou nakonfigurována žádná zařízení. Klepnutím přidáte nové zařízení.</string>
@@ -447,6 +441,7 @@
     <plurals name="device_online_up_to_date">
         <item quantity="one">%1$d zařízení je připojeno a aktuální</item>
         <item quantity="few">%1$d zařízení jsou připojena a aktuální</item>
+        <item quantity="many">%1$d zařízení je připojeno a aktuální</item>
         <item quantity="other">%1$d zařízení je připojeno a aktuální</item>
     </plurals>
     <string name="location_permission_desc_api_29">Tip pro Android 10+: „Povolit vždy“</string>
@@ -602,6 +597,7 @@
     <plurals name="reason_not_within_time_frame_minutes">
         <item quantity="one">%d minuta</item>
         <item quantity="few">%d minuty</item>
+        <item quantity="many">%d minut</item>
         <item quantity="other">%d minut</item>
     </plurals>
     <string name="reason_not_charging">Telefon se nenabíjí.</string>
@@ -634,6 +630,7 @@
     <plurals name="conflicts">
         <item quantity="one">%1$d konflikt</item>
         <item quantity="few">%1$d konflikty</item>
+        <item quantity="many">%1$d konfliktů</item>
         <item quantity="other">%1$d konfliktů</item>
     </plurals>
     <string name="config_import_failed_no_path">Import konfigurace selhal. Jděte do Nastavení-Odstraňování problémů-Otevřít log pro důvod selhání.</string>
@@ -648,7 +645,7 @@
     <string name="folder_run_script_description">Expertní volba pro spuštění skriptů po změně stavu synchronizace složky.Skripty umístěné ve složce \'.stfolder/*.sh\' budou spuštěny. Jiné umístění skriptů není podporováno z bezpečnostních důvodů.\nPříklad spuštění skriptu: \'.stfolder/rename-files.sh sync_complete\'</string>
     <string name="backup_rel_path_to_zip">Relativní cesta k archivu s konfigurací</string>
     <string name="backup_password_title">Heslo k zabezpečení nastavení</string>
-    <string name="backup_password_summary">ℹ️ Doporučeno:\nZadejte silné heslo, které bude použito k zašifrování vaší konfigurace při exportu a k jejímu dešifrování při importu. Toto heslo si bezpečně uložte – budete ho potřebovat při obnově konfigurace a při použití funkce importu.\n\n⚠️ Nedoporučeno:\nNepoužít žádné heslo. V takovém případě mohou jiné aplikace potenciálně číst nebo upravovat vaši konfiguraci Syncthingu. Zpřístupnění konfigurace nese riziko, že útočník může získat neoprávněný přístup k vašim souborům pomocí odcizeného exportu nastavení.</string>
+    <string name="backup_password_summary">ℹ️ Doporučeno:\nZadejte silné heslo, které bude použito k zašifrování vaší konfigurace při exportu a k jejímu dešifrování při importu. Toto heslo si bezpečně uložte – budete ho potřebovat při obnově konfigurace a při použití funkce importu.\n\n⚠️ Nedoporučeno:\nNepoužít žádné heslo. V takovém případě mohou jiné aplikace potenciálně číst nebo upravovat vaši konfiguraci Syncthingu. Zpřístupnění konfigurace nese riziko, že útočník může získat neoprávněný přístup k vašim souborům pomocí odcizeného exportu nastavení.</string>
     <string name="backup_password_set">✅ Heslo nastaveno: %1$s</string>
     <string name="backup_password_not_set">⚠ Heslo nenastaveno.</string>
     <string name="preference_category_actions">Akce</string>
