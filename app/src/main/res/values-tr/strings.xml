@@ -16,9 +16,7 @@
     <!-- Shown in the chooser dialog when sharing a Device ID -->
     <string name="send_device_id_to">Cihaz kimliğini şuna gönder</string>
     <string name="usage_reporting_dialog_title">İsimsiz Kullanım Bildirmeye İzin Verilsin Mi?</string>
-    <string name="usage_reporting_dialog_description">Şifreli kullanım raporu günlük olarak yollanır. Yaygın platformları, klasör boyutlarını ve uygulama sürümlerini izlemek için kullanılır. Eğer bildirilen veri kümesi değişirse, bu ileti öğesi aracılığıyla tekrar sorulacaktır.
-\n
-\nToplanan istatistikler https://data.syncthing.net adresinde herkese açıktır.</string>
+    <string name="usage_reporting_dialog_description">Şifreli kullanım raporu günlük olarak yollanır. Yaygın platformları, klasör boyutlarını ve uygulama sürümlerini izlemek için kullanılır. Eğer bildirilen veri kümesi değişirse, bu ileti öğesi aracılığıyla tekrar sorulacaktır. \n \nToplanan istatistikler https://data.syncthing.net adresinde herkese açıktır.</string>
     <string name="yes">Evet</string>
     <string name="no">Hayır</string>
     <string name="open_website">Web sitesini aç</string>
@@ -222,9 +220,7 @@
     <string name="activity_main_bottom_navigation_rescan_all">Tümünü Yeniden Tara</string>
     <string name="location_permission_desc_api_29">Android 10+ için ipucu: \"Her zaman izin ver\"</string>
     <string name="key_generation_success">Özel veri alışverişi için güvenli anahtarlar başarılı olarak üretildi.</string>
-    <string name="welcome_text">Syncthing bir açık kaynaklı dosya eşitleme uygulamasıdır. Diğer cihazlarla veri paylaşmak için onların benzersiz cihaz kimliklerini cihaz listesine eklemeniz gerekir. Daha sonra hangi klasörlerin hangi cihazlarla paylaşılacağını seçebilirsiniz.
-\n
-\nLütfen karşılaştığınız herhangi bir sorunu GitHub aracılığıyla bildirin.</string>
+    <string name="welcome_text">Syncthing bir açık kaynaklı dosya eşitleme uygulamasıdır. Diğer cihazlarla veri paylaşmak için onların benzersiz cihaz kimliklerini cihaz listesine eklemeniz gerekir. Daha sonra hangi klasörlerin hangi cihazlarla paylaşılacağını seçebilirsiniz. \n \nLütfen karşılaştığınız herhangi bir sorunu GitHub aracılığıyla bildirin.</string>
     <string name="notification_permission_desc">Yeni cihaz bağlantıları, klasör paylaşım istekleri ile ilgili bildirimleri göstermek ve hizmeti canlı ve bağlı tutmak için gereklidir.</string>
     <string name="reason">Sebep:</string>
     <string name="qs_schedule_disabled">Zamanlama etkisizleştirildi</string>
@@ -349,14 +345,12 @@
     <string name="preference_language_summary">Uygulama dilini değiştirin</string>
     <string name="file_versioning_generic_description">Syncthing, bir dosya silindiğinde veya kümeden daha yeni bir sürümle değiştirildiğinde eski sürümünün arşivlenmesini destekler. Mevcut sürümlendirme stratejilerini görmek için tıklayın. Dosya sürümlendirme, cihaz bazında klasör başına yapılandırılır. Seçilen strateji:</string>
     <string name="maximum_age_description">Bir sürümü tutmak için en fazla süre (gün olarak, sürümleri süresiz tutmak için 0\'a ayarlayın).</string>
-    <string name="button_force_stop">DURDURMAYA ZORLA
-\nÇALIŞTIRMA KOŞULLARINI YOKSAY</string>
+    <string name="button_force_stop">DURDURMAYA ZORLA \nÇALIŞTIRMA KOŞULLARINI YOKSAY</string>
     <string name="webui_remote_access_summary">Web kullanıcı arayüzüne başka bir cihazdan erişime izin vermeyi belirler. Eğer etkinleştirildiyse, kullanıcı \'syncthing\' ve parola olarak API anahtarıyla oturum açabilirsiniz. Varsayılan: etkisizleştirildi (en güvenli)</string>
     <string name="pref_language_default">Varsayılan Dil</string>
     <string name="type_staggered">Tür: Aşamalı</string>
     <string name="open_file_manager">Dosya yöneticisini aç</string>
-    <string name="staggered_versioning_info">En Fazla Yaş: %1$d
-\nSürümlerin Yolu: %2$s</string>
+    <string name="staggered_versioning_info">En Fazla Yaş: %1$d \nSürümlerin Yolu: %2$s</string>
     <string name="syncthing_database_size">Syncthing Veritabanı Boyutu</string>
     <string name="reason_not_nonroaming_mobile_data">Syncthing, dolaşım mobil veri bağlantıları üzerinden çalışmasına izin vermediğiniz için çalışmıyor.</string>
     <string name="notification_crash_title">Çöktü (çıkış kodu %1$s)</string>
@@ -405,11 +399,9 @@
     <string name="webui_tcp_port_unavailable">Web Arayüzü TCP bağlantı noktası %s meşgul. İkinci örnek mi?</string>
     <string name="config_export_failed">Yapılandırmayı dışa aktarma başarısız oldu. Ayrıntıları görmek için Ayarlar-Sorun Giderme-Günlüğü Aç\'a gidin.</string>
     <string name="simple_file_versioning_description">Dosyalar, Syncthing tarafından değiştirildiğinde veya silindiğinde, .stversions dizini içindeki tarih damgalı sürümlere taşınır.</string>
-    <string name="web_page_loading">Web sayfası yükleniyor:
-\n%1$s …</string>
+    <string name="web_page_loading">Web sayfası yükleniyor: \n%1$s …</string>
     <string name="simple_versioning_info">Şu sürümleri tut: %1$s</string>
-    <string name="no_devices_configured">Yapılandırılmış cihazlar yok.
-\nŞimdi bir cihaz ekleyerek başlayın.</string>
+    <string name="no_devices_configured">Yapılandırılmış cihazlar yok. \nŞimdi bir cihaz ekleyerek başlayın.</string>
     <string name="advanced_storage_path_overview">Gelişmiş depolama yoluna genel bakış</string>
     <string name="device_name_required">Cihaz adı boş olmamak zorundadır</string>
     <string name="sync_duration_minutes_summary">%1$s dakika</string>
@@ -478,8 +470,7 @@
         <item quantity="one">%1$d dosya \"%2$s\" klasörüne kopyalandı, %3$d zaten var</item>
         <item quantity="other">%1$d dosya \"%2$s\" klasörüne kopyalandı, %3$d zaten var</item>
     </plurals>
-    <string name="button_force_start">BAŞLATMAYA ZORLA
-\nÇALIŞTIRMA KOŞULLARINI YOKSAY</string>
+    <string name="button_force_start">BAŞLATMAYA ZORLA \nÇALIŞTIRMA KOŞULLARINI YOKSAY</string>
     <string name="shared_folders_title_colon">"Klasörler: "</string>
     <string name="folder_type_sendreceive">Gönder ve Al</string>
     <string name="file_name_template">Yeni dosya %1$s</string>
@@ -546,9 +537,7 @@
     <string name="could_not_access_deviceid">Cihaz kimliğine erişilemedi.</string>
     <string name="no_versioning_description">Sürümlendirmeyi etkinleştirmek için bir sürümlendirme türü seçin.</string>
     <string name="category_debug">Sorun Giderme</string>
-    <string name="staggered_versioning_description">Dosyalar, Syncthing tarafından değiştirildiğinde veya silindiğinde, .stversions dizini içindeki tarih damgalı sürümlere taşınır. Sürümler, en fazla yaştan daha büyüklerse veya belirli bir aralıkta izin verilen dosya sayısını aşarlarsa, otomatik olarak silinir.
-\n
-\nŞu aralıklar kullanılır: ilk saat için her 30 saniyede bir sürüm tutulur, ilk gün için her saat bir sürüm tutulur, ilk 30 gün için her gün bir sürüm tutulur, en fazla yaşa kadar her hafta bir sürüm tutulur.</string>
+    <string name="staggered_versioning_description">Dosyalar, Syncthing tarafından değiştirildiğinde veya silindiğinde, .stversions dizini içindeki tarih damgalı sürümlere taşınır. Sürümler, en fazla yaştan daha büyüklerse veya belirli bir aralıkta izin verilen dosya sayısını aşarlarsa, otomatik olarak silinir. \n \nŞu aralıklar kullanılır: ilk saat için her 30 saniyede bir sürüm tutulur, ilk gün için her saat bir sürüm tutulur, ilk 30 gün için her gün bir sürüm tutulur, en fazla yaşa kadar her hafta bir sürüm tutulur.</string>
     <string name="reason_not_within_time_frame_0_min">bir dakikadan kısa süre</string>
     <string name="reason_not_while_auto_sync_data_disabled">Android\'de şu anda \'Verileri otomatik eşitle\' seçeneği etkisizleştirildiğinden Syncthing çalışmıyor.</string>
     <string name="reason_on_nonmetered_wifi">Syncthing\'in tarifesiz kablosuz (Wi-Fi) bağlantılar üzerinden çalışmasına izin veriliyor. Etkin kablosuz (Wi-Fi) bağlantı tarifesizdir.</string>
@@ -557,8 +546,7 @@
     <string name="respect_master_sync_summary">Hızlı ayarlar kutucuğu \'Verileri otomatik eşitle\' kapatıldığında Syncthing\'i etkisizleştirir.</string>
     <string name="command">Komut</string>
     <string name="no_remote_devices_connected">Bağlı uzak cihazlar yok</string>
-    <string name="st_reset_database_question">Bu eylem yalnızca destek ekibimizin önerisine dayanarak yapılmalıdır.
-\nSyncthing\'in veritabanını temizlemek istediğinize emin misiniz?</string>
+    <string name="st_reset_database_question">Bu eylem yalnızca destek ekibimizin önerisine dayanarak yapılmalıdır. \nSyncthing\'in veritabanını temizlemek istediğinize emin misiniz?</string>
     <string name="folder_path_readwrite">Android sürümünüz, Syncthing\'e seçilen klasöre okuma ve yazma erişimi verir.</string>
     <string name="revert_local_changes">Yerel değişiklikleri geri al</string>
     <string name="syncthing_starting">Syncthing başlıyor.</string>
@@ -570,8 +558,7 @@
     <string name="trashcan_versioning_info">Şundan sonra temizle: %1$s</string>
     <string name="folder_go_up">Yukarı git</string>
     <string name="socks_proxy_address_title">SOCKS5 proksi</string>
-    <string name="st_reset_deltas_question">Bu eylem yalnızca destek ekibimizin önerisine dayanarak yapılmalıdır.
-\nSyncthing\'in delta indekslerini temizlemek istediğinize emin misiniz?</string>
+    <string name="st_reset_deltas_question">Bu eylem yalnızca destek ekibimizin önerisine dayanarak yapılmalıdır. \nSyncthing\'in delta indekslerini temizlemek istediğinize emin misiniz?</string>
     <string name="broadcast_service_control_summary">Varsayılan: Etkisizleştirildi. Adb veya üçüncü taraf uygulamaların, örn. otomasyon uygulamalarının Syncthing\'e çalıştırma koşullarını takip etmesi, başlatmaya zorlaması veya durdurmaya zorlaması amacıyla talimat vermesine izin vermek için etkinleştirin.</string>
     <plurals name="reason_not_within_time_frame_minutes">
         <item quantity="one">%d dakika</item>
