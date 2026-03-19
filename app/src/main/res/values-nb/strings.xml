@@ -12,10 +12,8 @@
     <string name="share_device_id">Del Enhets-ID</string>
     <!-- Shown in the chooser dialog when sharing a Device ID -->
     <string name="send_device_id_to">Send Enhets-ID til</string>
-    <string name="usage_reporting_dialog_title">Tillat anonym rapportering av bruk\?</string>
-    <string name="usage_reporting_dialog_description">Den krypterte rapporten over bruk sendes daglig. Den brukes til å spore felles plattformer, mappestørrelser og versjoner av appen. Hvis datasettet endres vil du bli vist denne dialogen på nytt.
-\n
-\nDen aggregerte statistikken er offentlig tilgjengelig på https://data.syncthing.net.</string>
+    <string name="usage_reporting_dialog_title">Tillat anonym rapportering av bruk?</string>
+    <string name="usage_reporting_dialog_description">Den krypterte rapporten over bruk sendes daglig. Den brukes til å spore felles plattformer, mappestørrelser og versjoner av appen. Hvis datasettet endres vil du bli vist denne dialogen på nytt. \n \nDen aggregerte statistikken er offentlig tilgjengelig på https://data.syncthing.net.</string>
     <string name="yes">Ja</string>
     <string name="no">Nei</string>
     <string name="open_website">Åpne nettsted</string>
@@ -53,7 +51,7 @@
     <!-- Title for announce server status -->
     <string name="announce_server">Søketjener</string>
     <string name="restart">Omstart</string>
-    <string name="dialog_confirm_restart">Vil du starte Syncthing på nytt\?</string>
+    <string name="dialog_confirm_restart">Vil du starte Syncthing på nytt?</string>
     <!-- FolderActivity -->
     <!-- Setting title -->
     <string name="folder_id">Mappe-ID</string>
@@ -74,7 +72,7 @@
     <!-- Menu item to confirm folder creation -->
     <string name="create">Opprett</string>
     <!-- Dialog shown when attempting to remove a folder -->
-    <string name="remove_folder_confirm">Vil du virkelig fjerne denne mappen fra Syncthing\?</string>
+    <string name="remove_folder_confirm">Vil du virkelig fjerne denne mappen fra Syncthing?</string>
     <!-- Toast shown when trying to create a folder with an empty ID -->
     <string name="folder_id_required">Mappe-ID kan ikke være tom</string>
     <!-- Toast shown when trying to create a folder with an empty path -->
@@ -104,7 +102,7 @@
     <!-- Title for DeviceSettingsFragment in edit mode -->
     <string name="edit_device">Rediger Enhet</string>
     <!-- Dialog shown when attempting to remove a device -->
-    <string name="remove_device_confirm">Ønsker du å fjerne denne enheten\?</string>
+    <string name="remove_device_confirm">Ønsker du å fjerne denne enheten?</string>
     <!-- Toast shown when trying to create a device with an empty ID -->
     <string name="device_id_required">Enhets-ID kan ikke være tom</string>
     <!-- Content description for device ID qr code icon -->
@@ -223,8 +221,7 @@
     <string name="open_file_with">Åpne fil med</string>
     <string name="open_file_no_compatible_app">Ingen app funnet for å åpne filen.</string>
     <string name="suggest_file_manager_app_dialog_title">Ingen kompatibel filbehandler app funnet</string>
-    <string name="no_devices_configured">Ingen enheter er konfigurert.
-\nStart med å legge til en enhet nå.</string>
+    <string name="no_devices_configured">Ingen enheter er konfigurert. \nStart med å legge til en enhet nå.</string>
     <string name="device_paused">Midlertidig stanset</string>
     <string name="device_state_unused">Ubrukt</string>
     <string name="device_disconnected_not_synced">Frakoblet (%1$s venter)</string>
