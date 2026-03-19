@@ -8,9 +8,7 @@
     <!-- Welcome wizard -->
     <!-- Slide "Introduction" -->
     <string name="introduction">Вступление</string>
-    <string name="welcome_text">Syncthing — это приложение для синхронизации файлов с открытым исходным кодом. Для того чтобы синхронизировать данные с другими устройствами, вам необходимо добавить их уникальные идентификаторы в список устройств. Затем вы сможете выбрать, какие папки с какими устройствами синхронизировать.
-\n
-\nПожалуйста, сообщайте о возникших проблемах через GitHub.</string>
+    <string name="welcome_text">Syncthing — это приложение для синхронизации файлов с открытым исходным кодом. Для того чтобы синхронизировать данные с другими устройствами, вам необходимо добавить их уникальные идентификаторы в список устройств. Затем вы сможете выбрать, какие папки с какими устройствами синхронизировать. \n \nПожалуйста, сообщайте о возникших проблемах через GitHub.</string>
     <!-- Slide "Storage Permission" -->
     <string name="storage_permission_title">Доступ к файлам</string>
     <string name="storage_permission_desc">Syncthing требуется доступ к вашим файлам для осуществления синхронизации.</string>
@@ -23,8 +21,7 @@
     <string name="dialog_disable_battery_optimizations_not_supported">Ваше устройство не поддерживает отключение энергосбережения</string>
     <!-- Slide "Location Permission" -->
     <string name="location_permission_title">Доступ к местоположению</string>
-    <string name="location_permission_desc">Syncthing может быть настроено для работы с выбранными сетями Wi-Fi.
-Android требует разрешение доступа к геолокации, чтобы считывать название активной Wi-Fi сети. Если вы хотите использовать эту опцию, нажмите кнопку выше. Вы можете пропустить этот этап. Смотрите нашу политику конфиденциальности для подробной информации.</string>
+    <string name="location_permission_desc">Syncthing может быть настроено для работы с выбранными сетями Wi-Fi. Android требует разрешение доступа к геолокации, чтобы считывать название активной Wi-Fi сети. Если вы хотите использовать эту опцию, нажмите кнопку выше. Вы можете пропустить этот этап. Смотрите нашу политику конфиденциальности для подробной информации.</string>
     <string name="location_permission_desc_api_29">Совет для Android 10+: \"Разрешить всегда\"</string>
     <!-- Slide "Key Generation" -->
     <string name="key_generation_title">Генерация ключей</string>
@@ -72,10 +69,8 @@ Android требует разрешение доступа к геолокаци
     <string name="share_device_id">Поделиться ID устройства</string>
     <!-- Shown in the chooser dialog when sharing a Device ID -->
     <string name="send_device_id_to">Отправить ID устройства</string>
-    <string name="usage_reporting_dialog_title">Разрешить отправлять анонимную статистику\?</string>
-    <string name="usage_reporting_dialog_description">Зашифрованный отчет об использовании отправляется ежедневно. Используется для отслеживания используемых платформ, размеров папок и версий программы. Если набор собираемых данных изменится, этот диалог появится вновь.
-\n
-\nОбобщенная статистика доступна всем на https://data.syncthing.net.</string>
+    <string name="usage_reporting_dialog_title">Разрешить отправлять анонимную статистику?</string>
+    <string name="usage_reporting_dialog_description">Зашифрованный отчет об использовании отправляется ежедневно. Используется для отслеживания используемых платформ, размеров папок и версий программы. Если набор собираемых данных изменится, этот диалог появится вновь. \n \nОбобщенная статистика доступна всем на https://data.syncthing.net.</string>
     <string name="yes">Да</string>
     <string name="no">Нет</string>
     <string name="open_website">Открыть сайт</string>
@@ -95,12 +90,12 @@ Android требует разрешение доступа к геолокаци
         <item quantity="one">%1$d / %2$d Файл</item>
         <item quantity="few">%1$d / %2$d Файла</item>
         <item quantity="many">%1$d / %2$d Файлов</item>
-        <item quantity="other">%1$d / %2$d Файла</item>
+        <item quantity="other">%1$d / %2$d Файлов</item>
     </plurals>
     <string name="override_changes">Отменить изменения</string>
     <string name="revert_local_changes">Откатить локальные изменения</string>
     <!-- Revert Local Changes Confirmation Dialog -->
-    <string name="revert_local_changes_question">Это действие откатит все изменения в папке на текущем устройстве. Продолжить\?</string>
+    <string name="revert_local_changes_question">Это действие откатит все изменения в папке на текущем устройстве. Продолжить?</string>
     <string name="open_file_manager">Открыть файловый менеджер</string>
     <string name="open_file_with">Открыть файл с помощью</string>
     <string name="open_file_no_compatible_app">Не найдено приложение, чтобы открыть файл.</string>
@@ -112,8 +107,7 @@ Android требует разрешение доступа к геолокаци
     <!-- Shown if no devices are configured in add folder dialog -->
     <string name="devices_list_empty">Устройства не заданы. Нажмите для добавления нового.</string>
     <!-- Shown in ListView if no devices are configured -->
-    <string name="no_devices_configured">Устройства не заданы.
-\nНачните работу, добавив новое.</string>
+    <string name="no_devices_configured">Устройства не заданы. \nНачните работу, добавив новое.</string>
     <!-- Indicates that a folder is fully synced to the local device -->
     <string name="device_up_to_date">Актуально</string>
     <!-- Indicates that the device is currently syncing. Parameter is sync percentage -->
@@ -147,7 +141,7 @@ Android требует разрешение доступа к геолокаци
     <!-- Title for uptime status -->
     <string name="uptime">Время работы</string>
     <string name="restart">Перезапустить</string>
-    <string name="dialog_confirm_restart">Вы хотите перезапустить Syncthing\?</string>
+    <string name="dialog_confirm_restart">Вы хотите перезапустить Syncthing?</string>
     <!-- FolderActivity -->
     <!-- Setting title -->
     <string name="folder_id">ID папки</string>
@@ -180,7 +174,7 @@ Android требует разрешение доступа к геолокаци
     <string name="folder_label_required">Ярлык папки не может быть пустым</string>
     <!-- Toast shown when trying to create a folder with an empty path -->
     <string name="folder_path_required">Путь к папке не может быть пустым</string>
-    <string name="dialog_discard_changes">Отменить внесённые изменения\?</string>
+    <string name="dialog_discard_changes">Отменить внесённые изменения?</string>
     <!-- Summary shown if we only have readonly access to the folder path -->
     <string name="folder_path_readonly">Ваша версия Android даёт Syncthing только доступ на чтение этой папки.</string>
     <!-- Toast shown if the user selected an invalid location for a new syncthing folder -->
@@ -217,7 +211,7 @@ Android требует разрешение доступа к геолокаци
     <!-- Title for DeviceSettingsFragment in edit mode -->
     <string name="edit_device">Изменить устройство</string>
     <!-- Dialog shown when attempting to remove a device -->
-    <string name="remove_device_confirm">Вы точно хотите удалить это устройство\?</string>
+    <string name="remove_device_confirm">Вы точно хотите удалить это устройство?</string>
     <!-- Toast shown when trying to create a device with an empty ID -->
     <string name="device_id_required">ID устройства не может быть пустым</string>
     <!-- Toast shown when trying to create a device with an empty name -->
@@ -313,8 +307,7 @@ Android требует разрешение доступа к геолокаци
     <!-- Title for the preference to reset Syncthing indexes -->
     <string name="st_reset_database_title">Сбросить базу данных</string>
     <!-- Syncthing was reset -->
-    <string name="st_reset_database_question">Это действие должно выполняться только по рекомендации нашей поддержки.
-\nВы уверены что хотите очистить базу данных Syncthing\?</string>
+    <string name="st_reset_database_question">Это действие должно выполняться только по рекомендации нашей поддержки. \nВы уверены что хотите очистить базу данных Syncthing?</string>
     <!-- Syncthing was reset -->
     <string name="st_reset_database_done">База данных Syncthing успешно сброшена</string>
     <!-- Title for the preference to reset Syncthing indexes -->
@@ -370,14 +363,14 @@ Android требует разрешение доступа к геолокаци
         <item quantity="one">%1$d файл скопирован в папку \"%2$s\", %3$d уже существует</item>
         <item quantity="few">%1$d файла скопировано в папку \"%2$s\", %3$d уже существует</item>
         <item quantity="many">%1$d файлов скопировано в папку \"%2$s\", %3$d уже существует</item>
-        <item quantity="other">%1$d файла скопировано в папку \"%2$s\", %3$d уже существует</item>
+        <item quantity="other">%1$d файлов скопировано в папку \"%2$s\", %3$d уже существует</item>
     </plurals>
     <!-- Copy success toast -->
     <plurals name="copy_success">
         <item quantity="one">%1$d файл скопирован в папку \"%2$s\"</item>
         <item quantity="few">%1$d файла скопировано в папку \"%2$s\"</item>
         <item quantity="many">%1$d файлов скопировано в папку \"%2$s\"</item>
-        <item quantity="other">%1$d файла скопировано в папку \"%2$s\"</item>
+        <item quantity="other">%1$d файлов скопировано в папку \"%2$s\"</item>
     </plurals>
     <!-- Copy exception toast -->
     <string name="copy_exception">Произошла ошибка во время синхронизации, проверьте логи приложения</string>
@@ -465,9 +458,7 @@ Android требует разрешение доступа к геолокаци
     <string name="keep_versions_description">Количество хранимых версий файла.</string>
     <string name="simple_file_versioning_description">Когда Syncthing изменяет или удаляет файлы, их версии с таймштампами помещаются в папку .stversions.</string>
     <string name="trashcan_versioning_description">Когда Syncthing изменяет или удаляет файлы, они помещаются в папку .stversions.</string>
-    <string name="staggered_versioning_description">Когда Syncthing изменяет или удаляет файлы, их версии с таймштампами помещаются в папку .stversions. Версии удаляются автоматически, если они существуют дольше максимального срока или превышают разрешённое количество файлов за интервал.
-\n
-\nИспользуются следующие интервалы: в первый час версия меняется каждые 30 секунд, в первый день - каждый час, первые 30 дней - каждый день, после, до максимального срока - каждую неделю.</string>
+    <string name="staggered_versioning_description">Когда Syncthing изменяет или удаляет файлы, их версии с таймштампами помещаются в папку .stversions. Версии удаляются автоматически, если они существуют дольше максимального срока или превышают разрешённое количество файлов за интервал. \n \nИспользуются следующие интервалы: в первый час версия меняется каждые 30 секунд, в первый день - каждый час, первые 30 дней - каждый день, после, до максимального срока - каждую неделю.</string>
     <string name="maximum_age_description">Максимальный срок хранения версии (в днях, 0 значит вечное хранение).</string>
     <string name="versions_path_description">Путь, в котором нужно хранить версии (оставьте пустым для папки по умолчанию .stversions внутри общей папки).</string>
     <string name="cleanout_after_description">Количество дней хранения файлов в корзине. Ноль значит навсегда</string>
@@ -480,8 +471,7 @@ Android требует разрешение доступа к геолокаци
     <string name="type_external">Тип: Внешнее</string>
     <!-- Information displayed about the current file versioning configuration in the folder activity -->
     <string name="trashcan_versioning_info">Очистка после: %1$s</string>
-    <string name="staggered_versioning_info">Максимальный срок: %1$d
-\nПуть к версиям: %2$s</string>
+    <string name="staggered_versioning_info">Максимальный срок: %1$d \nПуть к версиям: %2$s</string>
     <string name="external_versioning_info">Команда: %1$s</string>
     <string name="simple_versioning_info">Количество хранимых версий: %1$s</string>
     <string name="show_device_id">Показать ID устройства</string>
@@ -522,18 +512,15 @@ Android требует разрешение доступа к геолокаци
     <string name="folder_path_readwrite">Ваша версия Android даёт разрешение Syncthing на чтение и запись в указанной папке.</string>
     <string name="dialog_confirm_skip_ignore_doze_permission">Осторожно: Если SyncthingNative будет прерван и сделает что-то странное, вы сами виноваты. Пропускайте только если ваше устройство не поддерживает выдачу разрешения. Пропустить?</string>
     <string name="dialog_exit_while_running_as_service_message">На заметку: Вы настроили приложение на автоматический запуск при загрузке. Поэтому оно отслеживает условия работы и синхронизируется в любое время в фоновом режиме, если условия совпадают. Вы должны завершать работу вручную только в случае возникновения серьезных проблем. В противном случае отключите \"Запускать автоматически при загрузке\" в настройках. Хотите завершить работу до перезагрузки устройства?</string>
-    <string name="button_force_start">ПРИНУДИТЕЛЬНЫЙ ЗАПУСК
-\nИГНОРИРОВАТЬ УСЛОВИЯ ЗАПУСКА</string>
-    <string name="button_force_stop">ПРИНУДИТЕЛЬНАЯ ОСТАНОВКА
-\nИГНОРИРОВАТЬ УСЛОВИЯ ЗАПУСКА</string>
+    <string name="button_force_start">ПРИНУДИТЕЛЬНЫЙ ЗАПУСК \nИГНОРИРОВАТЬ УСЛОВИЯ ЗАПУСКА</string>
+    <string name="button_force_stop">ПРИНУДИТЕЛЬНАЯ ОСТАНОВКА \nИГНОРИРОВАТЬ УСЛОВИЯ ЗАПУСКА</string>
     <string name="folder_ignore_delete_description">Экспертная опция, влияющая на обработку входящих обновлений индекса. Если опция установлена, входящие обновления с установленным флагом delete игнорируются. См. https://docs.syncthing.net/advanced/folder-ignoredelete.html</string>
     <string name="advanced_directory_selection">Расширенный выбор папки</string>
     <string name="local_discovery_disabled">Вы отключили локальное обнаружение в \'Настройки\' &gt; \'Настройки Syncthing\' &gt; \'Локальное обнаружение\'. Включите эту опцию для поиска устройств в локальной сети.</string>
     <string name="device_addresses_invalid">Адреса устройств не соответствуют формату. Попробуйте ещё раз. Смотрите документацию Syncthing для большей информации.</string>
     <string name="no_recent_changes">Нет недавних изменений.</string>
     <string name="ssl_cert_invalid_text">Похоже, сайт %1$s, имеет недействительный сертификат шифрования SSL. Продолжить?</string>
-    <string name="web_page_loading">Загрузка веб-страницы:
-\n%1$s …</string>
+    <string name="web_page_loading">Загрузка веб-страницы: \n%1$s …</string>
     <string name="preference_app_theme_follow_system">Как в системе</string>
     <string name="preference_app_theme_follow_dark">Тёмная</string>
     <string name="preference_app_theme_follow_light">Светлая</string>
