@@ -13,10 +13,8 @@
     <string name="share_device_id">Compartir ID del dispositivo</string>
     <!-- Shown in the chooser dialog when sharing a Device ID -->
     <string name="send_device_id_to">Enviar ID del dispositivo</string>
-    <string name="usage_reporting_dialog_title">¿Permitir reportes de uso anónimos\?</string>
-    <string name="usage_reporting_dialog_description">El reporte de uso encriptado es enviado diariamente. Es usado para rastrear plataformas comunes, tamaño de carpetas y versiones de la aplicación. Si se cambia el conjunto de datos reportados, se le presentará este diálogo de nuevo.
-\n
-\nLas estadísticas agregadas se encuentran disponibles públicamente en https://data.syncthing.net.</string>
+    <string name="usage_reporting_dialog_title">¿Permitir reportes de uso anónimos?</string>
+    <string name="usage_reporting_dialog_description">El reporte de uso encriptado es enviado diariamente. Es usado para rastrear plataformas comunes, tamaño de carpetas y versiones de la aplicación. Si se cambia el conjunto de datos reportados, se le presentará este diálogo de nuevo. \n \nLas estadísticas agregadas se encuentran disponibles públicamente en https://data.syncthing.net.</string>
     <string name="yes">Si</string>
     <string name="no">No</string>
     <string name="open_website">Abrir Sitio web</string>
@@ -72,7 +70,7 @@
     <!-- Menu item to confirm folder creation -->
     <string name="create">Crear</string>
     <!-- Dialog shown when attempting to remove a folder -->
-    <string name="remove_folder_confirm">¿Realmente quiere borrar esta carpeta de Syncthing\?</string>
+    <string name="remove_folder_confirm">¿Realmente quiere borrar esta carpeta de Syncthing?</string>
     <!-- Toast shown when trying to create a folder with an empty ID -->
     <string name="folder_id_required">El ID de la carpeta no debe estar vacío</string>
     <!-- Toast shown when trying to create a folder with an empty path -->
@@ -102,7 +100,7 @@
     <!-- Title for DeviceSettingsFragment in edit mode -->
     <string name="edit_device">Editar dispositivo</string>
     <!-- Dialog shown when attempting to remove a device -->
-    <string name="remove_device_confirm">¿Realmente quiere eliminar este dispositivo\?</string>
+    <string name="remove_device_confirm">¿Realmente quiere eliminar este dispositivo?</string>
     <!-- Toast shown when trying to create a device with an empty ID -->
     <string name="device_id_required">El ID del dispositivo no debe estar vacío</string>
     <!-- Content description for device ID qr code icon -->
