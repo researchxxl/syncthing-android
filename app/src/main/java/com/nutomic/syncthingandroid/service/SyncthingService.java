@@ -1095,7 +1095,6 @@ public class SyncthingService extends Service {
                         case "pref_current_language":
                         case "restartOnWakeup":
                         case "wakelock_while_binary_running":
-                        case "use_root":
                         case "important_news_shown_version":
                             LogV("importConfig: Ignoring deprecated pref \"" + prefKey + "\".");
                             break;
