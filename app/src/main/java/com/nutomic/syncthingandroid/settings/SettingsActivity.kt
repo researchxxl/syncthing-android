@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.IBinder
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -18,15 +19,12 @@ import com.nutomic.syncthingandroid.activities.SyncthingActivity
 import com.nutomic.syncthingandroid.service.NotificationHandler
 import com.nutomic.syncthingandroid.service.SyncthingService
 import com.nutomic.syncthingandroid.theme.ApplicationTheme
+import com.nutomic.syncthingandroid.util.LocalActivityScope
 import jakarta.inject.Inject
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import me.zhanghai.compose.preference.Preferences
 import me.zhanghai.compose.preference.ProvidePreferenceLocals
 
-val LocalActivityScope = staticCompositionLocalOf<CoroutineScope> {
-    error("No activity scope provided")
-}
 val LocalSyncthingService = staticCompositionLocalOf<SyncthingService?> { null }
 val LocalServiceUpdateTick = staticCompositionLocalOf { 0 }
 
@@ -49,6 +47,7 @@ class SettingsActivity : SyncthingActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         (application as SyncthingApp).component().inject(this)
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
 
         val activityScope = this.lifecycleScope
         prefFlow = createPreferenceFlow(sharedPreferences, activityScope)

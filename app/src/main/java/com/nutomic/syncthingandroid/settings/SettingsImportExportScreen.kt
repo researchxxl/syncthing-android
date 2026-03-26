@@ -40,6 +40,7 @@ import androidx.navigation3.runtime.EntryProviderScope
 import com.nutomic.syncthingandroid.R
 import com.nutomic.syncthingandroid.activities.LogActivity
 import com.nutomic.syncthingandroid.service.Constants
+import com.nutomic.syncthingandroid.util.LocalActivityScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

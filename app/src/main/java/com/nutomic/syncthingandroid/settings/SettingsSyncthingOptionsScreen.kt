@@ -32,6 +32,7 @@ import com.nutomic.syncthingandroid.service.Constants
 import com.nutomic.syncthingandroid.service.RestApi
 import com.nutomic.syncthingandroid.service.SyncthingService
 import com.nutomic.syncthingandroid.util.FileUtils
+import com.nutomic.syncthingandroid.util.LocalActivityScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
