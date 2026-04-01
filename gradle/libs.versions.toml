@@ -15,7 +15,7 @@ go_version = "1.25.8"
 
 aboutLibraries = "14.0.0-a01"
 accompanist = "0.37.3"
-activity = "1.12.4"
+activity = "1.13.0"
 androidx-appcompat = "1.7.1"
 android-material = "1.13.0"
 android-gradle-plugin = "9.1.0"
