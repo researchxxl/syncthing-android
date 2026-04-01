@@ -42,7 +42,7 @@ preference-ktx = "1.2.1"
 recyclerview = "1.4.0"
 stream = "1.2.2"
 volley = "1.2.1"
-zhanghai-compose-preference = "2.1.1"
+zhanghai-compose-preference = "2.2.0"
 zxing-android-embedded = "4.3.0"
 # Do not upgrade zxing:core beyond 3.3.0 to ensure Android 6.0 compatibility.
 zxing-core = "3.3.0"
