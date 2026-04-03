@@ -33,8 +33,8 @@
     <string name="generic_example">Esempio</string>
     <string name="generic_error">Errore</string>
     <string name="generic_help">Aiuto</string>
-    <string name="grant_permission">Concedi permesso</string>
-    <string name="permission_granted">Permesso concesso</string>
+    <string name="grant_permission">Concedi autorizzazione</string>
+    <string name="permission_granted">Autorizzazione concessa</string>
     <string name="reason">Motivo:</string>
     <string name="accept">Accetta</string>
     <string name="ignore">Ignora</string>
@@ -45,7 +45,7 @@
     <string name="photo_shoot_launcher_title">Sync. Camera</string>
     <string name="photo_shoot_activity_title">Fotocamera Syncthing-Fork</string>
     <string name="photo_shoot_intro_welcome_title">Benvenuto in Fotocamera Syncthing</string>
-    <string name="photo_shoot_intro_permission_title">Permessi necessari</string>
+    <string name="photo_shoot_intro_permission_title">Autorizzazioni necessarie</string>
     <string name="photo_shoot_intro_no_camera">Questo dispositivo non ha una fotocamera.</string>
     <string name="photo_shoot_intro_missing_permissions">Sono necessari i permessi di memoria e fotocamera per continuare.</string>
     <string name="grant_storage_permission">Concedi permesso memoria</string>
@@ -717,7 +717,7 @@
     <string name="clear_stversions_summary">I file vengono spostati nella directory .stversions quando vengono sostituiti o eliminati da Syncthing. Probabilmente è possibile trovare e recuperare i file eliminati accidentalmente lì, ma le versioni obsolete dei file occupano spazio di archiviazione sul dispositivo.</string>
     <string name="clear_stversions_question">Questo eliminerà tutte le versioni precedenti dei file gestiti da Syncthing. Continuare?</string>
     <string name="clear_stversions_done">Cartelle .stversions cancellate correttamente.</string>
-    <string name="privacy_title">Privacy Policy</string>
+    <string name="privacy_title">Informativa sulla privacy</string>
     <string name="open_source_licenses_title">Licenze Open Source</string>
     <string name="folder_run_script_caption">Esegui script</string>
     <plurals name="conflicts">
