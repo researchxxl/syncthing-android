@@ -3,8 +3,6 @@ package com.nutomic.syncthingandroid.service;
 import android.app.Service;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
-import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
@@ -12,7 +10,6 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
-import com.google.common.io.Files;
 import com.nutomic.syncthingandroid.R;
 import com.nutomic.syncthingandroid.SyncthingApp;
 import com.nutomic.syncthingandroid.http.PollWebGuiAvailableTask;
@@ -721,7 +718,7 @@ public class SyncthingService extends Service {
 
     /**
      * Force re-evaluating run conditions immediately e.g. after
-     * preferences were modified by {@link ../activities/SettingsActivity#onStop}.
+     * preferences were modified in settings.
      */
     public void evaluateRunConditions() {
         if (mRunConditionMonitor == null) {
@@ -810,7 +807,7 @@ public class SyncthingService extends Service {
     }
 
     /**
-     * Exports the local config and keys to {@link Constants#EXPORT_PATH}.
+     * Exports the local config and keys to {@link Constants#PREF_BACKUP_REL_PATH_TO_ZIP}.
      *
      * Test with Android Virtual Device using emulator.
      * cls & adb shell su 0 "ls -a -l -R /data/data/${applicationId}/files; echo === SDCARD ===; ls -a -l -R /storage/emulated/0/backups/syncthing"
@@ -869,10 +866,12 @@ public class SyncthingService extends Service {
             Constants.getHttpsCertFile(this),
             Constants.getHttpsKeyFile(this),
 
-            Constants.getSharedPrefsFile(this),
-
-            Constants.getIndexDbFolder(this)
+            Constants.getSharedPrefsFile(this)
         );
+
+        if (mPreferences.getBoolean(Constants.PREF_BACKUP_INCLUDE_DBS, true)) {
+            includePaths.add(Constants.getIndexDbFolder(this));
+        }
 
         // If user set one, apply a password and encrypt the zip file.
         String zipEncryptionPassword = mPreferences.getString(Constants.PREF_BACKUP_PASSWORD, "");
@@ -934,7 +933,7 @@ public class SyncthingService extends Service {
     }
 
     /**
-     * Imports config and keys from {@link Constants#EXPORT_PATH}.
+     * Imports config and keys from {@link Constants#PREF_BACKUP_REL_PATH_TO_ZIP}.
      *
      * Test with Android Virtual Device using emulator.
      * cls & adb shell su 0 "ls -a -l -R /data/data/${applicationId}/files; echo === SDCARD ===; ls -a -l -R /storage/emulated/0/backups/syncthing"

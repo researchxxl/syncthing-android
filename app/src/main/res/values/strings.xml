@@ -626,6 +626,9 @@
     <string name="backup_password_not_set">⚠ Password not set.</string>
     <string name="toggle_password_visibility">Toggle password visibility</string>
 
+    <string name="backup_include_dbs">Include DBs</string>
+    <string name="backup_include_dbs_summary">Include if folders are unchanged. Don\'t include if folders are moved or removed before import.</string>
+
     <string name="export_config">Export Configuration</string>
 
     <!-- Toast after entering an invalid tcp port -->
