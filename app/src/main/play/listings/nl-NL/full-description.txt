@@ -1,7 +1,7 @@
 Dit is een fork van de Syncthing-Android-wrapper voor Syncthing die belangrijke verbeteringen biedt, zoals:
-* De voortgang van de synchronisatie van mappen, apparaten en het geheel kan eenvoudig worden afgelezen op de gebruikersinterface.
+* De voortgang van de synchronisatie van mappen, apparaten en het geheel kan eenvoudig worden afgelezen.
 * “Elk uur synchroniseren” om nog meer batterij te besparen.
-* Individuele synchronisatievoorwaarden kunnen per apparaat en per map worden toegepast.
+* Individuele syncvoorwaarden kunnen per apparaat en per map worden toegepast.
 * Gebruikersinterface met recente wijzigingen, klik om bestanden te openen.
 * Wijzigingen in de configuratie van mappen en apparaten kunnen worden aangebracht, ongeacht of Syncthing actief is of niet.
 * De gebruikersinterface legt uit waarom Syncthing actief is of niet.
