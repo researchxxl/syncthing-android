@@ -8,7 +8,7 @@
     <string name="generic_error">Помилка</string>
     <!-- Title of the "add folder" menu action -->
     <string name="add_folder">Додати каталог</string>
-    <string name="usage_reporting_dialog_title">Дозволити відправку анонімної статистики використання\?</string>
+    <string name="usage_reporting_dialog_title">Дозволити відправку анонімної статистики використання?</string>
     <string name="yes">Так</string>
     <string name="no">Ні</string>
     <string name="open_website">Відкрити сайт</string>
@@ -42,7 +42,7 @@
     <!-- Title for current RAM usage -->
     <string name="ram_usage">Використання пам\'яті</string>
     <string name="restart">Перезапуск</string>
-    <string name="dialog_confirm_restart">Бажаєте перезапустити Syncthing\?</string>
+    <string name="dialog_confirm_restart">Бажаєте перезапустити Syncthing?</string>
     <!-- FolderActivity -->
     <!-- Setting title -->
     <string name="folder_id">ID каталогу</string>
@@ -61,12 +61,12 @@
     <!-- Menu item to confirm folder creation -->
     <string name="create">Створити</string>
     <!-- Dialog shown when attempting to remove a folder -->
-    <string name="remove_folder_confirm">Ви дійсно бажаєте видалити цей каталог з Syncthing\?</string>
+    <string name="remove_folder_confirm">Ви дійсно бажаєте видалити цей каталог з Syncthing?</string>
     <!-- Toast shown when trying to create a folder with an empty ID -->
     <string name="folder_id_required">ID каталогу не може бути пустим</string>
     <!-- Toast shown when trying to create a folder with an empty path -->
     <string name="folder_path_required">Шлях до каталогу не може бути пустим</string>
-    <string name="dialog_discard_changes">Скасувати зміни\?</string>
+    <string name="dialog_discard_changes">Скасувати зміни?</string>
     <string name="ignore_patterns">Ігнорувати паттерни</string>
     <!-- DeviceActivity -->
     <!-- Setting title -->
@@ -87,7 +87,7 @@
     <!-- Title for DeviceSettingsFragment in edit mode -->
     <string name="edit_device">Редагувати пристрій</string>
     <!-- Dialog shown when attempting to remove a device -->
-    <string name="remove_device_confirm">Дійсно бажаєте видалити цей пристрій\?</string>
+    <string name="remove_device_confirm">Дійсно бажаєте видалити цей пристрій?</string>
     <!-- Toast shown when trying to create a device with an empty ID -->
     <string name="device_id_required">ID пристрою не може бути пустим</string>
     <!-- Content description for device ID qr code icon -->
@@ -173,7 +173,7 @@
     <!-- Text for positive button in restart dialog -->
     <!-- Text for the dismiss button of the restart Activity -->
     <!-- Text of the notification shown when a restart is needed -->
-    <string name="restart_notification_text">Тисни сюди для негайного перезапуску syncthing </string>
+    <string name="restart_notification_text">Тисни сюди для негайного перезапуску syncthing</string>
     <!-- Shown when a device ID is copied to the clipboard -->
     <string name="device_id_copied_to_clipboard">ID пристрою скопійовано в буфер обміну</string>
     <string name="state_scanning">Сканування</string>
@@ -202,7 +202,7 @@
     <string name="default_folder_id">%1$s фото</string>
     <string name="status_fragment_title">Стан</string>
     <string name="power_source_ac_and_battery_power">Від мережі та акумулятора.</string>
-    <string name="power_source_battery_power">Живлення від батареї.</string>
+    <string name="power_source_battery_power">Від акумулятора.</string>
     <string name="power_source_ac_power">Живлення від мережі.</string>
     <string name="copy_exception">Під час надання доступу сталася помилка, деталі шукайте у журналі додатку</string>
     <string name="cleanout_after_description">Кількість днів, протягом яких видалені файли залишатимуться у Кошику. Нуль означає завжди</string>
@@ -322,7 +322,7 @@
     <string name="syncthing_has_crashed">Syncthing впав.</string>
     <string name="dialog_exit_while_running_as_service_message">До вашої уваги: Ви налаштували автоматичний запуск програми під час завантаження пристрою. Тому вона відстежує умови запуску і синхронізує в будь-який час у фоновому режимі, коли умови збігаються. Вам слід завершувати роботу вручну лише у разі виникнення серйозних проблем. В іншому випадку вимкніть опцію «Запускати автоматично при завантаженні» у налаштуваннях. Ви хочете завершити роботу зараз, доки пристрій не перезавантажився?</string>
     <string name="toast_invalid_folder_selected">Вибачте. Вибрана тека не може бути використана. Будь ласка, виберіть теку, розташовану на внутрішньому або зовнішньому накопичувачі.</string>
-    <string name="discovered_device_list_empty">Локальне виявлення не знайшло жодного пристрою в локальній мережі. Запустіть цю програму на другому телефоні. Інсталяційні файли для комп\'ютерів доступні за адресою: %1$s</string>
+    <string name="discovered_device_list_empty">Локальне виявлення не знайшло жодного пристрою в локальній мережі. Запустіть цю програму на другому пристрої. Інсталяційні файли для комп\'ютерів доступні за адресою: %1$s</string>
     <string name="local_discovery_disabled">Ви вимкнули локальне виявлення у «Налаштування» &gt; «Параметри синхронізації» &gt; «Локальне виявлення». Увімкніть пошук пристроїв у локальній мережі.</string>
     <string name="introducer">Представник</string>
     <string name="device_addresses_invalid">Адреси пристроїв відформатовано неправильно. Будь ласка, спробуйте ще раз. Докладнішу інформацію див. у документації з Syncthing.</string>
@@ -361,7 +361,7 @@
     <string name="web_page_loading">Завантаження вебсторінки:\n%1$s…</string>
     <string name="announce_server">Налаштований сервер оголошень</string>
     <string name="expert_mode_title">Режим експерта</string>
-    <string name="run_on_time_schedule_summary">Увімкнення цієї опції спробує синхронізуватися протягом заданого часу, якщо виконані умови запуску та якщо пройшов вказаний інтервал часу з моменту останньої синхронізації. Це може заощадити багато батареї, але вимагає, щоб партнери по синхронізації були онлайн. Зверніть увагу: це може залишати неповні тимчасові файли до наступної запланованої синхронізації.</string>
+    <string name="run_on_time_schedule_summary">Увімкнення цієї опції спробує синхронізуватися протягом заданого часу, якщо виконані умови запуску та якщо пройшов вказаний інтервал часу з моменту останньої синхронізації. Це може заощадити багато заряду акумулятора, але вимагає, щоб партнери по синхронізації були онлайн. Зверніть увагу: це може залишати неповні тимчасові файли до наступної запланованої синхронізації.</string>
     <string name="run_in_flight_mode_summary">Увімкнення цієї опції дозволить Syncthing працювати навіть коли ви офлайн. Увімкніть, якщо ваш пристрій має проблеми з виявленням вручну підключених Wi-Fi мереж під час режиму польоту.</string>
     <string name="respect_master_sync_summary">Вимкнути Syncthing, коли швидке налаштування \'Автоматична синхронізація даних\' вимкнено.</string>
     <string name="respect_master_sync_title">Поважати налаштування Android \'Автоматична синхронізація даних\'</string>
@@ -385,7 +385,7 @@
     <string name="pull_order_newest_first">Спочатку найновіші</string>
     <string name="versioning_type_none">Вимкнути</string>
     <string name="versioning_type_trashcan">Кошик</string>
-    <string name="expert_mode_summary">Увімкнення цієї опції покаже розширені налаштування конфігурації. Спочатку ознайомтесь з документацією Syncthing, щоб переконатися, що ви знаєте, як правильно їх використовувати. Неправильні налаштування можуть призвести до витрати батареї, виснаження системних ресурсів або неповної синхронізації.</string>
+    <string name="expert_mode_summary">Увімкнення цієї опції покаже розширені налаштування конфігурації. Спочатку ознайомтесь з документацією Syncthing, щоб переконатися, що ви знаєте, як правильно їх використовувати. Неправильні налаштування можуть призвести до витрати заряду акумулятора, виснаження системних ресурсів або неповної синхронізації.</string>
     <string name="behaviour_autostart_summary">Автоматичний запуск додатка при старті операційної системи.</string>
     <string name="listen_address">Прослуховувані адреси для синхронізації</string>
     <string name="webui_username_title">Ім\'я користувача вебінтерфейсу</string>
@@ -426,7 +426,7 @@
     <string name="nothing_share">Нема чим поділитися</string>
     <string name="reason_not_on_mobile_data">Syncthing дозволено запускати за допомогою мобільного з\'єднання, але мобільні дані не підключено.</string>
     <string name="reason_on_wifi">Syncthing дозволено працювати через Wi-Fi, і Wi-Fi наразі підключено.</string>
-    <string name="reason_not_on_wifi">Syncthing дозволено працювати через Wi-Fi, але він не під\'єднаний або телефон перебуває в режимі польоту.</string>
+    <string name="reason_not_on_wifi">Syncthing дозволено працювати через Wi-Fi, але він не під\'єднаний або пристрій перебуває в режимі польоту.</string>
     <string name="syncthing_api_key">Ключ Syncthing API (натисніть що б скопіювати)</string>
     <string name="api_key_copied_to_clipboard">Ключ Syncthing API скопійовано в буфер обміну</string>
     <string name="syncthing_database_size">Розмір бази даних Syncthing</string>
@@ -434,7 +434,7 @@
     <string name="folder_picker_title">Обрати теку</string>
     <string name="reason_not_while_auto_sync_data_disabled">Syncthing не працює, оскільки в Android наразі вимкнено «Автосинхронізація даних».</string>
     <string name="reason_on_mobile_data">Syncthing дозволено працювати на мобільних даних.</string>
-    <string name="reason_not_while_power_saving">Syncthing не працює, оскільки телефон наразі працює в режимі енергозбереження.</string>
+    <string name="reason_not_while_power_saving">Syncthing не працює, оскільки пристрій наразі працює в режимі енергозбереження.</string>
     <string name="reason_mobile_data_disallowed">Syncthing не налаштовано на роботу в мобільних мережах.</string>
     <string name="st_reset_deltas_question">Цю дію слід виконувати лише за рекомендацією нашої служби підтримки. \nВи впевнені, що хочете очистити дельта-індекси Syncthing?</string>
     <string name="st_reset_deltas_done">Дельта-індекси Syncthing успішно очищені</string>

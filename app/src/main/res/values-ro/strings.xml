@@ -141,10 +141,8 @@
     <!-- StatusFragment -->
     <string name="status_fragment_title">Stare</string>
     <string name="button_follow_run_conditions">URMĂREȘTE CONDIȚIILE DE RULARE</string>
-    <string name="button_force_start">PORNIRE FORȚATĂ
-\nIGNORĂ CONDIȚIILE DE RULARE</string>
-    <string name="button_force_stop">OPRIRE FORȚATĂ
-\nIGNORĂ CONDIȚIILE DE RULARE</string>
+    <string name="button_force_start">PORNIRE FORȚATĂ \nIGNORĂ CONDIȚIILE DE RULARE</string>
+    <string name="button_force_stop">OPRIRE FORȚATĂ \nIGNORĂ CONDIȚIILE DE RULARE</string>
     <string name="syncthing_starting">Syncthing pornește.</string>
     <string name="syncthing_running">Syncthing rulează.</string>
     <string name="syncthing_not_running">Syncthing nu rulează.</string>
@@ -277,8 +275,7 @@
     <!-- Dialog message if an invalid ssl certificate was detected -->
     <string name="ssl_cert_invalid_text">Site-ul web %1$s pare să aibă un certificat nevalid pentru criptarea SSL. Continui?</string>
     <!-- Text for WebViewActivity loading page -->
-    <string name="web_page_loading">Se încarcă pagina web:
-\n%1$s …</string>
+    <string name="web_page_loading">Se încarcă pagina web: \n%1$s …</string>
     <!-- Text for WebViewActivity openBrowser action button -->
     <string name="open_in_browser">Deschide în browser</string>
     <!-- SettingsFragment -->
@@ -367,7 +364,7 @@
     <string name="webui_remote_access_summary">Specifică pentru a permite accesarea interfeței de utilizare web de pe alt dispozitiv. Dacă este activat, te poți conecta cu utilizatorul „syncthing” și cheia API ca parolă. Implicit: dezactivat (cel mai sigur)</string>
     <!-- Titles for the preference to undo ignored devices and folders -->
     <string name="undo_ignored_devices_folders_title">Reface setarea de ignorare de dispozitive și directoare</string>
-    <string name="undo_ignored_devices_folders_question">Această acțiune va reface decizia precedentă de ignorare a dispozitivelor și directoarelor. Continuați\?</string>
+    <string name="undo_ignored_devices_folders_question">Această acțiune va reface decizia precedentă de ignorare a dispozitivelor și directoarelor. Continuați?</string>
     <string name="undo_ignored_devices_folders_done">Acțiune refăcută cu succes.</string>
     <string name="export_config">Exportă configurația</string>
     <!-- Toast after entering invalid integer value -->
@@ -394,7 +391,7 @@
     <!-- Toast shown after config was imported -->
     <string name="config_imported_successful">Configurația a fost importată</string>
     <string name="dialog_settings_restart_app_title">Repornire necesară</string>
-    <string name="dialog_settings_restart_app_question">Modificarea acestei opțiuni necesită o repornire imediată a aplicației. Toate celelalte modificări vor fi anulate. Continuați\?</string>
+    <string name="dialog_settings_restart_app_question">Modificarea acestei opțiuni necesită o repornire imediată a aplicației. Toate celelalte modificări vor fi anulate. Continuați?</string>
     <!-- Title for the preference to set STTRACE parameters -->
     <string name="sttrace_title">Opțiuni STTRACE</string>
     <string name="environment_variables">Variabile de mediu</string>
@@ -403,15 +400,13 @@
     <!-- Title for the preference to reset Syncthing indexes -->
     <string name="st_reset_database_title">Resetează baza de date</string>
     <!-- Syncthing was reset -->
-    <string name="st_reset_database_question">Acestă acțiune trebuie realizată numai în baza unei recomandări din partea echipei noastre de asistență.
-\nSigur doriți să curățați baza de date Syncthing\?</string>
+    <string name="st_reset_database_question">Acestă acțiune trebuie realizată numai în baza unei recomandări din partea echipei noastre de asistență. \nSigur doriți să curățați baza de date Syncthing?</string>
     <!-- Syncthing was reset -->
     <string name="st_reset_database_done">Baza de date Syncthing a fost resetată cu succes</string>
     <!-- Title for the preference to reset Syncthing indexes -->
     <string name="st_reset_deltas_title">Resetare index diferențe</string>
     <!-- Syncthing was reset -->
-    <string name="st_reset_deltas_question">Acestă acțiune trebuie realizată numai în baza unei recomandări din partea echipei noastre de asistență.
-\nSigur doriți să curățați indexul diferențelor Syncthing\?</string>
+    <string name="st_reset_deltas_question">Acestă acțiune trebuie realizată numai în baza unei recomandări din partea echipei noastre de asistență. \nSigur doriți să curățați indexul diferențelor Syncthing?</string>
     <!-- Syncthing was reset -->
     <string name="st_reset_deltas_done">Indexul cu diferențe Syncthing a fost resetat cu succes</string>
     <string name="category_about">Despre</string>
@@ -628,10 +623,7 @@
     <string name="keep_versions_description">Numărul de versiuni vechi ale fișierelor ce vor fi păstrate, pentru fiecare fișier.</string>
     <string name="simple_file_versioning_description">Fișierele sunt mutate și redenumite după dată în directorul .stversions atunci când sunt înlocuite sau șterse de către Syncthing.</string>
     <string name="trashcan_versioning_description">Fișierele sunt mutate în directorul .stversions atunci când sunt înlocuite sau șterse de către Syncthing.</string>
-    <string name="staggered_versioning_description">Fișierele sunt mutate și redenumite după dată în directorul .stversions
-    atunci când sunt înlocuite sau șterse de către Syncthing. Versiunile sunt șterse automat dacă sunt mai vechi decât vârsta maximă sau dacă au depășit numărul de fișiere permise într-un interval.
-\n
-\nUrmătoarele intervale sunt folosite: în prima oră o versiune este păstrată pentru fiecare 30 de secunde, în prima zi o versiune este păstrată pentru fiecare oră, în primele 30 de zile o versiune este păstrată pentru fiecare zi, până la vârsta maximă o versiune este păstrată pentru fiecare săptămână.</string>
+    <string name="staggered_versioning_description">Fișierele sunt mutate și redenumite după dată în directorul .stversions atunci când sunt înlocuite sau șterse de către Syncthing. Versiunile sunt șterse automat dacă sunt mai vechi decât vârsta maximă sau dacă au depășit numărul de fișiere permise într-un interval. \n \nUrmătoarele intervale sunt folosite: în prima oră o versiune este păstrată pentru fiecare 30 de secunde, în prima zi o versiune este păstrată pentru fiecare oră, în primele 30 de zile o versiune este păstrată pentru fiecare zi, până la vârsta maximă o versiune este păstrată pentru fiecare săptămână.</string>
     <string name="maximum_age_description">Intervalul de timp maxim de păstrat o versiune (în zile, setați la 0 pentru a păstra versiunile pentru totdeauna).</string>
     <string name="versions_path_description">Calea unde versiunile vor fi stocate (lăsați gol pentru a folosi directorul implicit .stversions din directorul partajat).</string>
     <string name="cleanout_after_description">Numărul de zile de păstrat fișiere în coșul de gunoi. Zero înseamna pentru totdeauna</string>
@@ -644,8 +636,7 @@
     <string name="type_external">Tip: Extern</string>
     <!-- Information displayed about the current file versioning configuration in the folder activity -->
     <string name="trashcan_versioning_info">Curățare după: %1$s</string>
-    <string name="staggered_versioning_info">Vârstă maximă: %1$d
-\nCale versiuni: %2$s</string>
+    <string name="staggered_versioning_info">Vârstă maximă: %1$d \nCale versiuni: %2$s</string>
     <string name="external_versioning_info">Comandă: %1$s</string>
     <string name="simple_versioning_info">Păstrează versiunile: %1$s</string>
     <string name="show_device_id">Arată ID dispozitiv</string>

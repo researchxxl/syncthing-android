@@ -56,7 +56,7 @@
     <!-- Title for announce server status -->
     <string name="announce_server">Server Penyiaran</string>
     <string name="restart">Restart</string>
-    <string name="dialog_confirm_restart">Anda ingin menjalankan ulang Syncthing\?</string>
+    <string name="dialog_confirm_restart">Anda ingin menjalankan ulang Syncthing?</string>
     <!-- FolderActivity -->
     <!-- Setting title -->
     <string name="folder_id">ID Folder</string>
@@ -77,12 +77,12 @@
     <!-- Menu item to confirm folder creation -->
     <string name="create">Buat</string>
     <!-- Dialog shown when attempting to remove a folder -->
-    <string name="remove_folder_confirm">Anda yakin ingin menghapus folder ini dari Syncthing\?</string>
+    <string name="remove_folder_confirm">Anda yakin ingin menghapus folder ini dari Syncthing?</string>
     <!-- Toast shown when trying to create a folder with an empty ID -->
     <string name="folder_id_required">ID folder tidak boleh kosong</string>
     <!-- Toast shown when trying to create a folder with an empty path -->
     <string name="folder_path_required">Path/lokasi folder tidak boleh kosong</string>
-    <string name="dialog_discard_changes">Abaikan perubahan anda\?</string>
+    <string name="dialog_discard_changes">Abaikan perubahan anda?</string>
     <string name="ignore_patterns">Pola pengabaian</string>
     <!-- DeviceActivity -->
     <!-- Setting title -->
@@ -109,7 +109,7 @@
     <!-- Title for DeviceSettingsFragment in edit mode -->
     <string name="edit_device">Edit Perangkat</string>
     <!-- Dialog shown when attempting to remove a device -->
-    <string name="remove_device_confirm">Anda yakin ingin menghapus perangkat ini\?</string>
+    <string name="remove_device_confirm">Anda yakin ingin menghapus perangkat ini?</string>
     <!-- Toast shown when trying to create a device with an empty ID -->
     <string name="device_id_required">ID perangkat tidak boleh kosong</string>
     <!-- Content description for device ID qr code icon -->

@@ -8,9 +8,7 @@
     <!-- Welcome wizard -->
     <!-- Slide "Introduction" -->
     <string name="introduction">Einführung</string>
-    <string name="welcome_text">Syncthing ist eine quelloffene Software zur Dateisynchronisierung. Um Daten mit anderen Geräten zu teilen, müssen Sie deren eindeutige Geräte-IDs zur Geräteliste hinzufügen. Danach können Sie festlegen, welche Ordner mit welchen Geräten geteilt werden.
-\n
-\nBitte melden Sie auftretende Probleme via GitHub.</string>
+    <string name="welcome_text">Syncthing ist eine quelloffene Software zur Dateisynchronisierung. Um Daten mit anderen Geräten zu teilen, müssen Sie deren eindeutige Geräte-IDs zur Geräteliste hinzufügen. Danach können Sie festlegen, welche Ordner mit welchen Geräten geteilt werden. \n \nBitte melden Sie auftretende Probleme via GitHub.</string>
     <!-- Slide "Storage Permission" -->
     <string name="storage_permission_title">Speicher-Berechtigung</string>
     <string name="storage_permission_desc">Syncthing muss auf den Speicher zugreifen können, um Dateien zu synchronisieren.</string>
@@ -23,7 +21,7 @@
     <string name="dialog_disable_battery_optimizations_not_supported">Dieses Gerät unterstützt das Deaktivieren der Batterielaufzeit-Optimierung nicht</string>
     <!-- Slide "Location Permission" -->
     <string name="location_permission_title">Standortberechtigung</string>
-    <string name="location_permission_desc">Syncthing kann eingestellt werden, in bestimmten WLAN-Netzwerken zu arbeiten. Android erfordert, dass die App über die Standortberechtigung verfügt, um den Namen des aktiven Wi-Fi-Netzwerks auszulesen. Wenn Sie diese Funktion verwenden möchten, betätigen Sie die Schaltfläche oben. Sie können diesen Schritt überspringen. Weitere Informationen finden Sie in unserer Datenschutzerklärung.</string>
+    <string name="location_permission_desc">Syncthing kann eingestellt werden, in bestimmten WLAN-Netzwerken zu arbeiten. Android erfordert, dass die App über die Standortberechtigung verfügt, um den Namen des aktiven Wi-Fi-Netzwerks auszulesen. Wenn Sie diese Funktion verwenden möchten, betätigen Sie die Schaltfläche oben. Sie können diesen Schritt überspringen. Weitere Informationen finden Sie in unserer Datenschutzerklärung.</string>
     <string name="location_permission_desc_api_29">Android 10+ Tipp: „Immer zulassen“</string>
     <!-- Slide "Key Generation" -->
     <string name="key_generation_title">Schlüsselerstellung</string>
@@ -74,10 +72,8 @@
     <string name="share_device_id">Geräte-ID teilen</string>
     <!-- Shown in the chooser dialog when sharing a Device ID -->
     <string name="send_device_id_to">Geräte-ID senden an</string>
-    <string name="usage_reporting_dialog_title">Anonymen Nutzungsbericht erlauben\?</string>
-    <string name="usage_reporting_dialog_description">Der verschlüsselte Nutzungsbericht wird täglich versendet. Er dient der Statistik über genutzte Plattformen, Verzeichnisgrößen und Syncthing-Versionen. Wenn sich der übermittelte Datenumfang ändert, wird erneut um Erlaubnis gefragt.
-\n
-\nDie zusammengeführten Statistiken sind unter https://data.syncthing.net zu finden.</string>
+    <string name="usage_reporting_dialog_title">Anonymen Nutzungsbericht erlauben?</string>
+    <string name="usage_reporting_dialog_description">Der verschlüsselte Nutzungsbericht wird täglich versendet. Er dient der Statistik über genutzte Plattformen, Verzeichnisgrößen und Syncthing-Versionen. Wenn sich der übermittelte Datenumfang ändert, wird erneut um Erlaubnis gefragt. \n \nDie zusammengeführten Statistiken sind unter https://data.syncthing.net zu finden.</string>
     <string name="yes">Ja</string>
     <string name="no">Nein</string>
     <string name="open_website">Webseite öffnen</string>
@@ -99,11 +95,11 @@
     </plurals>
     <string name="override_changes">Änderungen überschreiben</string>
     <!-- Override Changes Confirmation Dialog -->
-    <string name="override_changes_question">Dadurch werden alle Änderungen rückgängig gemacht, die in diesem Ordner auf anderen Geräten vorgenommen wurden. Fortfahren\?</string>
+    <string name="override_changes_question">Dadurch werden alle Änderungen rückgängig gemacht, die in diesem Ordner auf anderen Geräten vorgenommen wurden. Fortfahren?</string>
     <string name="revert_local_changes">Lokale Änderungen zurücksetzen</string>
     <string name="delete_unexpected_items">Unerwartete Elemente löschen</string>
     <!-- Revert Local Changes Confirmation Dialog -->
-    <string name="revert_local_changes_question">Dadurch werden alle in diesem Ordner auf diesem Gerät vorgenommenen Änderungen rückgängig gemacht. Fortfahren\?</string>
+    <string name="revert_local_changes_question">Dadurch werden alle in diesem Ordner auf diesem Gerät vorgenommenen Änderungen rückgängig gemacht. Fortfahren?</string>
     <string name="open_file_manager">Dateimanager öffnen</string>
     <string name="open_file_with">Datei öffnen mit</string>
     <string name="open_file_no_compatible_app">Keine App zum Öffnen der Datei gefunden.</string>
@@ -116,8 +112,7 @@
     <!-- Shown if no devices are configured in add folder dialog -->
     <string name="devices_list_empty">Keine Geräte konfiguriert. Tippen, um ein neues Gerät hinzuzufügen.</string>
     <!-- Shown in ListView if no devices are configured -->
-    <string name="no_devices_configured">Keine Geräte konfiguriert.
-\nJetzt beginnen ein Gerät hinzuzufügen.</string>
+    <string name="no_devices_configured">Keine Geräte konfiguriert. \nJetzt beginnen ein Gerät hinzuzufügen.</string>
     <string name="deviceEncryptionPasswordHint">Wenn nicht vertraut, Passwort eingeben</string>
     <!-- Indicates that a folder is fully synced to the local device -->
     <string name="device_up_to_date">Aktuell</string>
@@ -279,8 +274,7 @@
     <!-- Dialog message if an invalid ssl certificate was detected -->
     <string name="ssl_cert_invalid_text">Die Webseite „%1$s“ scheint ein ungültiges SSL-Zertifikat zur Verschlüsselung aufzuweisen. Fortfahren?</string>
     <!-- Text for WebViewActivity loading page -->
-    <string name="web_page_loading">Webseite laden:
-\n%1$s …</string>
+    <string name="web_page_loading">Webseite laden: \n%1$s …</string>
     <!-- Text for WebViewActivity openBrowser action button -->
     <string name="open_in_browser">In Browser öffnen</string>
     <!-- SettingsFragment -->
@@ -376,7 +370,7 @@
     <string name="download_support_bundle_failed">Herunterladen des Supportpakets fehlgeschlagen. Bitte Protokolle prüfen.</string>
     <!-- Titles for the preference to undo ignored devices and folders -->
     <string name="undo_ignored_devices_folders_title">Ignorieren von Geräten und Ordnern rückgängig machen</string>
-    <string name="undo_ignored_devices_folders_question">Dies macht vorherige Entscheidungen, Geräte und Ordner zu ignorieren, rückgängig. Fortfahren\?</string>
+    <string name="undo_ignored_devices_folders_question">Dies macht vorherige Entscheidungen, Geräte und Ordner zu ignorieren, rückgängig. Fortfahren?</string>
     <string name="undo_ignored_devices_folders_done">Entscheidungen erfolgreich rückgängig gemacht.</string>
     <string name="export_config">Konfiguration exportieren</string>
     <!-- Toast after entering an invalid tcp port -->
@@ -406,7 +400,7 @@
     <!-- Toast shown after config was imported -->
     <string name="config_imported_successful">Konfiguration importiert</string>
     <string name="dialog_settings_restart_app_title">Neustart erforderlich</string>
-    <string name="dialog_settings_restart_app_question">Das Ändern dieser Option erfordert einen sofortigen Neustart der App. Alle anderen Änderungen werden verworfen. Fortsetzen\?</string>
+    <string name="dialog_settings_restart_app_question">Das Ändern dieser Option erfordert einen sofortigen Neustart der App. Alle anderen Änderungen werden verworfen. Fortsetzen?</string>
     <!-- Title for the preference to set STTRACE parameters -->
     <string name="sttrace_title">STTRACE-Optionen</string>
     <string name="environment_variables">Umgebungsvariablen</string>
@@ -415,15 +409,13 @@
     <!-- Title for the preference to reset Syncthing indexes -->
     <string name="st_reset_database_title">Datenbank zurücksetzen</string>
     <!-- Syncthing was reset -->
-    <string name="st_reset_database_question">Diese Aktion sollte nur auf Empfehlung des Supportteams ausgeführt werden.
-\nSoll die Syncthing-Datenbank wirklich geleert werden?</string>
+    <string name="st_reset_database_question">Diese Aktion sollte nur auf Empfehlung des Supportteams ausgeführt werden. \nSoll die Syncthing-Datenbank wirklich geleert werden?</string>
     <!-- Syncthing was reset -->
     <string name="st_reset_database_done">Datenbank erfolgreich zurückgesetzt</string>
     <!-- Title for the preference to reset Syncthing indexes -->
     <string name="st_reset_deltas_title">Änderungsindex zurücksetzen</string>
     <!-- Syncthing was reset -->
-    <string name="st_reset_deltas_question">Diese Aktion sollte nur auf Empfehlung des Supportteams ausgeführt werden.
-\nSoll der Syncthing-Änderungsindex wirklich zurückgesetzt werden?</string>
+    <string name="st_reset_deltas_question">Diese Aktion sollte nur auf Empfehlung des Supportteams ausgeführt werden. \nSoll der Syncthing-Änderungsindex wirklich zurückgesetzt werden?</string>
     <!-- Syncthing was reset -->
     <string name="st_reset_deltas_done">Syncthing-Änderungsindex erfolgreich zurückgesetzt</string>
     <string name="category_about">Über</string>
@@ -573,7 +565,7 @@
     <!-- Toast shown if a config file crucial to operation is missing -->
     <string name="config_file_missing">Eine für den Betrieb wichtige Konfigurationsdatei fehlt</string>
     <!-- Toast shown if a listening tcp port is unavailable -->
-    <string name="webui_tcp_port_unavailable">WebGUI TCP-Port %s belegt. Zweite Instanz\?</string>
+    <string name="webui_tcp_port_unavailable">WebGUI TCP-Port %s belegt. Zweite Instanz?</string>
     <!-- Label of the default folder created of first start (camera folder). -->
     <string name="default_android_camera_folder_label">Android Kamera</string>
     <!-- ID of the default folder created on first start (camera folder). Must only contain 'a-z0-9_-'. Parameter is the device name-->
@@ -666,9 +658,7 @@
     <string name="keep_versions_description">Anzahl der alten Versionen, die von jeder Datei behalten werden sollen.</string>
     <string name="simple_file_versioning_description">Dateien werden mit einem Datumsstempel im Namen versehen und in ein .stversions-Verzeichnis verschoben, wenn sie von Syncthing ersetzt oder gelöscht werden.</string>
     <string name="trashcan_versioning_description">Dateien werden in das .stversions-Verzeichnis verschoben, wenn sie von Syncthing ersetzt oder gelöscht werden.</string>
-    <string name="staggered_versioning_description">Dateien werden mit einem Datumsstempel im Namen versehen und in ein .stversions-Verzeichnis verschoben, wenn sie von Syncthing ersetzt oder gelöscht werden. Alte Dateiversionen werden automatisch gelöscht, wenn sie älter als das angegebene Höchstalter sind oder die angegebene Höchstzahl an Dateien erreicht ist.
-\n
-\nEs wird in folgenden Abständen versioniert: In der ersten Stunde wird alle 30 Sekunden eine Version behalten, am ersten Tag eine jede Stunde, in den ersten 30 Tagen eine jeden Tag. Danach wird bis zum angegebenen Höchstalter eine Version pro Woche behalten.</string>
+    <string name="staggered_versioning_description">Dateien werden mit einem Datumsstempel im Namen versehen und in ein .stversions-Verzeichnis verschoben, wenn sie von Syncthing ersetzt oder gelöscht werden. Alte Dateiversionen werden automatisch gelöscht, wenn sie älter als das angegebene Höchstalter sind oder die angegebene Höchstzahl an Dateien erreicht ist. \n \nEs wird in folgenden Abständen versioniert: In der ersten Stunde wird alle 30 Sekunden eine Version behalten, am ersten Tag eine jede Stunde, in den ersten 30 Tagen eine jeden Tag. Danach wird bis zum angegebenen Höchstalter eine Version pro Woche behalten.</string>
     <string name="maximum_age_description">Die längste Zeit, die alte Versionen vorgehalten werden (in Tagen, 0 um alte Versionen für immer zu behalten).</string>
     <string name="versions_path_description">Pfad, in dem Versionen gespeichert werden sollen (leer lassen, wenn das Standard-.stversions-Verzeichnis im geteilten Ordner verwendet werden soll).</string>
     <string name="cleanout_after_description">Anzahl der Tage, die Dateien im Papierkorb belassen werden. 0 bedeutet für immer</string>
@@ -681,8 +671,7 @@
     <string name="type_external">Typ: Extern</string>
     <!-- Information displayed about the current file versioning configuration in the folder activity -->
     <string name="trashcan_versioning_info">Bereinigen nach: %1$s</string>
-    <string name="staggered_versioning_info">Maximales Alter: %1$d
-\nVersionspfad: %2$s</string>
+    <string name="staggered_versioning_info">Maximales Alter: %1$d \nVersionspfad: %2$s</string>
     <string name="external_versioning_info">Befehl: %1$s</string>
     <string name="simple_versioning_info">Versionen behalten: %1$s</string>
     <string name="show_device_id">Geräte-ID anzeigen</string>
@@ -718,7 +707,7 @@
     <string name="syncthing_forum_title">Syncthing-Forum</string>
     <string name="privacy_title">Datenschutzerklärung</string>
     <string name="syncthing_forum_summary">Das Syncthing-Forum besuchen und Unterstützung erhalten</string>
-    <string name="privacy_summary">Die Datenschutzerklärung von syncthing-android öffnen, welche die Verwendung personenbezogener Daten (falls vorhanden), z. B. des Standorts, abdeckt.</string>
+    <string name="privacy_summary">Die Datenschutzerklärung von syncthing-android öffnen, welche die Verwendung personenbezogener Daten (falls vorhanden), z. B. des Standorts, abdeckt.</string>
     <string name="clear_stversions_question">Damit werden alle früheren Versionen der von Syncthing verwalteten Dateien gelöscht. Fortfahren?</string>
     <string name="clear_stversions_done">Erfolgreich .stversions-Ordner geleert.</string>
     <string name="clear_stversions_title">Alle Versionierungsordner leeren</string>
@@ -754,4 +743,5 @@
     <string name="category_general">Allgemein</string>
     <string name="category_schedule">Planen</string>
     <string name="category_battery">Akku</string>
+    <string name="device_id_qr_code">Geräte ID QR Code</string>
 </resources>

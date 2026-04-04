@@ -155,7 +155,7 @@
     <!-- Title for uptime status -->
     <string name="uptime">Tempo de atividade</string>
     <string name="restart">Reiniciar</string>
-    <string name="dialog_confirm_restart">Quer mesmo reiniciar o Syncthing\?</string>
+    <string name="dialog_confirm_restart">Quer mesmo reiniciar o Syncthing?</string>
     <!-- FolderActivity -->
     <!-- Setting title -->
     <string name="folder_id">ID da pasta</string>
@@ -185,7 +185,7 @@
     <!-- Menu item to confirm folder creation -->
     <string name="create">Criar</string>
     <!-- Dialog shown when attempting to remove a folder -->
-    <string name="remove_folder_confirm">Quer mesmo remover esta pasta do Syncthing\?</string>
+    <string name="remove_folder_confirm">Quer mesmo remover esta pasta do Syncthing?</string>
     <!-- Toast shown when trying to create a folder with an empty ID -->
     <string name="folder_id_required">O ID da pasta não pode ficar vazio</string>
     <!-- Toast shown when trying to create a folder with an empty label -->
@@ -232,7 +232,7 @@
     <!-- Title for DeviceSettingsFragment in edit mode -->
     <string name="edit_device">Editar dispositivo</string>
     <!-- Dialog shown when attempting to remove a device -->
-    <string name="remove_device_confirm">Quer mesmo remover este dispositivo\?</string>
+    <string name="remove_device_confirm">Quer mesmo remover este dispositivo?</string>
     <!-- Toast shown when trying to create a device with an empty ID -->
     <string name="device_id_required">O ID de dispositivo não pode ficar vazio</string>
     <!-- Content description for device ID qr code icon -->
@@ -254,10 +254,9 @@
     <!-- Dialog title displayed when an invalid ssl certificate was found -->
     <string name="security_notice">Aviso de segurança</string>
     <!-- Dialog message if an invalid ssl certificate was detected -->
-    <string name="ssl_cert_invalid_text">O site em %1$s parece ter um certificado inválido para criptografia SSL. Proceder\?</string>
+    <string name="ssl_cert_invalid_text">O site em %1$s parece ter um certificado inválido para criptografia SSL. Proceder?</string>
     <!-- Text for WebViewActivity loading page -->
-    <string name="web_page_loading">Carregando site:
-\n%1$s …</string>
+    <string name="web_page_loading">Carregando site: \n%1$s …</string>
     <!-- Text for WebViewActivity openBrowser action button -->
     <string name="open_in_browser">Abrir no navegador</string>
     <!-- SettingsFragment -->
@@ -710,4 +709,15 @@
     <string name="allow_overwrite_files_title">Permitir substituir arquivos existentes</string>
     <string name="allow_overwrite_files_summary">Quando outro aplicativo compartilha arquivos com uma de nossas pastas.</string>
     <string name="category_wifi">Wi-Fi</string>
+    <string name="device_id_qr_code">QR code do ID do dispositivo</string>
+    <string name="close_device_id">Fechar ID do dispositivo</string>
+    <string name="copy">Copiar</string>
+    <string name="category_mobile_data">Dados móveis</string>
+    <string name="category_battery">Bateria</string>
+    <string name="category_schedule">Agendar</string>
+    <string name="category_general">Geral</string>
+    <string name="category_connections">Conexões</string>
+    <string name="category_advanced">Avançado</string>
+    <string name="sttrace_none_selected">Sem opção de depuração</string>
+    <string name="state_loading">Carregando...</string>
 </resources>

@@ -17,10 +17,8 @@
     <string name="share_device_id">기기 ID 공유</string>
     <!-- Shown in the chooser dialog when sharing a Device ID -->
     <string name="send_device_id_to">다음으로 기기 ID 보내기</string>
-    <string name="usage_reporting_dialog_title">익명 사용 보고서 전송을 허용하시겠습니까\?</string>
-    <string name="usage_reporting_dialog_description">암호화된 사용량 보고서가 매일 전송됩니다. 이 보고서는 일반적인 플랫폼, 폴더 크기 및 응용 프로그램 버전을 추적하는 데 사용됩니다. 보고된 데이터 셋이 변경되면 이 대화 상자가 다시 표시됩니다.
-\n
-\n수집된 통계는 https://data.syncthing.net에서 공개적으로 이용할 수 있습니다.</string>
+    <string name="usage_reporting_dialog_title">익명 사용 보고서 전송을 허용하시겠습니까?</string>
+    <string name="usage_reporting_dialog_description">암호화된 사용량 보고서가 매일 전송됩니다. 이 보고서는 일반적인 플랫폼, 폴더 크기 및 응용 프로그램 버전을 추적하는 데 사용됩니다. 보고된 데이터 셋이 변경되면 이 대화 상자가 다시 표시됩니다. \n \n수집된 통계는 https://data.syncthing.net에서 공개적으로 이용할 수 있습니다.</string>
     <string name="yes">예</string>
     <string name="no">아니오</string>
     <string name="open_website">웹사이트 열기</string>
@@ -62,7 +60,7 @@
     <!-- Title for announce server status -->
     <string name="announce_server">익명 서버</string>
     <string name="restart">재시작</string>
-    <string name="dialog_confirm_restart">정말로 Syncthing을 재시작하시겠습니까\?</string>
+    <string name="dialog_confirm_restart">정말로 Syncthing을 재시작하시겠습니까?</string>
     <!-- FolderActivity -->
     <!-- Setting title -->
     <string name="folder_id">폴더 ID</string>
@@ -83,12 +81,12 @@
     <!-- Menu item to confirm folder creation -->
     <string name="create">생성</string>
     <!-- Dialog shown when attempting to remove a folder -->
-    <string name="remove_folder_confirm">정말로 이 폴더를 삭제하시겠습니까\?</string>
+    <string name="remove_folder_confirm">정말로 이 폴더를 삭제하시겠습니까?</string>
     <!-- Toast shown when trying to create a folder with an empty ID -->
     <string name="folder_id_required">폴더 식별자는 공백으로 둘 수 없습니다</string>
     <!-- Toast shown when trying to create a folder with an empty path -->
     <string name="folder_path_required">폴더 경로를 공백으로 둘 수 없습니다</string>
-    <string name="dialog_discard_changes">설정 변경을 취소합니까\?</string>
+    <string name="dialog_discard_changes">설정 변경을 취소합니까?</string>
     <string name="ignore_patterns">패턴 무시하기</string>
     <!-- DeviceActivity -->
     <!-- Setting title -->
@@ -115,7 +113,7 @@
     <!-- Title for DeviceSettingsFragment in edit mode -->
     <string name="edit_device">기기 수정</string>
     <!-- Dialog shown when attempting to remove a device -->
-    <string name="remove_device_confirm">정말로 이 기기를 삭제하시겠습니까\?</string>
+    <string name="remove_device_confirm">정말로 이 기기를 삭제하시겠습니까?</string>
     <!-- Toast shown when trying to create a device with an empty ID -->
     <string name="device_id_required">기기명을 공백으로 둘 수 없습니다</string>
     <!-- Content description for device ID qr code icon -->
@@ -283,9 +281,7 @@
     <string name="keep_versions_description">파일 당 보존 할 이전 버전 수.</string>
     <string name="simple_file_versioning_description">파일은 Syncthing에 의해 대체되거나 삭제 될 때 .stversions 디렉토리의 날짜 스탬프 버전으로 이동됩니다.</string>
     <string name="trashcan_versioning_description">파일은 Syncthing에 의해 대체되거나 삭제 될 때 .stversions 디렉토리로 이동됩니다.</string>
-    <string name="staggered_versioning_description">파일은 Syncthing에 의해 대체되거나 삭제 될 때 .stversions 디렉토리의 날짜 스탬프 버전으로 이동 됩니다. 버전이 최대 사용 기간보다 오래되었거나 해당 기간에 허용 된 파일 수를 초과하면 버전이 자동으로 삭제됩니다.
-\n
-\n다음 간격이 사용됩니다. 처음 1 시간 동안 버전이 매 30 초마다 유지됩니다. 버전은 매 시간 유지됩니다. 처음 30 일 동안은 버전이 매일 보관되고 최대 버전은 버전으로 유지됩니다. 매주 마다 보관됩니다.</string>
+    <string name="staggered_versioning_description">파일은 Syncthing에 의해 대체되거나 삭제 될 때 .stversions 디렉토리의 날짜 스탬프 버전으로 이동 됩니다. 버전이 최대 사용 기간보다 오래되었거나 해당 기간에 허용 된 파일 수를 초과하면 버전이 자동으로 삭제됩니다. \n \n다음 간격이 사용됩니다. 처음 1 시간 동안 버전이 매 30 초마다 유지됩니다. 버전은 매 시간 유지됩니다. 처음 30 일 동안은 버전이 매일 보관되고 최대 버전은 버전으로 유지됩니다. 매주 마다 보관됩니다.</string>
     <string name="maximum_age_description">버전을 보관할 수 있는 최대 시간 (일 단위로 영원히 버전을 유지하려면 0으로 설정).</string>
     <string name="versions_path_description">버전을 저장해야하는 경로 (공유 폴더의 기본 .stversions 디렉토리는 비워 두십시오).</string>
     <string name="cleanout_after_description">휴지통에서 파일을 보관할 일수입니다. 0은 영구 보관을 의미합니다</string>
@@ -298,8 +294,7 @@
     <string name="type_external">유형 : 외부</string>
     <!-- Information displayed about the current file versioning configuration in the folder activity -->
     <string name="trashcan_versioning_info">다음 기간 후 제거: %1$s</string>
-    <string name="staggered_versioning_info">최대 저장 기간: %1$d
-\n버전을 저장할 경로: %2$s</string>
+    <string name="staggered_versioning_info">최대 저장 기간: %1$d \n버전을 저장할 경로: %2$s</string>
     <string name="external_versioning_info">명령: %1$s</string>
     <string name="simple_versioning_info">버전 보호: %1$s</string>
     <string name="show_device_id">기기 ID 보기</string>
@@ -359,16 +354,13 @@
     <string name="open_file_no_compatible_app">파일을 열 수 있는 응용 프로그램을 찾을 수 없습니다.</string>
     <string name="suggest_file_manager_app_dialog_title">호환되는 파일 관리자 응용 프로그램을 찾을 수 없습니다</string>
     <string name="suggest_file_manager_app_dialog_text">오픈 소스 파일 관리자 앱 \'Material Files\'를 설치하는 것을 권장합니다. 앱 스토어 페이지를 여시겠습니까?</string>
-    <string name="no_devices_configured">설정된 기기가 없습니다.
-\n지금 기기를 추가하여 시작하세요.</string>
+    <string name="no_devices_configured">설정된 기기가 없습니다. \n지금 기기를 추가하여 시작하세요.</string>
     <string name="device_paused">일시정지</string>
     <string name="device_last_seen_never">연결된 적 없음</string>
     <string name="shared_folders_title_colon">"폴더목록: "</string>
     <string name="button_follow_run_conditions">실행 조건을 따라주세요</string>
-    <string name="button_force_stop">강제 중지
-\n실행 조건 무시</string>
-    <string name="button_force_start">강제 시작
-\n실행 조건 무시</string>
+    <string name="button_force_stop">강제 중지 \n실행 조건 무시</string>
+    <string name="button_force_start">강제 시작 \n실행 조건 무시</string>
     <string name="syncthing_not_running">Syncthing이 실행중이 아닙니다.</string>
     <string name="syncthing_has_crashed">Syncthing이 중단되었습니다.</string>
     <string name="uptime">가동 시간</string>
@@ -395,8 +387,7 @@
     <string name="device_id_invalid">기기 ID 형식이 올바르지 않습니다. 올바른 ID를 재입력하세요.</string>
     <string name="device_name_required">기기 이름은 비워둘 수 없습니다</string>
     <string name="device_addresses_invalid">기기 주소 형식이 올바르지 않습니다. 다시 시도해 주세요. 자세한 내용은 Syncthing 문서를 참조하세요.</string>
-    <string name="web_page_loading">웹페이지 로딩중:
-\n%1$s …</string>
+    <string name="web_page_loading">웹페이지 로딩중: \n%1$s …</string>
     <string name="open_in_browser">브라우저에서 열기</string>
     <string name="category_user_interface">사용자 인터페이스</string>
     <string name="preference_app_theme_title">테마</string>
@@ -472,8 +463,7 @@
     <string name="power_source_title">기기가 다음으로 구동될 때 실행</string>
     <string name="respect_battery_saving_summary">배터리 절약 모드가 활성화된 경우 Syncthing 비활성화.</string>
     <string name="respect_master_sync_title">Android \'데이터 자동 동기화\' 설정 따르기</string>
-    <string name="st_reset_database_question">이 작업은 당사 지원 팀의 권장에 따라 수행해야 합니다.
-\nSyncthing의 데이터베이스를 정말로 초기화하시겠습니까?</string>
+    <string name="st_reset_database_question">이 작업은 당사 지원 팀의 권장에 따라 수행해야 합니다. \nSyncthing의 데이터베이스를 정말로 초기화하시겠습니까?</string>
     <string name="dialog_exit_while_running_as_service_message">참고하세요: 사용자가 이 응용 프로그램을 부팅 시 자동으로 시작하도록 설정했습니다. 따라서 이 응용 프로그램은 실행 조건을 모니터링하고 조건이 맞으면 언제든지 백그라운드에서 동기화를 수행합니다. 심각한 문제가 발생한 경우에만 수동으로 종료해야 합니다. 그렇지 않으면 설정에서 \'부팅 시 자동 시작\'을 비활성화하세요. 기기를 재부팅하기 전까지 종료하시겠습니까?</string>
     <string name="folder_path_readwrite">사용자가 사용 중인 Android 버전은 Syncthing이 선택한 폴더에 대한 읽기 및 쓰기 접근 권한을 부여합니다.</string>
     <string name="folder_path_readonly">사용자가 사용 중인 Android 버전은 Syncthing이 선택한 폴더에 대한 읽기 전용 접근 권한만 부여합니다.</string>
@@ -484,8 +474,7 @@
     <string name="power_source_ac_power">AC 전원.</string>
     <string name="power_source_battery_power">배터리 전원.</string>
     <string name="respect_master_sync_summary">빠른 설정 타일에서 \'데이터 자동 동기화\'가 꺼져 있을 때 Syncthing을 비활성화합니다.</string>
-    <string name="st_reset_deltas_question">이 작업은 당사 지원 팀의 권장에 따라 수행해야 합니다.
-\nSyncthing의 델타 인덱스를 정말로 초기화하시겠습니까?</string>
+    <string name="st_reset_deltas_question">이 작업은 당사 지원 팀의 권장에 따라 수행해야 합니다. \nSyncthing의 델타 인덱스를 정말로 초기화하시겠습니까?</string>
     <string name="specify_wifi_ssid_whitelist">Wi-Fi 네트워크 선택</string>
     <string name="sync_duration_minutes_summary">%1$s 분</string>
     <string name="behaviour_autostart_title">자동 시작</string>

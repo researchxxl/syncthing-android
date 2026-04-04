@@ -72,10 +72,8 @@
     <string name="share_device_id">Condividi ID Dispositivo</string>
     <!-- Shown in the chooser dialog when sharing a Device ID -->
     <string name="send_device_id_to">Invia ID Dispositivo a</string>
-    <string name="usage_reporting_dialog_title">Abilitare Statistiche Anonime di Utilizzo\?</string>
-    <string name="usage_reporting_dialog_description">Quotidianamente il software invia le statistiche di utilizzo in forma criptata. Questi dati riguardano i sistemi operativi utilizzati, le dimensioni delle cartelle e le versioni del software. Se i dati riportati sono cambiati, verrà mostrata di nuovo questa finestra di dialogo.
-\n
-\nDati statistici in forma aggregata sono disponibili pubblicamente su https://data.syncthing.net.</string>
+    <string name="usage_reporting_dialog_title">Abilitare Statistiche Anonime di Utilizzo?</string>
+    <string name="usage_reporting_dialog_description">Quotidianamente il software invia le statistiche di utilizzo in forma criptata. Questi dati riguardano i sistemi operativi utilizzati, le dimensioni delle cartelle e le versioni del software. Se i dati riportati sono cambiati, verrà mostrata di nuovo questa finestra di dialogo. \n \nDati statistici in forma aggregata sono disponibili pubblicamente su https://data.syncthing.net.</string>
     <string name="yes">Sì</string>
     <string name="no">No</string>
     <string name="open_website">Apri sito</string>
@@ -98,25 +96,24 @@
     </plurals>
     <string name="override_changes">Ignora le Modifiche</string>
     <!-- Override Changes Confirmation Dialog -->
-    <string name="override_changes_question">Annullerà tutte le modifiche fatte sugli altri dispositivi che condividono questa cartella. Vuoi procedere\?</string>
+    <string name="override_changes_question">Annullerà tutte le modifiche fatte sugli altri dispositivi che condividono questa cartella. Vuoi procedere?</string>
     <string name="revert_local_changes">Ripristina modifiche locali</string>
     <string name="delete_unexpected_items">Elimina elementi inattesi</string>
     <!-- Revert Local Changes Confirmation Dialog -->
-    <string name="revert_local_changes_question">Annullerà tutte le modifiche fatte su questo dispositivo all\'interno della cartella. Vuoi procedere\?</string>
+    <string name="revert_local_changes_question">Annullerà tutte le modifiche fatte su questo dispositivo all\'interno della cartella. Vuoi procedere?</string>
     <string name="open_file_manager">Apri il file manager</string>
     <string name="open_file_with">Apri file con</string>
     <string name="open_file_no_compatible_app">Non è stata trovata un\'app per aprire questo file.</string>
     <!-- Suggest File Manager App Dialog -->
     <string name="suggest_file_manager_app_dialog_title">Non è stato trovato un file manager compatibile</string>
-    <string name="suggest_file_manager_app_dialog_text">Consigliamo di installare il file manager open-source \'Material Files\' da F-Droid. Vuoi aprire la sua pagina sull\'app store\?</string>
+    <string name="suggest_file_manager_app_dialog_text">Consigliamo di installare il file manager open-source \'Material Files\' da F-Droid. Vuoi aprire la sua pagina sull\'app store?</string>
     <!-- DeviceListFragment -->
     <!-- Devices tab title -->
     <string name="devices_fragment_title">Dispositivi</string>
     <!-- Shown if no devices are configured in add folder dialog -->
     <string name="devices_list_empty">Non ci sono dispositivi configurati. Tocca per aggiungere un nuovo dispositivo.</string>
     <!-- Shown in ListView if no devices are configured -->
-    <string name="no_devices_configured">Non ci sono dispositivi configurati.
-\nInizia aggiungendo un dispositivo ora.</string>
+    <string name="no_devices_configured">Non ci sono dispositivi configurati. \nInizia aggiungendo un dispositivo ora.</string>
     <string name="deviceEncryptionPasswordHint">Se non è affidabile, definisci una password di crittografia</string>
     <!-- Indicates that a folder is fully synced to the local device -->
     <string name="device_up_to_date">Sincronizzato</string>
@@ -144,10 +141,8 @@
     <!-- StatusFragment -->
     <string name="status_fragment_title">Stato</string>
     <string name="button_follow_run_conditions">SEGUI CONDIZIONI DI ESECUZIONE</string>
-    <string name="button_force_start">FORZA AVVIO
-\nIGNORA CONDIZIONI DI ESECUZIONE</string>
-    <string name="button_force_stop">FORZA ARRESTO
-\nIGNORA CONDIZIONI DI ESECUZIONE</string>
+    <string name="button_force_start">FORZA AVVIO \nIGNORA CONDIZIONI DI ESECUZIONE</string>
+    <string name="button_force_stop">FORZA ARRESTO \nIGNORA CONDIZIONI DI ESECUZIONE</string>
     <string name="syncthing_starting">Syncthing è in avvio.</string>
     <string name="syncthing_running">Syncthing è in esecuzione.</string>
     <string name="syncthing_not_running">Syncthing non è in esecuzione.</string>
@@ -201,7 +196,7 @@
     <string name="folder_label_required">L\'etichetta della cartella non può essere vuota</string>
     <!-- Toast shown when trying to create a folder with an empty path -->
     <string name="folder_path_required">Il percorso della cartella non può essere vuoto</string>
-    <string name="dialog_discard_changes">Annullare le modifiche\?</string>
+    <string name="dialog_discard_changes">Annullare le modifiche?</string>
     <!-- Summary shown if we only have readonly access to the folder path -->
     <string name="folder_path_readonly">La versione di Android consente a Syncthing l\'accesso in sola lettura alla cartella selezionata.</string>
     <!-- Summary shown if we only have readwrite access to the folder path -->
@@ -260,7 +255,7 @@
     <!-- Content description for device ID qr code icon -->
     <string name="scan_qr_code_description">Scansiona Codice QR</string>
     <!-- Dialog message if no compatible barcode scanner app is installed -->
-    <string name="install_barcode_scanner_app_message">Per questa operazione è necessario un lettore di codice a barre. Vuoi installare l\'app \'Binary Eye\' da F-Droid\?</string>
+    <string name="install_barcode_scanner_app_message">Per questa operazione è necessario un lettore di codice a barre. Vuoi installare l\'app \'Binary Eye\' da F-Droid?</string>
     <!-- Shown if no folders are configured -->
     <string name="folders_list_empty">Non ci sono cartelle configurate. Tocca per aggiungere una nuova cartella.</string>
     <!-- RecentChangesActivity -->
@@ -278,10 +273,9 @@
     <!-- Dialog title displayed when an invalid ssl certificate was found -->
     <string name="security_notice">Avviso di sicurezza</string>
     <!-- Dialog message if an invalid ssl certificate was detected -->
-    <string name="ssl_cert_invalid_text">Il sito %1$s sembra avere un certificato SSL non valido. Vuoi precedere\?</string>
+    <string name="ssl_cert_invalid_text">Il sito %1$s sembra avere un certificato SSL non valido. Vuoi precedere?</string>
     <!-- Text for WebViewActivity loading page -->
-    <string name="web_page_loading">Caricamento pagina web:
-\n%1$s…</string>
+    <string name="web_page_loading">Caricamento pagina web: \n%1$s…</string>
     <!-- Text for WebViewActivity openBrowser action button -->
     <string name="open_in_browser">Apri nel browser</string>
     <!-- SettingsFragment -->
@@ -377,7 +371,7 @@
     <string name="download_support_bundle_failed">È fallito il download del pacchetto di supporto. Controlla i log.</string>
     <!-- Titles for the preference to undo ignored devices and folders -->
     <string name="undo_ignored_devices_folders_title">Annulla l\'aver ignorato dispositivi e cartelle</string>
-    <string name="undo_ignored_devices_folders_question">Annullerai le scelte precedenti per ignorare dispositivi e cartelle. Vuoi continuare\?</string>
+    <string name="undo_ignored_devices_folders_question">Annullerai le scelte precedenti per ignorare dispositivi e cartelle. Vuoi continuare?</string>
     <string name="undo_ignored_devices_folders_done">Scelte annullate con successo.</string>
     <string name="export_config">Esporta Configurazione</string>
     <!-- Toast after entering an invalid tcp port -->
@@ -407,7 +401,7 @@
     <!-- Toast shown after config was imported -->
     <string name="config_imported_successful">Configurazione importata</string>
     <string name="dialog_settings_restart_app_title">Riavvio necessario</string>
-    <string name="dialog_settings_restart_app_question">La modifica di questa opzione richiede il riavvio immediato dell\'app. Tutti gli altri cambiamenti verranno ignoranti. Vuoi continuare\?</string>
+    <string name="dialog_settings_restart_app_question">La modifica di questa opzione richiede il riavvio immediato dell\'app. Tutti gli altri cambiamenti verranno ignoranti. Vuoi continuare?</string>
     <!-- Title for the preference to set STTRACE parameters -->
     <string name="sttrace_title">Opzioni STTRACE</string>
     <string name="environment_variables">Variabili d\'ambiente</string>
@@ -416,15 +410,13 @@
     <!-- Title for the preference to reset Syncthing indexes -->
     <string name="st_reset_database_title">Reset del Database</string>
     <!-- Syncthing was reset -->
-    <string name="st_reset_database_question">Questa azione dovrebbe essere eseguita solo sulla base di una raccomandazione del nostro team di supporto.
-\nProcedere con la cancellazione del database di Syncthing?</string>
+    <string name="st_reset_database_question">Questa azione dovrebbe essere eseguita solo sulla base di una raccomandazione del nostro team di supporto. \nProcedere con la cancellazione del database di Syncthing?</string>
     <!-- Syncthing was reset -->
     <string name="st_reset_database_done">Reset del database di Syncthing riuscito</string>
     <!-- Title for the preference to reset Syncthing indexes -->
     <string name="st_reset_deltas_title">Reimposta gli indici Delta</string>
     <!-- Syncthing was reset -->
-    <string name="st_reset_deltas_question">Questa azione dovrebbe essere eseguita solo sulla base di una raccomandazione del nostro team di supporto.
-\nProcedere con la cancellazione degli indici delta di Syncthing?</string>
+    <string name="st_reset_deltas_question">Questa azione dovrebbe essere eseguita solo sulla base di una raccomandazione del nostro team di supporto. \nProcedere con la cancellazione degli indici delta di Syncthing?</string>
     <!-- Syncthing was reset -->
     <string name="st_reset_deltas_done">Ripristinati con successo gli indici delta di Syncthing</string>
     <string name="category_about">Info</string>
@@ -567,9 +559,9 @@
         <item quantity="other">%1$d dispositivi online e sincronizzati</item>
     </plurals>
     <plurals name="syncthing_active_syncing_device_online">
-        <item quantity="one">Sincronizzazione: %1$d%% completato, %2$d dispositivo online </item>
-        <item quantity="many">Sincronizzazione: %1$d%% completato, %2$d dispositivi online </item>
-        <item quantity="other">Sincronizzazione: %1$d%% completato, %2$d dispositivi online </item>
+        <item quantity="one">Sincronizzazione: %1$d%% completato, %2$d dispositivo online</item>
+        <item quantity="many">Sincronizzazione: %1$d%% completato, %2$d dispositivi online</item>
+        <item quantity="other">Sincronizzazione: %1$d%% completato, %2$d dispositivi online</item>
     </plurals>
     <string name="syncthing_disabled">In sospensione</string>
     <string name="syncthing_terminated">Terminato</string>
@@ -580,7 +572,7 @@
     <!-- Toast shown if a config file crucial to operation is missing -->
     <string name="config_file_missing">Non è stato trovato un file di configurazione essenziale</string>
     <!-- Toast shown if a listening tcp port is unavailable -->
-    <string name="webui_tcp_port_unavailable">La porta TCP %s della WebUI è occupata. C\'è un\'altra istanza in esecuzione\?</string>
+    <string name="webui_tcp_port_unavailable">La porta TCP %s della WebUI è occupata. C\'è un\'altra istanza in esecuzione?</string>
     <!-- Label of the default folder created of first start (camera folder). -->
     <string name="default_android_camera_folder_label">Fotocamera Android</string>
     <!-- ID of the default folder created on first start (camera folder). Must only contain 'a-z0-9_-'. Parameter is the device name-->
@@ -673,9 +665,7 @@
     <string name="keep_versions_description">Il numero di vecchie versioni di mantenere, per ogni file.</string>
     <string name="simple_file_versioning_description">I file vengono spostati con la data di versione in una cartella .stversions quando sostituiti o eliminati da Syncthing.</string>
     <string name="trashcan_versioning_description">I file vengono spostati in una cartella .stversions quando sostituiti o eliminati da Syncthing.</string>
-    <string name="staggered_versioning_description">I file vengono spostati con la data di versione in una cartella .stversions quando sostituiti o eliminati da Syncthing. Le versioni vengono automaticamente eliminate se sono di età superiore all\'età massima o superano il numero di file consentiti in un intervallo.
-\n
-\nI seguenti intervalli sono utilizzati: Per la prima ora una versione viene mantenuta ogni 30 secondi, per il primo giorno una versione viene mantenuta ogni ora, per i primi 30 giorni una versione viene mantenuta ogni giorno, fino all\'età massima una versione è mantenuto ogni settimana.</string>
+    <string name="staggered_versioning_description">I file vengono spostati con la data di versione in una cartella .stversions quando sostituiti o eliminati da Syncthing. Le versioni vengono automaticamente eliminate se sono di età superiore all\'età massima o superano il numero di file consentiti in un intervallo. \n \nI seguenti intervalli sono utilizzati: Per la prima ora una versione viene mantenuta ogni 30 secondi, per il primo giorno una versione viene mantenuta ogni ora, per i primi 30 giorni una versione viene mantenuta ogni giorno, fino all\'età massima una versione è mantenuto ogni settimana.</string>
     <string name="maximum_age_description">Il tempo massimo di mantenimento di una versione (in giorni, imposta su 0 per mantenere le versioni per sempre).</string>
     <string name="versions_path_description">Percorso in cui devono essere conservate le versioni (lasciare vuoto per la directory di default .stversions nella cartella condivisa).</string>
     <string name="cleanout_after_description">Il numero di giorni di mantenimento dei file nel cestino. Zero significa per sempre</string>
@@ -688,8 +678,7 @@
     <string name="type_external">Tipo: Esterno</string>
     <!-- Information displayed about the current file versioning configuration in the folder activity -->
     <string name="trashcan_versioning_info">Ripulire dopo: %1$s</string>
-    <string name="staggered_versioning_info">Età Massima: %1$d
-\nPercorso Versioni: %2$s</string>
+    <string name="staggered_versioning_info">Età Massima: %1$d \nPercorso Versioni: %2$s</string>
     <string name="external_versioning_info">Comando: %1$s</string>
     <string name="simple_versioning_info">Mantenere versioni: %1$s</string>
     <string name="show_device_id">Mostra ID dispositivo</string>

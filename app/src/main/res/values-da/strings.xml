@@ -8,9 +8,7 @@
     <!-- Welcome wizard -->
     <!-- Slide "Introduction" -->
     <string name="introduction">Introduktion</string>
-    <string name="welcome_text">Syncthing er en open-source filsynkroniserings-applikation. For at dele data med andre enheder, skal du tilføje deres unikke enheds-ID til enhedslisten. Derefter kan du vælge, hvilke mapper der skal deles med hvilke enheder.
-\n
-\nRapporter eventuelle problemer, du støder på, via GitHub.</string>
+    <string name="welcome_text">Syncthing er en open-source filsynkroniserings-applikation. For at dele data med andre enheder, skal du tilføje deres unikke enheds-ID til enhedslisten. Derefter kan du vælge, hvilke mapper der skal deles med hvilke enheder. \n \nRapporter eventuelle problemer, du støder på, via GitHub.</string>
     <!-- Slide "Storage Permission" -->
     <string name="storage_permission_title">Lagertilladelser</string>
     <string name="storage_permission_desc">Syncthing skal have adgang til dit lager for at kunne synkronisere filer.</string>
@@ -41,7 +39,7 @@
     <string name="exception_known_bug_notice">En kendt fejl der ikke er blevet løst endnu er blevet mødt. Se %1$s/%2$s for flere informationer. Giv os en præcis forklaring af hvad der skete før.</string>
     <!-- Title of the exit app when running as a service confirmation dialog -->
     <string name="dialog_exit_while_running_as_service_title">Bekræft for at lukke appen</string>
-    <string name="dialog_exit_while_running_as_service_message">Til dine overvejelser: Du konfigurerede appen til at starte automatisk ved start. Derfor kontrollere den kørebetingelser og synkronisering hele tiden i baggrunden når betingelserne er mødt. Du bør kun lukke manuelt hvis du løber ikke alvorlige problemer. Ellers slå \'Start automatically on boot\' fra i indstillingerne. Vil du gerne lukke nu indtil enheden er genstartet\?</string>
+    <string name="dialog_exit_while_running_as_service_message">Til dine overvejelser: Du konfigurerede appen til at starte automatisk ved start. Derfor kontrollere den kørebetingelser og synkronisering hele tiden i baggrunden når betingelserne er mødt. Du bør kun lukke manuelt hvis du løber ikke alvorlige problemer. Ellers slå \'Start automatically on boot\' fra i indstillingerne. Vil du gerne lukke nu indtil enheden er genstartet?</string>
     <!-- Title of the "add folder" menu action -->
     <string name="add_folder">Tilføj mappe</string>
     <!-- Title of the "share device id" menu action -->
@@ -49,9 +47,7 @@
     <!-- Shown in the chooser dialog when sharing a Device ID -->
     <string name="send_device_id_to">Send Enheds-ID til</string>
     <string name="usage_reporting_dialog_title">Tillad Anonym Forbrugsrapportering</string>
-    <string name="usage_reporting_dialog_description">Den krypterede forbrugsrapport bliver send dagligt. Det bliver brugt til at undersøge mest burgte platforme, mappestørrelser og app versioner. Hvis det rapporterede dataset bliver ændret, vil du blive informeret med denne dialog igen.
-\n
-\nDe aggregerede statistikker er offentligt tilgængelige her https://data.syncthing.net.</string>
+    <string name="usage_reporting_dialog_description">Den krypterede forbrugsrapport bliver send dagligt. Det bliver brugt til at undersøge mest burgte platforme, mappestørrelser og app versioner. Hvis det rapporterede dataset bliver ændret, vil du blive informeret med denne dialog igen. \n \nDe aggregerede statistikker er offentligt tilgængelige her https://data.syncthing.net.</string>
     <string name="yes">Ja</string>
     <string name="no">Nej</string>
     <string name="open_website">Åben Hjemmeside</string>
@@ -114,7 +110,7 @@
     <!-- Title for uptime status -->
     <string name="uptime">Oppetid</string>
     <string name="restart">Genstart</string>
-    <string name="dialog_confirm_restart">Ønsker du at genstarte Syncthing\?</string>
+    <string name="dialog_confirm_restart">Ønsker du at genstarte Syncthing?</string>
     <!-- FolderActivity -->
     <!-- Setting title -->
     <string name="folder_id">Mappe ID</string>
@@ -140,12 +136,12 @@
     <!-- Menu item to confirm folder creation -->
     <string name="create">Opret</string>
     <!-- Dialog shown when attempting to remove a folder -->
-    <string name="remove_folder_confirm">Er du sikker på du vil fjerne denne mappe fra Syncthing\?</string>
+    <string name="remove_folder_confirm">Er du sikker på du vil fjerne denne mappe fra Syncthing?</string>
     <!-- Toast shown when trying to create a folder with an empty ID -->
     <string name="folder_id_required">Mappe ID må ikke være tomt</string>
     <!-- Toast shown when trying to create a folder with an empty path -->
     <string name="folder_path_required">Mappens sti må ikke være tom</string>
-    <string name="dialog_discard_changes">Slet dine ændringer\?</string>
+    <string name="dialog_discard_changes">Slet dine ændringer?</string>
     <!-- Summary shown if we only have readonly access to the folder path -->
     <string name="folder_path_readonly">Din Android version tillader kun Syncthing at læse den valgte mappe.</string>
     <!-- Summary shown if we only have readwrite access to the folder path -->
@@ -180,7 +176,7 @@
     <!-- Title for DeviceSettingsFragment in edit mode -->
     <string name="edit_device">Rediger Enhed</string>
     <!-- Dialog shown when attempting to remove a device -->
-    <string name="remove_device_confirm">Er du sikker på at du vil fjerne denne enhed\?</string>
+    <string name="remove_device_confirm">Er du sikker på at du vil fjerne denne enhed?</string>
     <!-- Toast shown when trying to create a device with an empty ID -->
     <string name="device_id_required">Enheds-ID må ikke være tomt</string>
     <!-- Content description for device ID qr code icon -->
@@ -234,7 +230,7 @@
     <string name="preference_language_title">Sprog</string>
     <string name="preference_language_summary">Ændr app sproget</string>
     <string name="pref_language_default">Default Sprog</string>
-    <string name="folder_type_send_receive">Send &amp; Modtag </string>
+    <string name="folder_type_send_receive">Send &amp; Modtag</string>
     <string name="folder_type_send_only">Send Kun</string>
     <string name="folder_type_receive_only">Modtag Kun</string>
     <string name="pull_order_random">Tilfældig</string>
@@ -260,7 +256,7 @@
     <string name="usage_reporting">Anonym Forburgsrapportering</string>
     <!-- Titles for the preference to undo ignored devices and folders -->
     <string name="undo_ignored_devices_folders_title">Fortryd at ignorer enheder og mapper</string>
-    <string name="undo_ignored_devices_folders_question">Dette vil fortryde forrige beslutninger til at ignorer enheder og foldere. Fortsæt\?</string>
+    <string name="undo_ignored_devices_folders_question">Dette vil fortryde forrige beslutninger til at ignorer enheder og foldere. Fortsæt?</string>
     <string name="undo_ignored_devices_folders_done">Vellykket ufærdige valg.</string>
     <string name="export_config">Eksporter Konfigurering</string>
     <!-- Toast after entering invalid integer value -->
@@ -293,15 +289,13 @@
     <!-- Title for the preference to reset Syncthing indexes -->
     <string name="st_reset_database_title">Nulstil database</string>
     <!-- Syncthing was reset -->
-    <string name="st_reset_database_question">Denne aktion bør kun blive brugt baserede på en en anbefaling fra vores supportteam.
-\nEr du sikker på du vil rydde Syncthing\'s databaser\?</string>
+    <string name="st_reset_database_question">Denne aktion bør kun blive brugt baserede på en en anbefaling fra vores supportteam. \nEr du sikker på du vil rydde Syncthing\'s databaser?</string>
     <!-- Syncthing was reset -->
     <string name="st_reset_database_done">Syncthing\'s database successfuldt nulstillet</string>
     <!-- Title for the preference to reset Syncthing indexes -->
     <string name="st_reset_deltas_title">Genstart Delta Indekser</string>
     <!-- Syncthing was reset -->
-    <string name="st_reset_deltas_question">Denne aktion bør kun blive brugt baserede på en en anbefaling fra vores supportteam.
-\nEr du sikker på du vil rydde Syncthing delta indekser\?</string>
+    <string name="st_reset_deltas_question">Denne aktion bør kun blive brugt baserede på en en anbefaling fra vores supportteam. \nEr du sikker på du vil rydde Syncthing delta indekser?</string>
     <!-- Syncthing was reset -->
     <string name="st_reset_deltas_done">Vellykket genstart af Syncthing\'s delta indekser.</string>
     <string name="category_about">Omkring</string>
@@ -474,9 +468,7 @@
     <string name="keep_versions_description">Antal af gamle versioner at beholde, pr fil.</string>
     <string name="simple_file_versioning_description">Filer bliver flyttet til dato-markeret versioner i et .stversions directory når de erstattes er bliver slettet af Syncthing.</string>
     <string name="trashcan_versioning_description">Filer bliver flyttet til .stversions directory når de erstattes er bliver slettet af Syncthing.</string>
-    <string name="staggered_versioning_description">Filer bliver flyttet til markeret versioner i et .stversions directory når de bliver erstattet eller slettet af Syncthing. Versioner bliver automatisk slettet hvis de er ældre end den maksimale alder eller overskrider det tilladte antal filer i et interval.
-\n
-\nFølgende intervaller bliver brugt: i løbet af den første time, beholdes en version hver 30 sekund, i løbet af den første dag en version bliver beholdt hver time, i løbet af de første 30 dage bliver en version beholdt hver dag indtil den maksimale alder overskrides gemmes en version hver uge.</string>
+    <string name="staggered_versioning_description">Filer bliver flyttet til markeret versioner i et .stversions directory når de bliver erstattet eller slettet af Syncthing. Versioner bliver automatisk slettet hvis de er ældre end den maksimale alder eller overskrider det tilladte antal filer i et interval. \n \nFølgende intervaller bliver brugt: i løbet af den første time, beholdes en version hver 30 sekund, i løbet af den første dag en version bliver beholdt hver time, i løbet af de første 30 dage bliver en version beholdt hver dag indtil den maksimale alder overskrides gemmes en version hver uge.</string>
     <string name="maximum_age_description">Den maksimale tid for at beholde en version(i dage, sæt til 0 for at beholde for altid).</string>
     <string name="versions_path_description">Sti hvor versioner skal gemmes (lad være tomt for at burge det normale .stversions directory i den delte mappe).</string>
     <string name="cleanout_after_description">Antallet af dage til at beholde filer i skraldespanden. Nul betyder for altid</string>
@@ -489,8 +481,7 @@
     <string name="type_external">Type: Ekstern</string>
     <!-- Information displayed about the current file versioning configuration in the folder activity -->
     <string name="trashcan_versioning_info">Gør rent efter: %1$s</string>
-    <string name="staggered_versioning_info">Maksimal Alder: %1$d
-\nVersionerings Sti: %2$s</string>
+    <string name="staggered_versioning_info">Maksimal Alder: %1$d \nVersionerings Sti: %2$s</string>
     <string name="external_versioning_info">Kommando: %1$s</string>
     <string name="simple_versioning_info">Behold versioner: %1$s</string>
     <string name="show_device_id">Vis endheds-ID</string>

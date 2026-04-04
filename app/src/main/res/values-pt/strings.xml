@@ -16,10 +16,8 @@
     <string name="share_device_id">Partilhar ID do dispositivo</string>
     <!-- Shown in the chooser dialog when sharing a Device ID -->
     <string name="send_device_id_to">Enviar ID do dispositivo para</string>
-    <string name="usage_reporting_dialog_title">Permitir relatórios anónimos de utilização\?</string>
-    <string name="usage_reporting_dialog_description">O relatório de utilização cifrado é enviado diariamente. É usado para rastrear plataformas comuns, tamanhos de pastas e versões da aplicação. Se o conjunto de dados do relatório for alterado, este diálogo será apresentado novamente.
-\n
-\nAs estatísticas agregadas estão disponíveis publicamente em</string>
+    <string name="usage_reporting_dialog_title">Permitir relatórios anónimos de utilização?</string>
+    <string name="usage_reporting_dialog_description">O relatório de utilização cifrado é enviado diariamente. É usado para rastrear plataformas comuns, tamanhos de pastas e versões da aplicação. Se o conjunto de dados do relatório for alterado, este diálogo será apresentado novamente. \n \nAs estatísticas agregadas estão disponíveis publicamente em</string>
     <string name="yes">Sim</string>
     <string name="no">Não</string>
     <string name="open_website">Abrir Website</string>
@@ -59,7 +57,7 @@
     <!-- Title for announce server status -->
     <string name="announce_server">Servidor de busca global</string>
     <string name="restart">Reiniciar</string>
-    <string name="dialog_confirm_restart">Quer reiniciar o Syncthing\?</string>
+    <string name="dialog_confirm_restart">Quer reiniciar o Syncthing?</string>
     <!-- FolderActivity -->
     <!-- Setting title -->
     <string name="folder_id">ID da pasta</string>
@@ -80,12 +78,12 @@
     <!-- Menu item to confirm folder creation -->
     <string name="create">Criar</string>
     <!-- Dialog shown when attempting to remove a folder -->
-    <string name="remove_folder_confirm">Tem a certeza de que quer remover esta pasta do Syncthing\?</string>
+    <string name="remove_folder_confirm">Tem a certeza de que quer remover esta pasta do Syncthing?</string>
     <!-- Toast shown when trying to create a folder with an empty ID -->
     <string name="folder_id_required">O ID da pasta não pode estar vazio</string>
     <!-- Toast shown when trying to create a folder with an empty path -->
     <string name="folder_path_required">O caminho da pasta não pode estar vazio</string>
-    <string name="dialog_discard_changes">Descarto as suas alterações\?</string>
+    <string name="dialog_discard_changes">Descarto as suas alterações?</string>
     <!-- DeviceActivity -->
     <!-- Setting title -->
     <string name="device_id">ID do dispositivo</string>
@@ -111,7 +109,7 @@
     <!-- Title for DeviceSettingsFragment in edit mode -->
     <string name="edit_device">Editar dispositivo</string>
     <!-- Dialog shown when attempting to remove a device -->
-    <string name="remove_device_confirm">Tem a certeza de que quer remover este dispositivo\?</string>
+    <string name="remove_device_confirm">Tem a certeza de que quer remover este dispositivo?</string>
     <!-- Toast shown when trying to create a device with an empty ID -->
     <string name="device_id_required">O ID do dispositivo não pode estar vazio</string>
     <!-- Content description for device ID qr code icon -->
@@ -225,10 +223,8 @@
     <string name="device_last_seen_never">Nunca</string>
     <string name="shared_folders_title_colon">"Pastas: "</string>
     <string name="button_follow_run_conditions">SEGUIR CONDIÇÕES DE EXECUÇÃO</string>
-    <string name="button_force_start">FORÇAR INÍCIO
-\nIGNORAR CONDIÇÕES DE EXECUÇÃO</string>
-    <string name="button_force_stop">FORÇAR PARADA
-\nIGNORAR CONDIÇÕES DE EXECUÇÃO</string>
+    <string name="button_force_start">FORÇAR INÍCIO \nIGNORAR CONDIÇÕES DE EXECUÇÃO</string>
+    <string name="button_force_stop">FORÇAR PARADA \nIGNORAR CONDIÇÕES DE EXECUÇÃO</string>
     <string name="syncthing_starting">O Synthing está a iniciar.</string>
     <string name="status_fragment_title">Estado</string>
     <string name="syncthing_running">O Syncthing está em execução.</string>
@@ -302,8 +298,7 @@
     <string name="maximum_age_description">O número máximo de dias em que uma versão é guardada. (Use 0 para manter para sempre).</string>
     <string name="type_external">Tipo: Externo</string>
     <string name="trashcan_versioning_info">Limpar após: %1$s</string>
-    <string name="staggered_versioning_info">Idade máxima: %1$d
-\nCaminho do versionamento: %2$s</string>
+    <string name="staggered_versioning_info">Idade máxima: %1$d \nCaminho do versionamento: %2$s</string>
     <string name="external_versioning_info">Comando: %1$s</string>
     <string name="simple_versioning_info">Manter versões: %1$s</string>
     <string name="show_device_id">Mostrar ID</string>
@@ -326,11 +321,8 @@
     <string name="device_rejected">O dispositivo \"%1$s\" quer conectar</string>
     <string name="override_changes">Sobrepor alterações</string>
     <string name="open_file_manager">Abrir gestor de ficheiros</string>
-    <string name="no_devices_configured">Nenhum dispositivo configurado.
-\nComece a adicionar um dispositivo agora.</string>
-    <string name="welcome_text">Syncthing é uma aplicação de sincronização de ficheiros de código aberto. Para partilhar dados com outros dispositivos, precisa adicionar os seus ID\'s exclusivos de aparelhos à lista de aparelhos. Depois disso, pode selecionar quais pastas partilhar com quais dispositivos.
-\n
-\nPor favor, relate quaisquer problemas que encontra através do Github.</string>
+    <string name="no_devices_configured">Nenhum dispositivo configurado. \nComece a adicionar um dispositivo agora.</string>
+    <string name="welcome_text">Syncthing é uma aplicação de sincronização de ficheiros de código aberto. Para partilhar dados com outros dispositivos, precisa adicionar os seus ID\'s exclusivos de aparelhos à lista de aparelhos. Depois disso, pode selecionar quais pastas partilhar com quais dispositivos. \n \nPor favor, relate quaisquer problemas que encontra através do Github.</string>
     <string name="location_permission_title">Permissão de localização</string>
     <string name="location_permission_desc">A sincronização pode ser configurada para funcionar em redes Wi-Fi selecionadas. O Android exige que a app tenha permissão de localização para ler o nome da rede Wi-Fi ativa. Se quiser usar esse recurso, pressione o botão acima. Pode pular esta etapa. Veja a nossa política de privacidade para mais pormenores.</string>
     <string name="location_permission_desc_api_29">Dica para Android 10+: \"Permitir o tempo todo\"</string>
@@ -442,8 +434,7 @@
     <string name="folder_fileWatcher">Monitorizar alterações</string>
     <string name="modified_by_device">Dispositivo: %1$s</string>
     <string name="security_notice">Aviso de segurança</string>
-    <string name="web_page_loading">A carregar site:
-\n%1$s …</string>
+    <string name="web_page_loading">A carregar site: \n%1$s …</string>
     <string name="preference_app_theme_follow_system">Seguir sistema</string>
     <string name="preference_app_theme_follow_light">Claro</string>
     <string name="category_syncthing_options_summary">Este menu só estará disponível se o Syncthing estiver em execução.</string>
