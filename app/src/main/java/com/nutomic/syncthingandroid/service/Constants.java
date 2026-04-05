@@ -59,7 +59,6 @@ public class Constants {
     // Preferences - Import and Export
     public static final String PREF_BACKUP_REL_PATH_TO_ZIP      = "backup_rel_path_to_zip";
     public static final String PREF_BACKUP_PASSWORD             = "backup_password";
-    public static final String PREF_BACKUP_INCLUDE_DBS          = "backup_include_dbs";
 
     // Preferences - Troubleshooting
     public static final String PREF_VERBOSE_LOG                 = "verbose_log";

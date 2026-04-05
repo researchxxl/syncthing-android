@@ -718,7 +718,7 @@ public class SyncthingService extends Service {
 
     /**
      * Force re-evaluating run conditions immediately e.g. after
-     * preferences were modified in settings.
+     * preferences were modified by {@link ../activities/SettingsActivity#onStop}.
      */
     public void evaluateRunConditions() {
         if (mRunConditionMonitor == null) {
@@ -807,7 +807,7 @@ public class SyncthingService extends Service {
     }
 
     /**
-     * Exports the local config and keys to {@link Constants#PREF_BACKUP_REL_PATH_TO_ZIP}.
+     * Exports the local config and keys to {@link Constants#EXPORT_PATH}.
      *
      * Test with Android Virtual Device using emulator.
      * cls & adb shell su 0 "ls -a -l -R /data/data/${applicationId}/files; echo === SDCARD ===; ls -a -l -R /storage/emulated/0/backups/syncthing"
@@ -866,12 +866,10 @@ public class SyncthingService extends Service {
             Constants.getHttpsCertFile(this),
             Constants.getHttpsKeyFile(this),
 
-            Constants.getSharedPrefsFile(this)
-        );
+            Constants.getSharedPrefsFile(this),
 
-        if (mPreferences.getBoolean(Constants.PREF_BACKUP_INCLUDE_DBS, true)) {
-            includePaths.add(Constants.getIndexDbFolder(this));
-        }
+            Constants.getIndexDbFolder(this)
+        );
 
         // If user set one, apply a password and encrypt the zip file.
         String zipEncryptionPassword = mPreferences.getString(Constants.PREF_BACKUP_PASSWORD, "");
@@ -933,7 +931,7 @@ public class SyncthingService extends Service {
     }
 
     /**
-     * Imports config and keys from {@link Constants#PREF_BACKUP_REL_PATH_TO_ZIP}.
+     * Imports config and keys from {@link Constants#EXPORT_PATH}.
      *
      * Test with Android Virtual Device using emulator.
      * cls & adb shell su 0 "ls -a -l -R /data/data/${applicationId}/files; echo === SDCARD ===; ls -a -l -R /storage/emulated/0/backups/syncthing"
@@ -1041,7 +1039,12 @@ public class SyncthingService extends Service {
             failSuccess = failSuccess && importConfigSharedPrefs(sharedPreferencesFile);
             sharedPreferencesFile.delete();
         }
-        Log.d(TAG, "importConfig END");
+
+        try {
+            cleanupImportedFolderDatabases();
+        } catch (Exception e) {
+            Log.e(TAG, "importConfig: Failed to cleanup invalid folder databases", e);
+        }
 
         // Start syncthing after import if run conditions apply.
         if (mLastDeterminedShouldRun) {
@@ -1055,6 +1058,45 @@ public class SyncthingService extends Service {
             mainLooper.post(launchStartupTaskRunnable);
         }
         return failSuccess;
+    }
+
+    private void cleanupImportedFolderDatabases() {
+        ConfigXml configXml = new ConfigXml(this);
+        try {
+            configXml.loadConfig();
+        } catch (ConfigXml.OpenConfigException e) {
+            Log.w(TAG, "importConfig: Unable to parse imported config for DB cleanup");
+            return;
+        }
+
+        final List<Folder> folders = configXml.getFolders();
+        if (folders == null || folders.isEmpty()) {
+            return;
+        }
+
+        for (Folder folder : folders) {
+            if (folder == null || folder.id == null || folder.id.isEmpty()) {
+                continue;
+            }
+
+            final String folderPathValue = folder.path;
+            final File folderPath = (folderPathValue == null || folderPathValue.isEmpty())
+                    ? null
+                    : new File(folderPathValue);
+            final boolean folderPathMissing = folderPath == null || !folderPath.isDirectory();
+
+            String markerName = folder.markerName;
+            if (markerName == null || markerName.isEmpty()) {
+                markerName = Constants.FILENAME_STFOLDER;
+            }
+            final boolean markerMissing = folderPathMissing || !new File(folderPath, markerName).exists();
+
+            if (folderPathMissing || markerMissing) {
+                Log.i(TAG, "importConfig: Folder path or marker missing for folder id \"" + folder.id + "\". Resetting Syncthing database.");
+                new SyncthingRunnable(this, SyncthingRunnable.Command.resetdatabase).run();
+                break;
+            }
+        }
     }
 
     private boolean importConfigSharedPrefs(final File file) {

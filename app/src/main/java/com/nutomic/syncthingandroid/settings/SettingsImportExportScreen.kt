@@ -47,7 +47,6 @@ import me.zhanghai.compose.preference.LocalPreferenceFlow
 import me.zhanghai.compose.preference.LocalPreferenceTheme
 import me.zhanghai.compose.preference.Preference
 import me.zhanghai.compose.preference.PreferenceCategory
-import me.zhanghai.compose.preference.SwitchPreference
 import me.zhanghai.compose.preference.TextFieldPreference
 import me.zhanghai.compose.preference.TwoTargetPreference
 import me.zhanghai.compose.preference.rememberPreferenceState
@@ -64,7 +63,6 @@ fun EntryProviderScope<SettingsRoute>.settingsImportExportEntry() {
 fun SettingsImportExportScreen() {
     val defaultBackupPath = "backups/syncthing/config.zip"
     val backupPath = rememberPreferenceState(Constants.PREF_BACKUP_REL_PATH_TO_ZIP,defaultBackupPath)
-    val includeDbs = rememberPreferenceState(Constants.PREF_BACKUP_INCLUDE_DBS, true)
 
     SettingsScaffold(
         title = stringResource(R.string.category_backup),
@@ -95,13 +93,6 @@ fun SettingsImportExportScreen() {
         }
         item {
             PasswordPreference()
-        }
-        item {
-            SwitchPreference(
-                title = { Text(stringResource(R.string.backup_include_dbs)) },
-                summary = { Text(stringResource(R.string.backup_include_dbs_summary)) },
-                state = includeDbs,
-            )
         }
 
         item {
