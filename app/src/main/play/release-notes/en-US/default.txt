@@ -1,1 +1,5 @@
-Fixed needing app restart after changing sleep cycle interval (thanks @dbhavsar76)
+fix(RunConditionMonitor): fix needing restart after changing sleep interval by @dbhavsar76
+fix(model/Options): announceLanAddresses > announceLANAddresses by @Catfriend1
+fix(UI): Disable EdgeToEdge partially by @Catfriend1
+chore(notice): Add Keep Android Open Notice by @Catfriend1
+chore(MainActivity): Remove "Important News" snackbar notification by @Catfriend1
