@@ -8,7 +8,7 @@
     <!-- Welcome wizard -->
     <!-- Slide "Introduction" -->
     <string name="introduction">Introduzione</string>
-    <string name="welcome_text">Syncthing è una app open-source per la sincronizzazione di file. Per condividere dati con altri dispositivi, devi aggiungere il rispettivo ID Dispositivo all\'elenco dispositivo. Successivamente potrai scegliere quali cartelle sincronizzare con quali dispositivi.\n\nSi prega di segnalare eventuali problemi su GitHub.</string>
+    <string name="welcome_text">Syncthing è una applicazione open source per la sincronizzazione di file. Per condividere dati con altri dispositivi, è necessario aggiungere il rispettivo ID dispositivo univoco all\'elenco. Successivamente sarà possibile scegliere quali cartelle sincronizzare con quali dispositivi.\n\nSegnalare su GitHub eventuali problemi riscontrati.</string>
     <!-- Slide "Storage Permission" -->
     <string name="storage_permission_title">Autorizzazione Memoria</string>
     <string name="storage_permission_desc">Syncthing deve accedere alla tua memoria per poter sincronizzare i file.</string>
