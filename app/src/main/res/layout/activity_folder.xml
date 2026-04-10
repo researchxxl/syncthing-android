@@ -1,214 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:background="@color/primary_dark"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.FolderActivity">
 
-    <include layout="@layout/widget_toolbar" />
-
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?android:windowBackground">
+        android:orientation="vertical">
 
-        <LinearLayout
+        <include layout="@layout/widget_toolbar" />
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:divider="?android:listDivider"
-            android:orientation="vertical"
-            android:paddingBottom="8dp"
-            android:paddingTop="8dp"
-            android:showDividers="middle">
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="?android:windowBackground">
 
-            <EditText
-                android:id="@+id/label"
-                style="@style/Widget.Syncthing.TextView.Label.Details.Field"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:drawableLeftCompat="@drawable/baseline_sort_by_alpha_24"
-                app:drawableStartCompat="@drawable/baseline_sort_by_alpha_24"
-                android:hint="@string/folder_label"
-                android:imeOptions="actionDone"
-                android:inputType="textCapWords|textNoSuggestions"
-                android:importantForAutofill="no" />
-
-            <EditText
-                android:id="@+id/id"
-                style="@style/Widget.Syncthing.TextView.Label.Details.Field"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:drawableLeftCompat="@drawable/ic_id"
-                app:drawableStartCompat="@drawable/ic_id"
-                android:hint="@string/folder_id"
-                android:imeOptions="actionDone"
-                android:inputType="textCapWords"
-                android:importantForAutofill="no" />
-
-            <!-- Directory -->
             <LinearLayout
-                android:id="@+id/showDirectoryContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?selectableItemBackground"
-                android:orientation="horizontal"
-                android:nextFocusDown="@+id/devicesContainer" >
+                android:divider="?android:listDivider"
+                android:orientation="vertical"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
+                android:showDividers="middle">
 
-                <TextView
-                    android:id="@+id/directoryTextView"
+                <EditText
+                    android:id="@+id/label"
                     style="@style/Widget.Syncthing.TextView.Label.Details.Field"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:drawableLeftCompat="@drawable/baseline_folder_24"
-                    app:drawableStartCompat="@drawable/baseline_folder_24"
-                    android:focusable="true"
-                    android:hint="@string/directory"/>
+                    app:drawableLeftCompat="@drawable/baseline_sort_by_alpha_24"
+                    app:drawableStartCompat="@drawable/baseline_sort_by_alpha_24"
+                    android:hint="@string/folder_label"
+                    android:imeOptions="actionDone"
+                    android:inputType="textCapWords|textNoSuggestions"
+                    android:importantForAutofill="no" />
 
-                <ImageView
-                    android:id="@+id/selectAdvancedDirectory"
-                    style="?actionButtonStyle"
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/id"
+                    style="@style/Widget.Syncthing.TextView.Label.Details.Field"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="@dimen/abc_action_bar_content_inset_material"
-                    android:contentDescription="@string/advanced_directory_selection"
-                    android:clickable="true"
-                    android:focusable="true"
-                    app:srcCompat="@drawable/baseline_settings_24" />
+                    app:drawableLeftCompat="@drawable/ic_id"
+                    app:drawableStartCompat="@drawable/ic_id"
+                    android:hint="@string/folder_id"
+                    android:imeOptions="actionDone"
+                    android:inputType="textCapWords"
+                    android:importantForAutofill="no" />
 
-            </LinearLayout>
+                <!-- Directory -->
+                <LinearLayout
+                    android:id="@+id/showDirectoryContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?selectableItemBackground"
+                    android:orientation="horizontal"
+                    android:nextFocusDown="@+id/devicesContainer" >
 
-            <TextView
-                style="@style/Widget.Syncthing.TextView.Label.Details"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:drawableLeftCompat="@drawable/ic_device_hub_black_24dp_active"
-                app:drawableStartCompat="@drawable/ic_device_hub_black_24dp_active"
-                android:focusable="false"
-                android:text="@string/devices" />
+                    <TextView
+                        android:id="@+id/directoryTextView"
+                        style="@style/Widget.Syncthing.TextView.Label.Details.Field"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:drawableLeftCompat="@drawable/baseline_folder_24"
+                        app:drawableStartCompat="@drawable/baseline_folder_24"
+                        android:focusable="true"
+                        android:hint="@string/directory"/>
 
-            <LinearLayout
-                android:id="@+id/devicesContainer"
-                android:background="?selectableItemBackground"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:focusable="true">
-            </LinearLayout>
+                    <ImageView
+                        android:id="@+id/selectAdvancedDirectory"
+                        style="?actionButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="@dimen/abc_action_bar_content_inset_material"
+                        android:contentDescription="@string/advanced_directory_selection"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:srcCompat="@drawable/baseline_settings_24" />
 
-            <LinearLayout
-                android:id="@+id/folderTypeContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?selectableItemBackground"
-                android:orientation="vertical"
-                android:gravity="center_vertical"
-                android:focusable="true">
+                </LinearLayout>
 
                 <TextView
                     style="@style/Widget.Syncthing.TextView.Label.Details"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:checked="false"
-                    app:drawableLeftCompat="@drawable/filled_lock_24"
-                    app:drawableStartCompat="@drawable/filled_lock_24"
-                    android:text="@string/folder_type" />
+                    android:layout_height="wrap_content"
+                    app:drawableLeftCompat="@drawable/ic_device_hub_black_24dp_active"
+                    app:drawableStartCompat="@drawable/ic_device_hub_black_24dp_active"
+                    android:focusable="false"
+                    android:text="@string/devices" />
 
-                <TextView
-                    android:id="@+id/folderType"
+                <LinearLayout
+                    android:id="@+id/devicesContainer"
+                    android:background="?selectableItemBackground"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="75dp"
-                    android:layout_marginTop="-20dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+                    android:orientation="vertical"
+                    android:focusable="true">
+                </LinearLayout>
 
-                <TextView
-                    android:id="@+id/folderTypeDescription"
+                <LinearLayout
+                    android:id="@+id/folderTypeContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="75dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+                    android:background="?selectableItemBackground"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical"
+                    android:focusable="true">
 
-                <TextView
-                    android:id="@+id/accessExplanationView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="75dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+                    <TextView
+                        style="@style/Widget.Syncthing.TextView.Label.Details"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:checked="false"
+                        app:drawableLeftCompat="@drawable/filled_lock_24"
+                        app:drawableStartCompat="@drawable/filled_lock_24"
+                        android:text="@string/folder_type" />
 
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/folderType"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="75dp"
+                        android:layout_marginTop="-20dp"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
 
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/fileWatcher"
-                style="@style/Widget.Syncthing.TextView.Label.Details"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:checked="false"
-                app:drawableLeftCompat="@drawable/outline_autorenew_24"
-                app:drawableStartCompat="@drawable/outline_autorenew_24"
-                android:text="@string/folder_fileWatcher" />
+                    <TextView
+                        android:id="@+id/folderTypeDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="75dp"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="75dp"
-                android:layout_marginTop="-20dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                android:text="@string/folder_fileWatcherDescription"
-                android:focusable="false"/>
+                    <TextView
+                        android:id="@+id/accessExplanationView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="75dp"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
 
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/folderPause"
-                style="@style/Widget.Syncthing.TextView.Label.Details"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:checked="false"
-                app:drawableLeftCompat="@drawable/baseline_pause_circle_outline_24"
-                app:drawableStartCompat="@drawable/baseline_pause_circle_outline_24"
-                android:text="@string/folder_pause" />
-
-            <!-- Custom sync conditions -->
-            <LinearLayout
-                android:id="@+id/customSyncConditionsContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?selectableItemBackground"
-                android:orientation="vertical"
-                android:gravity="center_vertical">
+                </LinearLayout>
 
                 <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/customSyncConditionsSwitch"
+                    android:id="@+id/fileWatcher"
                     style="@style/Widget.Syncthing.TextView.Label.Details"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:checked="false"
                     app:drawableLeftCompat="@drawable/outline_autorenew_24"
                     app:drawableStartCompat="@drawable/outline_autorenew_24"
-                    android:text="@string/custom_sync_conditions_title" />
-
-                <TextView
-                    android:id="@+id/customSyncConditionsDescription"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="75dp"
-                    android:layout_marginTop="-20dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                    android:text="@string/custom_sync_conditions_description"
-                    android:focusable="false"/>
-
-                <TextView
-                    android:id="@+id/customSyncConditionsDialog"
-                    style="@style/Widget.Syncthing.TextView.Label.Details"
-                    android:layout_marginStart="56dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/custom_sync_conditions_dialog"/>
+                    android:text="@string/folder_fileWatcher" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -216,57 +165,113 @@
                     android:layout_marginStart="75dp"
                     android:layout_marginTop="-20dp"
                     android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                    android:text="@null"
+                    android:text="@string/folder_fileWatcherDescription"
                     android:focusable="false"/>
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/pullOrderContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?selectableItemBackground"
-                android:orientation="vertical"
-                android:gravity="center_vertical"
-                android:focusable="true">
-
-                <TextView
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/folderPause"
                     style="@style/Widget.Syncthing.TextView.Label.Details"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:background="@null"
+                    android:layout_height="wrap_content"
                     android:checked="false"
-                    app:drawableLeftCompat="@drawable/baseline_content_copy_24"
-                    app:drawableStartCompat="@drawable/baseline_content_copy_24"
-                    android:text="@string/pull_order" />
+                    app:drawableLeftCompat="@drawable/baseline_pause_circle_outline_24"
+                    app:drawableStartCompat="@drawable/baseline_pause_circle_outline_24"
+                    android:text="@string/folder_pause" />
 
-                <TextView
-                    android:id="@+id/pullOrderType"
+                <!-- Custom sync conditions -->
+                <LinearLayout
+                    android:id="@+id/customSyncConditionsContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="75dp"
-                    android:layout_marginTop="-20dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+                    android:background="?selectableItemBackground"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical">
 
-                <TextView
-                    android:id="@+id/pullOrderDescription"
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/customSyncConditionsSwitch"
+                        style="@style/Widget.Syncthing.TextView.Label.Details"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        app:drawableLeftCompat="@drawable/outline_autorenew_24"
+                        app:drawableStartCompat="@drawable/outline_autorenew_24"
+                        android:text="@string/custom_sync_conditions_title" />
+
+                    <TextView
+                        android:id="@+id/customSyncConditionsDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="75dp"
+                        android:layout_marginTop="-20dp"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                        android:text="@string/custom_sync_conditions_description"
+                        android:focusable="false"/>
+
+                    <TextView
+                        android:id="@+id/customSyncConditionsDialog"
+                        style="@style/Widget.Syncthing.TextView.Label.Details"
+                        android:layout_marginStart="56dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/custom_sync_conditions_dialog"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="75dp"
+                        android:layout_marginTop="-20dp"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                        android:text="@null"
+                        android:focusable="false"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/pullOrderContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="75dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+                    android:background="?selectableItemBackground"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical"
+                    android:focusable="true">
 
-            </LinearLayout>
+                    <TextView
+                        style="@style/Widget.Syncthing.TextView.Label.Details"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:checked="false"
+                        app:drawableLeftCompat="@drawable/baseline_content_copy_24"
+                        app:drawableStartCompat="@drawable/baseline_content_copy_24"
+                        android:text="@string/pull_order" />
 
-            <!-- Versioning -->
-            <LinearLayout
-                android:id="@+id/versioningContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?selectableItemBackground"
-                android:orientation="vertical"
-                android:gravity="center_vertical"
-                android:focusable="true">
+                    <TextView
+                        android:id="@+id/pullOrderType"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="75dp"
+                        android:layout_marginTop="-20dp"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
+                    <TextView
+                        android:id="@+id/pullOrderDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="75dp"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
+                </LinearLayout>
+
+                <!-- Versioning -->
+                <LinearLayout
+                    android:id="@+id/versioningContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?selectableItemBackground"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical"
+                    android:focusable="true">
 
                 <TextView
                     style="@style/Widget.Syncthing.TextView.Label.Details"
@@ -301,17 +306,17 @@
                     android:layout_marginStart="75dp"
                     android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
 
-            </LinearLayout>
+                </LinearLayout>
 
-            <!-- ignoreDelete mPrefExpertMode -->
-            <LinearLayout
-                android:id="@+id/ignoreDeleteContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?selectableItemBackground"
-                android:orientation="vertical"
-                android:gravity="center_vertical"
-                android:focusable="true">
+                <!-- ignoreDelete mPrefExpertMode -->
+                <LinearLayout
+                    android:id="@+id/ignoreDeleteContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?selectableItemBackground"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical"
+                    android:focusable="true">
 
                 <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/ignoreDelete"
@@ -332,17 +337,17 @@
                     android:text="@string/folder_ignore_delete_description"
                     android:focusable="false"/>
 
-            </LinearLayout>
+                </LinearLayout>
 
-            <!-- runScript mPrefExpertMode -->
-            <LinearLayout
-                android:id="@+id/runScriptContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?selectableItemBackground"
-                android:orientation="vertical"
-                android:gravity="center_vertical"
-                android:focusable="true">
+                <!-- runScript mPrefExpertMode -->
+                <LinearLayout
+                    android:id="@+id/runScriptContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?selectableItemBackground"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical"
+                    android:focusable="true">
 
                 <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/runScriptSwitch"
@@ -363,15 +368,15 @@
                     android:text="@string/folder_run_script_description"
                     android:focusable="false"/>
 
-            </LinearLayout>
+                </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/editIgnoresContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?selectableItemBackground"
-                android:orientation="vertical"
-                android:gravity="center_vertical">
+                <LinearLayout
+                    android:id="@+id/editIgnoresContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?selectableItemBackground"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical">
 
                 <TextView
                     android:id="@+id/edit_ignore_list_title"
@@ -399,8 +404,33 @@
                     android:scrollbars="none"
                     android:importantForAutofill="no"/>
 
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
+        </ScrollView>
+    </LinearLayout>
 
-</LinearLayout>
+    <LinearLayout
+        android:id="@+id/savingOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?android:windowBackground"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/savingText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/state_loading"
+            android:textColor="?android:textColorPrimary" />
+    </LinearLayout>
+
+</FrameLayout>
