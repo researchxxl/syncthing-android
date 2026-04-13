@@ -63,8 +63,6 @@ import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
-import org.woheller69.freeDroidWarn.FreeDroidWarn;
-
 /**
  * Shows {@link FolderListFragment} and
  * {@link DeviceListFragment} in different tabs, and
@@ -267,8 +265,6 @@ public class MainActivity extends SyncthingActivity
 
         // Register OnBackPressedCallback
         getOnBackPressedDispatcher().addCallback(this, mBackPressedCallback);
-        
-        FreeDroidWarn.showWarningOnUpgrade(this, getCurrentAppVersionCode());
     }
     
     
