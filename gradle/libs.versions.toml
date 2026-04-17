@@ -7,32 +7,31 @@ ndk-version = "29.0.14206865"
 target-sdk = "36"
 
 # App version
-version-code = "2001600"
-version-name = "2.0.16.0"
+version-code = "2001601"
+version-name = "2.0.16.1"
 
 # External SDK versions
 go_version = "1.25.8"
 
 aboutLibraries = "14.0.0-a01"
 accompanist = "0.37.3"
-activity = "1.12.4"
+activity = "1.13.0"
 androidx-appcompat = "1.7.1"
 android-material = "1.13.0"
 android-gradle-plugin = "9.1.0"
 compose-material3 = "1.4.0"
 compose-material-icons = "1.7.8"
-compose-ui = "1.10.4"
+compose-ui = "1.10.6"
 constraintlayout = "2.2.1"
-core-ktx = "1.17.0"
+core-ktx = "1.18.0"
 dagger = "2.59.2"
 documentfile = "1.1.0"
 fragment-ktx = "1.8.9"
-freedroidwarn = "V1.7"
 gson = "2.13.2"
 guava = "33.5.0-android"
 jbcrypt = "0.4"
-kotlin = "2.3.10"
-kotlinSerialization = "2.3.10"
+kotlin = "2.3.20"
+kotlinSerialization = "2.3.20"
 kotlinxSerializationCore = "1.10.0"
 ksp = "2.3.6"
 lingala-zip4j = "2.11.6"
@@ -42,7 +41,7 @@ preference-ktx = "1.2.1"
 recyclerview = "1.4.0"
 stream = "1.2.2"
 volley = "1.2.1"
-zhanghai-compose-preference = "2.1.1"
+zhanghai-compose-preference = "2.2.0"
 zxing-android-embedded = "4.3.0"
 # Do not upgrade zxing:core beyond 3.3.0 to ensure Android 6.0 compatibility.
 zxing-core = "3.3.0"
@@ -65,7 +64,6 @@ dagger = { module = "com.google.dagger:dagger", version.ref = "dagger" }
 dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
 documentfile = { module = "androidx.documentfile:documentfile", version.ref = "documentfile" }
 fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragment-ktx" }
-freedroidwarn = { module = "com.github.woheller69:FreeDroidWarn", version.ref = "freedroidwarn" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 guava = { module = "com.google.guava:guava", version.ref = "guava" }
 jbcrypt = { module = "org.mindrot:jbcrypt", version.ref = "jbcrypt" }

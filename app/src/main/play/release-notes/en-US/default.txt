@@ -1,1 +1,0 @@
-Fixed needing app restart after changing sleep cycle interval (thanks @dbhavsar76)
