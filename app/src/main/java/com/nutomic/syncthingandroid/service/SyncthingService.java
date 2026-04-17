@@ -798,11 +798,12 @@ public class SyncthingService extends Service {
      * Get backup zip file.
      * Default: /storage/emulated0/backups/syncthing/config.zip
      */
-    private final File getBackupZipFile() {
-        String relPathToZip = mPreferences.getString(
-                Constants.PREF_BACKUP_REL_PATH_TO_ZIP,
-                "backups/syncthing/config.zip"
-        );
+    private File getBackupZipFile() {
+        String defaultPath = "backups/syncthing/config.zip";
+        String relPathToZip = mPreferences.getString(Constants.PREF_BACKUP_REL_PATH_TO_ZIP, defaultPath);
+        if (relPathToZip.isEmpty()) {
+            relPathToZip = defaultPath;
+        }
         return new File(Environment.getExternalStorageDirectory(), relPathToZip);
     }
 
