@@ -7,8 +7,8 @@ ndk-version = "29.0.14206865"
 target-sdk = "36"
 
 # App version
-version-code = "2001600"
-version-name = "2.0.16.0"
+version-code = "2001601"
+version-name = "2.0.16.1"
 
 # External SDK versions
 go_version = "1.25.8"
@@ -27,7 +27,6 @@ core-ktx = "1.18.0"
 dagger = "2.59.2"
 documentfile = "1.1.0"
 fragment-ktx = "1.8.9"
-freedroidwarn = "V1.10"
 gson = "2.13.2"
 guava = "33.5.0-android"
 jbcrypt = "0.4"
@@ -66,7 +65,6 @@ dagger = { module = "com.google.dagger:dagger", version.ref = "dagger" }
 dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
 documentfile = { module = "androidx.documentfile:documentfile", version.ref = "documentfile" }
 fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragment-ktx" }
-freedroidwarn = { module = "com.github.woheller69:FreeDroidWarn", version.ref = "freedroidwarn" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 guava = { module = "com.google.guava:guava", version.ref = "guava" }
 jbcrypt = { module = "org.mindrot:jbcrypt", version.ref = "jbcrypt" }

@@ -24,7 +24,6 @@ dependencies {
     implementation(libs.dagger)
     implementation(libs.documentfile)
     implementation(libs.fragment.ktx)
-    implementation(libs.freedroidwarn)
     implementation(libs.gson)
     implementation(libs.guava)
     implementation(libs.jbcrypt)
