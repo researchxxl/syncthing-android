@@ -63,8 +63,6 @@ import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
-import org.woheller69.freeDroidWarn.FreeDroidWarn;
-
 /**
  * Shows {@link FolderListFragment} and
  * {@link DeviceListFragment} in different tabs, and
@@ -267,8 +265,6 @@ public class MainActivity extends SyncthingActivity
 
         // Register OnBackPressedCallback
         getOnBackPressedDispatcher().addCallback(this, mBackPressedCallback);
-        
-        FreeDroidWarn.showWarningOnUpgrade(this, getCurrentAppVersionCode());
     }
     
     
@@ -639,18 +635,6 @@ public class MainActivity extends SyncthingActivity
         topRelTotalSyncProgress.setVisibility(View.VISIBLE);
         pbTotalSyncComplete.setProgress(totalSyncCompletePercent);
         tvTotalSyncComplete.setText(Integer.toString(totalSyncCompletePercent));
-    }
-
-    /**
-     * Gets the current app version code.
-     */
-    private int getCurrentAppVersionCode() {
-        try {
-            return getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
-        } catch (PackageManager.NameNotFoundException e) {
-            Log.e(TAG, "Failed to get app version code", e);
-            return 0;
-        }
     }
 
     /**

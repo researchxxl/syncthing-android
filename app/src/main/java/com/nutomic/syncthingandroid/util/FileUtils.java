@@ -49,6 +49,7 @@ public class FileUtils {
         // Private constructor to enforce Singleton pattern.
     }
 
+    private static final String EXTERNAL_STORAGE_AUTHORITY = "com.android.externalstorage.documents";
     private static final String DOWNLOADS_VOLUME_NAME = "downloads";
     private static final String PRIMARY_VOLUME_NAME = "primary";
     private static final String HOME_VOLUME_NAME = "home";
@@ -286,19 +287,19 @@ public class FileUtils {
                 case DATA:
                     // Build the content Uri for our private ".../data/[PKG_NAME]/files" folder.
                     return android.net.Uri.parse(
-                        "content://com.android.externalstorage.documents/document/" +
+                        "content://" + EXTERNAL_STORAGE_AUTHORITY + "/document/" +
                         volumeId + "%3AAndroid%2Fdata%2F" +
                         context.getPackageName() + "%2Ffiles");
                 case EXT_MEDIA:
                     // Build the content Uri for our private ".../media/[PKG_NAME]" folder.
                     return android.net.Uri.parse(
-                        "content://com.android.externalstorage.documents/document/" +
+                        "content://" + EXTERNAL_STORAGE_AUTHORITY + "/document/" +
                         volumeId + "%3AAndroid%2Fmedia%2F" +
                         context.getPackageName());
                 case INT_MEDIA:
                     // Build the content Uri for our private ".../media/[PKG_NAME]" folder.
                     return android.net.Uri.parse(
-                        "content://com.android.externalstorage.documents/document/" +
+                        "content://" + EXTERNAL_STORAGE_AUTHORITY + "/document/" +
                         "primary" + "%3AAndroid%2Fmedia%2F" +
                         context.getPackageName());
             }
@@ -314,7 +315,7 @@ public class FileUtils {
      * since Android 7+, we need to build the Uri manually.
      */
     public static android.net.Uri getInternalStorageRootUri() {
-        return android.net.Uri.parse("content://com.android.externalstorage.documents/document/primary%3A");
+        return android.net.Uri.parse("content://" + EXTERNAL_STORAGE_AUTHORITY + "/document/primary%3A");
     }
 
     private static String getVolumeIdFromTreeUri(final Uri treeUri) {
@@ -1104,37 +1105,43 @@ public class FileUtils {
      * Open folder in compatible file manager app.
      */
     public static void openFolder(final Context context, String folderPath) {
-        PackageManager pm = context.getPackageManager();
+        File folder = new File(folderPath);
+        if (!folder.exists() || !folder.isDirectory()) {
+            Toast.makeText(
+                    context,
+                    context.getString(R.string.state_error_message, "Invalid folder path"),
+                    Toast.LENGTH_LONG
+            ).show();
+            return;
+        }
 
-        // Try to find a compatible file manager app supporting the "resource/folder" Uri type.
+        Uri folderUri = Uri.fromFile(folder);
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.fromFile(new File(folderPath)), "resource/folder");
+        intent.setDataAndType(folderUri, "resource/folder");
         intent.putExtra("org.openintents.extra.ABSOLUTE_PATH", folderPath);
-        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT);
+        intent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
         try {
             // Launch file manager.
             context.startActivity(intent);
-            return;
-        } catch (android.content.ActivityNotFoundException anfe) {
-            Log.w(TAG, "openFolder: No compatible file manager app not found (stage #1)");
-        }
-
-        // Try to open the folder with "Root Explorer" if it is installed.
-        intent = pm.getLaunchIntentForPackage("com.speedsoftware.rootexplorer");
-        if (intent != null) {
-            intent.setAction(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse(folderPath));
+        } catch (ActivityNotFoundException | SecurityException e) {
+            Log.e(TAG, "openFolder: No compatible file manager app not found or has insufficient permissions (stage #1)", e);
+            // fallback to older mime type
             try {
+                String documentId = getDocumentIdFromPath(folderPath);
+                Uri documentUri = DocumentsContract.buildDocumentUri(EXTERNAL_STORAGE_AUTHORITY, documentId);
+                intent.setDataAndType(documentUri, DocumentsContract.Document.MIME_TYPE_DIR);
                 context.startActivity(intent);
-                return;
-            } catch (android.content.ActivityNotFoundException anfe) {
-                Log.w(TAG, "openFolder: Failed to launch Root Explorer (stage #2)");
+            } catch (ActivityNotFoundException | SecurityException e2) {
+                Log.e(TAG, "openFolder: No compatible file manager app not found or has insufficient permissions (stage #2)", e2);
+                // No compatible file manager app found.
+                suggestFileManagerApp(context);
             }
         }
-        Log.w(TAG, "openFolder: Root Explorer file manager app not found (stage #2)");
-
-        // No compatible file manager app found.
-        suggestFileManagerApp(context);
     }
 
     private static void suggestFileManagerApp(final Context context) {
@@ -1151,5 +1158,55 @@ public class FileUtils {
                 })
                 .setNegativeButton(R.string.no, (d, i) -> {})
                 .show();
+    }
+
+    /**
+     * Converts a raw file path into a Storage Access Framework Document ID,
+     * including support for removable SD cards and USB OTG drives.
+     */
+    private static String getDocumentIdFromPath(String fullPath) {
+        if (fullPath == null || fullPath.isEmpty()) {
+            return null;
+        }
+
+        // Clean up trailing slashes for consistent parsing
+        if (fullPath.endsWith("/") && fullPath.length() > 1) {
+            fullPath = fullPath.substring(0, fullPath.length() - 1);
+        }
+
+        final String INTERNAL_STORAGE_PATH = "/storage/emulated/0";
+        final String SDCARD_PATH = "/sdcard";
+        final String STORAGE_PREFIX = "/storage/";
+        final String PRIMARY_AUTHORITY_PREFIX = "primary:";
+
+        // 1. Handle Internal Storage
+        if (fullPath.equals(INTERNAL_STORAGE_PATH) || fullPath.equals(SDCARD_PATH)) {
+            return PRIMARY_AUTHORITY_PREFIX; // Root of internal storage
+        } else if (fullPath.startsWith(INTERNAL_STORAGE_PATH + "/")) {
+            String relativePath = fullPath.substring(INTERNAL_STORAGE_PATH.length() + 1);
+            return PRIMARY_AUTHORITY_PREFIX + relativePath;
+        } else if (fullPath.startsWith(SDCARD_PATH + "/")) {
+            String relativePath = fullPath.substring(SDCARD_PATH.length() + 1);
+            return PRIMARY_AUTHORITY_PREFIX + relativePath;
+        }
+        // 2. Handle Removable SD Cards and USB Drives
+        else if (fullPath.startsWith(STORAGE_PREFIX)) {
+            // Path looks something like: /storage/1A2B-3C4D/books/sync
+            String withoutStorage = fullPath.substring(STORAGE_PREFIX.length()); // "1A2B-3C4D/books/sync"
+            int firstSlashIndex = withoutStorage.indexOf('/');
+
+            if (firstSlashIndex != -1) {
+                // Extract the UUID and the relative path
+                String uuid = withoutStorage.substring(0, firstSlashIndex); // "1A2B-3C4D"
+                String relativePath = withoutStorage.substring(firstSlashIndex + 1); // "books/sync"
+                return uuid + ":" + relativePath;
+            } else {
+                // It's the absolute root of the SD card: /storage/1A2B-3C4D
+                return withoutStorage + ":";
+            }
+        }
+
+        // Path does not match known external storage patterns
+        return null;
     }
 }
