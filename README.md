@@ -8,6 +8,7 @@
 <a href="https://apps.obtainium.imranr.dev/redirect?r=obtainium://app/%7B%22id%22%3A%22com.github.catfriend1.syncthingfork%22%2C%22url%22%3A%22https%3A%2F%2Fgithub.com%2Fresearchxxl%2Fsyncthing-android%22%2C%22author%22%3A%22researchxxl%22%2C%22name%22%3A%22Syncthing-Fork%22%2C%22preferredApkIndex%22%3A0%2C%22additionalSettings%22%3A%22%7B%5C%22verifyLatestTag%5C%22%3Atrue%2C%5C%22apkFilterRegEx%5C%22%3A%5C%22com.github.catfriend1.syncthingfork%5C%22%7D%22%2C%22overrideSource%22%3Anull%7D"><img src="https://raw.githubusercontent.com/ImranR98/Obtainium/main/assets/graphics/badge_obtainium.png" alt="Get it on Obtainium" height="22"></a>
 <a href="https://hosted.weblate.org/projects/syncthing-fork/app/"><img src="https://hosted.weblate.org/widget/syncthing-fork/app/svg-badge.svg" alt="Translation status" /></a>
 [![Build App](https://github.com/researchxxl/syncthing-android/actions/workflows/build-app.yaml/badge.svg)](https://github.com/researchxxl/syncthing-android/actions/workflows/build-app.yaml)
+[![Tests](https://github.com/begend/syncthing-android/actions/workflows/test.yml/badge.svg)](https://github.com/begend/syncthing-android/actions/workflows/test.yml)
 
 A wrapper of [Syncthing](https://github.com/syncthing/syncthing) for Android. Head to the "releases" section or F-Droid for builds. Please seek help on the forum and/or social media apps first before creating issues on the tracker.
 
