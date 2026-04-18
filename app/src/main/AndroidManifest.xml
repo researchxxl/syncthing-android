@@ -34,6 +34,8 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE"/>
     <!-- POST_NOTIFICATIONS is required for the foreground service since Android 13 "T" -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <!-- INTERNET and network permissions for WebDAV sync -->
+    <!-- (Already declared above for Syncthing, reused for WebDAV) -->
 
     <!--
         Apps can listen to our notifications about sync progress by subscribing to ACTION_NOTIFY_FOLDER_SYNC_COMPLETE,
@@ -287,6 +289,13 @@
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
             </intent-filter>
+        </service>
+        <!-- WebDAV Sync Service -->
+        <service
+            android:name=".webdav.WebDAVSyncService"
+            android:foregroundServiceType="dataSync"
+            android:exported="false"
+            android:enabled="true">
         </service>
     </application>
 
