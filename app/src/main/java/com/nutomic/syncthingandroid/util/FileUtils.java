@@ -1175,6 +1175,7 @@ public class FileUtils {
         }
 
         final String INTERNAL_STORAGE_PATH = "/storage/emulated/0";
+        @SuppressLint("SdCardPath")
         final String SDCARD_PATH = "/sdcard";
         final String STORAGE_PREFIX = "/storage/";
         final String PRIMARY_AUTHORITY_PREFIX = "primary:";
