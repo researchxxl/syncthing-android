@@ -373,15 +373,10 @@ private fun DrawerHeader() {
             modifier = Modifier.padding(start = 16.dp, end = 24.dp, bottom = 16.dp)
         ) {
             Image(
-                painter = painterResource(R.drawable.ic_monochrome),
+                painter = painterResource(R.drawable.ic_monochrome_ui),
                 contentDescription = null,
                 colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary),
-                modifier = Modifier
-                    .size(32.dp)
-                    .graphicsLayer {
-                        scaleX = 1.6f
-                        scaleY = 1.6f
-                    },
+                modifier = Modifier.size(32.dp),
                 contentScale = ContentScale.Fit
             )
             Spacer(Modifier.width(12.dp))
