@@ -19,6 +19,7 @@ import java.util.Map;
 public class Folder {
 
     // Folder Configuration
+    public String group = "";
     public String id;
     public String label = "";
     public String filesystemType = "basic";
