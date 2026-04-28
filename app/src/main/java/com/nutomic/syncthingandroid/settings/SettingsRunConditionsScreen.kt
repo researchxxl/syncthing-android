@@ -4,6 +4,9 @@ import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.location.LocationManager
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.net.wifi.WifiInfo
 import android.net.wifi.WifiManager
 import android.os.Build
 import android.util.Log
@@ -456,9 +459,21 @@ private fun WifiSsidPreference(
     }
 }
 
+fun getWifiInfo(context: Context, wifiManager: WifiManager): WifiInfo? {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        val cm = context.getSystemService(ConnectivityManager::class.java)
+        val network = cm.activeNetwork ?: return null
+        val caps = cm.getNetworkCapabilities(network) ?: return null
+        caps.transportInfo as? WifiInfo
+    } else {
+        wifiManager.connectionInfo
+    }
+}
+
 private fun getCurrentWifiSsid(context: Context): String? {
     val wifiManager = context.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
-    val ssid = wifiManager.connectionInfo?.ssid
+    val wifiInfo = getWifiInfo(context, wifiManager) ?: return null
+    val ssid = wifiInfo.ssid
 
     return if (ssid.isNullOrBlank() || ssid == WifiManager.UNKNOWN_SSID)
         null
