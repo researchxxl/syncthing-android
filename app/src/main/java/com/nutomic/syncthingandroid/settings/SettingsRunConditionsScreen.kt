@@ -456,6 +456,7 @@ private fun WifiSsidPreference(
     }
 }
 
+@Suppress("DEPRECATION")
 private fun getCurrentWifiSsid(context: Context): String? {
     val wifiManager = context.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
     val ssid = wifiManager.connectionInfo?.ssid
