@@ -6,7 +6,6 @@ import android.content.Intent
 import android.location.LocationManager
 import android.net.wifi.WifiManager
 import android.os.Build
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -56,9 +55,6 @@ import me.zhanghai.compose.preference.PreferenceCategory
 import me.zhanghai.compose.preference.SwitchPreference
 import me.zhanghai.compose.preference.TextFieldPreference
 import me.zhanghai.compose.preference.rememberPreferenceState
-
-
-private const val TAG = "SettingsRunConditionsScreen"
 
 
 fun EntryProviderScope<SettingsRoute>.settingsRunConditionsEntry() {
@@ -352,8 +348,6 @@ private fun WifiSsidPreference(
 
     LaunchedEffect(isPermissionGranted) {
         val currentSsid = getCurrentWifiSsid(context)
-        // DO NOT RELEASE WITH THIS LINE
-        Log.e(TAG, "currentSsid=[" + currentSsid + "]")
         var updatedKnown = knownSsids
         var updatedSelection = specifiedSsids
 
