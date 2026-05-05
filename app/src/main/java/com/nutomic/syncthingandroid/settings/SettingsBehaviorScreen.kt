@@ -8,10 +8,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.navigation3.runtime.EntryProviderScope
 import com.nutomic.syncthingandroid.R
+import com.nutomic.syncthingandroid.root.RootAccess
 import com.nutomic.syncthingandroid.service.Constants
 import com.nutomic.syncthingandroid.service.SyncthingService
 import com.nutomic.syncthingandroid.util.Util
-import eu.chainfire.libsuperuser.Shell
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -46,7 +46,7 @@ fun SettingsBehaviorScreen() {
     val toggleRoot = { enabled: Boolean ->
         scope.launch(Dispatchers.IO) {
             if (enabled) {
-                if (Shell.SU.available()) {
+                if (RootAccess.isRootAvailableBlocking()) {
                     withContext(Dispatchers.Main) {
                         useRoot.value = true
                     }

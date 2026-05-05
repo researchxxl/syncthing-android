@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
 
 import com.google.common.base.Charsets;
+import com.nutomic.syncthingandroid.root.RootAccess;
 import com.nutomic.syncthingandroid.R;
 import com.nutomic.syncthingandroid.service.Constants;
 
@@ -33,8 +34,6 @@ import java.time.ZonedDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.util.Locale;
-
-import eu.chainfire.libsuperuser.Shell;
 
 public class Util {
 
@@ -87,7 +86,7 @@ public class Util {
         // Be paranoid :) and check if root is available.
         // Ignore the 'use_root' preference, because we might want to fix the permission
         // just after the root option has been disabled.
-        if (!Shell.SU.available()) {
+        if (!RootAccess.isRootAvailableBlocking()) {
             Log.e(TAG, "Root is not available. Cannot fix permissions.");
             return false;
         }
@@ -134,7 +133,7 @@ public class Util {
         Boolean useRoot = false;
         Boolean prefUseRoot = PreferenceManager.getDefaultSharedPreferences(context)
             .getBoolean(Constants.PREF_USE_ROOT, false);
-        if (prefUseRoot && Shell.SU.available()) {
+        if (prefUseRoot && RootAccess.isRootAvailableBlocking()) {
             useRoot = true;
         }
 

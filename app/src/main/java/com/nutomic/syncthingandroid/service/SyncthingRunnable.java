@@ -22,6 +22,7 @@ import com.google.common.base.Charsets;
 import com.google.common.io.Files;
 import com.nutomic.syncthingandroid.R;
 import com.nutomic.syncthingandroid.SyncthingApp;
+import com.nutomic.syncthingandroid.root.RootAccess;
 import com.nutomic.syncthingandroid.util.FileUtils;
 import com.nutomic.syncthingandroid.util.Util;
 
@@ -46,8 +47,6 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
 import javax.inject.Inject;
-
-import eu.chainfire.libsuperuser.Shell;
 
 import static com.nutomic.syncthingandroid.service.SyncthingService.EXTRA_STOP_AFTER_CRASHED_NATIVE;
 
@@ -100,7 +99,7 @@ public class SyncthingRunnable implements Runnable {
         mSyncthingLogFile = Constants.getSyncthingLogFile(mContext);
 
         // Get preferences relevant to starting syncthing core.
-        mUseRoot = mPreferences.getBoolean(Constants.PREF_USE_ROOT, false) && Shell.SU.available();
+        mUseRoot = mPreferences.getBoolean(Constants.PREF_USE_ROOT, false) && RootAccess.isRootAvailableBlocking();
         switch (command) {
             case deviceid:
                 mCommand = new String[]{mSyncthingBinary.getPath(), "device-id"};
