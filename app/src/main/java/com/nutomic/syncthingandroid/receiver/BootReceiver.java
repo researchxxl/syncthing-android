@@ -11,6 +11,7 @@ import android.util.Log;
 import com.nutomic.syncthingandroid.service.Constants;
 import com.nutomic.syncthingandroid.service.SyncthingRunnable;
 import com.nutomic.syncthingandroid.service.SyncthingService;
+import com.nutomic.syncthingandroid.root.RootAccess;
 
 import java.lang.SecurityException;
 
@@ -28,6 +29,16 @@ public class BootReceiver extends BroadcastReceiver {
         Boolean packageReplaced = intent.getAction().equals(Intent.ACTION_MY_PACKAGE_REPLACED);
         if (!bootCompleted && !packageReplaced) {
             return;
+        }
+
+        if (packageReplaced) {
+            if (getPrefUseRoot(context) && RootAccess.isRootAvailableBlocking()) {
+                /**
+                 * In Root mode, there will be a SyncthingNative process left running after app update.
+                 */
+                Log.d(TAG, "ACTION_MY_PACKAGE_REPLACED: Killing leftover SyncthingNative instance if present ...");
+                new SyncthingRunnable(context, SyncthingRunnable.Command.main).killSyncthing();
+            }
         }
 
         // Check if we should (re)start now.
@@ -56,5 +67,10 @@ public class BootReceiver extends BroadcastReceiver {
     private static boolean getPrefStartServiceOnBoot(Context context) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         return sp.getBoolean(Constants.PREF_START_SERVICE_ON_BOOT, false);
+    }
+
+    private static boolean getPrefUseRoot(Context context) {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+        return sp.getBoolean(Constants.PREF_USE_ROOT, false);
     }
 }
