@@ -1,0 +1,5 @@
+fix(importSettings): cast string to int by @researchxxl in #220
+fix(model): add group attr by @researchxxl in #236
+improvement: open folder from folder list with built in Files app by @dbhavsar76 in #217
+feature: auto reset database after import for invalid path and missing marker errors by @dbhavsar76 in #214
+other: Remove FreeDroidWarn dialog by @Catfriend1
