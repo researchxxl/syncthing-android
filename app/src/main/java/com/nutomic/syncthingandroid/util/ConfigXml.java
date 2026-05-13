@@ -522,6 +522,7 @@ public class ConfigXml {
             folder.sendOwnership = getContentOrDefault(r.getElementsByTagName("sendOwnership").item(0), folder.sendOwnership);
             folder.syncXattrs = getContentOrDefault(r.getElementsByTagName("syncXattrs").item(0), folder.syncXattrs);
             folder.sendXattrs = getContentOrDefault(r.getElementsByTagName("sendXattrs").item(0), folder.sendXattrs);
+            folder.blockIndexing = getContentOrDefault(r.getElementsByTagName("blockIndexing").item(0), folder.blockIndexing);
             folder.filesystemType = getContentOrDefault(r.getElementsByTagName("filesystemType").item(0), folder.filesystemType);
 
             // Devices
@@ -640,6 +641,7 @@ public class ConfigXml {
                 setConfigElement(r, "sendOwnership", folder.sendOwnership);
                 setConfigElement(r, "syncXattrs", folder.syncXattrs);
                 setConfigElement(r, "sendXattrs", folder.sendXattrs);
+                setConfigElement(r, "blockIndexing", folder.blockIndexing);
                 setConfigElement(r, "filesystemType", folder.filesystemType);
 
                 // Update devices that share this folder.

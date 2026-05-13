@@ -79,6 +79,9 @@ public class Folder {
     public Boolean syncXattrs = false;
     public Boolean sendXattrs = false;
 
+    // Since v2.1.0
+    public Boolean blockIndexing = true;
+
     // Folder Status
     public String invalid;
 

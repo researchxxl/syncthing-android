@@ -58,6 +58,10 @@ abstract class BuildNativeTask @Inject constructor(
             System.getProperty("http.nonProxyHosts")?.let { np ->
                 this["NO_PROXY"] = np
             }
+
+            System.getenv("GOTMPDIR")?.let { tmp ->
+                this["TMP"] = tmp
+            }
         }
 
         execOps.exec {
