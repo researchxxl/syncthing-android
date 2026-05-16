@@ -799,10 +799,13 @@ public class SyncthingService extends Service {
      * Default: /storage/emulated0/backups/syncthing/config.zip
      */
     private final File getBackupZipFile() {
-        String relPathToZip = mPreferences.getString(
-                Constants.PREF_BACKUP_REL_PATH_TO_ZIP,
-                "backups/syncthing/config.zip"
-        );
+        String defaultPath = "backups/syncthing/config.zip";
+        String relPathToZip = mPreferences.getString(Constants.PREF_BACKUP_REL_PATH_TO_ZIP, defaultPath);
+        // NOTE: somehow we get empty string from the prefs, which crashes the app, use default when that happens
+        // TODO: figure out where the empty string is coming from and fix that
+        if (relPathToZip.isEmpty()) {
+            relPathToZip = defaultPath;
+        }
         return new File(Environment.getExternalStorageDirectory(), relPathToZip);
     }
 
