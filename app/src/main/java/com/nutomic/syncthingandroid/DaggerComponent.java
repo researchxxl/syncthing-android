@@ -1,7 +1,6 @@
 package com.nutomic.syncthingandroid;
 
 import com.nutomic.syncthingandroid.activities.DeviceActivity;
-import com.nutomic.syncthingandroid.activities.FirstStartActivity;
 import com.nutomic.syncthingandroid.activities.FolderActivity;
 import com.nutomic.syncthingandroid.activities.MainActivity;
 import com.nutomic.syncthingandroid.activities.PhotoShootActivity;
@@ -31,7 +30,6 @@ public interface DaggerComponent {
     void inject(DeviceActivity activity);
     void inject(DeviceListFragment fragment);
     void inject(EventProcessor eventProcessor);
-    void inject(FirstStartActivity activity);
     void inject(FolderActivity activity);
     void inject(FolderListFragment fragment);
     void inject(MainActivity activity);

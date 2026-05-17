@@ -5,6 +5,7 @@ import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,13 +19,18 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -58,8 +64,16 @@ fun OnboardingScaffold(
     icon: OnboardingIcon,
     title: String,
     description: String,
+    pageIndex: Int,
+    pageCount: Int,
+    onBack: () -> Unit,
+    onNext: () -> Unit,
     action: @Composable (() -> Unit)? = null,
-    next: @Composable () -> Unit,
+    canGoBack: Boolean = true,
+    backVisible: Boolean = true,
+    nextLabel: String,
+    nextEnabled: Boolean = true,
+    nextVisible: Boolean = true,
 ) {
     val config = LocalConfiguration.current
 
@@ -71,7 +85,15 @@ fun OnboardingScaffold(
                 title = title,
                 description = description,
                 action = action,
-                next = next,
+                pageIndex = pageIndex,
+                pageCount = pageCount,
+                canGoBack = canGoBack,
+                backVisible = backVisible,
+                nextLabel = nextLabel,
+                nextEnabled = nextEnabled,
+                nextVisible = nextVisible,
+                onBack = onBack,
+                onNext = onNext,
             )
         } else {
             LandscapeScaffoldContent(
@@ -80,7 +102,15 @@ fun OnboardingScaffold(
                 title = title,
                 description = description,
                 action = action,
-                next = next,
+                pageIndex = pageIndex,
+                pageCount = pageCount,
+                canGoBack = canGoBack,
+                backVisible = backVisible,
+                nextLabel = nextLabel,
+                nextEnabled = nextEnabled,
+                nextVisible = nextVisible,
+                onBack = onBack,
+                onNext = onNext,
             )
         }
     }
@@ -92,7 +122,15 @@ private fun PortraitScaffoldContent(
     title: String,
     description: String,
     action: @Composable (() -> Unit)? = null,
-    next: @Composable () -> Unit,
+    pageIndex: Int,
+    pageCount: Int,
+    canGoBack: Boolean,
+    backVisible: Boolean,
+    nextLabel: String,
+    nextEnabled: Boolean,
+    nextVisible: Boolean,
+    onBack: () -> Unit,
+    onNext: () -> Unit,
     paddingValues: PaddingValues,
 ) {
     Column(
@@ -103,7 +141,8 @@ private fun PortraitScaffoldContent(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(1f),
+                .weight(1f)
+                .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
         ) {
@@ -152,11 +191,17 @@ private fun PortraitScaffoldContent(
 
         Spacer(Modifier.height(16.dp))
 
-        Box(
-            modifier = Modifier.padding(horizontal = 16.dp),
-        ) {
-            next()
-        }
+        OnboardingControls(
+            pageIndex = pageIndex,
+            pageCount = pageCount,
+            canGoBack = canGoBack,
+            backVisible = backVisible,
+            nextLabel = nextLabel,
+            nextEnabled = nextEnabled,
+            nextVisible = nextVisible,
+            onBack = onBack,
+            onNext = onNext,
+        )
     }
 }
 
@@ -166,7 +211,15 @@ private fun LandscapeScaffoldContent(
     title: String,
     description: String,
     action: @Composable (() -> Unit)? = null,
-    next: @Composable () -> Unit,
+    pageIndex: Int,
+    pageCount: Int,
+    canGoBack: Boolean,
+    backVisible: Boolean,
+    nextLabel: String,
+    nextEnabled: Boolean,
+    nextVisible: Boolean,
+    onBack: () -> Unit,
+    onNext: () -> Unit,
     paddingValues: PaddingValues,
 ) {
     Row(
@@ -216,7 +269,10 @@ private fun LandscapeScaffoldContent(
             verticalArrangement = Arrangement.Center,
         ) {
             Column(
-                modifier = Modifier.fillMaxWidth().weight(1f),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f)
+                    .verticalScroll(rememberScrollState()),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center,
             ) {
@@ -232,11 +288,103 @@ private fun LandscapeScaffoldContent(
                     action()
                 }
             }
-            Box(
-                modifier = Modifier.padding(horizontal = 16.dp),
-            ) {
-                next()
+            OnboardingControls(
+                pageIndex = pageIndex,
+                pageCount = pageCount,
+                canGoBack = canGoBack,
+                backVisible = backVisible,
+                nextLabel = nextLabel,
+                nextEnabled = nextEnabled,
+                nextVisible = nextVisible,
+                onBack = onBack,
+                onNext = onNext,
+            )
+        }
+    }
+}
+
+@Composable
+private fun OnboardingControls(
+    pageIndex: Int,
+    pageCount: Int,
+    canGoBack: Boolean,
+    backVisible: Boolean,
+    nextLabel: String,
+    nextEnabled: Boolean,
+    nextVisible: Boolean,
+    onBack: () -> Unit,
+    onNext: () -> Unit,
+) {
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        PageIndicator(
+            pageIndex = pageIndex,
+            pageCount = pageCount,
+        )
+        Spacer(Modifier.height(12.dp))
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+        ) {
+            if (backVisible) {
+                IconButton(
+                    onClick = onBack,
+                    enabled = canGoBack,
+                    modifier = Modifier.size(56.dp),
+                ) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
+                        contentDescription = stringResource(R.string.back),
+                    )
+                }
             }
+            Box(modifier = Modifier.weight(1f)) {
+                if (nextVisible) {
+                    NextButton(
+                        label = nextLabel,
+                        enabled = nextEnabled,
+                        onClick = onNext,
+                    )
+                } else {
+                    Spacer(
+                        modifier = Modifier
+                            .height(56.dp)
+                            .fillMaxWidth(),
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun PageIndicator(
+    pageIndex: Int,
+    pageCount: Int,
+) {
+    Row(
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        repeat(pageCount) { index ->
+            val selected = index == pageIndex
+            Box(
+                modifier = Modifier
+                    .size(if (selected) 10.dp else 8.dp)
+                    .background(
+                        color = if (selected) {
+                            MaterialTheme.colorScheme.primary
+                        } else {
+                            MaterialTheme.colorScheme.surfaceVariant
+                        },
+                        shape = CircleShape,
+                    ),
+            )
         }
     }
 }
