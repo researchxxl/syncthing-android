@@ -26,6 +26,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.nutomic.syncthingandroid.R
 import com.nutomic.syncthingandroid.SyncthingApp
+import com.nutomic.syncthingandroid.activities.LogActivity
 import com.nutomic.syncthingandroid.activities.MainActivity
 import com.nutomic.syncthingandroid.activities.ThemedAppCompatActivity
 import com.nutomic.syncthingandroid.activities.WebGuiActivity
@@ -53,6 +54,7 @@ data class OnboardingUiState(
     val isRunningOnTv: Boolean = false,
     val userSkippedIgnoreDozePermission: Boolean = false,
     val keyGenerationRunning: Boolean = false,
+    val keyGenerationFailed: Boolean = false,
     val keyGenerationStatus: String = "",
 )
 
@@ -303,7 +305,9 @@ class OnboardingActivity : ThemedAppCompatActivity() {
             }
             OnboardingPage.KEY_GENERATION -> {
                 refreshPermissionState()
-                if (uiState.hasConfig) {
+                if (uiState.keyGenerationFailed) {
+                    openLogAndFinishOnboarding()
+                } else if (uiState.hasConfig) {
                     startApp()
                 }
             }
@@ -449,12 +453,20 @@ class OnboardingActivity : ThemedAppCompatActivity() {
             .show()
     }
 
+    private fun openLogAndFinishOnboarding() {
+        val intent = Intent(this, LogActivity::class.java)
+            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        startActivity(intent)
+        finish()
+    }
+
     private fun startKeyGeneration() {
         if (uiState.keyGenerationRunning || uiState.hasConfig) {
             return
         }
         uiState = uiState.copy(
             keyGenerationRunning = true,
+            keyGenerationFailed = false,
             keyGenerationStatus = getString(R.string.web_gui_creating_key),
         )
         lifecycleScope.launch {
@@ -472,6 +484,7 @@ class OnboardingActivity : ThemedAppCompatActivity() {
             if (errorMessage != null) {
                 uiState = uiState.copy(
                     keyGenerationRunning = false,
+                    keyGenerationFailed = true,
                     keyGenerationStatus = errorMessage,
                 )
                 return@launch
@@ -480,6 +493,7 @@ class OnboardingActivity : ThemedAppCompatActivity() {
             if (!checkForParseableConfig()) {
                 uiState = uiState.copy(
                     keyGenerationRunning = false,
+                    keyGenerationFailed = true,
                     hasConfig = false,
                     keyGenerationStatus = getString(R.string.config_read_failed),
                 )
@@ -488,6 +502,7 @@ class OnboardingActivity : ThemedAppCompatActivity() {
 
             uiState = uiState.copy(
                 keyGenerationRunning = false,
+                keyGenerationFailed = false,
                 hasConfig = true,
                 keyGenerationStatus = getString(R.string.key_generation_success),
             )

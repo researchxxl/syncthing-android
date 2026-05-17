@@ -245,8 +245,14 @@ private fun KeyGenerationPage(
         pageIndex = pageIndex,
         pageCount = uiState.pages.size,
         canGoBack = !uiState.keyGenerationRunning,
-        nextLabel = stringResource(R.string.finish),
-        nextEnabled = uiState.hasConfig,
+        nextLabel = stringResource(
+            if (uiState.keyGenerationFailed) {
+                R.string.open_log
+            } else {
+                R.string.finish
+            }
+        ),
+        nextEnabled = uiState.keyGenerationFailed || uiState.hasConfig,
         onBack = onBack,
         onNext = onContinue,
         action = {
