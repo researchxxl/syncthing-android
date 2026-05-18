@@ -633,24 +633,18 @@ public class FolderActivity extends SyncthingActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        if (mIsSaving) {
+            return true;
+        }
         int itemId = item.getItemId();
         if (itemId == R.id.save) {
-            if (mIsSaving) {
-                return true;
-            }
             item.setEnabled(false);
             onSave();
             return true;
         } else if (itemId == R.id.remove) {
-            if (mIsSaving) {
-                return true;
-            }
             showDeleteDialog();
             return true;
         } else if (itemId == android.R.id.home) {
-            if (mIsSaving) {
-                return true;
-            }
             mBackPressedCallback.handleOnBackPressed();
             return true;
         }
@@ -880,27 +874,22 @@ public class FolderActivity extends SyncthingActivity {
             Log.v(TAG, "onSave: save already in progress");
             return;
         }
-        setSavingState(true);
 
         // Validate fields.
         if (TextUtils.isEmpty(mFolder.id)) {
-            Toast.makeText(this, R.string.folder_id_required, Toast.LENGTH_LONG)
-                    .show();
-            setSavingState(false);
+            Toast.makeText(this, R.string.folder_id_required, Toast.LENGTH_LONG).show();
             return;
         }
         if (TextUtils.isEmpty(mFolder.label)) {
-            Toast.makeText(this, R.string.folder_label_required, Toast.LENGTH_LONG)
-                    .show();
-            setSavingState(false);
+            Toast.makeText(this, R.string.folder_label_required, Toast.LENGTH_LONG).show();
             return;
         }
         if (TextUtils.isEmpty(mFolder.path)) {
-            Toast.makeText(this, R.string.folder_path_required, Toast.LENGTH_LONG)
-                    .show();
-            setSavingState(false);
+            Toast.makeText(this, R.string.folder_path_required, Toast.LENGTH_LONG).show();
             return;
         }
+
+        setSavingState(true);
 
         SharedPreferences.Editor editor = mPreferences.edit();
         editor.putBoolean(
@@ -908,41 +897,28 @@ public class FolderActivity extends SyncthingActivity {
             mRunScriptSwitch.isChecked()
         );
         editor.apply();
-        Handler mainHandler = new Handler(Looper.getMainLooper());
 
         if (mIsCreateMode) {
             Log.v(TAG, "onSave: Adding folder with ID = '" + mFolder.id + "'");
+            Handler mainHandler = new Handler(Looper.getMainLooper());
             final ExecutorService executor = Executors.newSingleThreadExecutor();
             executor.execute(() -> {
-                boolean saveSuccessful = true;
-                try {
-                    preCreateFolderStruct(mFolderUri, mFolder.path);
-                    mConfig.addFolder(getApi(), mFolder);
-                } catch (Exception e) {
-                    saveSuccessful = false;
-                    Log.e(TAG, "onSave: Failed to create folder", e);
-                } finally {
-                    executor.shutdown();
-                }
+                preCreateFolderStruct(mFolderUri, mFolder.path);
+                mConfig.addFolder(getApi(), mFolder);
 
-                final boolean createSuccessful = saveSuccessful;
                 mainHandler.post(() -> {
-                    if (!createSuccessful) {
-                        setSavingState(false);
-                        Toast.makeText(this, R.string.create_folder_failed, Toast.LENGTH_LONG).show();
-                        return;
-                    }
-
                     // Start sync after adding a folder.
                     LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(getApplication().getApplicationContext());
                     Intent intent = new Intent(ACTION_SYNC_TRIGGER_FIRED);
                     intent.putExtra(EXTRA_BEGIN_ACTIVE_TIME_WINDOW, true);
                     localBroadcastManager.sendBroadcast(intent);
 
+                    setSavingState(false);
                     setResult(AppCompatActivity.RESULT_OK);
                     finish();
                 });
             });
+            executor.shutdown();
             return;
         }
 
@@ -963,37 +939,18 @@ public class FolderActivity extends SyncthingActivity {
         );
         editor.apply();
 
-        // Update folder via restApi or ConfigXml fallback off the main thread.
-        final RestApi restApi = getApi();
-        final String[] ignore = mIgnoreListNeedsToUpdate
-                ? mEditIgnoreListContent.getText().toString().split("\n")
-                : null;
-        final ExecutorService executor = Executors.newSingleThreadExecutor();
-        executor.execute(() -> {
-            boolean saveSuccessful = true;
-            try {
-                if (ignore != null) {
-                    mConfig.postFolderIgnoreList(restApi, mFolder, ignore);
-                }
-                mConfig.updateFolder(restApi, mFolder);
-            } catch (Exception e) {
-                saveSuccessful = false;
-                Log.e(TAG, "onSave: Failed to update folder", e);
-            } finally {
-                executor.shutdown();
-            }
+        // Update folder via restApi and send the config to REST endpoint.
+        RestApi restApi = getApi();
+        if (mIgnoreListNeedsToUpdate) {
+            // Update ignore list.
+            String[] ignore = mEditIgnoreListContent.getText().toString().split("\n");
+            mConfig.postFolderIgnoreList(restApi, mFolder, ignore);
+        }
 
-            final boolean updateSuccessful = saveSuccessful;
-            mainHandler.post(() -> {
-                if (!updateSuccessful) {
-                    setSavingState(false);
-                    Toast.makeText(this, R.string.generic_error, Toast.LENGTH_LONG).show();
-                    return;
-                }
-                setResult(AppCompatActivity.RESULT_OK);
-                finish();
-            });
-        });
+        // Update folder using RestApi or ConfigXml.
+        mConfig.updateFolder(restApi, mFolder);
+        setResult(AppCompatActivity.RESULT_OK);
+        finish();
     }
 
     private void preCreateFolderStruct(Uri uriFolderRoot, String absolutePath) {
