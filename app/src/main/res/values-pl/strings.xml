@@ -701,4 +701,5 @@
     <string name="category_advanced">Zaawansowane</string>
     <string name="sttrace_none_selected">Brak funkcji debugowania</string>
     <string name="state_loading">Ładowanie...</string>
+    <string name="state_saving">Zapisywanie...</string>
 </resources>
