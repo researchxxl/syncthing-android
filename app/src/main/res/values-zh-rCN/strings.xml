@@ -740,4 +740,5 @@
     <string name="state_loading">正在加载…</string>
     <string name="category_schedule">时间表</string>
     <string name="sttrace_none_selected">无调试功能</string>
+    <string name="state_saving">正在保存…</string>
 </resources>
