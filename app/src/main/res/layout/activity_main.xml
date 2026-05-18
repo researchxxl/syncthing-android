@@ -38,7 +38,8 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
                 android:contentDescription="@string/exit"
-                app:srcCompat="@drawable/ic_exit_door_arrow"
+                android:tint="@color/design_default_color_on_primary"
+                app:srcCompat="@drawable/ic_outline_exit_to_app_24"
                 app:backgroundTint="@color/primary"
                 app:fabSize="normal" />
 

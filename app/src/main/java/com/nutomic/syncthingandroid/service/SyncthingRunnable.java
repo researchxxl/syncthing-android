@@ -1,6 +1,5 @@
 package com.nutomic.syncthingandroid.service;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,12 +10,9 @@ import android.net.RouteInfo;
 import android.net.wifi.WifiManager;
 import android.net.wifi.WifiManager.MulticastLock;
 import android.os.Build;
-import android.os.Environment;
 import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
-
-import androidx.annotation.RequiresApi;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.Files;
@@ -27,15 +23,12 @@ import com.nutomic.syncthingandroid.util.FileUtils;
 import com.nutomic.syncthingandroid.util.Util;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.LineNumberReader;
+import java.io.RandomAccessFile;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.security.InvalidParameterException;
@@ -63,6 +56,7 @@ public class SyncthingRunnable implements Runnable {
 
     private Boolean ENABLE_VERBOSE_LOG = false;
     private static final int LOG_FILE_MAX_LINES = 200000;
+    private static final int LOG_FILE_BUFFER_SIZE = 1024 * 1024;
 
     private static final AtomicReference<Process> mSyncthing = new AtomicReference<>();
     private final Context mContext;
@@ -366,6 +360,27 @@ public class SyncthingRunnable implements Runnable {
         return t;
     }
 
+    // If the nth last newline is found within this buffer, then the offset of that newline within
+    // the buffer is returned. Otherwise, the negative of (nth - newlines consumed) is returned for
+    // use with the new search.
+    private static int findNthLastNewline(byte[] data, int size, int nth) {
+        if (nth <= 0) {
+            throw new IllegalArgumentException("nth must be positive: " + nth);
+        }
+
+        for (int i = size - 1; i >= 0; i--) {
+            if (data[i] == '\n') {
+                nth--;
+
+                if (nth == 0) {
+                    return i;
+                }
+            }
+        }
+
+        return -nth;
+    }
+
     /**
      * Only keep last {@link #LOG_FILE_MAX_LINES} lines in log file, to avoid bloat.
      */
@@ -374,27 +389,54 @@ public class SyncthingRunnable implements Runnable {
             return;
         }
 
-        try {
-            LineNumberReader lnr = new LineNumberReader(new FileReader(mSyncthingLogFile));
-            lnr.skip(Long.MAX_VALUE);
+        try (RandomAccessFile input = new RandomAccessFile(mSyncthingLogFile, "r")) {
+            // Find the offset of the (n + 1)th newline with constant memory. The last n lines is
+            // everything after that point. This will read in block-aligned chunks if
+            // LOG_FILE_BUFFER_SIZE is a multiple of the filesystem block size.
+            byte[] buf = new byte[LOG_FILE_BUFFER_SIZE];
+            long length = input.length();
+            long chunks = Math.ceilDiv(length, buf.length);
+            int newlinesRemaining = LOG_FILE_MAX_LINES + 1;
+            long truncationOffset = -1;
 
-            int lineCount = lnr.getLineNumber();
-            lnr.close();
+            for (long chunk = chunks - 1; chunk >= 0; chunk--) {
+                long offset = buf.length * chunk;
+                input.seek(offset);
 
-            File tempFile = new File(mContext.getFilesDir().toString(), "syncthing.log.tmp");
+                // Last chunk can be smaller than the whole buffer.
+                int n = (int) Math.min(length - offset, buf.length);
+                input.readFully(buf, 0, n);
 
-            BufferedReader reader = new BufferedReader(new FileReader(mSyncthingLogFile));
-            BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
-
-            String currentLine;
-            int startFrom = lineCount - LOG_FILE_MAX_LINES;
-            for (int i = 0; (currentLine = reader.readLine()) != null; i++) {
-                if (i > startFrom) {
-                    writer.write(currentLine + "\n");
+                int ret = findNthLastNewline(buf, n, newlinesRemaining);
+                if (ret >= 0) {
+                    truncationOffset = offset + ret + 1;
+                    break;
+                } else {
+                    newlinesRemaining = -ret;
                 }
             }
-            writer.close();
-            reader.close();
+
+            if (truncationOffset < 0) {
+                // The file already contains fewer than maximum lines.
+                return;
+            }
+
+            input.seek(truncationOffset);
+
+            File tempFile = new File(mContext.getFilesDir().toString(), "syncthing.log.tmp");
+            long remain = length - truncationOffset;
+
+            try (FileOutputStream output = new FileOutputStream(tempFile)) {
+                while (remain > 0) {
+                    int n = (int) Math.min(remain, buf.length);
+
+                    input.readFully(buf, 0, n);
+                    output.write(buf, 0, n);
+
+                    remain -= n;
+                }
+            }
+
             tempFile.renameTo(mSyncthingLogFile);
         } catch (IOException e) {
             Log.w(TAG, "Failed to trim log file", e);
