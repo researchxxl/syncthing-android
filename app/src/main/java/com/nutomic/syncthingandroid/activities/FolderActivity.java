@@ -10,7 +10,9 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -28,6 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
@@ -56,6 +59,8 @@ import java.io.FileWriter;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
@@ -132,6 +137,7 @@ public class FolderActivity extends SyncthingActivity {
     private SwitchCompat mIgnoreDelete;
     private TextView mEditIgnoreListTitle;
     private EditText mEditIgnoreListContent;
+    private View mSavingOverlay;
 
     @Inject
     SharedPreferences mPreferences;
@@ -141,6 +147,7 @@ public class FolderActivity extends SyncthingActivity {
     private boolean mIsCreateMode;
     private boolean mFolderNeedsToUpdate = false;
     private boolean mIgnoreListNeedsToUpdate = false;
+    private boolean mIsSaving = false;
 
     private Dialog mDeleteDialog;
     private Dialog mDiscardDialog;
@@ -148,6 +155,9 @@ public class FolderActivity extends SyncthingActivity {
     private OnBackPressedCallback mBackPressedCallback = new OnBackPressedCallback(true) {
         @Override
         public void handleOnBackPressed() {
+            if (mIsSaving) {
+                return;
+            }
             if (mFolderNeedsToUpdate) {
                 showDiscardDialog();
             } else {
@@ -287,6 +297,10 @@ public class FolderActivity extends SyncthingActivity {
         mDevicesContainer = findViewById(R.id.devicesContainer);
         mEditIgnoreListTitle = findViewById(R.id.edit_ignore_list_title);
         mEditIgnoreListContent = findViewById(R.id.edit_ignore_list_content);
+        mSavingOverlay = findViewById(R.id.savingOverlay);
+        if (mSavingOverlay != null && mSavingOverlay.getBackground() != null) {
+            mSavingOverlay.getBackground().mutate().setAlpha(210);
+        }
 
         // Android 11 disallows selecting the "Downloads" and the emulated storage root directory.
         mSelectAdvancedDirectory.setVisibility(
@@ -608,15 +622,23 @@ public class FolderActivity extends SyncthingActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        menu.findItem(R.id.save).setTitle(mIsCreateMode ? R.string.create : R.string.save_title);
-        menu.findItem(R.id.remove).setVisible(!mIsCreateMode);
+        MenuItem saveItem = menu.findItem(R.id.save);
+        saveItem.setTitle(mIsCreateMode ? R.string.create : R.string.save_title);
+        saveItem.setEnabled(!mIsSaving);
+        MenuItem removeItem = menu.findItem(R.id.remove);
+        removeItem.setVisible(!mIsCreateMode);
+        removeItem.setEnabled(!mIsSaving);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        if (mIsSaving) {
+            return true;
+        }
         int itemId = item.getItemId();
         if (itemId == R.id.save) {
+            item.setEnabled(false);
             onSave();
             return true;
         } else if (itemId == R.id.remove) {
@@ -627,6 +649,20 @@ public class FolderActivity extends SyncthingActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void setSavingState(boolean isSaving) {
+        mIsSaving = isSaving;
+        invalidateOptionsMenu();
+        if (mSavingOverlay != null) {
+            mSavingOverlay.setVisibility(isSaving ? View.VISIBLE : View.GONE);
+        }
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setHomeButtonEnabled(!isSaving);
+            // Keep the back icon visible while saving; clicks are blocked in onOptionsItemSelected.
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     private void showDeleteDialog(){
@@ -834,23 +870,26 @@ public class FolderActivity extends SyncthingActivity {
             Log.e(TAG, "onSave: mFolder == null");
             return;
         }
+        if (mIsSaving) {
+            Log.v(TAG, "onSave: save already in progress");
+            return;
+        }
 
         // Validate fields.
         if (TextUtils.isEmpty(mFolder.id)) {
-            Toast.makeText(this, R.string.folder_id_required, Toast.LENGTH_LONG)
-                    .show();
+            Toast.makeText(this, R.string.folder_id_required, Toast.LENGTH_LONG).show();
             return;
         }
         if (TextUtils.isEmpty(mFolder.label)) {
-            Toast.makeText(this, R.string.folder_label_required, Toast.LENGTH_LONG)
-                    .show();
+            Toast.makeText(this, R.string.folder_label_required, Toast.LENGTH_LONG).show();
             return;
         }
         if (TextUtils.isEmpty(mFolder.path)) {
-            Toast.makeText(this, R.string.folder_path_required, Toast.LENGTH_LONG)
-                    .show();
+            Toast.makeText(this, R.string.folder_path_required, Toast.LENGTH_LONG).show();
             return;
         }
+
+        setSavingState(true);
 
         SharedPreferences.Editor editor = mPreferences.edit();
         editor.putBoolean(
@@ -860,18 +899,26 @@ public class FolderActivity extends SyncthingActivity {
         editor.apply();
 
         if (mIsCreateMode) {
-            Log.v(TAG, "onSave: Adding folder with ID = \'" + mFolder.id + "\'");
-            preCreateFolderStruct(mFolderUri, mFolder.path);
-            mConfig.addFolder(getApi(), mFolder);
+            Log.v(TAG, "onSave: Adding folder with ID = '" + mFolder.id + "'");
+            Handler mainHandler = new Handler(Looper.getMainLooper());
+            final ExecutorService executor = Executors.newSingleThreadExecutor();
+            executor.execute(() -> {
+                preCreateFolderStruct(mFolderUri, mFolder.path);
+                mConfig.addFolder(getApi(), mFolder);
 
-            // Start sync after adding a folder
-            LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(getApplication().getApplicationContext());
-            Intent intent = new Intent(ACTION_SYNC_TRIGGER_FIRED);
-            intent.putExtra(EXTRA_BEGIN_ACTIVE_TIME_WINDOW, true);
-            localBroadcastManager.sendBroadcast(intent);
+                mainHandler.post(() -> {
+                    // Start sync after adding a folder.
+                    LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(getApplication().getApplicationContext());
+                    Intent intent = new Intent(ACTION_SYNC_TRIGGER_FIRED);
+                    intent.putExtra(EXTRA_BEGIN_ACTIVE_TIME_WINDOW, true);
+                    localBroadcastManager.sendBroadcast(intent);
 
-            setResult(AppCompatActivity.RESULT_OK);
-            finish();
+                    setSavingState(false);
+                    setResult(AppCompatActivity.RESULT_OK);
+                    finish();
+                });
+            });
+            executor.shutdown();
             return;
         }
 
@@ -904,7 +951,6 @@ public class FolderActivity extends SyncthingActivity {
         mConfig.updateFolder(restApi, mFolder);
         setResult(AppCompatActivity.RESULT_OK);
         finish();
-        return;
     }
 
     private void preCreateFolderStruct(Uri uriFolderRoot, String absolutePath) {
