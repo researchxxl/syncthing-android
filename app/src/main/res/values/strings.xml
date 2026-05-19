@@ -1013,6 +1013,9 @@
     <!-- small inline loading indicator -->
     <string name="state_loading">Loading...</string>
 
+    <!-- small inline saving indicator -->
+    <string name="state_saving">Saving...</string>
+
     <!-- Format string for folder size, eg "500 MiB / 1 GiB" -->
     <string name="folder_size_format">%1$s / %2$s</string>
 
