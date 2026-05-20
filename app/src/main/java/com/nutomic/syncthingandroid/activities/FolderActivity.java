@@ -30,6 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.DrawableRes;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -118,6 +119,7 @@ public class FolderActivity extends SyncthingActivity {
     private TextView mPathView;
     private View mSelectAdvancedDirectory;
     private TextView mAccessExplanationView;
+    private TextView mFolderTypeTitleView;
     private TextView mFolderTypeView;
     private TextView mFolderTypeDescriptionView;
     private ViewGroup mDevicesContainer;
@@ -278,6 +280,7 @@ public class FolderActivity extends SyncthingActivity {
         mPathView = findViewById(R.id.directoryTextView);
         mSelectAdvancedDirectory = findViewById(R.id.selectAdvancedDirectory);
         mAccessExplanationView = findViewById(R.id.accessExplanationView);
+        mFolderTypeTitleView = findViewById(R.id.folderTypeTitle);
         mFolderTypeView = findViewById(R.id.folderType);
         mFolderTypeDescriptionView = findViewById(R.id.folderTypeDescription);
         mFolderFileWatcher = findViewById(R.id.fileWatcher);
@@ -1061,20 +1064,32 @@ public class FolderActivity extends SyncthingActivity {
 
         switch (mFolder.type) {
             case Constants.FOLDER_TYPE_SEND_RECEIVE:
-                setFolderTypeDescription(getString(R.string.folder_type_sendreceive),
-                        getString(R.string.folder_type_sendreceive_description));
+                setFolderTypeDescription(
+                        getString(R.string.folder_type_sendreceive),
+                        getString(R.string.folder_type_sendreceive_description),
+                        R.drawable.baseline_folder_24
+                );
                 break;
             case Constants.FOLDER_TYPE_SEND_ONLY:
-                setFolderTypeDescription(getString(R.string.folder_type_sendonly),
-                        getString(R.string.folder_type_sendonly_description));
+                setFolderTypeDescription(
+                        getString(R.string.folder_type_sendonly),
+                        getString(R.string.folder_type_sendonly_description),
+                        R.drawable.baseline_upload_24
+                );
                 break;
             case Constants.FOLDER_TYPE_RECEIVE_ONLY:
-                setFolderTypeDescription(getString(R.string.folder_type_receiveonly),
-                        getString(R.string.folder_type_receiveonly_description));
+                setFolderTypeDescription(
+                        getString(R.string.folder_type_receiveonly),
+                        getString(R.string.folder_type_receiveonly_description),
+                        R.drawable.baseline_download_24
+                );
                 break;
             case Constants.FOLDER_TYPE_RECEIVE_ENCRYPTED:
-                setFolderTypeDescription(getString(R.string.folder_type_receive_encrypted),
-                        getString(R.string.folder_type_receive_encrypted_description));
+                setFolderTypeDescription(
+                        getString(R.string.folder_type_receive_encrypted),
+                        getString(R.string.folder_type_receive_encrypted_description),
+                        R.drawable.outline_lock_24
+                );
                 break;
         }
 
@@ -1083,9 +1098,10 @@ public class FolderActivity extends SyncthingActivity {
                 !mFolder.type.equals(Constants.FOLDER_TYPE_SEND_ONLY) ? View.VISIBLE : View.GONE);
     }
 
-    private void setFolderTypeDescription(String type, String description) {
+    private void setFolderTypeDescription(String type, String description, @DrawableRes int iconResId) {
         mFolderTypeView.setText(type);
         mFolderTypeDescriptionView.setText(description);
+        mFolderTypeTitleView.setCompoundDrawablesRelativeWithIntrinsicBounds(iconResId, 0, 0, 0);
     }
 
     private void updatePullOrderDescription() {
