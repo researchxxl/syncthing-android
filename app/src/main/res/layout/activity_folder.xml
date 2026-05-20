@@ -115,6 +115,7 @@
                     android:focusable="true">
 
                     <TextView
+                        android:id="@+id/folderTypeTitle"
                         style="@style/Widget.Syncthing.TextView.Label.Details"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
