@@ -1107,4 +1107,5 @@
     <string name="qs_schedule_label">Run for 5 minutes</string>
     <string name="qs_schedule_label_minutes" tools:ignore="PluralsCandidate">Run for %1$d minutes</string>
     <string name="qs_schedule_disabled">Schedule disabled</string>
+    <string name="no_app_to_open_link">No app available to open this link.</string>
 </resources>

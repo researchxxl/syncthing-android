@@ -107,10 +107,10 @@ public class FoldersAdapter extends ArrayAdapter<Folder> {
                 drawableId = R.drawable.outline_lock_24;
                 break;
             case Constants.FOLDER_TYPE_RECEIVE_ONLY:
-                drawableId = R.drawable.ic_folder_receive_only;
+                drawableId = R.drawable.baseline_download_24;
                 break;
             case Constants.FOLDER_TYPE_SEND_ONLY:
-                drawableId = R.drawable.ic_folder_send_only;
+                drawableId = R.drawable.baseline_upload_24;
                 break;
             default:
         }

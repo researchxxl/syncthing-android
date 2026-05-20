@@ -1,6 +1,7 @@
 package com.nutomic.syncthingandroid.activities;
 
 import android.annotation.SuppressLint;
+import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -120,14 +121,21 @@ public class WebGuiActivity extends SyncthingActivity
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             Uri uri = Uri.parse(url);
-            if (uri.getHost().equals(mConfig.getWebGuiUrl().getHost())) {
+            String host = uri.getHost();
+            String webGuiHost = mConfig.getWebGuiUrl().getHost();
+            if (host != null && host.equals(webGuiHost)) {
                 return false;
-            } else {
-                if (!Util.isRunningOnTV(WebGuiActivity.this)) {
-                    startActivity(new Intent(Intent.ACTION_VIEW, uri));
-                }
-                return true;
             }
+            if (!Util.isRunningOnTV(WebGuiActivity.this)) {
+                try {
+                    startActivity(new Intent(Intent.ACTION_VIEW, uri));
+                } catch (ActivityNotFoundException e) {
+                    Toast.makeText(WebGuiActivity.this,
+                            getString(R.string.no_app_to_open_link),
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+            return true;
         }
 
         @Override
