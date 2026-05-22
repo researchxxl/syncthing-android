@@ -8,9 +8,16 @@ import androidx.compose.material.icons.outlined.Key
 import androidx.compose.material.icons.outlined.LocationOn
 import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material.icons.outlined.Storage
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -38,6 +45,8 @@ fun OnboardingPage(
     pageIndex: Int,
     onBack: () -> Unit,
     onContinue: () -> Unit,
+    onFinishOnboarding: () -> Unit,
+    onOpenLogAndFinishOnboarding: () -> Unit,
     onGrantStoragePermission: () -> Unit,
     onGrantIgnoreDozePermission: () -> Unit,
     onGrantLocationPermission: () -> Unit,
@@ -82,7 +91,8 @@ fun OnboardingPage(
             uiState = uiState,
             pageIndex = pageIndex,
             onBack = onBack,
-            onContinue = onContinue,
+            onFinishOnboarding = onFinishOnboarding,
+            onOpenLogAndFinishOnboarding = onOpenLogAndFinishOnboarding,
         )
     }
 }
@@ -143,6 +153,8 @@ private fun BatteryOptimizationPage(
     onContinue: () -> Unit,
     onGrantIgnoreDozePermission: () -> Unit,
 ) {
+    var showSkipConfirmation by rememberSaveable { mutableStateOf(false) }
+    var skipConfirmed by rememberSaveable { mutableStateOf(false) }
     val description = if (uiState.isRunningOnTv) {
         stringResource(
             R.string.ignore_doze_permission_os_notice,
@@ -152,6 +164,7 @@ private fun BatteryOptimizationPage(
     } else {
         stringResource(R.string.ignore_doze_permission_desc)
     }
+    val canContinue = uiState.hasIgnoreDozePermission || skipConfirmed || uiState.isRunningOnTv
 
     OnboardingScaffold(
         icon = OnboardingIcon.Vector(Icons.Outlined.BatteryChargingFull),
@@ -161,7 +174,13 @@ private fun BatteryOptimizationPage(
         pageCount = uiState.pages.size,
         nextLabel = stringResource(R.string.cont),
         onBack = onBack,
-        onNext = onContinue,
+        onNext = {
+            if (canContinue) {
+                onContinue()
+            } else {
+                showSkipConfirmation = true
+            }
+        },
         action = {
             PermissionButton(
                 granted = uiState.hasIgnoreDozePermission,
@@ -169,6 +188,33 @@ private fun BatteryOptimizationPage(
             )
         },
     )
+
+    if (showSkipConfirmation) {
+        AlertDialog(
+            onDismissRequest = { showSkipConfirmation = false },
+            text = {
+                Text(text = stringResource(R.string.dialog_confirm_skip_ignore_doze_permission))
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        showSkipConfirmation = false
+                        skipConfirmed = true
+                        onContinue()
+                    },
+                ) {
+                    Text(text = stringResource(R.string.yes))
+                }
+            },
+            dismissButton = {
+                TextButton(
+                    onClick = { showSkipConfirmation = false },
+                ) {
+                    Text(text = stringResource(R.string.no))
+                }
+            },
+        )
+    }
 }
 
 @Composable
@@ -236,7 +282,8 @@ private fun KeyGenerationPage(
     uiState: OnboardingUiState,
     pageIndex: Int,
     onBack: () -> Unit,
-    onContinue: () -> Unit,
+    onFinishOnboarding: () -> Unit,
+    onOpenLogAndFinishOnboarding: () -> Unit,
 ) {
     OnboardingScaffold(
         icon = OnboardingIcon.Vector(Icons.Outlined.Key),
@@ -254,7 +301,13 @@ private fun KeyGenerationPage(
         ),
         nextEnabled = uiState.keyGenerationFailed || uiState.hasConfig,
         onBack = onBack,
-        onNext = onContinue,
+        onNext = {
+            if (uiState.keyGenerationFailed) {
+                onOpenLogAndFinishOnboarding()
+            } else if (uiState.hasConfig) {
+                onFinishOnboarding()
+            }
+        },
         action = {
             if (uiState.keyGenerationRunning) {
                 CircularProgressIndicator(

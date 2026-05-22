@@ -7,7 +7,6 @@ import android.content.ComponentName
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.PowerManager
@@ -17,12 +16,12 @@ import android.widget.Toast
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AlertDialog
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.lifecycle.lifecycleScope
 import com.nutomic.syncthingandroid.R
 import com.nutomic.syncthingandroid.SyncthingApp
@@ -52,7 +51,6 @@ data class OnboardingUiState(
     val hasNotificationPermission: Boolean = false,
     val hasConfig: Boolean = false,
     val isRunningOnTv: Boolean = false,
-    val userSkippedIgnoreDozePermission: Boolean = false,
     val keyGenerationRunning: Boolean = false,
     val keyGenerationFailed: Boolean = false,
     val keyGenerationStatus: String = "",
@@ -189,7 +187,9 @@ class OnboardingActivity : ThemedAppCompatActivity() {
                     OnboardingScreen(
                         uiState = uiState,
                         onBack = ::handleBack,
-                        onContinue = ::handleContinue,
+                        onContinue = ::advance,
+                        onFinishOnboarding = ::startApp,
+                        onOpenLogAndFinishOnboarding = ::openLogAndFinishOnboarding,
                         onGrantStoragePermission = ::requestStoragePermission,
                         onGrantIgnoreDozePermission = ::requestIgnoreDozePermission,
                         onGrantLocationPermission = ::requestLocationPermission,
@@ -272,48 +272,6 @@ class OnboardingActivity : ThemedAppCompatActivity() {
         moveToPage(uiState.currentPage - 1)
     }
 
-    private fun handleContinue(page: OnboardingPage) {
-        when (page) {
-            OnboardingPage.WELCOME,
-            OnboardingPage.LOCATION_PERMISSION -> advance()
-            OnboardingPage.STORAGE_PERMISSION -> {
-                refreshPermissionState()
-                if (uiState.hasStoragePermission) {
-                    advance()
-                } else {
-                    Toast.makeText(this, R.string.toast_write_storage_permission_required, Toast.LENGTH_LONG).show()
-                }
-            }
-            OnboardingPage.BATTERY_OPTIMIZATION -> {
-                refreshPermissionState()
-                if (uiState.hasIgnoreDozePermission ||
-                    uiState.userSkippedIgnoreDozePermission ||
-                    uiState.isRunningOnTv
-                ) {
-                    advance()
-                } else {
-                    showSkipIgnoreDozeConfirmation()
-                }
-            }
-            OnboardingPage.NOTIFICATION_PERMISSION -> {
-                refreshPermissionState()
-                if (uiState.hasNotificationPermission) {
-                    advance()
-                } else {
-                    Toast.makeText(this, R.string.toast_notification_permission_required, Toast.LENGTH_LONG).show()
-                }
-            }
-            OnboardingPage.KEY_GENERATION -> {
-                refreshPermissionState()
-                if (uiState.keyGenerationFailed) {
-                    openLogAndFinishOnboarding()
-                } else if (uiState.hasConfig) {
-                    startApp()
-                }
-            }
-        }
-    }
-
     private fun advanceIfCurrentPage(page: OnboardingPage) {
         if (uiState.pages.getOrNull(uiState.currentPage) == page) {
             advance()
@@ -389,10 +347,9 @@ class OnboardingActivity : ThemedAppCompatActivity() {
 
     @SuppressLint("BatteryLife")
     private fun requestIgnoreDozePermission() {
-        var intentFailed = false
-        val intent = Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)
-        intent.data = Uri.parse("package:$packageName")
         try {
+            val intent = Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)
+            intent.data = "package:$packageName".toUri()
             val componentName: ComponentName? = intent.resolveActivity(packageManager)
             if (componentName != null) {
                 val className = componentName.className
@@ -400,18 +357,13 @@ class OnboardingActivity : ThemedAppCompatActivity() {
                     startActivity(intent)
                     return
                 }
-                intentFailed = true
             } else {
                 Log.w(TAG, "Request ignore battery optimizations not supported")
-                intentFailed = true
             }
         } catch (e: ActivityNotFoundException) {
             Log.w(TAG, "Request ignore battery optimizations not supported", e)
-            intentFailed = true
         }
-        if (intentFailed) {
-            Toast.makeText(this, R.string.dialog_disable_battery_optimizations_not_supported, Toast.LENGTH_LONG).show()
-        }
+        Toast.makeText(this, R.string.dialog_disable_battery_optimizations_not_supported, Toast.LENGTH_LONG).show()
     }
 
     private fun requestLocationPermission() {
@@ -438,19 +390,6 @@ class OnboardingActivity : ThemedAppCompatActivity() {
             return
         }
         notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
-    }
-
-    private fun showSkipIgnoreDozeConfirmation() {
-        AlertDialog.Builder(this)
-            .setMessage(R.string.dialog_confirm_skip_ignore_doze_permission)
-            .setPositiveButton(R.string.yes) { _, _ ->
-                uiState = uiState.copy(userSkippedIgnoreDozePermission = true)
-                advanceIfCurrentPage(OnboardingPage.BATTERY_OPTIMIZATION)
-            }
-            .setNegativeButton(R.string.no) { _, _ ->
-                uiState = uiState.copy(userSkippedIgnoreDozePermission = false)
-            }
-            .show()
     }
 
     private fun openLogAndFinishOnboarding() {
