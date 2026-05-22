@@ -1,16 +1,12 @@
 package com.nutomic.syncthingandroid.onboarding
 
 import android.Manifest
-import android.annotation.SuppressLint
-import android.content.ActivityNotFoundException
-import android.content.ComponentName
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.os.PowerManager
-import android.provider.Settings
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.compose.setContent
@@ -21,11 +17,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.core.content.ContextCompat
-import androidx.core.net.toUri
 import androidx.lifecycle.lifecycleScope
 import com.nutomic.syncthingandroid.R
 import com.nutomic.syncthingandroid.SyncthingApp
-import com.nutomic.syncthingandroid.activities.LogActivity
 import com.nutomic.syncthingandroid.activities.MainActivity
 import com.nutomic.syncthingandroid.activities.ThemedAppCompatActivity
 import com.nutomic.syncthingandroid.activities.WebGuiActivity
@@ -60,7 +54,7 @@ class OnboardingActivity : ThemedAppCompatActivity() {
 
     companion object {
         private const val TAG = "OnboardingActivity"
-        private const val REQUEST_WRITE_STORAGE = 143
+        const val REQUEST_WRITE_STORAGE = 143
     }
 
     @Inject
@@ -189,9 +183,6 @@ class OnboardingActivity : ThemedAppCompatActivity() {
                         onBack = ::handleBack,
                         onContinue = ::advance,
                         onFinishOnboarding = ::startApp,
-                        onOpenLogAndFinishOnboarding = ::openLogAndFinishOnboarding,
-                        onGrantStoragePermission = ::requestStoragePermission,
-                        onGrantIgnoreDozePermission = ::requestIgnoreDozePermission,
                         onGrantLocationPermission = ::requestLocationPermission,
                         onGrantNotificationPermission = ::requestNotificationPermission,
                     )
@@ -341,31 +332,6 @@ class OnboardingActivity : ThemedAppCompatActivity() {
         ) == PackageManager.PERMISSION_GRANTED
     }
 
-    private fun requestStoragePermission() {
-        PermissionUtil.requestStoragePermission(this, REQUEST_WRITE_STORAGE)
-    }
-
-    @SuppressLint("BatteryLife")
-    private fun requestIgnoreDozePermission() {
-        try {
-            val intent = Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)
-            intent.data = "package:$packageName".toUri()
-            val componentName: ComponentName? = intent.resolveActivity(packageManager)
-            if (componentName != null) {
-                val className = componentName.className
-                if (!className.equals("com.android.tv.settings.EmptyStubActivity", ignoreCase = true)) {
-                    startActivity(intent)
-                    return
-                }
-            } else {
-                Log.w(TAG, "Request ignore battery optimizations not supported")
-            }
-        } catch (e: ActivityNotFoundException) {
-            Log.w(TAG, "Request ignore battery optimizations not supported", e)
-        }
-        Toast.makeText(this, R.string.dialog_disable_battery_optimizations_not_supported, Toast.LENGTH_LONG).show()
-    }
-
     private fun requestLocationPermission() {
         when {
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.R -> {
@@ -390,13 +356,6 @@ class OnboardingActivity : ThemedAppCompatActivity() {
             return
         }
         notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
-    }
-
-    private fun openLogAndFinishOnboarding() {
-        val intent = Intent(this, LogActivity::class.java)
-            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-        startActivity(intent)
-        finish()
     }
 
     private fun startKeyGeneration() {

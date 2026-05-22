@@ -5,10 +5,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import com.nutomic.syncthingandroid.util.LocalPagerState
 
 /**
  * The list of onboarding pages shown in order.
@@ -20,9 +18,6 @@ fun OnboardingScreen(
     onBack: () -> Unit,
     onContinue: () -> Unit,
     onFinishOnboarding: () -> Unit,
-    onOpenLogAndFinishOnboarding: () -> Unit,
-    onGrantStoragePermission: () -> Unit,
-    onGrantIgnoreDozePermission: () -> Unit,
     onGrantLocationPermission: () -> Unit,
     onGrantNotificationPermission: () -> Unit,
 ) {
@@ -36,26 +31,21 @@ fun OnboardingScreen(
         }
     }
 
-    CompositionLocalProvider(LocalPagerState provides pagerState) {
-        HorizontalPager(
-            state = pagerState,
-            modifier = Modifier.fillMaxSize(),
-            userScrollEnabled = false,
-        ) { pageIdx ->
-            val page = uiState.pages[pageIdx]
-            OnboardingPage(
-                page = page,
-                uiState = uiState,
-                pageIndex = pageIdx,
-                onBack = onBack,
-                onContinue = onContinue,
-                onFinishOnboarding = onFinishOnboarding,
-                onOpenLogAndFinishOnboarding = onOpenLogAndFinishOnboarding,
-                onGrantStoragePermission = onGrantStoragePermission,
-                onGrantIgnoreDozePermission = onGrantIgnoreDozePermission,
-                onGrantLocationPermission = onGrantLocationPermission,
-                onGrantNotificationPermission = onGrantNotificationPermission,
-            )
-        }
+    HorizontalPager(
+        state = pagerState,
+        modifier = Modifier.fillMaxSize(),
+        userScrollEnabled = false,
+    ) { pageIdx ->
+        val page = uiState.pages[pageIdx]
+        OnboardingPage(
+            page = page,
+            uiState = uiState,
+            pageIndex = pageIdx,
+            onBack = onBack,
+            onContinue = onContinue,
+            onFinishOnboarding = onFinishOnboarding,
+            onGrantLocationPermission = onGrantLocationPermission,
+            onGrantNotificationPermission = onGrantNotificationPermission,
+        )
     }
 }

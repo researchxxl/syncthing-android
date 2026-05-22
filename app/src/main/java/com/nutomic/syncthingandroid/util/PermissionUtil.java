@@ -40,31 +40,23 @@ public class PermissionUtil {
                     requestCode);
             return;
         }
-        Boolean intentFailed = false;
+
         Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
         intent.setData(Uri.parse("package:" + activity.getPackageName()));
         try {
             ComponentName componentName = intent.resolveActivity(activity.getPackageManager());
             if (componentName != null) {
-                String className = componentName.getClassName();
-                if (className != null) {
-                    // Launch "Allow all files access?" dialog.
-                    activity.startActivity(intent);
-                    return;
-                }
-                intentFailed = true;
+                // Launch "Allow all files access?" dialog.
+                activity.startActivity(intent);
+                return;
             } else {
                 Log.w(TAG, "Request all files access not supported");
-                intentFailed = true;
             }
         } catch (ActivityNotFoundException e) {
             Log.w(TAG, "Request all files access not supported", e);
-            intentFailed = true;
         }
-        if (intentFailed) {
-            // Some devices don't support this request.
-            Toast.makeText(activity, R.string.dialog_all_files_access_not_supported, Toast.LENGTH_LONG).show();
-        }
+        // Some devices don't support this request.
+        Toast.makeText(activity, R.string.dialog_all_files_access_not_supported, Toast.LENGTH_LONG).show();
     }
 
 }
