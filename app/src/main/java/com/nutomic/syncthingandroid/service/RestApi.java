@@ -246,20 +246,26 @@ public class RestApi {
             // Tell SyncthingService it can transition to State.ACTIVE.
             mOnApiAvailableListener.onApiAvailable();
 
-            // Temporarily lower cleanupIntervalS for every folder to force cleanup after startup.
-            setVersioningCleanupIntervalS(2);
-            final Handler resetCleanupIntervalHandler = new Handler(Looper.getMainLooper());
-            resetCleanupIntervalHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (hasShutdown) {
-                        LogV("Skipping setVersioningCleanupIntervalS(3600) due to hasShutdown == true");
-                        return;
-                    }
-                    setVersioningCleanupIntervalS(3600);
-                }
-            }, 10000);
+            triggerVersioningCleanupIfNecessary();
         }
+    }
+
+    private void triggerVersioningCleanupIfNecessary() {
+        }
+
+        // Temporarily lower cleanupIntervalS for every folder to force cleanup after startup.
+        setVersioningCleanupIntervalS(2);
+        final Handler resetCleanupIntervalHandler = new Handler(Looper.getMainLooper());
+        resetCleanupIntervalHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (hasShutdown) {
+                    LogV("Skipping setVersioningCleanupIntervalS(3600) due to hasShutdown == true");
+                    return;
+                }
+                setVersioningCleanupIntervalS(3600);
+            }
+        }, 10000); 
     }
 
     public void reloadConfig() {
