@@ -40,12 +40,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.nutomic.syncthingandroid.R
+
+private const val COMPACT_SCREEN_MAX_DP = 360
 
 /**
  * Icon type for the onboarding scaffold — either a Material vector icon or app logo.
@@ -133,6 +137,19 @@ private fun PortraitScaffoldContent(
     onNext: () -> Unit,
     paddingValues: PaddingValues,
 ) {
+    val compactScreen = isCompactOnboardingScreen()
+    val iconSize = if (compactScreen) 72.dp else 80.dp
+    val titleStyle = if (compactScreen) {
+        MaterialTheme.typography.headlineSmall
+    } else {
+        MaterialTheme.typography.headlineMedium
+    }
+    val descriptionStyle = if (compactScreen) {
+        MaterialTheme.typography.bodyMedium
+    } else {
+        MaterialTheme.typography.bodyLarge
+    }
+
     Column(
         modifier = Modifier
             .padding(paddingValues)
@@ -151,7 +168,7 @@ private fun PortraitScaffoldContent(
                     Icon(
                         imageVector = icon.imageVector,
                         contentDescription = null,
-                        modifier = Modifier.size(80.dp),
+                        modifier = Modifier.size(iconSize),
                         tint = MaterialTheme.colorScheme.primary,
                     )
                 }
@@ -159,7 +176,7 @@ private fun PortraitScaffoldContent(
                     Icon(
                         painter = painterResource(R.drawable.ic_monochrome_ui),
                         contentDescription = null,
-                        modifier = Modifier.size(80.dp),
+                        modifier = Modifier.size(iconSize),
                         tint = MaterialTheme.colorScheme.primary,
                     )
                 }
@@ -169,7 +186,7 @@ private fun PortraitScaffoldContent(
 
             Text(
                 text = title,
-                style = MaterialTheme.typography.headlineMedium,
+                style = titleStyle,
                 color = MaterialTheme.colorScheme.onSurface,
                 textAlign = TextAlign.Center,
             )
@@ -178,7 +195,7 @@ private fun PortraitScaffoldContent(
 
             Text(
                 text = description,
-                style = MaterialTheme.typography.bodyLarge,
+                style = descriptionStyle,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Center,
             )
@@ -222,13 +239,27 @@ private fun LandscapeScaffoldContent(
     onNext: () -> Unit,
     paddingValues: PaddingValues,
 ) {
+    val compactScreen = isCompactOnboardingScreen()
+    val iconSize = if (compactScreen) 64.dp else 80.dp
+    val titleStyle = if (compactScreen) {
+        MaterialTheme.typography.headlineSmall
+    } else {
+        MaterialTheme.typography.headlineMedium
+    }
+    val descriptionStyle = if (compactScreen) {
+        MaterialTheme.typography.bodyMedium
+    } else {
+        MaterialTheme.typography.bodyLarge
+    }
+    val contentControlsSpacing = if (compactScreen) 12.dp else 16.dp
+
     Row(
         modifier = Modifier
             .padding(paddingValues)
             .padding(16.dp)
     ) {
         Column(
-            modifier = Modifier.weight(1f).fillMaxHeight(),
+            modifier = Modifier.weight(2f).fillMaxHeight(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
         ) {
@@ -237,7 +268,7 @@ private fun LandscapeScaffoldContent(
                     Icon(
                         imageVector = icon.imageVector,
                         contentDescription = null,
-                        modifier = Modifier.size(80.dp),
+                        modifier = Modifier.size(iconSize),
                         tint = MaterialTheme.colorScheme.primary,
                     )
                 }
@@ -245,7 +276,7 @@ private fun LandscapeScaffoldContent(
                     Icon(
                         painter = painterResource(R.drawable.ic_monochrome_ui),
                         contentDescription = null,
-                        modifier = Modifier.size(80.dp),
+                        modifier = Modifier.size(iconSize),
                         tint = MaterialTheme.colorScheme.primary,
                     )
                 }
@@ -255,16 +286,21 @@ private fun LandscapeScaffoldContent(
 
             Text(
                 text = title,
-                style = MaterialTheme.typography.headlineMedium,
+                style = titleStyle,
                 color = MaterialTheme.colorScheme.onSurface,
                 textAlign = TextAlign.Center,
             )
+
+            if (action != null) {
+                Spacer(Modifier.height(32.dp))
+                action()
+            }
         }
 
         Spacer(Modifier.width(16.dp))
 
         Column(
-            modifier = Modifier.weight(1f).fillMaxHeight(),
+            modifier = Modifier.weight(3f).fillMaxHeight(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
         ) {
@@ -278,16 +314,14 @@ private fun LandscapeScaffoldContent(
             ) {
                 Text(
                     text = description,
-                    style = MaterialTheme.typography.bodyLarge,
+                    style = descriptionStyle,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     textAlign = TextAlign.Center,
                 )
-
-                if (action != null) {
-                    Spacer(Modifier.height(32.dp))
-                    action()
-                }
             }
+
+            Spacer(Modifier.height(contentControlsSpacing))
+
             OnboardingControls(
                 pageIndex = pageIndex,
                 pageCount = pageCount,
@@ -315,6 +349,11 @@ private fun OnboardingControls(
     onBack: () -> Unit,
     onNext: () -> Unit,
 ) {
+    val compactScreen = isCompactOnboardingScreen()
+    val controlHeight = if (compactScreen) 48.dp else 56.dp
+    val rowHorizontalPadding = if (compactScreen) 8.dp else 16.dp
+    val rowSpacing = if (compactScreen) 8.dp else 12.dp
+
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -327,15 +366,15 @@ private fun OnboardingControls(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp),
+                .padding(horizontal = rowHorizontalPadding),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            horizontalArrangement = Arrangement.spacedBy(rowSpacing),
         ) {
             if (backVisible) {
                 IconButton(
                     onClick = onBack,
                     enabled = canGoBack,
-                    modifier = Modifier.size(56.dp),
+                    modifier = Modifier.size(controlHeight),
                 ) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
@@ -353,7 +392,7 @@ private fun OnboardingControls(
                 } else {
                     Spacer(
                         modifier = Modifier
-                            .height(56.dp)
+                            .height(controlHeight)
                             .fillMaxWidth(),
                     )
                 }
@@ -395,6 +434,11 @@ fun NextButton(
     onClick: () -> Unit,
     enabled: Boolean = true,
 ) {
+    val compactScreen = isCompactOnboardingScreen()
+    val buttonHeight = if (compactScreen) 48.dp else 56.dp
+    val minWidth = if (compactScreen) 200.dp else 240.dp
+    val labelFontSize = if (compactScreen) 18.sp else 20.sp
+
     val containerColor by animateColorAsState(
         targetValue = if (enabled) {
             MaterialTheme.colorScheme.primary
@@ -423,13 +467,13 @@ fun NextButton(
             disabledContainerColor = containerColor,
             disabledContentColor = contentColor,
         ),
-        modifier = Modifier.height(56.dp)
-            .widthIn(min = 240.dp, max = 560.dp)
+        modifier = Modifier.height(buttonHeight)
+            .widthIn(min = minWidth, max = 560.dp)
             .fillMaxWidth(),
     ) {
         Text(
             text = label,
-            style = MaterialTheme.typography.labelLarge.copy(fontSize = 20.sp),
+            style = MaterialTheme.typography.labelLarge.copy(fontSize = labelFontSize),
         )
     }
 }
@@ -439,6 +483,13 @@ fun PermissionButton(
     granted: Boolean,
     onClick: () -> Unit,
 ) {
+    val compactScreen = isCompactOnboardingScreen()
+    val buttonHeight = if (compactScreen) 48.dp else 56.dp
+    val iconSize = if (compactScreen) 22.dp else 24.dp
+    val iconTextSpacing = if (compactScreen) 10.dp else 12.dp
+    val labelFontSize = if (compactScreen) 18.sp else 20.sp
+    val horizontalPadding = if (compactScreen) 18.dp else 24.dp
+
     val containerColor by animateColorAsState(
         targetValue = if (granted) {
             MaterialTheme.colorScheme.secondaryContainer
@@ -458,7 +509,11 @@ fun PermissionButton(
         label = "permission_button_content_color",
     )
     val cornerRadius by animateDpAsState(
-        targetValue = if (granted) 14.dp else 28.dp,
+        targetValue = if (granted) {
+            if (compactScreen) 12.dp else 14.dp
+        } else {
+            if (compactScreen) 24.dp else 28.dp
+        },
         animationSpec = tween(durationMillis = 350),
         label = "permission_button_corner_radius",
     )
@@ -473,7 +528,8 @@ fun PermissionButton(
             disabledContainerColor = containerColor,
             disabledContentColor = contentColor,
         ),
-        modifier = Modifier.height(56.dp),
+        contentPadding = PaddingValues(horizontal = horizontalPadding),
+        modifier = Modifier.height(buttonHeight),
     ) {
         AnimatedContent(
             targetState = granted,
@@ -485,17 +541,29 @@ fun PermissionButton(
                 Icon(
                     imageVector = if (isGranted) Icons.Filled.CheckCircle else Icons.Outlined.Lock,
                     contentDescription = null,
+                    modifier = Modifier.size(iconSize),
                 )
-                Spacer(Modifier.width(12.dp))
+                Spacer(Modifier.width(iconTextSpacing))
                 Text(
                     text = if (isGranted) {
                         stringResource(R.string.permission_granted)
                     } else {
                         stringResource(R.string.grant_permission)
                     },
-                    style = MaterialTheme.typography.labelLarge.copy(fontSize = 20.sp),
+                    style = MaterialTheme.typography.labelLarge.copy(fontSize = labelFontSize),
                 )
             }
         }
+    }
+}
+
+// TODO: use window size class when material3.adaptive package is added
+@Composable
+private fun isCompactOnboardingScreen(): Boolean {
+    val containerSize = LocalWindowInfo.current.containerSize
+    val compactScreenMaxSize = COMPACT_SCREEN_MAX_DP.dp
+    return with(LocalDensity.current) {
+        containerSize.width.toDp() <= compactScreenMaxSize ||
+            containerSize.height.toDp() <= compactScreenMaxSize
     }
 }
