@@ -1143,6 +1143,7 @@ public class SyncthingService extends Service {
                             LogV("importConfig: Ignoring deprecated pref \"" + prefKey + "\".");
                             break;
                         // Cached information which is not available on SettingsActivity.
+                        case Constants.PREF_APP_START_COUNTER:
                         case Constants.PREF_BTNSTATE_FORCE_START_STOP:
                         case Constants.PREF_DEBUG_FACILITIES_AVAILABLE:
                         case Constants.PREF_EVENT_PROCESSOR_LAST_SYNC_ID:

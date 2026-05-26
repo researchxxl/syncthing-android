@@ -246,20 +246,36 @@ public class RestApi {
             // Tell SyncthingService it can transition to State.ACTIVE.
             mOnApiAvailableListener.onApiAvailable();
 
-            // Temporarily lower cleanupIntervalS for every folder to force cleanup after startup.
-            setVersioningCleanupIntervalS(2);
-            final Handler resetCleanupIntervalHandler = new Handler(Looper.getMainLooper());
-            resetCleanupIntervalHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (hasShutdown) {
-                        LogV("Skipping setVersioningCleanupIntervalS(3600) due to hasShutdown == true");
-                        return;
-                    }
-                    setVersioningCleanupIntervalS(3600);
-                }
-            }, 10000);
+            triggerVersioningCleanupIfNecessary();
         }
+    }
+
+    private void triggerVersioningCleanupIfNecessary() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+        int startupCounter = sharedPreferences.getInt(Constants.PREF_APP_START_COUNTER, 0) + 1;
+        startupCounter = (startupCounter == Integer.MAX_VALUE) ? 1 : startupCounter;
+        sharedPreferences.edit()
+            .putInt(Constants.PREF_APP_START_COUNTER, startupCounter)
+            .apply();
+        boolean shouldRunWorkaround = (startupCounter % 10 == 0);
+        if (!shouldRunWorkaround) {
+            LogV("Skipping versioning cleanup because it is only triggered every 10th startup to save resources.");
+            return;
+        }
+
+        // Temporarily lower cleanupIntervalS for every folder to force cleanup after startup.
+        setVersioningCleanupIntervalS(2);
+        final Handler resetCleanupIntervalHandler = new Handler(Looper.getMainLooper());
+        resetCleanupIntervalHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (hasShutdown) {
+                    LogV("Skipping setVersioningCleanupIntervalS(3600) due to hasShutdown == true");
+                    return;
+                }
+                setVersioningCleanupIntervalS(3600);
+            }
+        }, 10000); 
     }
 
     public void reloadConfig() {
