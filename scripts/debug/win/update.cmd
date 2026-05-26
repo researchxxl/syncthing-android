@@ -10,6 +10,7 @@ dir "%APK_FULLFN%"
 IF NOT EXIST "%APK_FULLFN%" pause
 adb install -r "%APK_FULLFN%"
 ::
+IF DEFINED TEST_ONBOARDING goto :eof
 adb shell dumpsys deviceidle whitelist +%PACKAGE_NAME%
 adb shell pm grant "%PACKAGE_NAME%" android.permission.ACCESS_BACKGROUND_LOCATION
 adb shell pm grant "%PACKAGE_NAME%" android.permission.ACCESS_COARSE_LOCATION
