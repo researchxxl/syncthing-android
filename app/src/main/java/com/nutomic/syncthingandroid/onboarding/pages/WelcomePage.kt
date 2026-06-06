@@ -11,6 +11,7 @@ import com.nutomic.syncthingandroid.onboarding.OnboardingUiState
 fun WelcomePage(
     uiState: OnboardingUiState,
     pageIndex: Int,
+    requestTvFocus: Boolean,
     onBack: () -> Unit,
     onContinue: () -> Unit,
 ) {
@@ -23,6 +24,7 @@ fun WelcomePage(
         canGoBack = false,
         backVisible = false,
         nextLabel = stringResource(R.string.cont),
+        requestTvFocus = requestTvFocus,
         onBack = onBack,
         onNext = onContinue,
     )

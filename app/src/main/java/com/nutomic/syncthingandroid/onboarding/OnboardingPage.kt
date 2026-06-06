@@ -28,6 +28,7 @@ fun OnboardingPage(
     page: OnboardingPage,
     uiState: OnboardingUiState,
     pageIndex: Int,
+    requestTvFocus: Boolean,
     onBack: () -> Unit,
     onContinue: () -> Unit,
     onFinishOnboarding: () -> Unit,
@@ -38,24 +39,28 @@ fun OnboardingPage(
         OnboardingPage.WELCOME -> WelcomePage(
             uiState = uiState,
             pageIndex = pageIndex,
+            requestTvFocus = requestTvFocus,
             onBack = onBack,
             onContinue = onContinue,
         )
         OnboardingPage.STORAGE_PERMISSION -> StoragePermissionPage(
             uiState = uiState,
             pageIndex = pageIndex,
+            requestTvFocus = requestTvFocus,
             onBack = onBack,
             onContinue = onContinue,
         )
         OnboardingPage.BATTERY_OPTIMIZATION -> BatteryOptimizationPage(
             uiState = uiState,
             pageIndex = pageIndex,
+            requestTvFocus = requestTvFocus,
             onBack = onBack,
             onContinue = onContinue,
         )
         OnboardingPage.LOCATION_PERMISSION -> LocationPermissionPage(
             uiState = uiState,
             pageIndex = pageIndex,
+            requestTvFocus = requestTvFocus,
             onBack = onBack,
             onContinue = onContinue,
             onGrantLocationPermission = onGrantLocationPermission,
@@ -63,6 +68,7 @@ fun OnboardingPage(
         OnboardingPage.NOTIFICATION_PERMISSION -> NotificationPermissionPage(
             uiState = uiState,
             pageIndex = pageIndex,
+            requestTvFocus = requestTvFocus,
             onBack = onBack,
             onContinue = onContinue,
             onGrantNotificationPermission = onGrantNotificationPermission,
@@ -70,6 +76,7 @@ fun OnboardingPage(
         OnboardingPage.KEY_GENERATION -> KeyGenerationPage(
             uiState = uiState,
             pageIndex = pageIndex,
+            requestTvFocus = requestTvFocus,
             onBack = onBack,
             onFinishOnboarding = onFinishOnboarding,
         )

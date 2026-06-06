@@ -41,6 +41,7 @@ fun OnboardingScreen(
             page = page,
             uiState = uiState,
             pageIndex = pageIdx,
+            requestTvFocus = pagerState.currentPage == pageIdx && !pagerState.isScrollInProgress,
             onBack = onBack,
             onContinue = onContinue,
             onFinishOnboarding = onFinishOnboarding,

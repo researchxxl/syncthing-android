@@ -35,9 +35,14 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.withFrameNanos
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
@@ -48,6 +53,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.nutomic.syncthingandroid.R
+import com.nutomic.syncthingandroid.util.isTelevision
 
 private const val COMPACT_SCREEN_MAX_DP = 360
 
@@ -73,6 +79,8 @@ fun OnboardingScaffold(
     onBack: () -> Unit,
     onNext: () -> Unit,
     action: @Composable (() -> Unit)? = null,
+    actionFocusRequester: FocusRequester? = null,
+    requestTvFocus: Boolean = false,
     canGoBack: Boolean = true,
     backVisible: Boolean = true,
     nextLabel: String,
@@ -80,6 +88,15 @@ fun OnboardingScaffold(
     nextVisible: Boolean = true,
 ) {
     val config = LocalConfiguration.current
+    val isTv = config.isTelevision
+    val nextFocusRequester = remember { FocusRequester() }
+
+    LaunchedEffect(isTv, requestTvFocus, actionFocusRequester, nextFocusRequester, nextVisible, nextEnabled) {
+        if (!isTv || !requestTvFocus) return@LaunchedEffect
+        val focusRequester = actionFocusRequester ?: nextFocusRequester.takeIf { nextVisible && nextEnabled }
+        withFrameNanos { }
+        focusRequester?.requestFocus()
+    }
 
     Scaffold { paddingValues ->
         if (config.orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -98,6 +115,7 @@ fun OnboardingScaffold(
                 nextVisible = nextVisible,
                 onBack = onBack,
                 onNext = onNext,
+                nextFocusRequester = nextFocusRequester,
             )
         } else {
             LandscapeScaffoldContent(
@@ -115,6 +133,7 @@ fun OnboardingScaffold(
                 nextVisible = nextVisible,
                 onBack = onBack,
                 onNext = onNext,
+                nextFocusRequester = nextFocusRequester,
             )
         }
     }
@@ -136,6 +155,7 @@ private fun PortraitScaffoldContent(
     onBack: () -> Unit,
     onNext: () -> Unit,
     paddingValues: PaddingValues,
+    nextFocusRequester: FocusRequester,
 ) {
     val compactScreen = isCompactOnboardingScreen()
     val iconSize = if (compactScreen) 72.dp else 80.dp
@@ -218,6 +238,7 @@ private fun PortraitScaffoldContent(
             nextVisible = nextVisible,
             onBack = onBack,
             onNext = onNext,
+            nextFocusRequester = nextFocusRequester,
         )
     }
 }
@@ -238,6 +259,7 @@ private fun LandscapeScaffoldContent(
     onBack: () -> Unit,
     onNext: () -> Unit,
     paddingValues: PaddingValues,
+    nextFocusRequester: FocusRequester,
 ) {
     val compactScreen = isCompactOnboardingScreen()
     val iconSize = if (compactScreen) 64.dp else 80.dp
@@ -332,6 +354,7 @@ private fun LandscapeScaffoldContent(
                 nextVisible = nextVisible,
                 onBack = onBack,
                 onNext = onNext,
+                nextFocusRequester = nextFocusRequester,
             )
         }
     }
@@ -348,6 +371,7 @@ private fun OnboardingControls(
     nextVisible: Boolean,
     onBack: () -> Unit,
     onNext: () -> Unit,
+    nextFocusRequester: FocusRequester,
 ) {
     val compactScreen = isCompactOnboardingScreen()
     val controlHeight = if (compactScreen) 48.dp else 56.dp
@@ -388,6 +412,7 @@ private fun OnboardingControls(
                         label = nextLabel,
                         enabled = nextEnabled,
                         onClick = onNext,
+                        focusRequester = nextFocusRequester,
                     )
                 } else {
                     Spacer(
@@ -433,6 +458,7 @@ fun NextButton(
     label: String,
     onClick: () -> Unit,
     enabled: Boolean = true,
+    focusRequester: FocusRequester = FocusRequester(),
 ) {
     val compactScreen = isCompactOnboardingScreen()
     val buttonHeight = if (compactScreen) 48.dp else 56.dp
@@ -469,7 +495,8 @@ fun NextButton(
         ),
         modifier = Modifier.height(buttonHeight)
             .widthIn(min = minWidth, max = 560.dp)
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .focusRequester(focusRequester),
     ) {
         Text(
             text = label,
@@ -482,6 +509,7 @@ fun NextButton(
 fun PermissionButton(
     granted: Boolean,
     onClick: () -> Unit,
+    focusRequester: FocusRequester = FocusRequester(),
 ) {
     val compactScreen = isCompactOnboardingScreen()
     val buttonHeight = if (compactScreen) 48.dp else 56.dp
@@ -529,7 +557,8 @@ fun PermissionButton(
             disabledContentColor = contentColor,
         ),
         contentPadding = PaddingValues(horizontal = horizontalPadding),
-        modifier = Modifier.height(buttonHeight),
+        modifier = Modifier.height(buttonHeight)
+            .focusRequester(focusRequester),
     ) {
         AnimatedContent(
             targetState = granted,

@@ -1,10 +1,11 @@
 package com.nutomic.syncthingandroid.onboarding.pages
 
-import android.app.Activity
 import androidx.activity.compose.LocalActivity
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Storage
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.res.stringResource
 import com.nutomic.syncthingandroid.R
 import com.nutomic.syncthingandroid.onboarding.OnboardingActivity.Companion.REQUEST_WRITE_STORAGE
@@ -18,10 +19,12 @@ import com.nutomic.syncthingandroid.util.PermissionUtil
 fun StoragePermissionPage(
     uiState: OnboardingUiState,
     pageIndex: Int,
+    requestTvFocus: Boolean,
     onBack: () -> Unit,
     onContinue: () -> Unit,
 ) {
     val activity = LocalActivity.current
+    val actionFocusRequester = remember { FocusRequester() }
 
     OnboardingScaffold(
         icon = OnboardingIcon.Vector(Icons.Outlined.Storage),
@@ -31,8 +34,10 @@ fun StoragePermissionPage(
         pageCount = uiState.pages.size,
         nextLabel = stringResource(R.string.cont),
         nextEnabled = uiState.hasStoragePermission,
+        requestTvFocus = requestTvFocus,
         onBack = onBack,
         onNext = onContinue,
+        actionFocusRequester = actionFocusRequester,
         action = {
             PermissionButton(
                 granted = uiState.hasStoragePermission,
@@ -41,6 +46,7 @@ fun StoragePermissionPage(
                         PermissionUtil.requestStoragePermission(it, REQUEST_WRITE_STORAGE)
                     }
                 },
+                focusRequester = actionFocusRequester,
             )
         },
     )

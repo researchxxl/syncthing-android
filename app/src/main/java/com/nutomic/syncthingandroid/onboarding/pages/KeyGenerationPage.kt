@@ -22,6 +22,7 @@ import com.nutomic.syncthingandroid.onboarding.OnboardingUiState
 fun KeyGenerationPage(
     uiState: OnboardingUiState,
     pageIndex: Int,
+    requestTvFocus: Boolean,
     onBack: () -> Unit,
     onFinishOnboarding: () -> Unit,
 ) {
@@ -42,6 +43,7 @@ fun KeyGenerationPage(
             }
         ),
         nextEnabled = uiState.keyGenerationFailed || uiState.hasConfig,
+        requestTvFocus = requestTvFocus,
         onBack = onBack,
         onNext = {
             if (uiState.keyGenerationFailed) {
