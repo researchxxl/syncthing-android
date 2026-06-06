@@ -6,6 +6,9 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -43,6 +46,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
@@ -56,6 +61,9 @@ import com.nutomic.syncthingandroid.R
 import com.nutomic.syncthingandroid.util.isTelevision
 
 private const val COMPACT_SCREEN_MAX_DP = 360
+private val focusIndicatorStrokeWidth = 3.dp
+private val focusIndicatorGap = 2.dp
+private val focusIndicatorPadding = focusIndicatorStrokeWidth + focusIndicatorGap
 
 /**
  * Icon type for the onboarding scaffold — either a Material vector icon or app logo.
@@ -464,6 +472,10 @@ fun NextButton(
     val buttonHeight = if (compactScreen) 48.dp else 56.dp
     val minWidth = if (compactScreen) 200.dp else 240.dp
     val labelFontSize = if (compactScreen) 18.sp else 20.sp
+    val buttonShape = RoundedCornerShape(buttonHeight / 2)
+    val focusIndicatorShape = RoundedCornerShape(buttonHeight / 2 + focusIndicatorPadding)
+    val interactionSource = remember { MutableInteractionSource() }
+    val focused by interactionSource.collectIsFocusedAsState()
 
     val containerColor by animateColorAsState(
         targetValue = if (enabled) {
@@ -484,24 +496,34 @@ fun NextButton(
         label = "next_button_content_color",
     )
 
-    Button(
-        onClick = onClick,
-        enabled = enabled,
-        colors = ButtonDefaults.buttonColors(
-            containerColor = containerColor,
-            contentColor = contentColor,
-            disabledContainerColor = containerColor,
-            disabledContentColor = contentColor,
-        ),
-        modifier = Modifier.height(buttonHeight)
+    FocusIndicatorBox(
+        focused = focused && enabled,
+        shape = focusIndicatorShape,
+        modifier = Modifier
             .widthIn(min = minWidth, max = 560.dp)
-            .fillMaxWidth()
-            .focusRequester(focusRequester),
+            .fillMaxWidth(),
     ) {
-        Text(
-            text = label,
-            style = MaterialTheme.typography.labelLarge.copy(fontSize = labelFontSize),
-        )
+        Button(
+            onClick = onClick,
+            enabled = enabled,
+            shape = buttonShape,
+            colors = ButtonDefaults.buttonColors(
+                containerColor = containerColor,
+                contentColor = contentColor,
+                disabledContainerColor = containerColor,
+                disabledContentColor = contentColor,
+            ),
+            interactionSource = interactionSource,
+            modifier = Modifier
+                .height(buttonHeight)
+                .fillMaxWidth()
+                .focusRequester(focusRequester),
+        ) {
+            Text(
+                text = label,
+                style = MaterialTheme.typography.labelLarge.copy(fontSize = labelFontSize),
+            )
+        }
     }
 }
 
@@ -517,6 +539,8 @@ fun PermissionButton(
     val iconTextSpacing = if (compactScreen) 10.dp else 12.dp
     val labelFontSize = if (compactScreen) 18.sp else 20.sp
     val horizontalPadding = if (compactScreen) 18.dp else 24.dp
+    val interactionSource = remember { MutableInteractionSource() }
+    val focused by interactionSource.collectIsFocusedAsState()
 
     val containerColor by animateColorAsState(
         targetValue = if (granted) {
@@ -545,44 +569,74 @@ fun PermissionButton(
         animationSpec = tween(durationMillis = 350),
         label = "permission_button_corner_radius",
     )
+    val buttonShape = RoundedCornerShape(cornerRadius)
+    val focusIndicatorShape = RoundedCornerShape(cornerRadius + focusIndicatorPadding)
 
-    Button(
-        onClick = onClick,
-        enabled = !granted,
-        shape = RoundedCornerShape(cornerRadius),
-        colors = ButtonDefaults.buttonColors(
-            containerColor = containerColor,
-            contentColor = contentColor,
-            disabledContainerColor = containerColor,
-            disabledContentColor = contentColor,
-        ),
-        contentPadding = PaddingValues(horizontal = horizontalPadding),
-        modifier = Modifier.height(buttonHeight)
-            .focusRequester(focusRequester),
+    FocusIndicatorBox(
+        focused = focused && !granted,
+        shape = focusIndicatorShape,
     ) {
-        AnimatedContent(
-            targetState = granted,
-            label = "permission_button_state",
-        ) { isGranted ->
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Icon(
-                    imageVector = if (isGranted) Icons.Filled.CheckCircle else Icons.Outlined.Lock,
-                    contentDescription = null,
-                    modifier = Modifier.size(iconSize),
-                )
-                Spacer(Modifier.width(iconTextSpacing))
-                Text(
-                    text = if (isGranted) {
-                        stringResource(R.string.permission_granted)
-                    } else {
-                        stringResource(R.string.grant_permission)
-                    },
-                    style = MaterialTheme.typography.labelLarge.copy(fontSize = labelFontSize),
-                )
+        Button(
+            onClick = onClick,
+            enabled = !granted,
+            shape = buttonShape,
+            colors = ButtonDefaults.buttonColors(
+                containerColor = containerColor,
+                contentColor = contentColor,
+                disabledContainerColor = containerColor,
+                disabledContentColor = contentColor,
+            ),
+            contentPadding = PaddingValues(horizontal = horizontalPadding),
+            interactionSource = interactionSource,
+            modifier = Modifier
+                .height(buttonHeight)
+                .focusRequester(focusRequester),
+        ) {
+            AnimatedContent(
+                targetState = granted,
+                label = "permission_button_state",
+            ) { isGranted ->
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Icon(
+                        imageVector = if (isGranted) Icons.Filled.CheckCircle else Icons.Outlined.Lock,
+                        contentDescription = null,
+                        modifier = Modifier.size(iconSize),
+                    )
+                    Spacer(Modifier.width(iconTextSpacing))
+                    Text(
+                        text = if (isGranted) {
+                            stringResource(R.string.permission_granted)
+                        } else {
+                            stringResource(R.string.grant_permission)
+                        },
+                        style = MaterialTheme.typography.labelLarge.copy(fontSize = labelFontSize),
+                    )
+                }
             }
         }
+    }
+}
+
+@Composable
+private fun FocusIndicatorBox(
+    focused: Boolean,
+    shape: Shape,
+    modifier: Modifier = Modifier,
+    content: @Composable () -> Unit,
+) {
+    Box(
+        modifier = modifier
+            .border(
+                width = focusIndicatorStrokeWidth,
+                color = if (focused) MaterialTheme.colorScheme.secondary else Color.Transparent,
+                shape = shape,
+            )
+            .padding(focusIndicatorPadding),
+        contentAlignment = Alignment.Center,
+    ) {
+        content()
     }
 }
 
