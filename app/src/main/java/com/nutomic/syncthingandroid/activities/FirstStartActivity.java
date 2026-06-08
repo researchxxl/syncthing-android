@@ -46,6 +46,7 @@ import com.nutomic.syncthingandroid.util.FileUtils.ExternalStorageDirType;
 import com.nutomic.syncthingandroid.util.PermissionUtil;
 import com.nutomic.syncthingandroid.util.Util;
 import com.nutomic.syncthingandroid.views.CustomViewPager;
+import com.nutomic.syncthingandroid.webgui.WebGuiActivity;
 
 import java.io.IOException;
 import java.io.File;

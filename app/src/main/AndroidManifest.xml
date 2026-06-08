@@ -105,7 +105,7 @@
                 android:value=".activities.MainActivity" />
         </activity>
         <activity
-            android:name=".activities.WebGuiActivity"
+            android:name=".webgui.WebGuiActivity"
             android:label="@string/web_gui_title"
             android:parentActivityName=".activities.MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize">
