@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.repository_owner == 'researchxxl'
     steps:
-      - uses: dessant/lock-threads@7de207be1d3ce97a9abe6ff1306222982d1ca9f9 # v5.0.1
+      - uses: dessant/lock-threads@89ae32b08ed1a541efecbab17912962a5e38981c # v6.0.2
         with:
           process-only: 'issues, prs'
           issue-inactive-days: "0"

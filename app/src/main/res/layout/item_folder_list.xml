@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:baselineAligned="false"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:descendantFocusability="blocksDescendants">
+    android:descendantFocusability="blocksDescendants"
+    app:flow_horizontalGap="8dp"
+    android:paddingStart="@dimen/abc_action_bar_content_inset_material"
+    android:paddingEnd="@dimen/abc_action_bar_content_inset_material"
+    android:paddingBottom="8dp"
+    android:paddingTop="8dp">
 
     <RelativeLayout
         android:id="@+id/inner"
-        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:paddingBottom="8dp"
-        android:paddingLeft="@dimen/abc_action_bar_content_inset_material"
-        android:paddingRight="@dimen/abc_action_bar_content_inset_material"
-        android:paddingTop="8dp">
+        android:paddingEnd="8dp"
+        tools:ignore="RtlSymmetry">
 
         <TextView
             android:id="@+id/label"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_toStartOf="@+id/state"
             android:ellipsize="end"
             android:maxLines="1"
             android:textAppearance="?textAppearanceListItemPrimary" />
 
-        <TextView
-            android:id="@+id/state"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:textAppearance="?textAppearanceListItemSmall" />
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -129,19 +129,30 @@
 
     </RelativeLayout>
 
-    <ImageButton
-        android:id="@+id/openFolder"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/inner"
-        android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/inner"
-        android:background="@null"
-        android:contentDescription="@string/open_file_manager"
-        android:paddingBottom="5dp"
-        android:paddingEnd="20dp"
-        android:paddingStart="30dp"
-        android:paddingTop="5dp"
-        app:srcCompat="@drawable/baseline_folder_24" />
+        android:layout_height="match_parent"
+        android:gravity="end">
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?textAppearanceListItemSmall"
+            tools:ignore="RtlSymmetry" />
+
+        <ImageButton
+            android:id="@+id/openFolder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:contentDescription="@string/open_file_manager"
+            android:paddingBottom="8dp"
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp"
+            android:paddingTop="8dp"
+            app:srcCompat="@drawable/baseline_folder_24" />
+    </LinearLayout>
+
+</LinearLayout>
