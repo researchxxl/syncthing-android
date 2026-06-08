@@ -45,7 +45,7 @@ fun BatteryOptimizationPage(
         stringResource(
             R.string.ignore_doze_permission_os_notice,
             stringResource(R.string.wiki_url),
-            "Android-TV-preparations",
+            "manufacturer-specific/Android-TV-preparations.md",
         ) + "\n\n" + stringResource(R.string.ignore_doze_permission_desc)
     } else {
         stringResource(R.string.ignore_doze_permission_desc)
