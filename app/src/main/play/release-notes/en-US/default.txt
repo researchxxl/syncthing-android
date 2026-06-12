@@ -1,6 +1,1 @@
-style(ui): use same exit icon as drawer in fab by @dbhavsar76 in #262
-fix(settings): error empty string as backup path by @dbhavsar76 in #230
-fix(SyncthingRunnable): Truncate log file in constant memory by @chenxiaolong in #265
-fix(ui): move processing on folder add/edit confirmation to background by @dbhavsar76 in #223
-feat(RestApi): Trigger versioning cleanup every 10th app start to save resources by @Catfriend1 in #271
-fix(ui): element overlap in folder list by @dbhavsar76 in #272
+feat(ui): Upgrade onboarding experience to material design by @dbhavsar76 in #200

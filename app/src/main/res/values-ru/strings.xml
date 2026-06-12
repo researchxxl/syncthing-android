@@ -718,4 +718,6 @@
     <string name="allow_overwrite_files_summary">Когда другое приложение помещает файлы в одну из наших папок.</string>
     <string name="sttrace_none_selected">Отсутствует средство отладки (дебага)</string>
     <string name="state_loading">Загрузка...</string>
+    <string name="state_saving">Сохранение...</string>
+    <string name="no_app_to_open_link">Не найдено приложение для открытия данной ссылки.</string>
 </resources>
