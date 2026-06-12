@@ -100,6 +100,7 @@ fun requestIgnoreDozePermission(context: Context) {
         if (componentName != null) {
             val className = componentName.className
             if (!className.equals("com.android.tv.settings.EmptyStubActivity", ignoreCase = true)) {
+                // Launch "Exempt from doze mode?" dialog.
                 context.startActivity(intent)
                 return
             }
@@ -109,6 +110,7 @@ fun requestIgnoreDozePermission(context: Context) {
     } catch (e: ActivityNotFoundException) {
         Log.w(TAG, "Request ignore battery optimizations not supported", e)
     }
+    // Some devices don't support this request.
     Toast.makeText(context, R.string.dialog_disable_battery_optimizations_not_supported, Toast.LENGTH_LONG).show()
 }
 
