@@ -68,6 +68,7 @@ class OnboardingActivity : ThemedAppCompatActivity() {
         refreshPermissionState()
         if (isGranted) {
             Toast.makeText(this, R.string.permission_granted, Toast.LENGTH_SHORT).show()
+            Log.i(TAG, "User granted POST_NOTIFICATIONS permission.")
             advanceIfCurrentPage(OnboardingPage.NOTIFICATION_PERMISSION)
         } else {
             Log.i(TAG, "User denied POST_NOTIFICATIONS permission.")
