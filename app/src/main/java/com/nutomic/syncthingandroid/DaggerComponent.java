@@ -1,7 +1,6 @@
 package com.nutomic.syncthingandroid;
 
 import com.nutomic.syncthingandroid.activities.DeviceActivity;
-import com.nutomic.syncthingandroid.activities.FirstStartActivity;
 import com.nutomic.syncthingandroid.activities.FolderActivity;
 import com.nutomic.syncthingandroid.activities.MainActivity;
 import com.nutomic.syncthingandroid.activities.PhotoShootActivity;
@@ -11,6 +10,7 @@ import com.nutomic.syncthingandroid.activities.SyncConditionsActivity;
 import com.nutomic.syncthingandroid.fragments.DeviceListFragment;
 import com.nutomic.syncthingandroid.fragments.FolderListFragment;
 import com.nutomic.syncthingandroid.fragments.StatusFragment;
+import com.nutomic.syncthingandroid.onboarding.OnboardingActivity;
 import com.nutomic.syncthingandroid.receiver.AppConfigReceiver;
 import com.nutomic.syncthingandroid.service.RunConditionMonitor;
 import com.nutomic.syncthingandroid.service.EventProcessor;
@@ -30,10 +30,10 @@ public interface DaggerComponent {
     void inject(DeviceActivity activity);
     void inject(DeviceListFragment fragment);
     void inject(EventProcessor eventProcessor);
-    void inject(FirstStartActivity activity);
     void inject(FolderActivity activity);
     void inject(FolderListFragment fragment);
     void inject(MainActivity activity);
+    void inject(OnboardingActivity onboardingActivity);
     void inject(PhotoShootActivity photoShootActivity);
     void inject(RestApi restApi);
     void inject(RecentChangesActivity recentChangesActivity);
