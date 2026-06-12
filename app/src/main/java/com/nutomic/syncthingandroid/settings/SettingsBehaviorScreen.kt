@@ -11,6 +11,7 @@ import com.nutomic.syncthingandroid.R
 import com.nutomic.syncthingandroid.root.RootAccess
 import com.nutomic.syncthingandroid.service.Constants
 import com.nutomic.syncthingandroid.service.SyncthingService
+import com.nutomic.syncthingandroid.util.LocalActivityScope
 import com.nutomic.syncthingandroid.util.Util
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
