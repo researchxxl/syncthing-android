@@ -52,7 +52,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import androidx.core.graphics.createBitmap
 import androidx.core.graphics.set
-import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import com.google.zxing.BarcodeFormat
@@ -148,11 +147,11 @@ class DeviceIdDialogFragment : DialogFragment() {
             isCurrentDevice: Boolean = false,
         ) {
             DeviceIdDialogFragment().apply {
-                arguments = bundleOf(
-                    ARG_DEVICE_NAME to deviceName,
-                    ARG_DEVICE_ID to deviceId,
-                    ARG_IS_CURRENT_DEVICE to isCurrentDevice,
-                )
+                arguments = Bundle().apply {
+                    putString(ARG_DEVICE_NAME, deviceName)
+                    putString(ARG_DEVICE_ID, deviceId)
+                    putBoolean(ARG_IS_CURRENT_DEVICE, isCurrentDevice)
+                }
             }.show(fm, "DeviceIdDialog")
         }
     }

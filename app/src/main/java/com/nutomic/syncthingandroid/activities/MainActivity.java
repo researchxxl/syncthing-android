@@ -48,6 +48,7 @@ import com.nutomic.syncthingandroid.fragments.DrawerFragment;
 import com.nutomic.syncthingandroid.fragments.FolderListFragment;
 import com.nutomic.syncthingandroid.fragments.StatusFragment;
 import com.nutomic.syncthingandroid.model.Device;
+import com.nutomic.syncthingandroid.onboarding.OnboardingActivity;
 import com.nutomic.syncthingandroid.service.AppPrefs;
 import com.nutomic.syncthingandroid.service.Constants;
 import com.nutomic.syncthingandroid.service.RestApi;
@@ -350,7 +351,7 @@ public class MainActivity extends SyncthingActivity
     public void onResume() {
         // Check if storage permission has been revoked at runtime.
         if (!PermissionUtil.haveStoragePermission(this)) {
-            startActivity(new Intent(this, FirstStartActivity.class));
+            startActivity(new Intent(this, OnboardingActivity.class));
             this.finish();
             super.onResume();
             return;

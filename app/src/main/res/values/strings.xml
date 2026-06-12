@@ -8,7 +8,7 @@
     <!-- FirstStartActivity -->
 
     <!-- Title for dialog displayed on first start -->
-    <string name="welcome_title">Welcome to Syncthing for Android</string>
+    <string name="welcome_title">Welcome to \nSyncthing for Android</string>
 
     <!-- Welcome wizard -->
     <!-- Slide "Introduction" -->
