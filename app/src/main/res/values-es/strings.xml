@@ -756,4 +756,6 @@
     <string name="device_id_qr_code">Código QR del ID del dispositivo</string>
     <string name="close_device_id">Cerrar ID del dispositivo</string>
     <string name="copy">Copiar</string>
+    <string name="state_saving">Guardando…</string>
+    <string name="no_app_to_open_link">No hay ninguna aplicación disponible para abrir este enlace.</string>
 </resources>

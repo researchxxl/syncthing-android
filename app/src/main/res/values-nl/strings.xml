@@ -669,7 +669,7 @@
     <string name="config_file_missing">Een essentieel instellingenbestand ontbreekt</string>
     <string name="webui_tcp_port_unavailable">WebUI tcp poort %s is bezet. Draait er een tweede Syncthing?</string>
     <string name="notification_crash_text">Klik voor logs (%1$s)</string>
-    <string name="run_on_whitelisted_wifi_summary">Uitvoeren als het apparaat verbonden is met een van de geselecteerde wifi netwerken.</string>
+    <string name="run_on_whitelisted_wifi_summary">Activeer om alleen te synchroniseren als je apparaat verbonden is met een van de hieronder geselecteerde wifi netwerken.</string>
     <string name="custom_sync_conditions_title">Aangepaste syncvoorwaarden</string>
     <string name="custom_sync_conditions_dialog">Selecteer syncvoorwaarden</string>
     <string name="qs_forced_to_stop">Stop geforceerd</string>

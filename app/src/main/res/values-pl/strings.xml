@@ -701,4 +701,6 @@
     <string name="category_advanced">Zaawansowane</string>
     <string name="sttrace_none_selected">Brak funkcji debugowania</string>
     <string name="state_loading">Ładowanie...</string>
+    <string name="state_saving">Zapisywanie...</string>
+    <string name="no_app_to_open_link">Brak dostępnej aplikacji umożliwiającej otwarcie tego odnośnika.</string>
 </resources>
