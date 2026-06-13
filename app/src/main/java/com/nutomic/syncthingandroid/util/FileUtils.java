@@ -2,11 +2,10 @@ package com.nutomic.syncthingandroid.util;
 
 import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Environment;
 import android.os.storage.StorageManager;
 import android.provider.DocumentsContract;
@@ -25,7 +24,6 @@ import com.nutomic.syncthingandroid.R;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.lang.reflect.Array;
@@ -33,7 +31,6 @@ import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -1138,10 +1135,44 @@ public class FileUtils {
                 context.startActivity(intent);
             } catch (ActivityNotFoundException | SecurityException e2) {
                 Log.e(TAG, "openFolder: No compatible file manager app not found or has insufficient permissions (stage #2)", e2);
-                // No compatible file manager app found.
-                suggestFileManagerApp(context);
+                // Stage #3: Try launching a known OS/vendor-specific file manager directly.
+                if (!tryVendorFileManagers(context, folderPath)) {
+                    // No compatible file manager app found.
+                    suggestFileManagerApp(context);
+                }
             }
         }
+    }
+
+    /**
+     * Known OS/vendor file managers to try as a last resort. They don't register the generic
+     * intent-filters used by the earlier stages, so we launch their browse activity directly.
+     * Each entry is {package, browse activity, folder-path extra key}. Add more rows to extend.
+     * Note: each package also needs a {@code <package>} line in the manifest {@code <queries>}
+     * block to be visible/launchable on Android 11+.
+     */
+    private static final String[][] VENDOR_FILE_MANAGERS = {
+        // OnePlus / Oppo / Realme "My Files" (reverse-engineered; verify on a real device).
+        {"com.oneplus.filemanager", "com.oplus.filebrowser.FileBrowserActivity", "CurrentDir"},
+        {"com.coloros.filemanager", "com.oplus.filebrowser.FileBrowserActivity", "CurrentDir"},
+        {"com.oplus.filemanager", "com.oplus.filebrowser.FileBrowserActivity", "CurrentDir"},
+    };
+
+    private static boolean tryVendorFileManagers(final Context context, final String folderPath) {
+        for (String[] fm : VENDOR_FILE_MANAGERS) {
+            try {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setComponent(new ComponentName(fm[0], fm[1]));
+                intent.putExtra(fm[2], folderPath);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+                Log.i(TAG, "openFolder: Launched vendor file manager '" + fm[0] + "'");
+                return true;
+            } catch (Exception e) {
+                // Not installed or not launchable; try the next one.
+            }
+        }
+        return false;
     }
 
     private static void suggestFileManagerApp(final Context context) {
