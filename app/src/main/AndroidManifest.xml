@@ -295,7 +295,7 @@
             <action android:name="android.media.action.IMAGE_CAPTURE" />
         </intent>
         <!-- Vendor file managers launched by FileUtils.openFolder. Keep in sync with
-             VendorFileManager.REGISTRY: one <package> line per registry entry. -->
+             FileUtils.VENDOR_FILE_MANAGERS: one <package> line per registry entry. -->
         <package android:name="com.oneplus.filemanager" />
         <package android:name="com.coloros.filemanager" />
         <package android:name="com.oplus.filemanager" />
