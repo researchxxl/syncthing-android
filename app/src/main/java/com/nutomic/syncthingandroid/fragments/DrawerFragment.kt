@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ExitToApp
+import androidx.compose.material.icons.automirrored.outlined.Logout
 import androidx.compose.material.icons.automirrored.outlined.ViewQuilt
 import androidx.compose.material.icons.outlined.Autorenew
 import androidx.compose.material.icons.outlined.ImportExport
@@ -65,7 +66,7 @@ import androidx.fragment.app.Fragment
 import com.nutomic.syncthingandroid.R
 import com.nutomic.syncthingandroid.activities.MainActivity
 import com.nutomic.syncthingandroid.activities.RecentChangesActivity
-import com.nutomic.syncthingandroid.activities.WebGuiActivity
+import com.nutomic.syncthingandroid.webgui.WebGuiActivity
 import com.nutomic.syncthingandroid.service.Constants
 import com.nutomic.syncthingandroid.service.SyncthingService
 import com.nutomic.syncthingandroid.service.SyncthingService.OnServiceStateChangeListener
