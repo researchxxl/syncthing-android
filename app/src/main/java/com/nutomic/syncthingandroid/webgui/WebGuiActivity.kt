@@ -23,6 +23,7 @@ import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -45,6 +46,7 @@ import java.security.GeneralSecurityException
 import java.security.cert.CertificateException
 import java.security.cert.CertificateFactory
 import java.security.cert.X509Certificate
+import androidx.core.net.toUri
 
 /**
  * Holds a WebView that shows the web ui of the local syncthing instance.
@@ -56,6 +58,7 @@ class WebGuiActivity : SyncthingActivity(), SyncthingService.OnServiceStateChang
     private var registeredService: SyncthingService? = null
     private var webView: WebView? = null
     private var webGuiLoadStarted = false
+    private var serviceActive = false
     private var webGuiLoading by mutableStateOf(true)
 
     private val webViewClient = object : WebViewClient() {
@@ -71,6 +74,12 @@ class WebGuiActivity : SyncthingActivity(), SyncthingService.OnServiceStateChang
             view: WebView,
             request: WebResourceRequest,
         ): Boolean = shouldOpenOutsideWebView(request.url)
+
+        // The WebResourceRequest overload above is only dispatched on API >= 24; minSdk is 23,
+        // so the deprecated String overload is required to intercept links on API 23 devices.
+        @Deprecated("Deprecated in Java")
+        override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean =
+            shouldOpenOutsideWebView(url.toUri())
 
         override fun onPageFinished(view: WebView, url: String) {
             webGuiLoading = false
@@ -89,6 +98,7 @@ class WebGuiActivity : SyncthingActivity(), SyncthingService.OnServiceStateChang
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
         config = loadConfiguration()
@@ -102,7 +112,13 @@ class WebGuiActivity : SyncthingActivity(), SyncthingService.OnServiceStateChang
                     loading = webGuiLoading,
                     onNavigateBack = { finish() },
                     webViewFactory = { context ->
-                        createWebView(context).also { webView = it }
+                        createWebView(context).also {
+                            webView = it
+                            // The WebView is created lazily during composition, which may run
+                            // after the service already reported ACTIVE. Attempt the load here so
+                            // we don't miss that initial state and stay stuck on the spinner.
+                            loadWebGuiIfNeeded()
+                        }
                     },
                 )
             }
@@ -124,9 +140,8 @@ class WebGuiActivity : SyncthingActivity(), SyncthingService.OnServiceStateChang
 
     override fun onServiceStateChange(newState: SyncthingService.State) {
         Log.v(TAG, "onServiceStateChange($newState)")
-        if (newState == SyncthingService.State.ACTIVE) {
-            loadWebGuiIfNeeded()
-        }
+        serviceActive = newState == SyncthingService.State.ACTIVE
+        loadWebGuiIfNeeded()
     }
 
     override fun onPause() {
@@ -215,7 +230,7 @@ class WebGuiActivity : SyncthingActivity(), SyncthingService.OnServiceStateChang
             Log.v(TAG, "loadWebGuiIfNeeded: Skipped event due to webView == null")
             return
         }
-        if (webGuiLoadStarted || currentWebView.url != null) {
+        if (!serviceActive || webGuiLoadStarted || currentWebView.url != null) {
             return
         }
 

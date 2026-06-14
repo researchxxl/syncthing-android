@@ -52,7 +52,6 @@ internal fun WebGuiScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues),
-            color = MaterialTheme.colorScheme.surface,
         ) {
             Box(Modifier.fillMaxSize()) {
                 AndroidView(
