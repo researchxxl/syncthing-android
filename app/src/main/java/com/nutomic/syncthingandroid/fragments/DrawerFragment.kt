@@ -50,7 +50,6 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalConfiguration
@@ -65,7 +64,7 @@ import androidx.fragment.app.Fragment
 import com.nutomic.syncthingandroid.R
 import com.nutomic.syncthingandroid.activities.MainActivity
 import com.nutomic.syncthingandroid.activities.RecentChangesActivity
-import com.nutomic.syncthingandroid.activities.WebGuiActivity
+import com.nutomic.syncthingandroid.webgui.WebGuiActivity
 import com.nutomic.syncthingandroid.service.Constants
 import com.nutomic.syncthingandroid.service.SyncthingService
 import com.nutomic.syncthingandroid.service.SyncthingService.OnServiceStateChangeListener

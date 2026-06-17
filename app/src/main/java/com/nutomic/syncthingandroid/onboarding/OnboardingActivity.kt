@@ -17,12 +17,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.core.content.ContextCompat
+import androidx.core.os.BundleCompat
+import java.io.Serializable
 import androidx.lifecycle.lifecycleScope
 import com.nutomic.syncthingandroid.R
 import com.nutomic.syncthingandroid.SyncthingApp
 import com.nutomic.syncthingandroid.activities.MainActivity
 import com.nutomic.syncthingandroid.activities.ThemedAppCompatActivity
-import com.nutomic.syncthingandroid.activities.WebGuiActivity
+import com.nutomic.syncthingandroid.webgui.WebGuiActivity
 import com.nutomic.syncthingandroid.service.Constants
 import com.nutomic.syncthingandroid.service.SyncthingRunnable.ExecutableNotFoundException
 import com.nutomic.syncthingandroid.theme.ApplicationTheme
@@ -48,13 +50,16 @@ data class OnboardingUiState(
     val keyGenerationRunning: Boolean = false,
     val keyGenerationFailed: Boolean = false,
     val keyGenerationStatus: String = "",
-)
+) : Serializable
 
 class OnboardingActivity : ThemedAppCompatActivity() {
 
     companion object {
         private const val TAG = "OnboardingActivity"
         const val REQUEST_WRITE_STORAGE = 143
+
+        // Key used to persist the whole UI state across configuration changes (e.g. rotation).
+        private const val STATE_UI_STATE = "onboarding_ui_state"
     }
 
     @Inject
@@ -148,23 +153,37 @@ class OnboardingActivity : ThemedAppCompatActivity() {
         val haveNotificationPermission = haveNotificationPermission()
         val haveConfig = checkForParseableConfig()
 
-        val shouldSkipToMain = haveStoragePermission && haveNotificationPermission && haveConfig
-        if (shouldSkipToMain) {
-            // minimum requirements met, go to main
-            return startApp()
+        // On recreation (e.g. rotation) restore the entire previous UI state so nothing resets,
+        // including the page set, which is decided once and must stay stable for the whole flow.
+        val savedState = restoreUiState(savedInstanceState)
+
+        if (savedState == null) {
+            val shouldSkipToMain = haveStoragePermission && haveNotificationPermission && haveConfig
+            if (shouldSkipToMain) {
+                // minimum requirements met, go to main
+                return startApp()
+            }
         }
 
-        val onboardingPages = listOfNotNull(
-            OnboardingPage.WELCOME,
-            OnboardingPage.STORAGE_PERMISSION.takeUnless { haveStoragePermission },
-            OnboardingPage.BATTERY_OPTIMIZATION.takeUnless { haveIgnoreDozePermission },
-            OnboardingPage.LOCATION_PERMISSION.takeUnless { haveLocationPermission },
-            OnboardingPage.NOTIFICATION_PERMISSION.takeUnless { haveNotificationPermission },
-            OnboardingPage.KEY_GENERATION.takeUnless { haveConfig },
-        )
-
-        uiState = OnboardingUiState(
-            pages = onboardingPages,
+        uiState = savedState?.copy(
+            // Permissions/config may have changed while we were gone; re-derive these.
+            hasStoragePermission = haveStoragePermission,
+            hasIgnoreDozePermission = haveIgnoreDozePermission,
+            hasLocationPermission = haveLocationPermission,
+            hasNotificationPermission = haveNotificationPermission,
+            hasConfig = haveConfig,
+            isRunningOnTv = isRunningOnTv,
+            // A key-generation coroutine cannot survive recreation, so never restore it as running.
+            keyGenerationRunning = false,
+        ) ?: OnboardingUiState(
+            pages = listOfNotNull(
+                OnboardingPage.WELCOME,
+                OnboardingPage.STORAGE_PERMISSION.takeUnless { haveStoragePermission },
+                OnboardingPage.BATTERY_OPTIMIZATION.takeUnless { haveIgnoreDozePermission },
+                OnboardingPage.LOCATION_PERMISSION.takeUnless { haveLocationPermission },
+                OnboardingPage.NOTIFICATION_PERMISSION.takeUnless { haveNotificationPermission },
+                OnboardingPage.KEY_GENERATION.takeUnless { haveConfig },
+            ),
             hasStoragePermission = haveStoragePermission,
             hasIgnoreDozePermission = haveIgnoreDozePermission,
             hasLocationPermission = haveLocationPermission,
@@ -173,6 +192,15 @@ class OnboardingActivity : ThemedAppCompatActivity() {
             isRunningOnTv = isRunningOnTv,
             keyGenerationStatus = getString(R.string.web_gui_creating_key),
         )
+
+        // If we landed on the key generation page without a finished config (e.g. its coroutine was
+        // interrupted by recreation), (re)start generation as moveToPage would.
+        if (uiState.pages.getOrNull(uiState.currentPage) == OnboardingPage.KEY_GENERATION &&
+            !uiState.keyGenerationFailed &&
+            !uiState.hasConfig
+        ) {
+            startKeyGeneration()
+        }
 
         setContent {
             ApplicationTheme {
@@ -190,6 +218,24 @@ class OnboardingActivity : ThemedAppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        // Persist the whole UI state so it survives configuration changes.
+        outState.putSerializable(STATE_UI_STATE, uiState)
+    }
+
+    /**
+     * Restores the previously saved UI state, or null on the initial launch (no saved state yet).
+     */
+    private fun restoreUiState(savedInstanceState: Bundle?): OnboardingUiState? {
+        savedInstanceState ?: return null
+        return BundleCompat.getSerializable(
+            savedInstanceState,
+            STATE_UI_STATE,
+            OnboardingUiState::class.java,
+        )
     }
 
     override fun onResume() {
