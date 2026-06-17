@@ -22,6 +22,7 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.security.KeyStore;
 import java.text.DecimalFormat;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -30,6 +31,10 @@ import java.time.ZonedDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.util.Locale;
+
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.TrustManagerFactory;
+import javax.net.ssl.X509TrustManager;
 
 public class Util {
 
@@ -451,5 +456,49 @@ public class Util {
             return new String[]{};
         }
         return output.split("\\n");
+    }
+
+    /**
+     * Cached {@link X509TrustManager} backed by the Android OS trust store ("AndroidCAStore"),
+     * which aggregates both the system CAs and the CAs the user manually installed. Built lazily.
+     */
+    private static volatile X509TrustManager sOsTrustManager;
+    private static volatile boolean sOsTrustManagerInitialized = false;
+
+    /**
+     * Returns an {@link X509TrustManager} that validates against the Android OS trust store,
+     * including user-installed CAs. Unlike a {@code TrustManagerFactory.init((KeyStore) null)},
+     * the "AndroidCAStore" keystore exposes user-added certificates on API 24+.
+     *
+     * Used as a fallback so the app can talk to a local Syncthing instance whose HTTPS certificate
+     * was replaced with one signed by a CA the user trusts at the OS level (see
+     * https://github.com/researchxxl/syncthing-android/issues/222).
+     *
+     * @return the OS-backed trust manager, or {@code null} if it could not be built.
+     */
+    public static X509TrustManager getOsTrustManager() {
+        if (!sOsTrustManagerInitialized) {
+            synchronized (Util.class) {
+                if (!sOsTrustManagerInitialized) {
+                    try {
+                        KeyStore caStore = KeyStore.getInstance("AndroidCAStore");
+                        caStore.load(null);
+                        TrustManagerFactory tmf = TrustManagerFactory.getInstance(
+                                TrustManagerFactory.getDefaultAlgorithm());
+                        tmf.init(caStore);
+                        for (TrustManager tm : tmf.getTrustManagers()) {
+                            if (tm instanceof X509TrustManager) {
+                                sOsTrustManager = (X509TrustManager) tm;
+                                break;
+                            }
+                        }
+                    } catch (Exception e) {
+                        Log.w(TAG, "getOsTrustManager: Failed to build OS trust manager", e);
+                    }
+                    sOsTrustManagerInitialized = true;
+                }
+            }
+        }
+        return sOsTrustManager;
     }
 }
