@@ -38,6 +38,8 @@ sealed interface SettingsRoute : NavKey {
     @Serializable
     data object SyncthingOptions : SettingsRoute
     @Serializable
+    data object CustomCertificate : SettingsRoute
+    @Serializable
     data object ImportExport : SettingsRoute
     @Serializable
     data object Troubleshooting : SettingsRoute
@@ -58,6 +60,7 @@ sealed interface SettingsRoute : NavKey {
             "UserInterface" -> UserInterface
             "Behavior" -> Behavior
             "SyncthingOptions" -> SyncthingOptions
+            "CustomCertificate" -> CustomCertificate
             "ImportExport" -> ImportExport
             "Troubleshooting" -> Troubleshooting
             "Experimental" -> Experimental
@@ -112,6 +115,7 @@ fun SettingsNavDisplay(
             settingsUserInterfaceEntry()
             settingsBehaviorEntry()
             settingsSyncthingOptionsEntry()
+            settingsCustomCertificateEntry()
             settingsImportExportEntry()
             settingsTroubleshootingEntry()
             settingsExperimentalEntry()

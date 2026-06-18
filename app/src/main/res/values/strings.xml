@@ -1108,4 +1108,34 @@
     <string name="qs_schedule_label_minutes" tools:ignore="PluralsCandidate">Run for %1$d minutes</string>
     <string name="qs_schedule_disabled">Schedule disabled</string>
     <string name="no_app_to_open_link">No app available to open this link.</string>
+
+    <!-- Custom HTTPS certificate -->
+    <string name="webui_custom_cert_title">Custom HTTPS certificate</string>
+    <string name="webui_custom_cert_summary">Use your own certificate for the local Web UI</string>
+    <string name="custom_cert_explanation">Replace Syncthing\'s built-in self-signed certificate with your own. Pick the certificate (PEM, including the full chain) and its private key, check the validation results, then apply. Syncthing will restart to load the new certificate; if it fails to come back online, the previous certificate is restored automatically.\n\nFor a certificate signed by your own CA, install that CA\'s root certificate on this device first (Settings → Security → Install a CA certificate).</string>
+    <string name="custom_cert_current_title">Current certificate</string>
+    <string name="custom_cert_current_none">No certificate found.</string>
+    <string name="custom_cert_subject">Subject: %1$s</string>
+    <string name="custom_cert_issuer">Issuer: %1$s</string>
+    <string name="custom_cert_expires">Expires: %1$s</string>
+    <string name="custom_cert_self_signed">Self-signed (default)</string>
+    <string name="custom_cert_ca_signed">CA-signed</string>
+    <string name="custom_cert_select_cert">Select certificate (.pem)</string>
+    <string name="custom_cert_select_key">Select private key (.pem)</string>
+    <string name="custom_cert_not_selected">Not selected</string>
+    <string name="custom_cert_apply">Apply certificate</string>
+    <string name="custom_cert_reset_title">Reset to auto-generated certificate</string>
+    <string name="custom_cert_reset_summary">Delete the custom certificate and let Syncthing create a new self-signed one</string>
+    <string name="custom_cert_reset_question">Replace the current certificate with a freshly generated self-signed one?</string>
+    <string name="custom_cert_applying">Applying — restarting Syncthing…</string>
+    <string name="custom_cert_applied">Certificate applied.</string>
+    <string name="custom_cert_applied_pending">Saved. It will take effect the next time Syncthing starts.</string>
+    <string name="custom_cert_failed">Could not apply the certificate: %1$s</string>
+    <string name="custom_cert_reset_done">Reset to a new self-signed certificate.</string>
+    <string name="custom_cert_file_too_large">That file is too large to be a certificate or key.</string>
+    <string name="custom_cert_read_failed">Could not read the selected file.</string>
+    <string name="cert_check_chain">Certificate chain</string>
+    <string name="cert_check_trust">Trusted by this device</string>
+    <string name="cert_check_validity">Validity period</string>
+    <string name="cert_check_key">Private key</string>
 </resources>

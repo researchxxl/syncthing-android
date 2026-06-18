@@ -34,7 +34,36 @@ You will need:
 
 ---
 
-### Steps
+### Method A — in the app (recommended)
+
+The app has a built-in screen that validates your certificate before applying it and restarts
+Syncthing for you, rolling back automatically if anything goes wrong.
+
+1. Install your **root CA** on the phone if you haven't already (see *Before you start*, step 3).
+2. In the app, go to **Settings → Syncthing Options → Web GUI → Custom HTTPS certificate**.
+3. Tap **Select certificate (.pem)** and choose your certificate file (leaf + full chain), then
+   **Select private key (.pem)** and choose the matching key. (If you pick them in the wrong order,
+   the app sorts it out automatically.)
+4. Review the validation checklist:
+   - **Certificate chain** — is the full chain present?
+   - **Trusted by this device** — will the app accept it? (self-signed, or chains to a CA your
+     device trusts)
+   - **Validity period** — not expired / not yet valid.
+   - **Private key** — does the key match the certificate?
+5. Tap **Apply certificate**. Syncthing restarts with the new certificate. If it doesn't come back
+   online, the previous certificate is restored automatically and you'll see an error.
+
+To go back to the default, use **Reset to auto-generated certificate** on the same screen — Syncthing
+creates a fresh self-signed certificate.
+
+> This screen only appears when the Web UI is served over HTTPS (it is on all modern Android
+> versions).
+
+---
+
+### Method B — manually via config export/import
+
+Use this if you prefer editing files directly.
 
 1. In the app, go to **Settings → Import and Export** and **export** your configuration. This
    creates `config.zip` (by default at
@@ -73,6 +102,9 @@ seems unreachable), check the following — almost always it's one of these:
 A log line containing `BAD_SIGNATURE` during startup is the classic symptom of a missing/untrusted
 root CA or an incomplete chain.
 
+Method A (the in-app screen) catches the first three of these before applying and won't let you
+apply a certificate the app wouldn't be able to trust, so it's the easier path if you're unsure.
+
 ---
 
 ### Good to know (security & privacy)
@@ -86,5 +118,5 @@ root CA or an incomplete chain.
 - Trusting your installed CA for the app is scoped to the **local** connection only; it does not
   change how Syncthing verifies the other devices you sync with (that uses Syncthing's own
   device-ID-based security and is unaffected).
-- Reverting is easy: import a fresh/auto-generated configuration, or restore an unmodified
+- Reverting is easy: use **Reset to auto-generated certificate** (Method A), import an unmodified
   `config.zip`, and the app goes back to the default self-signed certificate.
