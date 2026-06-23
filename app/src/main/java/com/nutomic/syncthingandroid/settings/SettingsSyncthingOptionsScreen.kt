@@ -94,6 +94,7 @@ fun SettingsSyncthingOptionsScreen() {
     val stService = LocalSyncthingService.current
     val stServiceTick = LocalServiceUpdateTick.current
     val scope = LocalActivityScope.current
+    val navigator = LocalSettingsNavigator.current
 
     val sharedPrefWebGuiPassword = rememberPreferenceState(Constants.PREF_WEBUI_PASSWORD, "")
 
@@ -341,6 +342,15 @@ fun SettingsSyncthingOptionsScreen() {
                     title = { Text(stringResource(R.string.crash_reporting)) },
                     state = crashReporting,
                     enabled = isStServiceActive,
+                )
+            }
+            item {
+                Preference(
+                    title = { Text(stringResource(R.string.webui_custom_cert_title)) },
+                    summary = { Text(stringResource(R.string.webui_custom_cert_summary)) },
+                    onClick = { navigator.navigateTo(SettingsRoute.CustomCertificate) },
+                    // The custom certificate only matters when the GUI is served over HTTPS.
+                    enabled = stService != null && Constants.osSupportsTLS12(),
                 )
             }
             item {
