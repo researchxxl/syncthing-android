@@ -4,7 +4,7 @@
     <string name="app_description">Otwarta, godna zaufania i zdecentralizowana aplikacja do synchronizacji plików.</string>
     <!-- FirstStartActivity -->
     <!-- Title for dialog displayed on first start -->
-    <string name="welcome_title">Witamy w aplikacji Syncthing dla systemu Android</string>
+    <string name="welcome_title">Witamy w aplikacji \nSyncthing dla Androida</string>
     <!-- Welcome wizard -->
     <!-- Slide "Introduction" -->
     <string name="introduction">Wprowadzenie</string>

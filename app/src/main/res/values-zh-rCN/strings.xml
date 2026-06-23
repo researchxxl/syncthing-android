@@ -4,7 +4,7 @@
     <string name="app_description">开放且值得信赖的去中心化文件同步应用程序。</string>
     <!-- FirstStartActivity -->
     <!-- Title for dialog displayed on first start -->
-    <string name="welcome_title">欢迎使用 Android 版 Syncthing</string>
+    <string name="welcome_title">欢迎使用\nAndroid 版 Syncthing</string>
     <!-- Welcome wizard -->
     <!-- Slide "Introduction" -->
     <string name="introduction">介绍</string>
