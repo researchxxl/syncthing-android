@@ -4,7 +4,7 @@
     <string name="app_description">Otwarta, godna zaufania i zdecentralizowana aplikacja do synchronizacji plików.</string>
     <!-- FirstStartActivity -->
     <!-- Title for dialog displayed on first start -->
-    <string name="welcome_title">Witamy w aplikacji \nSyncthing dla Androida</string>
+    <string name="welcome_title">Witamy w aplikacji \nSyncthing dla Androida</string>
     <!-- Welcome wizard -->
     <!-- Slide "Introduction" -->
     <string name="introduction">Wprowadzenie</string>
@@ -703,4 +703,32 @@
     <string name="state_loading">Ładowanie...</string>
     <string name="state_saving">Zapisywanie...</string>
     <string name="no_app_to_open_link">Brak dostępnej aplikacji umożliwiającej otwarcie tego odnośnika.</string>
+    <string name="webui_custom_cert_title">Niestandardowy certyfikat HTTPS</string>
+    <string name="webui_custom_cert_summary">Użyj własnego certyfikatu dla lokalnego interfejsu sieciowego</string>
+    <string name="custom_cert_explanation">Zastąp wbudowany certyfikat samodzielnie podpisany przez Syncthing własnym. Wybierz certyfikat (PEM, w tym cały łańcuch) i jego klucz prywatny, sprawdź wyniki walidacji, a następnie zastosuj. Syncthing uruchomi się ponownie, aby załadować nowy certyfikat; jeśli nie uda się go ponownie uruchomić, poprzedni certyfikat zostanie automatycznie przywrócony.\n\nW przypadku certyfikatu podpisanego przez własny urząd certyfikacji, najpierw zainstaluj certyfikat główny tego urzędu na tym urządzeniu (Ustawienia → Bezpieczeństwo → Zainstaluj certyfikat urzędu certyfikacji).</string>
+    <string name="custom_cert_current_title">Bieżący certyfikat</string>
+    <string name="custom_cert_current_none">Nie znaleziono certyfikatu.</string>
+    <string name="custom_cert_subject">Podmiot: %1$s</string>
+    <string name="custom_cert_issuer">Wystawca: %1$s</string>
+    <string name="custom_cert_expires">Wygasa: %1$s</string>
+    <string name="custom_cert_self_signed">Podpisany samodzielnie (domyślnie)</string>
+    <string name="custom_cert_ca_signed">Podpisany przez urząd certyfikacji</string>
+    <string name="custom_cert_select_cert">Wybierz certyfikat (.pem)</string>
+    <string name="custom_cert_select_key">Wybierz klucz prywatny (.pem)</string>
+    <string name="custom_cert_not_selected">Nie wybrano</string>
+    <string name="custom_cert_apply">Zastosuj certyfikat</string>
+    <string name="custom_cert_reset_title">Zresetuj do automatycznie wygenerowanego certyfikatu</string>
+    <string name="custom_cert_reset_summary">Usuń niestandardowy certyfikat i pozwól Syncthing utworzyć nowy, podpisany samodzielnie certyfikat</string>
+    <string name="custom_cert_reset_question">Czy zastąpić obecny certyfikat nowym, świeżo wygenerowanym i podpisanym samodzielnie?</string>
+    <string name="custom_cert_applying">Stosowanie — ponowne uruchamianie Syncthing…</string>
+    <string name="custom_cert_applied">Certyfikat zastosowano.</string>
+    <string name="custom_cert_applied_pending">Zapisano. Zmiany zaczną obowiązywać przy następnym uruchomieniu Syncthing.</string>
+    <string name="custom_cert_failed">Nie można zastosować certyfikatu: %1$s</string>
+    <string name="custom_cert_reset_done">Zresetuj do nowego certyfikatu podpisanego samodzielnie.</string>
+    <string name="custom_cert_file_too_large">Ten plik jest za duży, aby mógł być certyfikatem lub kluczem.</string>
+    <string name="custom_cert_read_failed">Nie można odczytać wybranego pliku.</string>
+    <string name="cert_check_chain">Łańcuch certyfikatów</string>
+    <string name="cert_check_trust">Zaufany przez to urządzenie</string>
+    <string name="cert_check_validity">Okres ważności</string>
+    <string name="cert_check_key">Klucz prywatny</string>
 </resources>
