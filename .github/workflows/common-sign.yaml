@@ -63,8 +63,10 @@ jobs:
         if: ${{ inputs.buildType == 'release' }}
         run: |
           set -eu
+          shopt -s nullglob
           mkdir -p "${{ runner.temp }}/.android"
           echo "${{ secrets.SIGNING_KEYSTORE_JKS_BASE64 }}" | base64 -d > "${{ runner.temp }}/.android/signing-keystore.jks"
+          #
           for UNSIGNED_APK in unsigned/*/*.apk; do
             SIGNED_APK="$(basename -- "${UNSIGNED_APK}")"
             echo "Signing ${UNSIGNED_APK}"
@@ -76,6 +78,18 @@ jobs:
               --ks-key-alias Syncthing-Fork \
               --out "${SIGNED_APK}" "${UNSIGNED_APK}"
           done
+          #
+          for UNSIGNED_AAB in unsigned/*.aab; do
+            SIGNED_AAB="$(basename -- "${UNSIGNED_AAB}")"
+            echo "Signing ${UNSIGNED_AAB}"
+            jarsigner \
+              -keystore "${{ runner.temp }}/.android/signing-keystore.jks" \
+              -storepass "${{ secrets.SIGNING_PASSWORD }}" \
+              -keypass "${{ secrets.SIGNING_PASSWORD }}" \
+              "${UNSIGNED_AAB}" Syncthing-Fork
+            mv "${UNSIGNED_AAB}" "${SIGNED_AAB}"
+          done
+          #
           rm -f "${{ runner.temp }}/.android/signing-keystore.jks"
 
       - name: Upload signed artifact
@@ -83,4 +97,5 @@ jobs:
         with:
           name: signed-${{ inputs.applicationId }}
           path: |
+            ./*.aab
             ./*.apk
