@@ -65,6 +65,16 @@ jobs:
       environmentName: prod
     secrets: inherit
 
+  sign2:
+    name: Sign 2
+    needs: [prepare, build2]
+    uses: ./.github/workflows/common-sign.yaml
+    with:
+      applicationId: "bundle-com.github.catfriend1.syncthingandroid"
+      buildType: "release"
+      environmentName: prod
+    secrets: inherit
+
   release:
     name: Create release and attach artifacts
     needs: [sign1]

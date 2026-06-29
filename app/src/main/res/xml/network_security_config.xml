@@ -5,9 +5,19 @@
            <certificates src="system" />
        </trust-anchors>
     </base-config>
-    <debug-overrides>
+    <!--
+        The in-app WebView only ever connects to the local Syncthing GUI on the loopback interface
+        (see WebGuiActivity, which pins the WebView to 127.0.0.1). Trust user-installed CAs there so
+        a user-supplied CA-signed HTTPS certificate validates natively, without weakening trust for
+        any other (non-local) connection. See
+        https://github.com/researchxxl/syncthing-android/issues/222
+    -->
+    <domain-config>
+        <domain includeSubdomains="false">127.0.0.1</domain>
+        <domain includeSubdomains="false">localhost</domain>
         <trust-anchors>
+            <certificates src="system" />
             <certificates src="user" />
         </trust-anchors>
-    </debug-overrides>
+    </domain-config>
 </network-security-config>
