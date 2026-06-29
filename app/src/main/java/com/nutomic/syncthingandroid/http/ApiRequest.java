@@ -28,6 +28,7 @@ import com.nutomic.syncthingandroid.service.Constants;
 import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -82,10 +83,42 @@ public abstract class ApiRequest {
 
     ApiRequest(Context context, URL url, String path, String apiKey) {
         mContext = context;
-        mUrl           = url;
+        // The app only ever talks to the local syncthing instance. Pin the connection to the
+        // loopback interface regardless of the configured GUI listen address (which is 0.0.0.0
+        // when remote access is enabled), keeping the API key and config off any routable interface.
+        mUrl           = forceLoopbackHost(url);
         mPath          = path;
         mApiKey        = apiKey;
         ENABLE_VERBOSE_LOG = AppPrefs.getPrefVerboseLog(context);
+    }
+
+    /**
+     * Rewrites the host of the given URL to 127.0.0.1, preserving the scheme and port. The port
+     * comes from the configured GUI listen address; falls back to the default web GUI port.
+     *
+     * <p>Forcing loopback is intentional and security-relevant, not merely a convenience:
+     * <ul>
+     *   <li>The app only ever sets the GUI address to {@code 127.0.0.1} or {@code 0.0.0.0} (the
+     *       "listen on all interfaces" setting). {@code 0.0.0.0} always includes loopback, so the
+     *       local instance is reachable on {@code 127.0.0.1} in every app-managed config.</li>
+     *   <li>It keeps the API key and configuration off any routable interface.</li>
+     *   <li>It is the precondition that makes the two TLS relaxations safe: disabling hostname
+     *       verification ({@link NetworkStack#createConnection}) and falling back to the OS trust
+     *       store / user-installed CAs ({@link SyncthingTrustManager}). On loopback there is no
+     *       network position for a MITM to occupy, so neither relaxation can be abused.</li>
+     * </ul>
+     * Do not "simplify" this by connecting to the configured address directly: {@code 0.0.0.0} is
+     * not a valid destination (and modern WebView blocks it), and targeting a routable address
+     * would break the trust model above.
+     */
+    private static URL forceLoopbackHost(URL url) {
+        try {
+            int port = url.getPort() != -1 ? url.getPort() : Constants.DEFAULT_WEBGUI_TCP_PORT;
+            return new URL(url.getProtocol(), "127.0.0.1", port, url.getFile());
+        } catch (MalformedURLException e) {
+            Log.w(TAG, "forceLoopbackHost: Failed to rewrite host, using original URL", e);
+            return url;
+        }
     }
 
     Uri buildUri(Map<String, String> params) {
@@ -203,6 +236,12 @@ public abstract class ApiRequest {
         protected HttpURLConnection createConnection(URL url) throws IOException {
             if (mUrl.toString().startsWith("https://")) {
                 HttpsURLConnection connection = (HttpsURLConnection) super.createConnection(url);
+                // Safe to skip hostname verification: the connection is pinned to the loopback
+                // interface (see forceLoopbackHost), so there is no network MITM surface and the
+                // certificate's SAN/CN need not match 127.0.0.1 (a user-supplied CA cert is
+                // typically issued for a real hostname, not the loopback address). Trust is still
+                // enforced by SyncthingTrustManager: the self-signed pin first, then the OS trust
+                // store.
                 connection.setHostnameVerifier((hostname, session) -> true);
                 return connection;
             }

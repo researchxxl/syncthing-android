@@ -42,6 +42,7 @@ import java.io.InputStream
 import java.lang.reflect.Constructor
 import java.lang.reflect.Field
 import java.lang.reflect.Method
+import java.net.URL
 import java.security.GeneralSecurityException
 import java.security.cert.CertificateException
 import java.security.cert.CertificateFactory
@@ -54,6 +55,14 @@ import androidx.core.net.toUri
 class WebGuiActivity : SyncthingActivity(), SyncthingService.OnServiceStateChangeListener {
 
     private lateinit var config: ConfigXml
+
+    /**
+     * Web GUI URL pinned to the loopback interface. The WebView only ever talks to the local
+     * Syncthing instance, so we connect on 127.0.0.1 regardless of the configured GUI listen
+     * address (which is 0.0.0.0 when remote access is enabled). This also keeps the WebView within
+     * the loopback domain-config in network_security_config.xml that trusts user-installed CAs.
+     */
+    private lateinit var webGuiUrl: URL
     private var caCertificate: X509Certificate? = null
     private var registeredService: SyncthingService? = null
     private var webView: WebView? = null
@@ -102,6 +111,7 @@ class WebGuiActivity : SyncthingActivity(), SyncthingService.OnServiceStateChang
         super.onCreate(savedInstanceState)
 
         config = loadConfiguration()
+        webGuiUrl = toLoopback(config.webGuiUrl)
         if (!loadCaCertificate()) {
             return
         }
@@ -183,6 +193,23 @@ class WebGuiActivity : SyncthingActivity(), SyncthingService.OnServiceStateChang
         }
     }
 
+    /**
+     * Rewrites the host of the given URL to 127.0.0.1, preserving the scheme and port. The port
+     * comes from the configured GUI listen address; falls back to the default web GUI port.
+     *
+     * Forcing loopback is intentional and security-relevant (mirrors ApiRequest.forceLoopbackHost):
+     * the GUI address is only ever 127.0.0.1 or 0.0.0.0 (the latter includes loopback), so the
+     * instance is always reachable here; it keeps the API key off any routable interface; and it is
+     * the precondition that makes proceeding past SSL_IDMISMATCH (see handleSslError) and trusting
+     * user-installed CAs (loopback domain-config in network_security_config.xml) safe — on loopback
+     * there is no MITM surface. Do not connect to the configured address directly: 0.0.0.0 is not a
+     * valid destination (modern WebView blocks it) and a routable address would break the trust model.
+     */
+    private fun toLoopback(url: URL): URL {
+        val port = if (url.port != -1) url.port else Constants.DEFAULT_WEBGUI_TCP_PORT
+        return URL(url.protocol, "127.0.0.1", port, url.file)
+    }
+
     private fun loadCaCertificate(): Boolean {
         val httpsCertFile: File = Constants.getHttpsCertFile(this)
         if (!httpsCertFile.exists()) {
@@ -242,7 +269,7 @@ class WebGuiActivity : SyncthingActivity(), SyncthingService.OnServiceStateChang
             0,
             WEB_VIEW_PROXY_EXCLUSIONS,
         )
-        currentWebView.loadUrl(config.webGuiUrl.toString(), createAuthHeaders())
+        currentWebView.loadUrl(webGuiUrl.toString(), createAuthHeaders())
     }
 
     private fun createAuthHeaders(): Map<String, String> {
@@ -256,7 +283,7 @@ class WebGuiActivity : SyncthingActivity(), SyncthingService.OnServiceStateChang
 
     private fun shouldOpenOutsideWebView(uri: Uri): Boolean {
         val host = uri.host
-        val webGuiHost = config.webGuiUrl.host
+        val webGuiHost = webGuiUrl.host
         if (host != null && host == webGuiHost) {
             return false
         }
@@ -272,6 +299,28 @@ class WebGuiActivity : SyncthingActivity(), SyncthingService.OnServiceStateChang
     }
 
     private fun handleSslError(handler: SslErrorHandler, error: SslError) {
+        // The WebView only ever connects to the local Syncthing instance over loopback. When the
+        // certificate chain is trusted by the OS (see the loopback domain-config in
+        // network_security_config.xml) but the hostname does not match — e.g. a user-supplied
+        // CA-signed certificate without a 127.0.0.1 SAN — the only remaining error is
+        // SSL_IDMISMATCH. Proceed in that case, mirroring the REST API path which likewise skips
+        // hostname verification for the local connection. Untrusted, expired, and not-yet-valid
+        // certificates are not accepted here; they fall through to self-signed pinning below.
+        //
+        // Checking primaryError == SSL_IDMISMATCH is sufficient to require a trusted chain:
+        // SslError.primaryError returns the highest-severity error present, and SSL_UNTRUSTED
+        // outranks SSL_IDMISMATCH, so an untrusted chain reports SSL_UNTRUSTED here (not
+        // SSL_IDMISMATCH) and is rejected. The explicit expired / not-yet-valid guards then exclude
+        // the remaining date errors that can coexist with a mismatch.
+        if (error.primaryError == SslError.SSL_IDMISMATCH &&
+            !error.hasError(SslError.SSL_EXPIRED) &&
+            !error.hasError(SslError.SSL_NOTYETVALID)
+        ) {
+            handler.proceed()
+            return
+        }
+
+        // Otherwise, fall back to pinning against the local instance's self-signed certificate.
         try {
             val certificate = extractCertificate(error.certificate)
             val ca = caCertificate
