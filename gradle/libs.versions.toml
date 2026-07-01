@@ -1,7 +1,7 @@
 [versions]
 # Android SDK versions
 android-cmdline-tools = "11076708"
-compile-sdk = "36"
+compile-sdk = "37"
 min-sdk = "23"
 ndk-version = "29.0.14206865"
 target-sdk = "36"
@@ -23,7 +23,7 @@ compose-material3 = "1.4.0"
 compose-material-icons = "1.7.8"
 compose-ui = "1.11.3"
 constraintlayout = "2.2.1"
-core-ktx = "1.18.0"
+core-ktx = "1.19.0"
 dagger = "2.60"
 documentfile = "1.1.0"
 fragment-ktx = "1.8.9"
