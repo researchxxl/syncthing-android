@@ -1,11 +1,11 @@
 Esto es un fork del wrapper Syncthing-Android para Syncthing que trae mejoras como:
 * Proceso general de sincronización, carpetas y dispositivos fácilmente legibles desde la interfaz.
-* "Sincronizar cada hora" para ahorrar aún más batería.
+* «Sincronizar cada hora» para ahorrar aún más batería.
 * Condiciones individuales de sincronización para cada dispositivo y carpeta.
 * Cambios recientes en la interfaz: pulsar para abrir archivos.
 * Cambiar la configuración de las carpetas y dispositivos independientemente de si Syncthing se está ejecutando o no.
 * La interfaz explica porqué Syncthing se está ejecutando o no.
-* Problema de "drenaje de batería" solucionado.
+* Problema de «drenaje de batería» solucionado.
 * Descubrir y añadir fácilmente otros dispositivos Syncthing en la misma red.
 * Soporte para la sincronización bidireccional con tarjeta SD externa desde Android 11.
 
