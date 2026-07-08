@@ -1,1 +1,12 @@
-feat(ui): Upgrade onboarding experience to material design by @dbhavsar76 in #200
+Fixes
+- fix(deprecation): bundleOf in DeviceIdDialogFragment by @researchxxl in #290
+- bug(onboarding): fix state consistency in onboarding activity by @dbhavsar76 in #293
+
+Features
+- Upgrade onboarding experience to material design by @dbhavsar76 in #200
+- refactor(web gui): refactor the webgui activity to kotlin and material design by @dbhavsar76 in #296
+- feature: support custom https certificate by @dbhavsar76 in #300
+
+Other
+- updated dependencies
+- chore(syncthing): v2.1.2

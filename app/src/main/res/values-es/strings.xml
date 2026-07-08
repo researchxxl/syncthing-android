@@ -15,7 +15,7 @@
     <string name="dialog_all_files_access_not_supported">Tu dispositivo no admite el acceso a todos los archivos</string>
     <!-- Slide "Ignore battery optimizations" -->
     <string name="ignore_doze_permission_title">Optimización de batería</string>
-    <string name="ignore_doze_permission_os_notice">Se sabe que los televisores Android TV a veces cierran la aplicación cuando se ejecuta en segundo plano. Hay una solución disponible en la wiki en \"%1$s/%2$s\".</string>
+    <string name="ignore_doze_permission_os_notice">Se sabe que los televisores Android TV a veces cierran la aplicación cuando se ejecuta en segundo plano. Hay una solución disponible en la wiki en «%1$s/%2$s».</string>
     <string name="ignore_doze_permission_desc">Android puede detener la sincronización después de un tiempo. Para evitarlo, desactiva la optimización de la batería. Algunos dispositivos incluyen aplicaciones adicionales preinstaladas que cierran tareas automáticamente; en ese caso, debes añadir también Syncthing a su lista de excepciones.</string>
     <string name="toast_ignore_doze_permission_required">Esta aplicación solo funciona de forma fiable si está exenta del modo de ahorro de energía «Doze».</string>
     <string name="dialog_disable_battery_optimizations_not_supported">Tu dispositivo no permite desactivar las optimizaciones de batería</string>
@@ -78,8 +78,8 @@
     <string name="no">No</string>
     <string name="open_website">Abrir sitio web</string>
     <string name="toast_write_storage_permission_required">Esta aplicación requiere permiso para escribir en el almacenamiento</string>
-    <string name="device_rejected">El dispositivo \"%1$s\" quiere conectarse</string>
-    <string name="folder_rejected">El dispositivo \"%1$s\" quiere compartir la carpeta \"%2$s\"</string>
+    <string name="device_rejected">El dispositivo «%1$s» quiere conectarse</string>
+    <string name="folder_rejected">El dispositivo «%1$s» quiere compartir la carpeta «%2$s»</string>
     <!-- StateDialogActivity -->
     <!-- Text for FoldersFragment and DevicesFragment loading view -->
     <!-- Shown instead of web_gui_loading if the key does not exist and has to be created -->
@@ -106,7 +106,7 @@
     <string name="open_file_no_compatible_app">No se ha encontrado ninguna aplicación para abrir el archivo.</string>
     <!-- Suggest File Manager App Dialog -->
     <string name="suggest_file_manager_app_dialog_title">No se ha encontrado un administrador de archivos compatible</string>
-    <string name="suggest_file_manager_app_dialog_text">Te recomendamos instalar la aplicación de gestión de archivos de código abierto \"Material Files\". ¿Quieres abrir su página en la tienda de aplicaciones?</string>
+    <string name="suggest_file_manager_app_dialog_text">Te recomendamos instalar la aplicación de gestión de archivos de código abierto «Material Files». ¿Quieres abrir su página en la tienda de aplicaciones?</string>
     <!-- DeviceListFragment -->
     <!-- Devices tab title -->
     <string name="devices_fragment_title">Dispositivos</string>
@@ -488,15 +488,15 @@
     <string name="nothing_share">Nada que compartir</string>
     <!-- Copy success toast partially -->
     <plurals name="copy_success_partially">
-        <item quantity="one">%1$d archivo copiado en la carpeta \"%2$s\", %3$d ya existe</item>
-        <item quantity="many">%1$d archivos copiados en la carpeta \"%2$s\", %3$d ya existen</item>
-        <item quantity="other">%1$d archivos copiados en la carpeta \"%2$s\", %3$d ya existen</item>
+        <item quantity="one">%1$d archivo copiado en la carpeta «%2$s», %3$d ya existe</item>
+        <item quantity="many">%1$d archivos copiados en la carpeta «%2$s», %3$d ya existen</item>
+        <item quantity="other">%1$d archivos copiados en la carpeta «%2$s», %3$d ya existen</item>
     </plurals>
     <!-- Copy success toast -->
     <plurals name="copy_success">
-        <item quantity="one">%1$d archivo copiado en la carpeta \"%2$s\"</item>
-        <item quantity="many">%1$d archivos copiados en la carpeta \"%2$s\"</item>
-        <item quantity="other">%1$d archivos copiados en la carpeta \"%2$s\"</item>
+        <item quantity="one">%1$d archivo copiado en la carpeta «%2$s»</item>
+        <item quantity="many">%1$d archivos copiados en la carpeta «%2$s»</item>
+        <item quantity="other">%1$d archivos copiados en la carpeta «%2$s»</item>
     </plurals>
     <!-- Copy exception toast -->
     <string name="copy_exception">Se ha producido un error al compartir, revisa los registros de la aplicación</string>
@@ -758,4 +758,32 @@
     <string name="copy">Copiar</string>
     <string name="state_saving">Guardando…</string>
     <string name="no_app_to_open_link">No hay ninguna aplicación disponible para abrir este enlace.</string>
+    <string name="webui_custom_cert_title">Certificado HTTPS personalizado</string>
+    <string name="webui_custom_cert_summary">Usa tu propio certificado para la interfaz web local</string>
+    <string name="custom_cert_explanation">Reemplaza el certificado autofirmado integrado de Syncthing por uno propio. Selecciona el certificado (PEM, incluida la cadena completa) y su clave privada, revisa los resultados de validación y luego aplícalo. Syncthing se reiniciará para cargar el nuevo certificado; si no consigue volver a estar en línea, el certificado anterior se restaurará automáticamente.\n\nPara un certificado firmado por tu propia CA, instala primero el certificado raíz de esa CA en este dispositivo (Ajustes → Seguridad → Instalar un certificado de CA).</string>
+    <string name="custom_cert_current_title">Certificado actual</string>
+    <string name="custom_cert_current_none">No se encontró ningún certificado.</string>
+    <string name="custom_cert_subject">Asunto: %1$s</string>
+    <string name="custom_cert_issuer">Emisor: %1$s</string>
+    <string name="custom_cert_expires">Caduca: %1$s</string>
+    <string name="custom_cert_self_signed">Autofirmado (predeterminado)</string>
+    <string name="custom_cert_ca_signed">Firmado por CA</string>
+    <string name="custom_cert_select_cert">Seleccionar certificado (.pem)</string>
+    <string name="custom_cert_select_key">Seleccionar clave privada (.pem)</string>
+    <string name="custom_cert_not_selected">No seleccionado</string>
+    <string name="custom_cert_apply">Aplicar certificado</string>
+    <string name="custom_cert_reset_title">Restablecer al certificado autogenerado</string>
+    <string name="custom_cert_reset_summary">Eliminar el certificado personalizado y permitir que Syncthing cree uno nuevo autofirmado</string>
+    <string name="custom_cert_reset_question">¿Reemplazar el certificado actual por uno nuevo autofirmado?</string>
+    <string name="custom_cert_applying">Aplicando — reiniciando Syncthing…</string>
+    <string name="custom_cert_applied">Certificado aplicado.</string>
+    <string name="custom_cert_applied_pending">Guardado. Entrará en vigor la próxima vez que se inicie Syncthing.</string>
+    <string name="custom_cert_failed">No se pudo aplicar el certificado: %1$s</string>
+    <string name="custom_cert_reset_done">Restablecido a un nuevo certificado autofirmado.</string>
+    <string name="custom_cert_file_too_large">Ese archivo es demasiado grande para ser un certificado o una clave.</string>
+    <string name="custom_cert_read_failed">No se pudo leer el archivo seleccionado.</string>
+    <string name="cert_check_chain">Cadena de certificados</string>
+    <string name="cert_check_trust">De confianza para este dispositivo</string>
+    <string name="cert_check_validity">Periodo de validez</string>
+    <string name="cert_check_key">Clave privada</string>
 </resources>
