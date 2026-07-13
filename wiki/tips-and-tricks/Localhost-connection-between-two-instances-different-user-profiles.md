@@ -3,7 +3,7 @@ Android 17+ restricts apps from connecting to their other instance over localhos
 
 However, the cross user profile communication permission can be manually granted to allow direct connection via the local loopback interface. This requires `adb`.
 
-1. Download the [`interact-across-profiles.sh`](./scripts/interact-across-profiles.sh) script. Use the "Raw" button in the toolbar to get the file as plain text.
+1. Download the [`interact-across-profiles.sh`](../../scripts/interact-across-profiles.sh) script. Use the "Raw" button in the toolbar to get the file as plain text.
 
 2. Push the script to the device:
 
