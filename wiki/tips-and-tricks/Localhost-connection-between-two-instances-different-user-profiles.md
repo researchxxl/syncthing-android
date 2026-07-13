@@ -1,5 +1,5 @@
 ## Localhost connection between two instances in different user profiles
-Android 17+ restricts apps from connecting to their other instance over localhost when they are running in different user profiles. The affects both actual users and also profiles. For example private space or work profile. For folks who run multiple instances of the app to sync files locally between users, the traffic is now forced to go through Syncthing community relays due to this restriction.
+Android 17+ restricts apps from connecting to their other instance over localhost when they are running in different user profiles. This affects both actual users and also profiles. For example private space or work profile. For folks who run multiple instances of the app to sync files locally between users, the traffic is now forced to go through Syncthing community relays due to this restriction.
 
 However, the cross user profile communication permission can be manually granted to allow direct connection via the local loopback interface. This requires `adb`.
 
