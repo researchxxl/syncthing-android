@@ -34,6 +34,11 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE"/>
     <!-- POST_NOTIFICATIONS is required for the foreground service since Android 13 "T" -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <!-- INTERACT_ACROSS_USERS must be manually granted on Android 17+ to allow two app installs in different user profiles to communicate via localhost -->
+    <uses-permission
+        android:name="android.permission.INTERACT_ACROSS_USERS"
+        android:minSdkVersion="37"
+        tools:ignore="ProtectedPermissions" />
 
     <!--
         Apps can listen to our notifications about sync progress by subscribing to ACTION_NOTIFY_FOLDER_SYNC_COMPLETE,
