@@ -10,7 +10,6 @@ import android.net.RouteInfo;
 import android.net.wifi.WifiManager;
 import android.net.wifi.WifiManager.MulticastLock;
 import android.os.Build;
-import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -33,7 +32,6 @@ import java.net.InetAddress;
 import java.security.InvalidParameterException;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -255,36 +253,6 @@ public class SyncthingRunnable implements Runnable {
             LogV("Setting env var: [" + e2[0] + "]=[" + e2[1] + "]");
             environment.put(e2[0], e2[1]);
         }
-    }
-
-    /**
-     * Look for running libsyncthingnative.so processes and end them gracefully.
-     */
-    public void killSyncthing() {
-        int exitCode;
-        List<String> syncthingPIDs = Util.getProcessPIDs(Constants.FILENAME_SYNCTHING_BINARY);
-        if (syncthingPIDs.isEmpty()) {
-            LogV("killSyncthing: Found no running instances of " + Constants.FILENAME_SYNCTHING_BINARY);
-            return;
-        }
-        for (String syncthingPID : syncthingPIDs) {
-            exitCode = Util.runShellCommand("kill -SIGINT " + syncthingPID + "\n");
-            if (exitCode == 0) {
-                LogV("Sent kill SIGINT to process " + syncthingPID);
-            } else {
-                Log.w(TAG, "Failed to send kill SIGINT to process " + syncthingPID +
-                        " exit code " + Integer.toString(exitCode));
-            }
-        }
-
-        /**
-         * Wait for the syncthing instance to end.
-         */
-        LogV("Waiting for all syncthing instances to end ...");
-        while (!Util.getProcessPIDs(Constants.FILENAME_SYNCTHING_BINARY).isEmpty()) {
-            SystemClock.sleep(50);
-        }
-        Log.d(TAG, "killSyncthing: Complete.");
     }
 
     /**
