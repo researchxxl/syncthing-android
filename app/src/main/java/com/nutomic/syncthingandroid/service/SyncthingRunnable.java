@@ -31,7 +31,6 @@ import java.io.RandomAccessFile;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.security.InvalidParameterException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -259,42 +258,11 @@ public class SyncthingRunnable implements Runnable {
     }
 
     /**
-     * Look for running libsyncthingnative.so processes and return an array
-     * containing the PIDs of found instances.
-     */
-    private List<String> getSyncthingPIDs(Boolean enableLog) {
-        List<String> syncthingPIDs = new ArrayList<String>();
-        String output = Util.runShellCommandGetOutput("ps\n");
-        if (TextUtils.isEmpty(output)) {
-            Log.w(TAG, "Failed to list SyncthingNative processes. ps command returned empty.");
-            return syncthingPIDs;
-        }
-
-        String lines[] = output.split("\n");
-        if (lines.length == 0) {
-            Log.w(TAG, "Failed to list SyncthingNative processes. ps command returned no rows.");
-            return syncthingPIDs;
-        }
-
-        for (int i = 0; i < lines.length; i++) {
-            String line = lines[i];
-            if (line.contains(Constants.FILENAME_SYNCTHING_BINARY)) {
-                String syncthingPID = line.trim().split("\\s+")[1];
-                if (enableLog) {
-                    Log.v(TAG, "getSyncthingPIDs: Found process PID [" + syncthingPID + "]");
-                }
-                syncthingPIDs.add(syncthingPID);
-            }
-        }
-        return syncthingPIDs;
-    }
-
-    /**
      * Look for running libsyncthingnative.so processes and end them gracefully.
      */
     public void killSyncthing() {
         int exitCode;
-        List<String> syncthingPIDs = getSyncthingPIDs(true);
+        List<String> syncthingPIDs = Util.getProcessPIDs(Constants.FILENAME_SYNCTHING_BINARY);
         if (syncthingPIDs.isEmpty()) {
             LogV("killSyncthing: Found no running instances of " + Constants.FILENAME_SYNCTHING_BINARY);
             return;
@@ -313,7 +281,7 @@ public class SyncthingRunnable implements Runnable {
          * Wait for the syncthing instance to end.
          */
         LogV("Waiting for all syncthing instances to end ...");
-        while (!getSyncthingPIDs(false).isEmpty()) {
+        while (!Util.getProcessPIDs(Constants.FILENAME_SYNCTHING_BINARY).isEmpty()) {
             SystemClock.sleep(50);
         }
         Log.d(TAG, "killSyncthing: Complete.");
