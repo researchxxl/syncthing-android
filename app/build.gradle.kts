@@ -19,6 +19,17 @@ dependencies {
     implementation(libs.compose.material3)
     implementation(libs.compose.material.icons.extended)
     implementation(libs.compose.ui)
+    // Preview tooling is debug-only, and so are the @Preview functions that use it (see
+    // app/src/debug/.../recentchanges/RecentChangesPreviews.kt). The split matters because release
+    // builds do not run R8 (isMinifyEnabled = false), so preview functions and their sample data
+    // placed in `main` would ship to users.
+    //
+    // ui-tooling is the part that must stay out of release — it carries the renderer/inspector.
+    // ui-tooling-preview is only annotations, and is on the release classpath regardless: it arrives
+    // transitively via aboutlibraries-compose. Declaring it debug-only here just keeps the intent
+    // explicit. Move it to `implementation` if @Preview is ever needed from main source.
+    debugImplementation(libs.compose.ui.tooling)
+    debugImplementation(libs.compose.ui.tooling.preview)
     implementation(libs.constraintlayout)
     implementation(libs.core.ktx)
     implementation(libs.dagger)

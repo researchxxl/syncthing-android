@@ -416,6 +416,8 @@
     <string name="recent_changes_title">Recent changes</string>
     <string name="modified_by_device">Device: %1$s</string>
     <string name="modification_time">Time: %1$s</string>
+    <string name="more_options">More options</string>
+    <string name="show_exact_times">Show exact times</string>
 
     <string name="this_device">This device</string>
 

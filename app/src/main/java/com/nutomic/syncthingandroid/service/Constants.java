@@ -74,6 +74,9 @@ public class Constants {
     public static final String PREF_OBJECT_PREFIX_FOLDER        = "sc_folder_";
     public static final String PREF_OBJECT_PREFIX_DEVICE        = "sc_device_";
 
+    // Recent Changes preferences
+    public static final String PREF_SHOW_EXACT_TIMES            = "recent_changes_show_exact_times";
+
     public static String DYN_PREF_OBJECT_CUSTOM_SYNC_CONDITIONS(String objectPrefixAndId) {
         return objectPrefixAndId + "_" + "custom_sync_conditions";
     }
