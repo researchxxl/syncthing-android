@@ -613,7 +613,7 @@ public class RestApi {
     public void shutdown() {
         hasShutdown = true;
         executorService.shutdownNow();
-        Util.killProcess("find");
+        Util.killProcess("find", AppPrefs.getUseRoot(mContext));
         new PostRequest(mContext, mUrl, PostRequest.URI_SYSTEM_SHUTDOWN, mApiKey,
                 null, null, null);
     }
@@ -1252,7 +1252,7 @@ public class RestApi {
                 // Check for ".sync-conflict-YYYYMMDD-HHMMSS-DEVICEI*" files.
                 mLocalCompletion.setDiscoveredConflictFiles(
                         folderId,
-                        Util.getSyncConflictFiles(folder.path)
+                        Util.getSyncConflictFiles(folder.path, AppPrefs.getUseRoot(mContext))
                 );
             }
 
