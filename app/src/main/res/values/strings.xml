@@ -427,6 +427,21 @@
     <!-- Text for WebGuiActivity loading view -->
     <string name="web_gui_loading">Waiting for GUI</string>
 
+    <!-- Shown in WebGuiActivity when the web gui could not be loaded -->
+    <string name="web_gui_load_failed">Couldn\'t load the Web GUI</string>
+
+    <!-- Reason shown in WebGuiActivity when the web gui did not respond in time -->
+    <string name="web_gui_load_timeout">The local Syncthing instance did not respond.</string>
+
+    <!-- Reason shown in WebGuiActivity when the web gui answered with an HTTP error, %1$d is the status code -->
+    <string name="web_gui_load_failed_http">The Web GUI answered with HTTP %1$d.</string>
+
+    <!-- Reason shown in WebGuiActivity when the WebView render process died -->
+    <string name="web_gui_load_failed_renderer">The browser engine stopped unexpectedly.</string>
+
+    <!-- Button that reloads the web gui after a failed load -->
+    <string name="retry">Retry</string>
+
     <!-- WebViewActivity -->
 
     <!-- Dialog title displayed when an invalid ssl certificate was found -->

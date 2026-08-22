@@ -163,17 +163,21 @@ public class WebViewActivity extends SyncthingActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /*
+     * Only the per-instance WebView.onPause()/onResume() are used here. Do NOT reintroduce
+     * pauseTimers()/resumeTimers(): they suspend and resume the Chromium timer shared by *every*
+     * WebView in the process, so pausing here and being destroyed before resuming leaves the whole
+     * process suspended and breaks the next WebView opened by any other activity.
+     */
     @Override
     public void onPause() {
         mWebView.onPause();
-        mWebView.pauseTimers();
         super.onPause();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        mWebView.resumeTimers();
         mWebView.onResume();
     }
 
