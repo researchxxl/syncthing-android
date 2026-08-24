@@ -448,15 +448,28 @@ public class SyncthingRunnable implements Runnable {
             // Even with --preserve-environment the environment gets messed up.
             // We therefore start a root shell, and set all the environment variables manually.
             DataOutputStream suOut = new DataOutputStream(process.getOutputStream());
+            // Every value written into this shell must be quoted. The environment may contain
+            // user supplied entries (Constants.PREF_ENVIRONMENT_VARIABLES), and an unquoted value
+            // would be expanded by the shell - meaning e.g. "$(...)" executes as root.
             for (Map.Entry<String, String> entry : env.entrySet()) {
-                suOut.writeBytes(String.format("export %s=\"%s\"\n", entry.getKey(), entry.getValue()));
+                if (!Util.isValidEnvVarName(entry.getKey())) {
+                    // A name cannot be quoted, so reject it rather than let it inject commands.
+                    Log.w(TAG, "Skipping environment variable with invalid name [" + entry.getKey() + "]");
+                    continue;
+                }
+                suOut.writeBytes(String.format("export %s=%s\n",
+                        entry.getKey(), Util.shellQuote(entry.getValue())));
             }
             suOut.flush();
             // Exec will replace the su process image by Syncthing as execlp in C does.
             // Without using exec, the process will drop to the root shell as soon as Syncthing terminates like a normal shell does.
             // If we did not use exec, we would wait infinitely for the process to terminate (ret = process.waitFor(); in run()).
             // With exec the whole process terminates when Syncthing exits.
-            suOut.writeBytes("exec " + TextUtils.join(" ", mCommand) + "\n");
+            StringBuilder execLine = new StringBuilder("exec");
+            for (String arg : mCommand) {
+                execLine.append(' ').append(Util.shellQuote(arg));
+            }
+            suOut.writeBytes(execLine.append('\n').toString());
             suOut.flush();
             return process;
         } else {

@@ -115,12 +115,13 @@ public class Util {
 
         // Get private app's "files" dir residing in "/data/data/[packageName]".
         String dir = context.getFilesDir().getAbsolutePath();
-        String cmd = "chown -R " + appInfo.uid + ":" + appInfo.uid + " " + dir + "; ";
+        String quotedDir = shellQuote(dir);
+        String cmd = "chown -R " + appInfo.uid + ":" + appInfo.uid + " " + quotedDir + "; ";
         // Running Syncthing as root might change a file's or directories type in terms of SELinux.
         // Leaving them as they are, the Android service won't be able to access them.
         // At least for those files residing in an application's data folder.
         // Simply reverting the type to its default should do the trick.
-        cmd += "restorecon -R " + dir + "\n";
+        cmd += "restorecon -R " + quotedDir + "\n";
         Log.d(TAG, "Running: '" + cmd);
         int exitCode = runShellCommand(cmd, true);
         if (exitCode == 0) {
@@ -144,8 +145,11 @@ public class Util {
         }
 
         // Write permission test file.
+        // The folder path is chosen by the user, so it must be quoted - it may contain characters
+        // the shell would otherwise expand, and this command runs as root when root mode is on.
         String touchFile = absoluteFolderPath + "/" + TOUCH_FILE_NAME;
-        int exitCode = runShellCommand("echo \"\" > \"" + touchFile + "\"\n", useRoot);
+        String quotedTouchFile = shellQuote(touchFile);
+        int exitCode = runShellCommand("echo \"\" > " + quotedTouchFile + "\n", useRoot);
         if (exitCode != 0) {
             String error;
             switch (exitCode) {
@@ -164,9 +168,54 @@ public class Util {
         Log.i(TAG, "Successfully wrote test file '" + touchFile + "'");
 
         // Remove test file.
-        if (runShellCommand("rm \"" + touchFile + "\"\n", useRoot) != 0) {
+        if (runShellCommand("rm " + quotedTouchFile + "\n", useRoot) != 0) {
             // This is very unlikely to happen, so we have less error handling.
             Log.i(TAG, "Failed to remove test file");
+        }
+        return true;
+    }
+
+    /**
+     * Quotes a string for safe use as a single argument in a POSIX shell command line.
+     *
+     * Everything is wrapped in single quotes, within which the shell performs no expansion at all,
+     * so '$', '`', '"', '\' and whitespace are passed through literally. An embedded single quote
+     * cannot be escaped inside single quotes, so it is emitted as '\'' - closing the quoted run,
+     * appending an escaped quote, then reopening it.
+     *
+     * Always use this for any value that ends up in a command line, especially when the command
+     * runs as root. Values reachable from the UI (folder paths, custom environment variables) are
+     * otherwise evaluated by the shell.
+     */
+    public static String shellQuote(String s) {
+        if (s == null) {
+            return "''";
+        }
+        return "'" + s.replace("'", "'\\''") + "'";
+    }
+
+    /**
+     * Returns whether the given name is a valid POSIX shell variable name, i.e. matches
+     * [A-Za-z_][A-Za-z0-9_]*
+     *
+     * The name side of an "export NAME=value" statement cannot be quoted - it has to be a bare
+     * identifier - so unlike the value it cannot be made safe by escaping. It must be rejected
+     * instead, otherwise a crafted name injects additional shell commands.
+     */
+    public static boolean isValidEnvVarName(String name) {
+        if (TextUtils.isEmpty(name)) {
+            return false;
+        }
+        for (int i = 0; i < name.length(); i++) {
+            char c = name.charAt(i);
+            boolean isAlpha = (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '_';
+            if (isAlpha) {
+                continue;
+            }
+            if (i > 0 && c >= '0' && c <= '9') {
+                continue;
+            }
+            return false;
         }
         return true;
     }
