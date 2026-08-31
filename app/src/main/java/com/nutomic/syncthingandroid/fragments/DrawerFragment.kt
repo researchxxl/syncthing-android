@@ -63,7 +63,7 @@ import androidx.fragment.app.Fragment
 
 import com.nutomic.syncthingandroid.R
 import com.nutomic.syncthingandroid.activities.MainActivity
-import com.nutomic.syncthingandroid.activities.RecentChangesActivity
+import com.nutomic.syncthingandroid.recentchanges.RecentChangesActivity
 import com.nutomic.syncthingandroid.webgui.WebGuiActivity
 import com.nutomic.syncthingandroid.service.Constants
 import com.nutomic.syncthingandroid.service.SyncthingService

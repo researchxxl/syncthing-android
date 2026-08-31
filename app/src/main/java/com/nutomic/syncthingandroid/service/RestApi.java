@@ -1016,12 +1016,22 @@ public class RestApi {
 
     /**
      * Requests and parses information about recent changes.
+     * Fetches the most recent disk events.
+     *
+     * "timeout=1" is important. /rest/events/disk is a long-poll endpoint: when no disk events are
+     * buffered it blocks for the server default of 60s before returning an empty array, which made
+     * the Recent changes screen appear to hang on open. The web GUI gets away without this because it
+     * only ever calls the endpoint in the background and renders cached results, never blocking the
+     * user. We fetch on screen open, so we want a query rather than a subscription.
+     *
+     * As a bonus this keeps each request well inside Volley's 5s socket timeout, so it is no longer
+     * retried 5 times per call (see the "should not be retried" note in the server's getEvents).
      */
     public void getDiskEvents(int limit, OnResultListener1<List<DiskEvent>> listener) {
         new GetRequest(
                 mContext, mUrl,
                 GetRequest.URI_EVENTS_DISK, mApiKey,
-                ImmutableMap.of("limit", Integer.toString(limit)),
+                ImmutableMap.of("limit", Integer.toString(limit), "timeout", "1"),
                 result -> {
                     List<DiskEvent> diskEvents = new ArrayList<>();
                     try {

@@ -101,7 +101,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.RecentChangesActivity"
+            android:name=".recentchanges.RecentChangesActivity"
             android:label="@string/recent_changes_title"
             android:parentActivityName=".activities.MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize">
