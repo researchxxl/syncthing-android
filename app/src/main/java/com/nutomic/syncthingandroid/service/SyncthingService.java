@@ -15,9 +15,21 @@ import com.nutomic.syncthingandroid.SyncthingApp;
 import com.nutomic.syncthingandroid.http.PollWebGuiAvailableTask;
 import com.nutomic.syncthingandroid.model.Device;
 import com.nutomic.syncthingandroid.model.Folder;
+import com.nutomic.syncthingandroid.service.execution.SyncthingCommand;
+import com.nutomic.syncthingandroid.service.execution.SyncthingExecutionController;
+import com.nutomic.syncthingandroid.service.state.NormalSyncthingStateTransfer;
+import com.nutomic.syncthingandroid.service.state.SyncthingStateAccessException;
+import com.nutomic.syncthingandroid.service.state.SyncthingStateAccess;
+import com.nutomic.syncthingandroid.service.state.SyncthingStateTransfer;
+import com.nutomic.syncthingandroid.superuser.ProcessIdentityRecordState;
+import com.nutomic.syncthingandroid.superuser.ProcessIdentityStore;
+import com.nutomic.syncthingandroid.superuser.SuperuserClient;
+import com.nutomic.syncthingandroid.superuser.SuperuserErrorCode;
+import com.nutomic.syncthingandroid.superuser.SuperuserModeController;
+import com.nutomic.syncthingandroid.superuser.SuperuserOperationResult;
+import com.nutomic.syncthingandroid.superuser.SuperuserRuntimeStatus;
 import com.nutomic.syncthingandroid.util.ConfigRouter;
 import com.nutomic.syncthingandroid.util.ConfigXml;
-import com.nutomic.syncthingandroid.util.FileUtils;
 import com.nutomic.syncthingandroid.util.PermissionUtil;
 import com.nutomic.syncthingandroid.util.Util;
 
@@ -33,6 +45,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+import java.util.concurrent.atomic.AtomicReference;
 
 import javax.inject.Inject;
 
@@ -151,6 +169,11 @@ public class SyncthingService extends Service {
         void onServiceStateChange(State currentState);
     }
 
+    /** Receives the result of an explicit superuser-mode transition on the main thread. */
+    public interface SuperuserTransitionCallback {
+        void onComplete(SuperuserOperationResult result);
+    }
+
     /**
      * Outcome of {@link #replaceHttpsCertificate} / {@link #resetHttpsCertificate}.
      */
@@ -193,6 +216,8 @@ public class SyncthingService extends Service {
          * There is some problem that prevents Syncthing from running.
          */
         ERROR,
+        /** Root mode remains configured, but verified UID-0 execution is unavailable. */
+        SUPERUSER_UNAVAILABLE,
     }
 
     /**
@@ -224,11 +249,35 @@ public class SyncthingService extends Service {
     private @Nullable
     SyncthingRunnable mSyncthingRunnable = null;
 
+    private final ExecutorService mSuperuserTransitionExecutor =
+            Executors.newSingleThreadExecutor(runnable -> {
+                Thread thread = new Thread(runnable, "syncthing-superuser-transition");
+                thread.setDaemon(true);
+                return thread;
+            });
+
+    private boolean mSuperuserReadinessInProgress = false;
+
     @Inject
     NotificationHandler mNotificationHandler;
 
     @Inject
     SharedPreferences mPreferences;
+
+    @Inject
+    SyncthingStateTransfer mStateTransfer;
+
+    @Inject
+    SyncthingStateAccess mStateAccess;
+
+    @Inject
+    SyncthingExecutionController mExecutionController;
+
+    @Inject
+    SuperuserClient mSuperuserClient;
+
+    @Inject
+    SuperuserModeController mSuperuserModeController;
 
     /**
      * Object that must be locked upon accessing mCurrentState
@@ -255,7 +304,15 @@ public class SyncthingService extends Service {
         ENABLE_VERBOSE_LOG = AppPrefs.getPrefVerboseLog(mPreferences);
         LogV("onCreate");
         mConfigRouter = new ConfigRouter(SyncthingService.this);
-        mHandler = new Handler();
+        mHandler = new Handler(Looper.getMainLooper());
+        if (mSuperuserClient != null) {
+            mSuperuserClient.setDeathListener(() -> {
+                Handler handler = mHandler;
+                if (handler != null) {
+                    handler.post(this::handleSuperuserBinderDeath);
+                }
+            });
+        }
 
         /**
          * If runtime permissions are revoked, android kills and restarts the service.
@@ -304,7 +361,7 @@ public class SyncthingService extends Service {
 
         if (ACTION_RESTART.equals(intent.getAction()) && mCurrentState == State.ACTIVE) {
             shutdown(State.INIT);
-            launchStartupTask(SyncthingRunnable.Command.main);
+            launchStartupTask(SyncthingCommand.MAIN);
         } else if (ACTION_STOP.equals(intent.getAction())) {
             if (intent.getBooleanExtra(EXTRA_STOP_AFTER_CRASHED_NATIVE, false)) {
                 /**
@@ -313,8 +370,15 @@ public class SyncthingService extends Service {
                  * use for clean shutdown to take place. Instead, we will immediately shutdown the crashed
                  * instance forcefully.
                  */
-                mCurrentState = State.ERROR;
-                shutdown(State.DISABLED);
+                if (isRootConfigured()) {
+                    markSuperuserUnavailable(SuperuserErrorCode.CORE_LAUNCH_FAILED,
+                            rootProcessRecordHasRisk(),
+                            "Syncthing exited unexpectedly while superuser mode was configured");
+                    shutdown(State.SUPERUSER_UNAVAILABLE);
+                } else {
+                    mCurrentState = State.ERROR;
+                    shutdown(State.DISABLED);
+                }
             } else {
                 // Graceful shutdown.
                 if (mCurrentState == State.STARTING ||
@@ -333,10 +397,11 @@ public class SyncthingService extends Service {
                 // Shutdown synchronously.
                 shutdown(State.DISABLED);
             }
-            new SyncthingRunnable(this, SyncthingRunnable.Command.resetdatabase).run();
-            if (mLastDeterminedShouldRun) {
-                launchStartupTask(SyncthingRunnable.Command.main);
-            }
+            runCommandAsynchronously(SyncthingCommand.RESET_DATABASE, () -> {
+                if (mLastDeterminedShouldRun && mCurrentState == State.DISABLED) {
+                    launchStartupTask(SyncthingCommand.MAIN);
+                }
+            });
         } else if (ACTION_RESET_DELTAS.equals(intent.getAction())) {
             /**
              * 1. Stop syncthing native if it's running.
@@ -352,7 +417,7 @@ public class SyncthingService extends Service {
                 // Shutdown synchronously.
                 shutdown(State.DISABLED);
             }
-            launchStartupTask(SyncthingRunnable.Command.resetdeltas);
+            launchStartupTask(SyncthingCommand.RESET_DELTAS);
             if (!mLastDeterminedShouldRun) {
                 // Shutdown if syncthing was not running before the UI action was raised.
                 shutdown(State.DISABLED);
@@ -394,6 +459,15 @@ public class SyncthingService extends Service {
     private void afterFreshServiceInstanceStart() {
         LogV("afterFreshServiceInstanceStart: Service started from scratch, SyncthingNative is going to STATE_" + mCurrentState + " meanwhilst ...");
         if (mCurrentState == State.DISABLED) {
+            if (isRootConfigured()) {
+                // Run conditions decide whether a root connection is needed. The initial
+                // monitor callback performs the launch when execution is currently allowed;
+                // this path must not probe or bind merely because the service was created.
+                if (mLastDeterminedShouldRun) {
+                    launchStartupTask(SyncthingCommand.MAIN);
+                }
+                return;
+            }
             // Read and parse the config from disk.
             ConfigXml configXml = new ConfigXml(this);
             try {
@@ -426,7 +500,8 @@ public class SyncthingService extends Service {
                 switch (mCurrentState) {
                     case DISABLED:
                     case INIT:
-                        launchStartupTask(SyncthingRunnable.Command.main);
+                    case SUPERUSER_UNAVAILABLE:
+                        launchStartupTask(SyncthingCommand.MAIN);
                         break;
                     case STARTING:
                     case ACTIVE:
@@ -440,6 +515,10 @@ public class SyncthingService extends Service {
                 if (mCurrentState == State.DISABLED) {
                     return;
                 }
+                if (mCurrentState == State.SUPERUSER_UNAVAILABLE) {
+                    onServiceStateChange(State.DISABLED);
+                    return;
+                }
                 shutdown(State.DISABLED);
             }
         }
@@ -450,6 +529,12 @@ public class SyncthingService extends Service {
      * unpause devices and folders as defined in per-object sync preferences.
      */
     private void applyCustomRunConditions(RunConditionMonitor runConditionMonitor) {
+        if (isRootConfigured()
+                && (mCurrentState != State.ACTIVE || !isSuperuserReady())) {
+            // ConfigXml must use the verified root state capability. Defer this maintenance work
+            // until the normal launch path has established that capability.
+            return;
+        }
         synchronized (mStateLock) {
             if (mRestApi != null && mCurrentState == State.ACTIVE) {
                 // Forward event because syncthing is running.
@@ -535,12 +620,18 @@ public class SyncthingService extends Service {
     /**
      * Prepares to launch the syncthing binary.
      */
-    private void launchStartupTask(SyncthingRunnable.Command srCommand) {
+    private void launchStartupTask(SyncthingCommand srCommand) {
         synchronized (mStateLock) {
-            if (mCurrentState != State.DISABLED && mCurrentState != State.INIT) {
+            if (mCurrentState != State.DISABLED && mCurrentState != State.INIT
+                    && mCurrentState != State.SUPERUSER_UNAVAILABLE) {
                 Log.e(TAG, "launchStartupTask: Wrong state " + mCurrentState + " detected. Cancelling.");
                 return;
             }
+        }
+
+        if (isRootConfigured() && !isSuperuserReady()) {
+            beginRootReadiness(srCommand);
+            return;
         }
 
         mConfig = new ConfigXml(this);
@@ -548,10 +639,15 @@ public class SyncthingService extends Service {
             mConfig.loadConfig();
         } catch (ConfigXml.OpenConfigException e) {
             mNotificationHandler.showCrashedNotification(R.string.config_read_failed, "launchStartupTask:OpenConfigException");
-            synchronized (mStateLock) {
-                onServiceStateChange(State.ERROR);
+            if (isRootConfigured()) {
+                markSuperuserUnavailable(SuperuserErrorCode.STATE_ACCESS_FAILED, false,
+                        "Privileged Syncthing state could not be read");
+            } else {
+                synchronized (mStateLock) {
+                    onServiceStateChange(State.ERROR);
+                }
+                stopSelf();
             }
-            stopSelf();
             return;
         }
 
@@ -579,12 +675,7 @@ public class SyncthingService extends Service {
             return;
         }
         mSyncthingRunnable = new SyncthingRunnable(this, srCommand);
-
-        /**
-         * Check if an old syncthing instance is still running.
-         * This happens after an in-place app upgrade. If so, end it.
-         */
-        Util.killProcess(Constants.FILENAME_SYNCTHING_BINARY);
+        mSyncthingRunnable.setExecutionFailureListener(this::handleExecutionFailure);
 
         // Start the syncthing binary in a separate thread.
         Thread.UncaughtExceptionHandler syncthingRunnableThreadExceptionHandler = new Thread.UncaughtExceptionHandler() {
@@ -669,6 +760,11 @@ public class SyncthingService extends Service {
             Log.i(TAG, "Shutting down syncthing binary due to missing storage permission.");
         }
         shutdown(State.DISABLED);
+        if (mSuperuserClient != null) {
+            mSuperuserClient.setDeathListener(null);
+            mSuperuserClient.disconnect();
+        }
+        mSuperuserTransitionExecutor.shutdownNow();
         super.onDestroy();
     }
 
@@ -678,7 +774,12 @@ public class SyncthingService extends Service {
      * Performs a synchronous shutdown of the native binary.
      */
     private void shutdown(State newState) {
-        if (mCurrentState == State.STARTING) {
+        shutdown(newState, true);
+    }
+
+    private void shutdown(State newState, boolean deferWhileStarting) {
+        if (deferWhileStarting && mCurrentState == State.STARTING && mSyncthingRunnableThread != null
+                && mSyncthingRunnableThread.isAlive()) {
             Log.w(TAG, "Deferring shutdown until State.STARTING was left");
             mHandler.postDelayed(() -> {
                 shutdown(newState);
@@ -705,31 +806,298 @@ public class SyncthingService extends Service {
         }
 
         if (mRestApi != null) {
-            if (mSyncthingRunnable != null) {
+            try {
                 mRestApi.shutdown();
+            } catch (RuntimeException exception) {
+                Log.w(TAG, "REST shutdown request failed", exception);
             }
             mRestApi = null;
         }
 
-        if (mSyncthingRunnable != null) {
-            Util.killProcess(Constants.FILENAME_SYNCTHING_BINARY);
-            if (mSyncthingRunnableThread != null) {
-                LogV("Waiting for mSyncthingRunnableThread to finish after killProcess(Syncthing) ...");
+        Thread runnableThread = mSyncthingRunnableThread;
+        if (runnableThread != null) {
+            boolean stopped = joinRunnableThread(runnableThread, 5_000L);
+            if (!stopped && mExecutionController != null) {
                 try {
-                    mSyncthingRunnableThread.join();
-                } catch (InterruptedException e) {
-                    Log.w(TAG, "mSyncthingRunnableThread InterruptedException");
+                    mExecutionController.stopOwnedProcess();
+                } catch (Exception exception) {
+                    Log.w(TAG, "Owned Syncthing process could not be stopped", exception);
+                    if (isRootConfigured()) {
+                        markSuperuserUnavailable(SuperuserErrorCode.CORE_STOP_FAILED,
+                                rootProcessRecordHasRisk(),
+                                "The supervised Syncthing process could not be stopped");
+                    }
                 }
+                stopped = joinRunnableThread(runnableThread, 5_000L);
+            }
+            if (stopped) {
                 Log.d(TAG, "Finished mSyncthingRunnableThread.");
                 mSyncthingRunnableThread = null;
+                mSyncthingRunnable = null;
+            } else if (isRootConfigured()) {
+                onServiceStateChange(State.SUPERUSER_UNAVAILABLE);
             }
-            mSyncthingRunnable = null;
         }
+    }
+
+    private boolean joinRunnableThread(Thread thread, long timeoutMs) {
+        if (thread == Thread.currentThread()) {
+            return !thread.isAlive();
+        }
+        try {
+            thread.join(timeoutMs);
+        } catch (InterruptedException exception) {
+            Thread.currentThread().interrupt();
+            return false;
+        }
+        return !thread.isAlive();
     }
 
     public @Nullable
     RestApi getApi() {
         return mRestApi;
+    }
+
+    /** Returns the latest verified/unavailable status for the configured execution mode. */
+    public SuperuserRuntimeStatus getSuperuserRuntimeStatus() {
+        return mSuperuserModeController == null
+                ? SuperuserRuntimeStatus.normal()
+                : mSuperuserModeController.runtimeStatus();
+    }
+
+    /**
+     * Requests an explicit superuser-mode transition without allowing the settings process to
+     * write the durable mode flag. The callback is always delivered on the main thread.
+     */
+    public void requestSuperuserMode(boolean enabled, @Nullable SuperuserTransitionCallback callback) {
+        if (callback == null) {
+            return;
+        }
+        if (mSuperuserModeController == null) {
+            postToMain(() -> callback.onComplete(SuperuserOperationResult.failure(
+                    SuperuserErrorCode.SERVICE_BIND_FAILED,
+                    "Superuser mode controller is unavailable")));
+            return;
+        }
+
+        mSuperuserModeController.markAuthorizing();
+        notifyServiceStateListeners();
+        mSuperuserTransitionExecutor.execute(() -> {
+            SuperuserOperationResult result;
+            try {
+                SuperuserModeController.TransitionHost host = new SuperuserModeController.TransitionHost() {
+                    @Override
+                    public boolean shouldRunAfterTransition() {
+                        return mLastDeterminedShouldRun;
+                    }
+
+                    @Override
+                    public void stopForPrivilegeTransition() throws Exception {
+                        runOnMainAndWait(() -> {
+                            if (mCurrentState != State.DISABLED) {
+                                shutdown(State.DISABLED, false);
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void startAfterPrivilegeTransition() {
+                        try {
+                            runOnMainAndWait(() -> {
+                                if (mLastDeterminedShouldRun) {
+                                    launchStartupTask(SyncthingCommand.MAIN);
+                                }
+                            });
+                        } catch (Exception exception) {
+                            throw new RuntimeException(exception);
+                        }
+                    }
+                };
+                result = enabled
+                        ? mSuperuserModeController.enable(host)
+                        : mSuperuserModeController.disable(host);
+            } catch (RuntimeException exception) {
+                result = SuperuserOperationResult.failure(
+                        SuperuserErrorCode.CORE_LAUNCH_FAILED,
+                        "Superuser mode transition failed");
+                if (enabled && isRootConfigured()) {
+                    mSuperuserModeController.markUnavailable(result.error(),
+                            rootProcessRecordHasRisk(), result.diagnostic);
+                }
+            }
+
+            SuperuserOperationResult completedResult = result;
+            postToMain(() -> {
+                if (!completedResult.isSuccess() && isRootConfigured()) {
+                    onServiceStateChange(State.SUPERUSER_UNAVAILABLE);
+                } else if (completedResult.isSuccess() && !isRootConfigured()) {
+                    notifyServiceStateListeners();
+                } else {
+                    notifyServiceStateListeners();
+                }
+                callback.onComplete(completedResult);
+            });
+        });
+    }
+
+    private void beginRootReadiness(SyncthingCommand command) {
+        if (!isRootConfigured() || isSuperuserReady() || mSuperuserReadinessInProgress) {
+            return;
+        }
+        if (mSuperuserModeController == null) {
+            markSuperuserUnavailable(SuperuserErrorCode.SERVICE_BIND_FAILED, false,
+                    "Superuser mode controller is unavailable");
+            return;
+        }
+
+        mSuperuserReadinessInProgress = true;
+        mSuperuserModeController.markAuthorizing();
+        notifyServiceStateListeners();
+        mSuperuserTransitionExecutor.execute(() -> {
+            SuperuserOperationResult result;
+            try {
+                result = mSuperuserModeController.ensureReadyForConfiguredMode();
+            } catch (RuntimeException exception) {
+                result = SuperuserOperationResult.failure(
+                        SuperuserErrorCode.SERVICE_BIND_FAILED,
+                        "Superuser readiness check failed");
+            }
+            SuperuserOperationResult completedResult = result;
+            postToMain(() -> {
+                mSuperuserReadinessInProgress = false;
+                if (!completedResult.isSuccess()) {
+                    markSuperuserUnavailable(completedResult.error(),
+                            completedResult.error() == SuperuserErrorCode.BINDER_DIED
+                                    || completedResult.error() == SuperuserErrorCode.ORPHAN_RECOVERY_FAILED
+                                    || rootProcessRecordHasRisk(),
+                            completedResult.diagnostic);
+                    return;
+                }
+                notifyServiceStateListeners();
+                if (!isRootConfigured() || (SyncthingCommand.MAIN.equals(command)
+                        && !mLastDeterminedShouldRun)) {
+                    onServiceStateChange(State.DISABLED);
+                    return;
+                }
+                launchStartupTask(command);
+            });
+        });
+    }
+
+    private void handleSuperuserBinderDeath() {
+        if (!isRootConfigured()) {
+            return;
+        }
+        markSuperuserUnavailable(SuperuserErrorCode.BINDER_DIED, rootProcessRecordHasRisk(),
+                "The superuser service Binder connection was lost");
+    }
+
+    private void handleExecutionFailure() {
+        postToMain(() -> {
+            if (isRootConfigured()) {
+                markSuperuserUnavailable(SuperuserErrorCode.CORE_LAUNCH_FAILED,
+                        rootProcessRecordHasRisk(),
+                        "Syncthing failed while running under superuser mode");
+                shutdown(State.SUPERUSER_UNAVAILABLE);
+            } else {
+                onServiceStateChange(State.ERROR);
+            }
+        });
+    }
+
+    private boolean isRootConfigured() {
+        return AppPrefs.getUseRoot(mPreferences);
+    }
+
+    private boolean isSuperuserReady() {
+        return mSuperuserModeController != null
+                && mSuperuserModeController.runtimeStatus().state()
+                == SuperuserRuntimeStatus.State.SUPERUSER_READY;
+    }
+
+    private boolean rootProcessRecordHasRisk() {
+        ProcessIdentityRecordState state = new ProcessIdentityStore(this).read().state();
+        return state != ProcessIdentityRecordState.CLEAR;
+    }
+
+    private void markSuperuserUnavailable(SuperuserErrorCode errorCode, boolean orphanRisk,
+                                          String diagnostic) {
+        if (mSuperuserModeController != null) {
+            mSuperuserModeController.markUnavailable(errorCode, orphanRisk, diagnostic);
+        }
+        onServiceStateChange(State.SUPERUSER_UNAVAILABLE);
+    }
+
+    private void postToMain(Runnable action) {
+        if (mHandler == null || Looper.myLooper() == mHandler.getLooper()) {
+            action.run();
+        } else {
+            mHandler.post(action);
+        }
+    }
+
+    private void notifyServiceStateListeners() {
+        postToMain(() -> {
+            if (mNotificationHandler != null) {
+                mNotificationHandler.updatePersistentNotification(this);
+            }
+            Iterator<OnServiceStateChangeListener> it =
+                    mOnServiceStateChangeListeners.iterator();
+            while (it.hasNext()) {
+                OnServiceStateChangeListener listener = it.next();
+                if (listener != null) {
+                    listener.onServiceStateChange(mCurrentState);
+                } else {
+                    it.remove();
+                }
+            }
+        });
+    }
+
+    private void runOnMainAndWait(Runnable action) throws Exception {
+        if (mHandler == null || Looper.myLooper() == mHandler.getLooper()) {
+            action.run();
+            return;
+        }
+        CountDownLatch completed = new CountDownLatch(1);
+        AtomicReference<Throwable> failure = new AtomicReference<>();
+        mHandler.post(() -> {
+            try {
+                action.run();
+            } catch (Throwable throwable) {
+                failure.set(throwable);
+            } finally {
+                completed.countDown();
+            }
+        });
+        if (!completed.await(SuperuserClient.ROOT_BIND_TIMEOUT_MS, TimeUnit.MILLISECONDS)) {
+            throw new TimeoutException("Timed out waiting for the service main thread");
+        }
+        Throwable throwable = failure.get();
+        if (throwable == null) {
+            return;
+        }
+        if (throwable instanceof Exception) {
+            throw (Exception) throwable;
+        }
+        if (throwable instanceof Error) {
+            throw (Error) throwable;
+        }
+        throw new RuntimeException(throwable);
+    }
+
+    private void runCommandAsynchronously(SyncthingCommand command, Runnable completion) {
+        mSuperuserTransitionExecutor.execute(() -> {
+            SyncthingRunnable runnable = new SyncthingRunnable(this, command);
+            runnable.setExecutionFailureListener(this::handleExecutionFailure);
+            try {
+                runnable.run();
+            } catch (RuntimeException exception) {
+                Log.e(TAG, "One-shot Syncthing command failed", exception);
+                handleExecutionFailure();
+            }
+            postToMain(completion);
+        });
     }
 
     /**
@@ -775,22 +1143,12 @@ public class SyncthingService extends Service {
     private void onServiceStateChange(State newState) {
         if (newState == mCurrentState) {
             Log.d(TAG, "onServiceStateChange: Called with unchanged state " + newState);
+            notifyServiceStateListeners();
             return;
         }
         Log.i(TAG, "onServiceStateChange: from " + mCurrentState + " to " + newState);
         mCurrentState = newState;
-        mHandler.post(() -> {
-            mNotificationHandler.updatePersistentNotification(this);
-            Iterator<OnServiceStateChangeListener> it = mOnServiceStateChangeListeners.iterator();
-            while (it.hasNext()) {
-                OnServiceStateChangeListener listener = it.next();
-                if (listener != null) {
-                    listener.onServiceStateChange(mCurrentState);
-                } else {
-                    it.remove();
-                }
-            }
-        });
+        notifyServiceStateListeners();
     }
 
     public State getCurrentState() {
@@ -833,7 +1191,7 @@ public class SyncthingService extends Service {
      *
      */
     public boolean exportConfig() {
-        Boolean failSuccess = true;
+        boolean failSuccess = true;
         Log.d(TAG, "exportConfig BEGIN");
 
         if (mCurrentState != State.DISABLED) {
@@ -843,7 +1201,11 @@ public class SyncthingService extends Service {
 
         // Create export dir if non-existant.
         File targetZip = getBackupZipFile();
-        targetZip.getParentFile().mkdirs();
+        File targetParent = targetZip.getParentFile();
+        if (targetParent != null && !targetParent.isDirectory()
+                && !targetParent.mkdirs() && !targetParent.isDirectory()) {
+            failSuccess = false;
+        }
 
         // Export SharedPreferences.
         File sharedPreferencesFile = null;
@@ -872,66 +1234,42 @@ public class SyncthingService extends Service {
                 }
             } catch (IOException e) {
                 Log.e(TAG, "exportConfig: Failed to export SharedPreferences #2", e);
+                failSuccess = false;
             }
         }
 
-        // Make a list of files to backup.
-        List<File> includePaths = Arrays.asList(
-            Constants.getConfigFile(this),
-
-            Constants.getPrivateKeyFile(this),
-            Constants.getPublicKeyFile(this),
-
-            Constants.getHttpsCertFile(this),
-            Constants.getHttpsKeyFile(this),
-
-            Constants.getSharedPrefsFile(this),
-
-            Constants.getIndexDbFolder(this)
-        );
-
-        // If user set one, apply a password and encrypt the zip file.
-        String zipEncryptionPassword = mPreferences.getString(Constants.PREF_BACKUP_PASSWORD, "");
-
-        // Compress files to zip file.
+        // Stage only the fixed Syncthing snapshot. SharedPreferences is intentionally kept as a
+        // separate legacy-format entry and is never passed through the privileged state API.
+        File stagedState = null;
         try {
-            // Delete existing ZIP file to ensure we create a fresh archive instead of appending
-            if (targetZip.exists()) {
-                targetZip.delete();
-            }
-            
-            ZipParameters parameters = new ZipParameters();
-            parameters.setCompressionMethod(CompressionMethod.DEFLATE);
-            parameters.setCompressionLevel(CompressionLevel.NORMAL);
+            stagedState = mStateTransfer.stageBackupState();
+        } catch (SyncthingStateAccessException | RuntimeException e) {
+            Log.e(TAG, "exportConfig: Failed to stage Syncthing state", e);
+            failSuccess = false;
+        }
 
-            ZipFile zipFile;
-            if (zipEncryptionPassword.isEmpty()) {
-                zipFile = new ZipFile(targetZip);
-                parameters.setEncryptFiles(false);
-            } else {
-                zipFile = new ZipFile(targetZip, zipEncryptionPassword.toCharArray());
-                parameters.setEncryptFiles(true);
-                parameters.setEncryptionMethod(EncryptionMethod.AES);
-                parameters.setAesKeyStrength(AesKeyStrength.KEY_STRENGTH_256);
+        // Build the archive completely beside the destination, then replace the destination with
+        // one same-directory rename. A failed write therefore cannot destroy a previous export.
+        try {
+            if (!failSuccess || stagedState == null || sharedPreferencesFile == null) {
+                throw new IOException("Unable to create a complete backup snapshot");
             }
-
-            // Add files.
-            for (File includePath : includePaths) {
-                if (includePath.exists()) {
-                    if (includePath.isFile()) {
-                        zipFile.addFile(includePath, parameters);
-                    } else if (includePath.isDirectory()) {
-                        zipFile.addFolder(includePath, parameters);
-                    }
-                }
-            }
-
-            if (sharedPreferencesFile != null && sharedPreferencesFile.exists()) {
-                sharedPreferencesFile.delete();
-            }
+            String zipEncryptionPassword = mPreferences.getString(
+                    Constants.PREF_BACKUP_PASSWORD, "");
+            File fixedStagingBase = NormalSyncthingStateTransfer.stagingBase(this);
+            writeTransactionalBackup(targetZip, stagedState, sharedPreferencesFile,
+                    zipEncryptionPassword, (destination, state, preferences, password) ->
+                            writeBackupArchive(destination, state, preferences, password,
+                                    fixedStagingBase));
         } catch (Exception e) {
             Log.w(TAG, "exportConfig: Failed to export config, " + e.getMessage());
             failSuccess = false;
+        } finally {
+            if (sharedPreferencesFile != null && sharedPreferencesFile.exists()
+                    && !sharedPreferencesFile.delete()) {
+                Log.w(TAG, "exportConfig: Unable to remove serialized preferences staging file");
+            }
+            deleteTransferDirectory(stagedState);
         }
         Log.d(TAG, "exportConfig END");
 
@@ -941,12 +1279,103 @@ public class SyncthingService extends Service {
             Runnable launchStartupTaskRunnable = new Runnable() {
                 @Override
                 public void run() {
-                    launchStartupTask(SyncthingRunnable.Command.main);
+                    launchStartupTask(SyncthingCommand.MAIN);
                 }
             };
             mainLooper.post(launchStartupTaskRunnable);
         }
         return failSuccess;
+    }
+
+    /**
+     * Writes the complete backup archive to a same-directory temporary file and replaces the
+     * destination only after the writer has closed successfully.
+     */
+    static void writeTransactionalBackup(File targetZip, File stagedState,
+                                          File sharedPreferencesFile, String password,
+                                          BackupArchiveWriter writer) throws Exception {
+        if (targetZip == null || stagedState == null || sharedPreferencesFile == null
+                || password == null || writer == null) {
+            throw new IllegalArgumentException("Backup archive arguments must not be null");
+        }
+        File parent = targetZip.getParentFile();
+        if (parent == null || !parent.isDirectory()) {
+            throw new IOException("Backup archive parent directory is unavailable");
+        }
+
+        File temporary = File.createTempFile(targetZip.getName(), ".transfer.tmp", parent);
+        try {
+            if (!temporary.delete()) {
+                throw new IOException("Unable to prepare temporary backup archive");
+            }
+            writer.write(temporary, stagedState, sharedPreferencesFile, password);
+            if (!temporary.isFile()) {
+                throw new IOException("Backup archive writer did not create an archive");
+            }
+            if (!temporary.renameTo(targetZip)) {
+                throw new IOException("Unable to replace backup archive");
+            }
+        } finally {
+            if (temporary.exists() && !temporary.delete()) {
+                // The temporary path is unique and never replaces the destination.
+            }
+        }
+    }
+
+    /** Writes one fresh archive using the established entry, compression, and encryption rules. */
+    static void writeBackupArchive(File destination, File stagedState,
+                                   File sharedPreferencesFile, String password)
+            throws Exception {
+        writeBackupArchive(destination, stagedState, sharedPreferencesFile, password,
+                stagedState.getParentFile());
+    }
+
+    /** Writes an archive only from a transfer directory under the supplied fixed base. */
+    static void writeBackupArchive(File destination, File stagedState,
+                                   File sharedPreferencesFile, String password,
+                                   File stagingBase) throws Exception {
+        NormalSyncthingStateTransfer.validateStagingDirectory(stagingBase, stagedState);
+        NormalSyncthingStateTransfer.ensureSafeTree(stagedState, stagingBase);
+        NormalSyncthingStateTransfer.validateSnapshotEntries(stagedState);
+        if (NormalSyncthingStateTransfer.isSymbolicLink(sharedPreferencesFile)
+                || !sharedPreferencesFile.isFile()) {
+            throw new IOException("Serialized preferences staging file is unavailable");
+        }
+
+        ZipParameters parameters = new ZipParameters();
+        parameters.setCompressionMethod(CompressionMethod.DEFLATE);
+        parameters.setCompressionLevel(CompressionLevel.NORMAL);
+        if (password.isEmpty()) {
+            parameters.setEncryptFiles(false);
+        } else {
+            parameters.setEncryptFiles(true);
+            parameters.setEncryptionMethod(EncryptionMethod.AES);
+            parameters.setAesKeyStrength(AesKeyStrength.KEY_STRENGTH_256);
+        }
+
+        try (ZipFile zipFile = password.isEmpty()
+                ? new ZipFile(destination)
+                : new ZipFile(destination, password.toCharArray())) {
+            File[] stagedEntries = stagedState.listFiles();
+            if (stagedEntries == null) {
+                throw new IOException("Unable to inspect staged Syncthing state");
+            }
+            for (File includePath : stagedEntries) {
+                if (!NormalSyncthingStateTransfer.isSnapshotName(includePath.getName())) {
+                    throw new IOException("Staging directory contains an unsupported entry");
+                }
+                NormalSyncthingStateTransfer.ensureSafeTree(includePath, stagedState);
+                if (includePath.isFile()) {
+                    zipFile.addFile(includePath, parameters);
+                } else if (includePath.isDirectory()) {
+                    zipFile.addFolder(includePath, parameters);
+                } else {
+                    throw new IOException("Staging directory contains an unsupported entry");
+                }
+            }
+            parameters.setFileNameInZip(Constants.SHARED_PREFS_FILE);
+            zipFile.addFile(sharedPreferencesFile, parameters);
+        }
     }
 
     /**
@@ -1010,39 +1439,55 @@ public class SyncthingService extends Service {
         Log.d(TAG, "importConfig BEGIN");
         if (mCurrentState != State.DISABLED) {
             // Shutdown synchronously.
-            shutdown(State.DISABLED);
+            shutdown(State.DISABLED, false);
         }
 
-        // Remove database folder if it exists.
-        File databasePath = Constants.getIndexDbFolder(this);
-        if (databasePath.exists()) {
-            Log.d(TAG, "importConfig: Clearing index database");
-            try {
-                FileUtils.deleteDirectoryRecursively(databasePath);
-            } catch (IOException e) {
-                Log.e(TAG, "Failed to delete directory '" + databasePath.getAbsolutePath() + "'" + e);
+        if (AppPrefs.getUseRoot(mPreferences)) {
+            if (mSuperuserModeController == null) {
+                Log.e(TAG, "importConfig: Superuser mode controller is unavailable");
+                return false;
+            }
+            SuperuserOperationResult rootTransition =
+                    mSuperuserModeController.prepareForNormalImport();
+            if (rootTransition == null) {
+                Log.e(TAG, "importConfig: Root mode transition returned no result");
+                return false;
+            }
+            if (!rootTransition.isSuccess()) {
+                Log.e(TAG, "importConfig: Cannot safely leave root mode before restore: "
+                        + rootTransition.diagnostic);
+                return false;
             }
         }
 
-        // Decompress zip file.
+        // Decompress into the fixed app-owned staging base. The selected transfer backend owns
+        // the subsequent installation into filesDir.
+        File importStaging = new File(NormalSyncthingStateTransfer.stagingBase(this),
+                java.util.UUID.randomUUID().toString());
         try {
-            zipFile.extractAll(this.getFilesDir().getAbsolutePath());
+            File stagingBase = importStaging.getParentFile();
+            if (!stagingBase.isDirectory() && !stagingBase.mkdirs() && !stagingBase.isDirectory()) {
+                throw new IOException("Unable to create import staging base");
+            }
+            if (!importStaging.mkdir()) {
+                throw new IOException("Unable to create import staging directory");
+            }
+            zipFile.extractAll(importStaging.getAbsolutePath());
         } catch (ZipException e) {
             Log.e(TAG, "importConfig: Failed to extract zip, " + e.getMessage());
             failSuccess = false;
+        } catch (IOException e) {
+            Log.e(TAG, "importConfig: Failed to prepare import staging", e);
+            failSuccess = false;
         }
 
-        // Check if necessary files are present after extraction.
+        // Check required legacy-format entries after extraction. HTTPS files and the index are
+        // optional snapshot entries; the transfer boundary accepts them only when present.
         List<File> checkPaths = Arrays.asList(
-            Constants.getConfigFile(this),
-
-            Constants.getPrivateKeyFile(this),
-            Constants.getPublicKeyFile(this),
-
-            Constants.getHttpsCertFile(this),
-            Constants.getHttpsKeyFile(this),
-
-            Constants.getSharedPrefsFile(this)
+            new File(importStaging, Constants.CONFIG_FILE),
+            new File(importStaging, Constants.PRIVATE_KEY_FILE),
+            new File(importStaging, Constants.PUBLIC_KEY_FILE),
+            new File(importStaging, Constants.SHARED_PREFS_FILE)
         );
         for (final File checkPath : checkPaths) {
             if (!checkPath.exists()) {
@@ -1052,12 +1497,22 @@ public class SyncthingService extends Service {
         }
         
         // Import shared preferences.
-        File sharedPreferencesFile = Constants.getSharedPrefsFile(this);
+        File sharedPreferencesFile = new File(importStaging, Constants.SHARED_PREFS_FILE);
         if (sharedPreferencesFile.exists()) {
             Log.d(TAG, "importConfig: Importing shared preferences");
             failSuccess = failSuccess && importConfigSharedPrefs(sharedPreferencesFile);
             sharedPreferencesFile.delete();
         }
+
+        if (failSuccess) {
+            try {
+                mStateTransfer.installBackupState(importStaging);
+            } catch (SyncthingStateAccessException | RuntimeException e) {
+                Log.e(TAG, "importConfig: Failed to install Syncthing state", e);
+                failSuccess = false;
+            }
+        }
+        deleteTransferDirectory(importStaging);
 
         try {
             cleanupImportedFolderDatabases();
@@ -1071,7 +1526,7 @@ public class SyncthingService extends Service {
             Runnable launchStartupTaskRunnable = new Runnable() {
                 @Override
                 public void run() {
-                    launchStartupTask(SyncthingRunnable.Command.main);
+                    launchStartupTask(SyncthingCommand.MAIN);
                 }
             };
             mainLooper.post(launchStartupTaskRunnable);
@@ -1115,33 +1570,36 @@ public class SyncthingService extends Service {
             return;
         }
 
-        final File certFile = Constants.getHttpsCertFile(this);
-        final File keyFile = Constants.getHttpsKeyFile(this);
-
         // Stop the binary so it releases the cert/key before we overwrite them.
         if (mCurrentState != State.DISABLED) {
             shutdown(State.DISABLED);
         }
 
-        final File certBak = backupFile(certFile);
-        final File keyBak = backupFile(keyFile);
+        byte[] previousCert = null;
+        byte[] previousKey = null;
 
         try {
-            writeBytesAtomic(certFile, certPem);
-            writeBytesAtomic(keyFile, keyPem);
-            restrictToOwner(keyFile);
-        } catch (IOException e) {
+            previousCert = readOptionalState(
+                    com.nutomic.syncthingandroid.service.state.SyncthingStateFile.HTTPS_CERT);
+            previousKey = readOptionalState(
+                    com.nutomic.syncthingandroid.service.state.SyncthingStateFile.HTTPS_KEY);
+            mStateAccess.writeAtomic(
+                    com.nutomic.syncthingandroid.service.state.SyncthingStateFile.HTTPS_CERT,
+                    certPem);
+            mStateAccess.writeAtomic(
+                    com.nutomic.syncthingandroid.service.state.SyncthingStateFile.HTTPS_KEY,
+                    keyPem);
+        } catch (SyncthingStateAccessException | RuntimeException e) {
             Log.e(TAG, "doReplaceHttpsCertificate: Failed to write new cert/key", e);
-            restoreFile(certBak, certFile);
-            restoreFile(keyBak, keyFile);
+            restoreCertificateState(previousCert, previousKey);
             if (mLastDeterminedShouldRun) {
-                launchStartupTask(SyncthingRunnable.Command.main);
+                launchStartupTask(SyncthingCommand.MAIN);
             }
             listener.onResult(HttpsCertReplaceResult.FAILED, e.getMessage());
             return;
         }
 
-        applyCertChangeWithVerify(certFile, keyFile, certBak, keyBak, listener);
+        applyCertChangeWithVerify(previousCert, previousKey, listener);
     }
 
     private void doResetHttpsCertificate(OnHttpsCertReplaceResultListener listener) {
@@ -1150,31 +1608,41 @@ public class SyncthingService extends Service {
             return;
         }
 
-        final File certFile = Constants.getHttpsCertFile(this);
-        final File keyFile = Constants.getHttpsKeyFile(this);
-
         if (mCurrentState != State.DISABLED) {
             shutdown(State.DISABLED);
         }
 
-        final File certBak = backupFile(certFile);
-        final File keyBak = backupFile(keyFile);
-        // Removing the files makes syncthing generate a fresh self-signed certificate at startup.
-        deleteQuietly(certFile);
-        deleteQuietly(keyFile);
+        byte[] previousCert;
+        byte[] previousKey;
+        try {
+            previousCert = readOptionalState(
+                    com.nutomic.syncthingandroid.service.state.SyncthingStateFile.HTTPS_CERT);
+            previousKey = readOptionalState(
+                    com.nutomic.syncthingandroid.service.state.SyncthingStateFile.HTTPS_KEY);
+            // Removing the files makes syncthing generate a fresh self-signed certificate at startup.
+            mStateAccess.delete(
+                    com.nutomic.syncthingandroid.service.state.SyncthingStateFile.HTTPS_CERT);
+            mStateAccess.delete(
+                    com.nutomic.syncthingandroid.service.state.SyncthingStateFile.HTTPS_KEY);
+        } catch (SyncthingStateAccessException | RuntimeException e) {
+            Log.e(TAG, "doResetHttpsCertificate: Failed to remove cert/key", e);
+            listener.onResult(HttpsCertReplaceResult.FAILED, e.getMessage());
+            if (mLastDeterminedShouldRun) {
+            launchStartupTask(SyncthingCommand.MAIN);
+            }
+            return;
+        }
 
-        applyCertChangeWithVerify(certFile, keyFile, certBak, keyBak, listener);
+        applyCertChangeWithVerify(previousCert, previousKey, listener);
     }
 
-    private void applyCertChangeWithVerify(File certFile, File keyFile,
-                                           @Nullable File certBak, @Nullable File keyBak,
+    private void applyCertChangeWithVerify(@Nullable byte[] previousCert,
+                                           @Nullable byte[] previousKey,
                                            OnHttpsCertReplaceResultListener listener) {
         if (mLastDeterminedShouldRun) {
-            verifyRestartAndRollback(certFile, keyFile, certBak, keyBak, listener);
+            verifyRestartAndRollback(previousCert, previousKey, listener);
         } else {
             // Not currently meant to run; the new files will take effect on next start.
-            deleteQuietly(certBak);
-            deleteQuietly(keyBak);
             listener.onResult(HttpsCertReplaceResult.SUCCESS_PENDING_START, null);
         }
     }
@@ -1184,8 +1652,8 @@ public class SyncthingService extends Service {
      * ERROR / an abnormal STARTING&rarr;DISABLED transition (crashed binary) / a watchdog timeout.
      * On failure the backed-up cert/key are restored and a known-good instance is brought back up.
      */
-    private void verifyRestartAndRollback(File certFile, File keyFile,
-                                          @Nullable File certBak, @Nullable File keyBak,
+    private void verifyRestartAndRollback(@Nullable byte[] previousCert,
+                                          @Nullable byte[] previousKey,
                                           OnHttpsCertReplaceResultListener listener) {
         final boolean[] resolved = {false};
         final boolean[] sawStarting = {false};
@@ -1193,18 +1661,19 @@ public class SyncthingService extends Service {
         final Runnable[] watchdog = new Runnable[1];
 
         final Runnable finishSuccess = () -> {
-            deleteQuietly(certBak);
-            deleteQuietly(keyBak);
             listener.onResult(HttpsCertReplaceResult.SUCCESS, null);
         };
         final Runnable finishFailure = () -> {
-            restoreFile(certBak, certFile);
-            restoreFile(keyBak, keyFile);
+            if (!restoreCertificateState(previousCert, previousKey)) {
+                listener.onResult(HttpsCertReplaceResult.FAILED,
+                        "Failed to restore the previous HTTPS certificate.");
+                return;
+            }
             // Bring the previous, known-good certificate back online.
             if (mCurrentState != State.DISABLED && mCurrentState != State.INIT) {
                 shutdown(State.INIT);
             }
-            launchStartupTask(SyncthingRunnable.Command.main);
+            launchStartupTask(SyncthingCommand.MAIN);
             listener.onResult(HttpsCertReplaceResult.FAILED,
                     "Syncthing did not come online with the new certificate.");
         };
@@ -1252,59 +1721,52 @@ public class SyncthingService extends Service {
         // that is ignored because sawStarting is still false.
         registerOnServiceStateChangeListener(verifyListener[0]);
         mHandler.postDelayed(watchdog[0], HTTPS_CERT_VERIFY_TIMEOUT_MS);
-        launchStartupTask(SyncthingRunnable.Command.main);
+        launchStartupTask(SyncthingCommand.MAIN);
     }
 
-    @Nullable
-    private File backupFile(File file) {
-        if (!file.exists()) {
-            return null;
-        }
-        File bak = new File(file.getParentFile(), file.getName() + ".bak");
-        deleteQuietly(bak);
-        if (file.renameTo(bak)) {
-            return bak;
-        }
-        Log.w(TAG, "backupFile: Failed to back up " + file.getName());
-        return null;
+    private byte[] readOptionalState(
+            com.nutomic.syncthingandroid.service.state.SyncthingStateFile file)
+            throws SyncthingStateAccessException {
+        return mStateAccess.exists(file) ? mStateAccess.read(file) : null;
     }
 
-    private void restoreFile(@Nullable File bak, File target) {
-        if (bak == null || !bak.exists()) {
+    private boolean restoreCertificateState(@Nullable byte[] previousCert,
+                                            @Nullable byte[] previousKey) {
+        try {
+            restoreOptionalState(
+                    com.nutomic.syncthingandroid.service.state.SyncthingStateFile.HTTPS_CERT,
+                    previousCert);
+            restoreOptionalState(
+                    com.nutomic.syncthingandroid.service.state.SyncthingStateFile.HTTPS_KEY,
+                    previousKey);
+            return true;
+        } catch (SyncthingStateAccessException | RuntimeException e) {
+            Log.e(TAG, "Unable to restore previous HTTPS certificate", e);
+            return false;
+        }
+    }
+
+    private void restoreOptionalState(
+            com.nutomic.syncthingandroid.service.state.SyncthingStateFile file,
+            @Nullable byte[] previousBytes) throws SyncthingStateAccessException {
+        if (previousBytes == null) {
+            mStateAccess.delete(file);
+        } else {
+            mStateAccess.writeAtomic(file, previousBytes);
+        }
+    }
+
+    private void deleteTransferDirectory(@Nullable File directory) {
+        if (directory == null || !directory.exists()) {
             return;
         }
-        deleteQuietly(target);
-        if (!bak.renameTo(target)) {
-            Log.w(TAG, "restoreFile: Failed to restore " + target.getName());
+        try {
+            File base = NormalSyncthingStateTransfer.stagingBase(this);
+            NormalSyncthingStateTransfer.validateStagingDirectory(base, directory);
+            NormalSyncthingStateTransfer.deleteTree(directory);
+        } catch (IOException | SyncthingStateAccessException | RuntimeException e) {
+            Log.w(TAG, "Unable to remove temporary Syncthing state transfer", e);
         }
-    }
-
-    private void deleteQuietly(@Nullable File file) {
-        if (file != null && file.exists() && !file.delete()) {
-            Log.w(TAG, "deleteQuietly: Failed to delete " + file.getName());
-        }
-    }
-
-    private void writeBytesAtomic(File target, byte[] data) throws IOException {
-        File tmp = new File(target.getParentFile(), target.getName() + ".tmp");
-        try (FileOutputStream fos = new FileOutputStream(tmp)) {
-            fos.write(data);
-            fos.flush();
-            fos.getFD().sync();
-        }
-        if (!tmp.renameTo(target)) {
-            deleteQuietly(tmp);
-            throw new IOException("Failed to rename " + tmp.getName() + " to " + target.getName());
-        }
-    }
-
-    private void restrictToOwner(File file) {
-        // Mirror syncthing core, which writes the HTTPS key with 0600 permissions.
-        file.setReadable(false, false);
-        file.setReadable(true, true);
-        file.setWritable(false, false);
-        file.setWritable(true, true);
-        file.setExecutable(false, false);
     }
 
     private void cleanupImportedFolderDatabases() {
@@ -1340,13 +1802,13 @@ public class SyncthingService extends Service {
 
             if (folderPathMissing || markerMissing) {
                 Log.i(TAG, "importConfig: Folder path or marker missing for folder id \"" + folder.id + "\". Resetting Syncthing database.");
-                new SyncthingRunnable(this, SyncthingRunnable.Command.resetdatabase).run();
+                new SyncthingRunnable(this, SyncthingCommand.RESET_DATABASE).run();
                 break;
             }
         }
     }
 
-    private boolean importConfigSharedPrefs(final File file) {
+    boolean importConfigSharedPrefs(final File file) {
         Boolean failSuccess = true;
         FileInputStream fileInputStream = null;
         ObjectInputStream objectInputStream = null;
@@ -1366,7 +1828,13 @@ public class SyncthingService extends Service {
 
                 // Prepare a SharedPreferences commit.
                 SharedPreferences.Editor editor = mPreferences.edit();
-                editor.clear();
+                // Remove imported preferences without removing the durable execution-mode flag.
+                // The mode controller is the only production code allowed to write that flag.
+                for (String currentKey : mPreferences.getAll().keySet()) {
+                    if (!Constants.PREF_USE_ROOT.equals(currentKey)) {
+                        editor.remove(currentKey);
+                    }
+                }
                 for (Map.Entry<?, ?> e : sharedPrefsMap.entrySet()) {
                     String prefKey = (String) e.getKey();
                     switch (prefKey) {
@@ -1464,4 +1932,11 @@ public class SyncthingService extends Service {
             Log.v(TAG, logMessage);
         }
     }
+}
+
+/** Package-private seam for deterministic backup archive creation failure tests. */
+@FunctionalInterface
+interface BackupArchiveWriter {
+    void write(File destination, File stagedState, File sharedPreferencesFile, String password)
+            throws Exception;
 }

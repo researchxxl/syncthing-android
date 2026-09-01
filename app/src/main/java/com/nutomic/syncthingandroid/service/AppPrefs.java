@@ -34,4 +34,22 @@ public class AppPrefs {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         return sp.getBoolean(Constants.PREF_START_SERVICE_ON_BOOT, false);
     }
+
+    /** Returns the configured execution mode without providing a general-purpose writer. */
+    public static final boolean getUseRoot(Context context) {
+        if (context == null) {
+            Log.e(TAG, "getUseRoot: context == null");
+            return false;
+        }
+        return getUseRoot(PreferenceManager.getDefaultSharedPreferences(context));
+    }
+
+    /** Reads the durable root-mode flag from the supplied preference store. */
+    public static final boolean getUseRoot(SharedPreferences sharedPreferences) {
+        if (sharedPreferences == null) {
+            Log.e(TAG, "getUseRoot: sharedPreferences == null");
+            return false;
+        }
+        return sharedPreferences.getBoolean(Constants.PREF_USE_ROOT, false);
+    }
 }

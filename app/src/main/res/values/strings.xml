@@ -532,6 +532,13 @@
 
     <string name="behaviour_autostart_title">Autostart</string>
     <string name="behaviour_autostart_summary">Start app automatically on operating system startup.</string>
+    <string name="use_root_title">Run Syncthing as Superuser</string>
+    <string name="use_root_summary">Running Syncthing as root allows it to write to folders Android normally restricts to read-only access. Use this feature with caution.</string>
+    <string name="use_root_requesting">Requesting superuser access…</string>
+    <string name="use_root_enabled">Syncthing is configured to run as superuser.</string>
+    <string name="use_root_unavailable">Superuser access is required but currently unavailable.</string>
+    <string name="use_root_disabling">Disabling superuser mode…</string>
+    <string name="toast_root_denied">Did not get root permissions</string>
 
 
     <string name="allow_overwrite_files_title">Allow overwrite of existing files</string>
@@ -942,6 +949,7 @@
     <string name="syncthing_disabled">Sleeping</string>
 
     <string name="syncthing_terminated">Terminated</string>
+    <string name="syncthing_superuser_unavailable">Syncthing requires superuser access</string>
 
     <!-- Toast shown if syncthing failed to create or read the config -->
     <string name="executable_not_found">Core executable \"%s\" is missing. Check build and logcat output.</string>

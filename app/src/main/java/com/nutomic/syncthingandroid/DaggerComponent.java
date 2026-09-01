@@ -17,6 +17,7 @@ import com.nutomic.syncthingandroid.service.RestApi;
 import com.nutomic.syncthingandroid.service.SyncthingRunnable;
 import com.nutomic.syncthingandroid.service.SyncthingService;
 import com.nutomic.syncthingandroid.settings.SettingsActivity;
+import com.nutomic.syncthingandroid.util.ConfigXml;
 
 import javax.inject.Singleton;
 
@@ -26,6 +27,7 @@ import dagger.Component;
 @Component(modules = {SyncthingModule.class})
 public interface DaggerComponent {
     void inject(AppConfigReceiver appConfigReceiver);
+    void inject(ConfigXml configXml);
     void inject(DeviceActivity activity);
     void inject(DeviceListFragment fragment);
     void inject(EventProcessor eventProcessor);

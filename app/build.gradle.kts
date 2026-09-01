@@ -29,6 +29,8 @@ dependencies {
     implementation(libs.jbcrypt)
     implementation(libs.kotlinx.serialization.core)
     implementation(libs.lingala.zip4j)
+    implementation(libs.libsu.core)
+    implementation(libs.libsu.service)
     implementation(libs.localbroadcastmanager)
     implementation(libs.navigation3.runtime)
     implementation(libs.navigation3.ui)
@@ -39,6 +41,12 @@ dependencies {
     implementation(libs.zhanghai.compose.preference)
     implementation(libs.zxing.android.embedded) { isTransitive = false }
     implementation(libs.zxing.core)
+    testImplementation(libs.junit4)
+    testImplementation(libs.robolectric)
+    androidTestImplementation(libs.androidx.test.runner)
+    androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.compose.ui.test.junit4)
+    debugImplementation(libs.compose.ui.test.manifest)
     ksp(libs.dagger.compiler)
 }
 
@@ -54,6 +62,7 @@ android {
     }
 
     buildFeatures {
+        aidl = true
         compose = true
     }
 
@@ -63,6 +72,7 @@ android {
         targetSdk = libs.versions.target.sdk.get().toInt()
         versionCode = libs.versions.version.code.get().toInt()
         versionName = libs.versions.version.name.get()
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     signingConfigs {

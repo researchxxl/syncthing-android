@@ -194,6 +194,10 @@
                 <property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE" android:value="Syncthing is a continuous file sync app. If the user explicitly enables it running permanently in the background, it needs to monitor file changes at every time and receive or send changes made on the device or connected devices."/>
         </service>
         <service
+            android:name=".superuser.SyncthingSuperuserService"
+            android:exported="false"
+            tools:ignore="Instantiatable" />
+        <service
             android:name=".service.SyncTriggerJobService"
             android:label="SyncTriggerJobService"
             android:permission="android.permission.BIND_JOB_SERVICE" >

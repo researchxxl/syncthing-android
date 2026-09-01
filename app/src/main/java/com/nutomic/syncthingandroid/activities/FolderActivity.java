@@ -49,6 +49,8 @@ import com.nutomic.syncthingandroid.service.Constants;
 import com.nutomic.syncthingandroid.service.RestApi;
 import com.nutomic.syncthingandroid.service.SyncthingService;
 import com.nutomic.syncthingandroid.service.SyncthingServiceBinder;
+import com.nutomic.syncthingandroid.service.folder.SyncthingFolderAccess;
+import com.nutomic.syncthingandroid.service.folder.SyncthingFolderAccessException;
 import com.nutomic.syncthingandroid.util.ConfigRouter;
 import com.nutomic.syncthingandroid.util.FileUtils;
 import com.nutomic.syncthingandroid.util.FileUtils.ExternalStorageDirType;
@@ -144,12 +146,19 @@ public class FolderActivity extends SyncthingActivity {
     @Inject
     SharedPreferences mPreferences;
 
+    @Inject
+    SyncthingFolderAccess mFolderAccess;
+
     private boolean mPrefExpertMode = false;
 
     private boolean mIsCreateMode;
     private boolean mFolderNeedsToUpdate = false;
     private boolean mIgnoreListNeedsToUpdate = false;
     private boolean mIsSaving = false;
+    private boolean mIsDestroyed = false;
+
+    private final Handler mMainHandler = new Handler(Looper.getMainLooper());
+    private final ExecutorService mFolderAccessExecutor = Executors.newSingleThreadExecutor();
 
     private Dialog mDeleteDialog;
     private Dialog mDiscardDialog;
@@ -512,6 +521,8 @@ public class FolderActivity extends SyncthingActivity {
 
     @Override
     public void onDestroy() {
+        mIsDestroyed = true;
+        mFolderAccessExecutor.shutdownNow();
         super.onDestroy();
         SyncthingService syncthingService = getService();
         if (syncthingService != null) {
@@ -748,6 +759,7 @@ public class FolderActivity extends SyncthingActivity {
     private void checkWriteAndUpdateUI() {
         mPathView.setText(mFolder.path);
         if (TextUtils.isEmpty(mFolder.path)) {
+            mCanWriteToPath = false;
             return;
         }
 
@@ -756,8 +768,29 @@ public class FolderActivity extends SyncthingActivity {
          * Access level readonly: folder can only be configured "sendonly".
          * Access level readwrite: folder can be configured "sendonly" or "sendreceive".
          */
-        mCanWriteToPath = Util.nativeBinaryCanWriteToPath(FolderActivity.this, mFolder.path);
-        if (mCanWriteToPath) {
+        final String requestedPath = mFolder.path;
+        mCanWriteToPath = false;
+        updateWriteabilityUi(false);
+        mFolderAccessExecutor.execute(() -> {
+            boolean canWrite = false;
+            try {
+                canWrite = mFolderAccess.canWrite(requestedPath);
+            } catch (SyncthingFolderAccessException | RuntimeException exception) {
+                Log.w(TAG, "Unable to test Syncthing folder writeability", exception);
+            }
+            final boolean result = canWrite;
+            mMainHandler.post(() -> {
+                if (mIsDestroyed || mFolder == null || !requestedPath.equals(mFolder.path)) {
+                    return;
+                }
+                mCanWriteToPath = result;
+                updateWriteabilityUi(result);
+            });
+        });
+    }
+
+    private void updateWriteabilityUi(boolean canWrite) {
+        if (canWrite) {
             mAccessExplanationView.setText(R.string.folder_path_readwrite);
             mFolderTypeView.setEnabled(true);
             if (mIsCreateMode) {

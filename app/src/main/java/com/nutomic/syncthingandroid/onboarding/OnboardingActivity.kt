@@ -25,6 +25,7 @@ import com.nutomic.syncthingandroid.SyncthingApp
 import com.nutomic.syncthingandroid.activities.MainActivity
 import com.nutomic.syncthingandroid.activities.ThemedAppCompatActivity
 import com.nutomic.syncthingandroid.webgui.WebGuiActivity
+import com.nutomic.syncthingandroid.service.AppPrefs
 import com.nutomic.syncthingandroid.service.Constants
 import com.nutomic.syncthingandroid.service.SyncthingRunnable.ExecutableNotFoundException
 import com.nutomic.syncthingandroid.theme.ApplicationTheme
@@ -37,6 +38,18 @@ import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+
+/**
+ * Determines whether launcher routing may treat the installation as configured.
+ *
+ * <p>Configured superuser mode defers config existence and parsing to SyncthingService, which
+ * owns root readiness and privileged state access. Normal mode continues to use the result of
+ * its existing normal-UID config probe.</p>
+ */
+internal fun shouldTreatConfigAsAvailableForOnboarding(
+    rootModeConfigured: Boolean,
+    normalConfigParseable: Boolean,
+): Boolean = rootModeConfigured || normalConfigParseable
 
 data class OnboardingUiState(
     val pages: List<OnboardingPage> = emptyList(),
@@ -455,19 +468,25 @@ class OnboardingActivity : ThemedAppCompatActivity() {
     }
 
     private fun checkForParseableConfig(): Boolean {
+        val rootModeConfigured = AppPrefs.getUseRoot(this)
+        if (rootModeConfigured) {
+            Log.d(TAG, "Deferring configured superuser state check to SyncthingService.")
+            return shouldTreatConfigAsAvailableForOnboarding(rootModeConfigured, false)
+        }
+
         val configExists = Constants.getConfigFile(this).exists()
         if (!configExists) {
-            return false
+            return shouldTreatConfigAsAvailableForOnboarding(false, false)
         }
 
         try {
             val configParseTest = ConfigXml(this)
             configParseTest.loadConfig()
-            return true
+            return shouldTreatConfigAsAvailableForOnboarding(false, true)
         } catch (_: OpenConfigException) {
             Log.d(TAG, "Failed to parse existing config. Will show key generation slide ...")
         }
 
-        return false
+        return shouldTreatConfigAsAvailableForOnboarding(false, false)
     }
 }

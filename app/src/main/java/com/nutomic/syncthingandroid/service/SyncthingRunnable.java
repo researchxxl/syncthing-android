@@ -14,18 +14,17 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.common.base.Charsets;
-import com.google.common.io.Files;
 import com.nutomic.syncthingandroid.R;
 import com.nutomic.syncthingandroid.SyncthingApp;
+import com.nutomic.syncthingandroid.service.execution.SyncthingCommand;
+import com.nutomic.syncthingandroid.service.execution.SyncthingExecutionController;
+import com.nutomic.syncthingandroid.service.execution.SyncthingExecutionException;
+import com.nutomic.syncthingandroid.service.execution.SyncthingExecutionResult;
 import com.nutomic.syncthingandroid.util.FileUtils;
-import com.nutomic.syncthingandroid.util.Util;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.RandomAccessFile;
 import java.net.Inet4Address;
 import java.net.InetAddress;
@@ -33,7 +32,6 @@ import java.security.InvalidParameterException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicReference;
 
 import javax.inject.Inject;
 
@@ -47,17 +45,12 @@ import static com.nutomic.syncthingandroid.service.SyncthingService.EXTRA_STOP_A
 public class SyncthingRunnable implements Runnable {
 
     private static final String TAG = "SyncthingRunnable";
-    private static final String TAG_NATIVE = "SyncthingNativeCode";
-    private static final String TAG_NICE = "SyncthingRunnableIoNice";
-
     private Boolean ENABLE_VERBOSE_LOG = false;
     private static final int LOG_FILE_MAX_LINES = 200000;
     private static final int LOG_FILE_BUFFER_SIZE = 1024 * 1024;
 
-    private static final AtomicReference<Process> mSyncthing = new AtomicReference<>();
     private final Context mContext;
-    private final File mSyncthingBinary;
-    private String[] mCommand;
+    private final SyncthingCommand mCommand;
     private final File mSyncthingLogFile;
 
     @Inject
@@ -66,12 +59,21 @@ public class SyncthingRunnable implements Runnable {
     @Inject
     NotificationHandler mNotificationHandler;
 
+    @Inject
+    SyncthingExecutionController mExecutionController;
+
+    private Runnable mExecutionFailureListener;
+
     public enum Command {
         deviceid,           // Output the device ID to the command line.
         generate,           // Generate keys, a config file and immediately exit.
         main,               // Run the main Syncthing application.
         resetdatabase,      // Reset Syncthing's database
-        resetdeltas,        // Reset Syncthing's delta indexes
+        resetdeltas;        // Reset Syncthing's delta indexes
+
+        SyncthingCommand toSyncthingCommand() {
+            return SyncthingCommand.values()[ordinal()];
+        }
     }
 
     /**
@@ -80,33 +82,24 @@ public class SyncthingRunnable implements Runnable {
      * @param command Which type of Syncthing command to execute.
      */
     public SyncthingRunnable(Context context, Command command) {
+        this(context, command.toSyncthingCommand());
+    }
+
+    /** Constructs a runnable for one of the closed Syncthing command modes. */
+    public SyncthingRunnable(Context context, SyncthingCommand command) {
         ((SyncthingApp) context.getApplicationContext()).component().inject(this);
         ENABLE_VERBOSE_LOG = AppPrefs.getPrefVerboseLog(mPreferences);
         mContext = context;
-        // Example: mSyncthingBinary="/data/app/${applicationId}-8HsN-IsVtZXc8GrE5-Hepw==/lib/x86/libsyncthingnative.so"
-        mSyncthingBinary = Constants.getSyncthingBinary(mContext);
         mSyncthingLogFile = Constants.getSyncthingLogFile(mContext);
-
-        // Get preferences relevant to starting syncthing core.
-        switch (command) {
-            case deviceid:
-                mCommand = new String[]{mSyncthingBinary.getPath(), "device-id"};
-                break;
-            case generate:
-                mCommand = new String[]{mSyncthingBinary.getPath(), "generate"};
-                break;
-            case main:
-                mCommand = new String[]{mSyncthingBinary.getPath(), "serve", "--no-browser"};
-                break;
-            case resetdatabase:
-                mCommand = new String[]{mSyncthingBinary.getPath(), "debug", "reset-database"};
-                break;
-            case resetdeltas:
-                mCommand = new String[]{mSyncthingBinary.getPath(), "serve", "--debug-reset-delta-idxs"};
-                break;
-            default:
-                throw new InvalidParameterException("Unknown command option");
+        if (command == null) {
+            throw new InvalidParameterException("Unknown command option");
         }
+        mCommand = command;
+    }
+
+    /** Registers the service callback used to surface typed execution failures. */
+    void setExecutionFailureListener(Runnable listener) {
+        mExecutionFailureListener = listener;
     }
 
     @Override
@@ -114,6 +107,7 @@ public class SyncthingRunnable implements Runnable {
         try {
             run(false);
         } catch (ExecutableNotFoundException e) {
+            notifyExecutionFailure();
             throw new RuntimeException(e.getMessage());
         }
     }
@@ -128,7 +122,6 @@ public class SyncthingRunnable implements Runnable {
         trimSyncthingLogFile();
 
         MulticastLock multicastLock = null;
-        Process process = null;
         try {
             // Android 11 blocks local discovery if we did not acquire MulticastLock.
             WifiManager wifi = (WifiManager) mContext.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
@@ -140,41 +133,11 @@ public class SyncthingRunnable implements Runnable {
              * Setup and run a new syncthing instance
              */
             HashMap<String, String> targetEnv = buildEnvironment();
-            process = setupAndLaunch(targetEnv);
-
-            mSyncthing.set(process);
-
-            Thread lInfo = null;
-            Thread lWarn = null;
-            if (returnStdOut) {
-                BufferedReader br = null;
-                try {
-                    br = new BufferedReader(new InputStreamReader(process.getInputStream(), Charsets.UTF_8));
-                    String line;
-                    while ((line = br.readLine()) != null) {
-                        Log.i(TAG_NATIVE, line);
-                        capturedStdOut = capturedStdOut + line + "\n";
-                    }
-                } catch (IOException e) {
-                    Log.w(TAG, "Failed to read Syncthing's command line output", e);
-                } finally {
-                    if (br != null)
-                        br.close();
-                }
-            } else {
-                lInfo = log(process.getInputStream(), Log.INFO);
-                lWarn = log(process.getErrorStream(), Log.WARN);
-            }
-
-            exitCode = process.waitFor();
+            SyncthingExecutionResult result = mExecutionController.execute(
+                    mCommand, targetEnv, returnStdOut);
+            exitCode = result.exitCode();
+            capturedStdOut = result.stdout();
             LogV("Syncthing exited with code " + exitCode);
-            mSyncthing.set(null);
-            if (lInfo != null) {
-                lInfo.join();
-            }
-            if (lWarn != null) {
-                lWarn.join();
-            }
 
             switch (exitCode) {
                 case 0:
@@ -213,15 +176,13 @@ public class SyncthingRunnable implements Runnable {
                     mNotificationHandler.showCrashedNotification(R.string.notification_crash_title, Integer.toString(exitCode));
                     sendStopToService = true;
             }
-        } catch (IOException | InterruptedException e) {
+        } catch (InterruptedException | SyncthingExecutionException e) {
             Log.e(TAG, "Failed to execute syncthing binary or read output", e);
+            notifyExecutionFailure();
         } finally {
             if (multicastLock != null) {
                 multicastLock.release();
                 multicastLock = null;
-            }
-            if (process != null) {
-                process.destroy();
             }
         }
 
@@ -243,6 +204,12 @@ public class SyncthingRunnable implements Runnable {
         return capturedStdOut;
     }
 
+    private void notifyExecutionFailure() {
+        if (mExecutionFailureListener != null) {
+            mExecutionFailureListener.run();
+        }
+    }
+
     private void putCustomEnvironmentVariables(Map<String, String> environment, SharedPreferences sp) {
         String customEnvironment = sp.getString(Constants.PREF_ENVIRONMENT_VARIABLES, null);
         if (TextUtils.isEmpty(customEnvironment))
@@ -250,47 +217,8 @@ public class SyncthingRunnable implements Runnable {
 
         for (String e : customEnvironment.split(" ")) {
             String[] e2 = e.split("=", 2);
-            LogV("Setting env var: [" + e2[0] + "]=[" + e2[1] + "]");
             environment.put(e2[0], e2[1]);
         }
-    }
-
-    /**
-     * Logs the outputs of a stream to logcat and mNativeLog.
-     *
-     * @param is       The stream to log.
-     * @param priority The priority level.
-     * @param saveLog  True if the log should be stored to {@link #mSyncthingLogFile}.
-     */
-    private Thread log(final InputStream is, final int priority) {
-        Thread t = new Thread(() -> {
-            BufferedReader br = null;
-            try {
-                br = new BufferedReader(new InputStreamReader(is, Charsets.UTF_8));
-                String line;
-                while ((line = br.readLine()) != null) {
-                    /*
-                    if (ENABLE_VERBOSE_LOG) {
-                        String lineWithoutTimestamp = line.replaceFirst("\\d{4}/\\d{2}/\\d{2} \\d{2}:\\d{2}:\\d{2} ?", "");
-                        Log.println(priority, TAG_NATIVE, lineWithoutTimestamp);
-                    }
-                    */
-                    // Always output SynchtingNative's output to "syncthing.log".
-                    Files.append(line + "\n", mSyncthingLogFile, Charsets.UTF_8);
-                }
-            } catch (IOException e) {
-                Log.w(TAG, "Failed to read Syncthing's command line output", e);
-            }
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException e) {
-                    Log.w(TAG, "log: Failed to close bufferedReader", e);
-                }
-            }
-        });
-        t.start();
-        return t;
     }
 
     // If the nth last newline is found within this buffer, then the offset of that newline within
@@ -314,11 +242,16 @@ public class SyncthingRunnable implements Runnable {
         return -nth;
     }
 
-    /**
-     * Only keep last {@link #LOG_FILE_MAX_LINES} lines in log file, to avoid bloat.
-     */
+    /** Trims the log and creates its app-owned inode before a normal or root launch. */
     private void trimSyncthingLogFile() {
         if (!mSyncthingLogFile.exists()) {
+            try {
+                if (!mSyncthingLogFile.createNewFile()) {
+                    Log.w(TAG, "Failed to create Syncthing log file");
+                }
+            } catch (IOException e) {
+                Log.w(TAG, "Failed to create Syncthing log file", e);
+            }
             return;
         }
 
@@ -427,19 +360,6 @@ public class SyncthingRunnable implements Runnable {
         return targetEnv;
     }
 
-    private Process setupAndLaunch(HashMap<String, String> env) throws IOException, ExecutableNotFoundException {
-        // Check if "libsyncthingnative.so" exists.
-        if (mCommand.length > 0) {
-            File libSyncthing = new File(mCommand[0]);
-            if (!libSyncthing.exists()) {
-                Log.e(TAG, "CRITICAL - Syncthing core binary is missing in APK package location " + mCommand[0]);
-                throw new ExecutableNotFoundException(mCommand[0]);
-            }
-        }
-        ProcessBuilder pb = new ProcessBuilder(mCommand);
-        pb.environment().putAll(env);
-        return pb.start();
-    }
 
     public class ExecutableNotFoundException extends Exception {
 

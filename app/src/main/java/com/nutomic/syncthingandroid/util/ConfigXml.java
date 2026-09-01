@@ -7,7 +7,9 @@ import androidx.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.nutomic.syncthingandroid.SyncthingApp;
 import com.nutomic.syncthingandroid.model.Device;
+import com.nutomic.syncthingandroid.service.execution.SyncthingCommand;
 import com.nutomic.syncthingandroid.model.Folder;
 import com.nutomic.syncthingandroid.model.FolderIgnoreList;
 import com.nutomic.syncthingandroid.model.Gui;
@@ -18,17 +20,19 @@ import com.nutomic.syncthingandroid.R;
 import com.nutomic.syncthingandroid.service.AppPrefs;
 import com.nutomic.syncthingandroid.service.Constants;
 import com.nutomic.syncthingandroid.service.SyncthingRunnable;
+import com.nutomic.syncthingandroid.service.state.SyncthingStateAccess;
+import com.nutomic.syncthingandroid.service.state.SyncthingStateAccessException;
+import com.nutomic.syncthingandroid.service.state.SyncthingStateFile;
 import com.nutomic.syncthingandroid.util.FileUtils.ExternalStorageDirType;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStreamReader;
 import java.io.IOException;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -58,6 +62,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import org.xml.sax.InputSource;
+
+import javax.inject.Inject;
 
 /**
  * Provides direct access to the config.xml file in the file system.
@@ -98,14 +104,21 @@ public class ConfigXml {
 
     private final Context mContext;
 
-    private final File mConfigFile;
+    @Inject
+    SyncthingStateAccess mStateAccess;
 
     private Document mConfig;
 
     public ConfigXml(Context context) {
+        ((SyncthingApp) context.getApplicationContext()).component().inject(this);
         mContext = context;
         ENABLE_VERBOSE_LOG = AppPrefs.getPrefVerboseLog(context);
-        mConfigFile = Constants.getConfigFile(mContext);
+    }
+
+    ConfigXml(Context context, SyncthingStateAccess stateAccess) {
+        mContext = context;
+        mStateAccess = stateAccess;
+        ENABLE_VERBOSE_LOG = AppPrefs.getPrefVerboseLog(context);
     }
 
     public void loadConfig() throws OpenConfigException {
@@ -120,7 +133,7 @@ public class ConfigXml {
     public void generateConfig() throws OpenConfigException, SyncthingRunnable.ExecutableNotFoundException {
         // Create new secret keys and config.
         Log.i(TAG, "(Re)Generating keys and config.");
-        new SyncthingRunnable(mContext, SyncthingRunnable.Command.generate).run(true);
+        new SyncthingRunnable(mContext, SyncthingCommand.GENERATE).run(true);
         parseConfig();
         Boolean changed = false;
 
@@ -205,7 +218,7 @@ public class ConfigXml {
     }
 
     private String getLocalDeviceIDandStoreToPref() throws SyncthingRunnable.ExecutableNotFoundException {
-        String logOutput = new SyncthingRunnable(mContext, SyncthingRunnable.Command.deviceid).run(true);
+        String logOutput = new SyncthingRunnable(mContext, SyncthingCommand.DEVICE_ID).run(true);
         String localDeviceID = logOutput.replace("\n", "");
 
         // Verify that local device ID is correctly formatted.
@@ -225,23 +238,20 @@ public class ConfigXml {
     }
 
     private void parseConfig() {
-        if (!mConfigFile.canRead()) {
-            Log.w(TAG, "Failed to open config file '" + mConfigFile + "'");
-            throw new OpenConfigException();
-        }
         try {
-            FileInputStream inputStream = new FileInputStream(mConfigFile);
-            InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
+            byte[] configBytes = mStateAccess.read(SyncthingStateFile.CONFIG);
+            InputStreamReader inputStreamReader = new InputStreamReader(
+                    new ByteArrayInputStream(configBytes), StandardCharsets.UTF_8);
             InputSource inputSource = new InputSource(inputStreamReader);
             inputSource.setEncoding("UTF-8");
             DocumentBuilderFactory dbfactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbfactory.newDocumentBuilder();
-            // LogV("Parsing config file '" + mConfigFile + "'");
+            // LogV("Parsing Syncthing config");
             mConfig = db.parse(inputSource);
-            inputStream.close();
             // LogV("Successfully parsed config file");
-        } catch (SAXException | ParserConfigurationException | IOException e) {
-            Log.w(TAG, "Failed to parse config file '" + mConfigFile + "'", e);
+        } catch (SAXException | ParserConfigurationException | IOException
+                 | SyncthingStateAccessException e) {
+            Log.w(TAG, "Failed to parse Syncthing config", e);
             throw new OpenConfigException();
         }
     }
@@ -1261,17 +1271,11 @@ public class ConfigXml {
      * Writes updated mConfig back to file.
      */
     public void saveChanges() {
-        if (!mConfigFile.canWrite()) {
-            Log.w(TAG, "Failed to save updated config. Cannot change the owner of the config file.");
-            return;
-        }
-
         Log.i(TAG, "Saving config file");
-        File mConfigTempFile = Constants.getConfigTempFile(mContext);
         try {
             // Write XML header.
-            FileOutputStream fileOutputStream = new FileOutputStream(mConfigTempFile);
-            fileOutputStream.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>".getBytes(StandardCharsets.UTF_8));
+            ByteArrayOutputStream fileOutput = new ByteArrayOutputStream();
+            fileOutput.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>".getBytes(StandardCharsets.UTF_8));
 
             // Prepare Object-to-XML transform.
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -1287,22 +1291,12 @@ public class ConfigXml {
             StreamResult streamResult = new StreamResult(new OutputStreamWriter(byteArrayOutputStream, StandardCharsets.UTF_8));
             transformer.transform(new DOMSource(mConfig), streamResult);
             byte[] outputBytes = byteArrayOutputStream.toByteArray();
-            fileOutputStream.write(outputBytes);
-            fileOutputStream.close();
+            fileOutput.write(outputBytes);
+            mStateAccess.writeAtomic(SyncthingStateFile.CONFIG, fileOutput.toByteArray());
         } catch (TransformerException e) {
-            Log.w(TAG, "Failed to transform object to xml and save temporary config file", e);
-            return;
-        } catch (FileNotFoundException e) {
-            Log.w(TAG, "Failed to save temporary config file, FileNotFoundException", e);
-        } catch (UnsupportedEncodingException e) {
-            Log.w(TAG, "Failed to save temporary config file, UnsupportedEncodingException", e);
-        } catch (IOException e) {
-            Log.w(TAG, "Failed to save temporary config file, IOException", e);
-        }
-        try {
-            mConfigTempFile.renameTo(mConfigFile);
-        } catch (Exception e) {
-            Log.w(TAG, "Failed to rename temporary config file to original file");
+            Log.w(TAG, "Failed to transform Syncthing config", e);
+        } catch (IOException | SyncthingStateAccessException e) {
+            Log.w(TAG, "Failed to save Syncthing config", e);
         }
     }
 

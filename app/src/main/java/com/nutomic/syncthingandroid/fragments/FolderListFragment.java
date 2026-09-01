@@ -23,6 +23,7 @@ import com.nutomic.syncthingandroid.service.AppPrefs;
 import com.nutomic.syncthingandroid.service.Constants;
 import com.nutomic.syncthingandroid.service.RestApi;
 import com.nutomic.syncthingandroid.service.SyncthingService;
+import com.nutomic.syncthingandroid.superuser.SuperuserRuntimeStatus;
 import com.nutomic.syncthingandroid.util.ConfigRouter;
 import com.nutomic.syncthingandroid.util.ConfigXml.OpenConfigException;
 import com.nutomic.syncthingandroid.views.FoldersAdapter;
@@ -58,6 +59,9 @@ public class FolderListFragment extends ListFragment implements SyncthingService
     private Boolean mLastVisibleToUser = false;
     private FoldersAdapter mAdapter;
     private SyncthingService.State mServiceState = SyncthingService.State.INIT;
+    private SuperuserRuntimeStatus.State mSuperuserRuntimeState =
+            SuperuserRuntimeStatus.State.NORMAL;
+    private boolean mListDataLoaded;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -108,6 +112,12 @@ public class FolderListFragment extends ListFragment implements SyncthingService
     @Override
     public void onServiceStateChange(SyncthingService.State currentState) {
         mServiceState = currentState;
+        renderServiceState();
+        if (mSuperuserRuntimeState == SuperuserRuntimeStatus.State.SUPERUSER_READY
+                && currentState != SyncthingService.State.SUPERUSER_UNAVAILABLE
+                && !mListDataLoaded) {
+            updateList();
+        }
     }
 
     @Override
@@ -117,6 +127,55 @@ public class FolderListFragment extends ListFragment implements SyncthingService
         setHasOptionsMenu(true);
         setEmptyText(getString(R.string.folder_list_empty));
         getListView().setOnItemClickListener(this);
+        renderServiceState();
+    }
+
+    /**
+     * Updates the list empty state without reading Syncthing configuration. Root access can become
+     * unavailable while this fragment is already displayed, so the UI must render that condition
+     * locally instead of waiting for a configuration request to finish.
+     */
+    private void renderServiceState() {
+        refreshSuperuserRuntimeState();
+        if (getView() == null) {
+            return;
+        }
+        if (mSuperuserRuntimeState == SuperuserRuntimeStatus.State.AUTHORIZING) {
+            setEmptyText(getString(R.string.use_root_requesting));
+            clearRowsAndShowList();
+        } else if (mSuperuserRuntimeState == SuperuserRuntimeStatus.State.SUPERUSER_UNAVAILABLE
+                || mServiceState == SyncthingService.State.SUPERUSER_UNAVAILABLE) {
+            setEmptyText(getString(R.string.syncthing_superuser_unavailable));
+            clearRowsAndShowList();
+        } else {
+            setEmptyText(getString(R.string.folder_list_empty));
+            if (!mListDataLoaded) {
+                setListShown(false);
+            }
+        }
+    }
+
+    /** Copies the bound service's runtime authorization state into this fragment's UI projection. */
+    private void refreshSuperuserRuntimeState() {
+        SyncthingActivity activity = (SyncthingActivity) getActivity();
+        if (activity == null) {
+            return;
+        }
+        SyncthingService service = activity.getService();
+        if (service == null) {
+            return;
+        }
+        mSuperuserRuntimeState = service.getSuperuserRuntimeStatus().state();
+    }
+
+    private void clearRowsAndShowList() {
+        mListDataLoaded = false;
+        if (mAdapter != null) {
+            mAdapter.setNotifyOnChange(false);
+            mAdapter.clear();
+            mAdapter.notifyDataSetChanged();
+        }
+        setListShown(true);
     }
 
     /**
@@ -147,6 +206,13 @@ public class FolderListFragment extends ListFragment implements SyncthingService
         if (activity == null || getView() == null || activity.isFinishing()) {
             return;
         }
+        refreshSuperuserRuntimeState();
+        if (mSuperuserRuntimeState == SuperuserRuntimeStatus.State.AUTHORIZING
+                || mSuperuserRuntimeState == SuperuserRuntimeStatus.State.SUPERUSER_UNAVAILABLE
+                || mServiceState == SyncthingService.State.SUPERUSER_UNAVAILABLE) {
+            renderServiceState();
+            return;
+        }
         if (mConfigRouter == null) {
             mConfigRouter = new ConfigRouter(activity);
         }
@@ -172,6 +238,7 @@ public class FolderListFragment extends ListFragment implements SyncthingService
         mAdapter.clear();
         mAdapter.addAll(folders);
         mAdapter.notifyDataSetChanged();
+        mListDataLoaded = true;
         setListShown(true);
     }
 

@@ -19,6 +19,7 @@ import com.nutomic.syncthingandroid.activities.FolderActivity;
 import com.nutomic.syncthingandroid.activities.LogActivity;
 import com.nutomic.syncthingandroid.activities.MainActivity;
 import com.nutomic.syncthingandroid.onboarding.OnboardingActivity;
+import com.nutomic.syncthingandroid.settings.SettingsActivity;
 import com.nutomic.syncthingandroid.service.SyncthingService.State;
 
 import javax.inject.Inject;
@@ -113,6 +114,7 @@ public class NotificationHandler {
         State currentServiceState = service.getCurrentState();
         boolean syncthingRunning = currentServiceState == SyncthingService.State.ACTIVE ||
                     currentServiceState == SyncthingService.State.STARTING;
+        boolean superuserUnavailable = isSuperuserUnavailable(currentServiceState);
         boolean startForegroundService = false;
         if (!appShutdownInProgress) {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
@@ -122,7 +124,8 @@ public class NotificationHandler {
                  * running as a foreground service. For that reason, we can use a normal
                  * notification if syncthing is DISABLED.
                  */
-                startForegroundService = startServiceOnBoot || syncthingRunning;
+                startForegroundService = startServiceOnBoot || syncthingRunning
+                        || requiresPersistentUnavailableNotification(currentServiceState);
             } else {
                 /**
                  * Android 8+:
@@ -150,10 +153,11 @@ public class NotificationHandler {
         switch (currentServiceState) {
             case ERROR:
             case INIT:
-                text = mContext.getString(R.string.syncthing_terminated);
-                break;
             case DISABLED:
-                text = mContext.getString(R.string.syncthing_disabled);
+                text = mContext.getString(persistentNotificationTextRes(currentServiceState));
+                break;
+            case SUPERUSER_UNAVAILABLE:
+                text = mContext.getString(persistentNotificationTextRes(currentServiceState));
                 break;
             case STARTING:
                 text = mContext.getString(R.string.syncthing_starting);
@@ -186,7 +190,7 @@ public class NotificationHandler {
                 text = mLastNotificationText;
                 break;
             default:
-                text = mContext.getString(R.string.syncthing_terminated);
+                text = mContext.getString(persistentNotificationTextRes(currentServiceState));
                 break;
         }
 
@@ -197,7 +201,7 @@ public class NotificationHandler {
         int idToShow = syncthingRunning ? ID_PERSISTENT : ID_PERSISTENT_WAITING;
         int idToCancel = syncthingRunning ? ID_PERSISTENT_WAITING : ID_PERSISTENT;
         
-        Intent openAppIntent = new Intent(mContext, MainActivity.class);
+        Intent openAppIntent = persistentContentIntent(mContext, currentServiceState);
         
         Intent exitIntent = new Intent(mContext, MainActivity.class);
         exitIntent.setAction(MainActivity.ACTION_EXIT);
@@ -236,6 +240,35 @@ public class NotificationHandler {
 
         // Remember last notification visibility.
         lastStartForegroundService = startForegroundService;
+    }
+
+    static boolean isSuperuserUnavailable(State state) {
+        return state == State.SUPERUSER_UNAVAILABLE;
+    }
+
+    static boolean requiresPersistentUnavailableNotification(State state) {
+        return isSuperuserUnavailable(state);
+    }
+
+    static int persistentNotificationTextRes(State state) {
+        switch (state) {
+            case DISABLED:
+                return R.string.syncthing_disabled;
+            case SUPERUSER_UNAVAILABLE:
+                return R.string.syncthing_superuser_unavailable;
+            case ERROR:
+            case INIT:
+            default:
+                return R.string.syncthing_terminated;
+        }
+    }
+
+    static Intent persistentContentIntent(Context context, State state) {
+        if (isSuperuserUnavailable(state)) {
+            return new Intent(context, SettingsActivity.class)
+                    .putExtra(SettingsActivity.EXTRA_START_DESTINATION, "Behavior");
+        }
+        return new Intent(context, MainActivity.class);
     }
 
     /**

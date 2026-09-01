@@ -51,6 +51,8 @@ import com.nutomic.syncthingandroid.model.SharedWithDevice;
 import com.nutomic.syncthingandroid.model.SystemStatus;
 import com.nutomic.syncthingandroid.model.SystemVersion;
 import com.nutomic.syncthingandroid.service.Constants;
+import com.nutomic.syncthingandroid.service.folder.SyncthingFolderAccess;
+import com.nutomic.syncthingandroid.service.folder.SyncthingFolderAccessException;
 import com.nutomic.syncthingandroid.util.FileUtils;
 import com.nutomic.syncthingandroid.util.Util;
 
@@ -180,15 +182,23 @@ public class RestApi {
 
     @Inject NotificationHandler mNotificationHandler;
 
+    @Inject SyncthingFolderAccess mFolderAccess;
+
     public RestApi(Context context, URL url, String apiKey, OnApiAvailableListener apiListener,
                    OnConfigChangedListener configListener) {
+        this(context, url, apiKey, apiListener, configListener, null);
         ((SyncthingApp) context.getApplicationContext()).component().inject(this);
+    }
+
+    RestApi(Context context, URL url, String apiKey, OnApiAvailableListener apiListener,
+            OnConfigChangedListener configListener, SyncthingFolderAccess folderAccess) {
         ENABLE_VERBOSE_LOG = AppPrefs.getPrefVerboseLog(context);
         mContext = context;
         mUrl = url;
         mApiKey = apiKey;
         mOnApiAvailableListener = apiListener;
         mOnConfigChangedListener = configListener;
+        mFolderAccess = folderAccess;
         mLocalCompletion = new LocalCompletion(ENABLE_VERBOSE_LOG);
         mRemoteCompletion = new RemoteCompletion(ENABLE_VERBOSE_LOG);
         mGson = getGson();
@@ -613,7 +623,6 @@ public class RestApi {
     public void shutdown() {
         hasShutdown = true;
         executorService.shutdownNow();
-        Util.killProcess("find");
         new PostRequest(mContext, mUrl, PostRequest.URI_SYSTEM_SHUTDOWN, mApiKey,
                 null, null, null);
     }
@@ -1260,10 +1269,15 @@ public class RestApi {
 
             if (finalPlanGetSyncConflictFiles) {
                 // Check for ".sync-conflict-YYYYMMDD-HHMMSS-DEVICEI*" files.
-                mLocalCompletion.setDiscoveredConflictFiles(
-                        folderId,
-                        Util.getSyncConflictFiles(folder.path)
-                );
+                try {
+                    mLocalCompletion.setDiscoveredConflictFiles(
+                            folderId,
+                            discoverConflictFiles(folder)
+                    );
+                } catch (SyncthingFolderAccessException | RuntimeException exception) {
+                    Log.w(TAG, "Unable to discover Syncthing conflict files", exception);
+                    mLocalCompletion.setDiscoveredConflictFiles(folderId, new String[0]);
+                }
             }
 
             if (finalPlanOnFolderSyncCompleted) {
@@ -1274,6 +1288,16 @@ public class RestApi {
                 );
             }
         });
+    }
+
+    String[] discoverConflictFiles(Folder folder) throws SyncthingFolderAccessException {
+        if (folder == null || folder.path == null) {
+            throw new SyncthingFolderAccessException("Syncthing folder path is unavailable");
+        }
+        if (mFolderAccess == null) {
+            throw new SyncthingFolderAccessException("Syncthing folder access is unavailable");
+        }
+        return mFolderAccess.findSyncConflicts(folder.path);
     }
 
     public void onFolderSyncCompleted(final Folder folder, 
