@@ -10,11 +10,13 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import com.google.common.io.Files;
 import com.nutomic.syncthingandroid.R;
 import com.nutomic.syncthingandroid.SyncthingApp;
 import com.nutomic.syncthingandroid.http.PollWebGuiAvailableTask;
 import com.nutomic.syncthingandroid.model.Device;
 import com.nutomic.syncthingandroid.model.Folder;
+import com.nutomic.syncthingandroid.util.CertificateValidator;
 import com.nutomic.syncthingandroid.util.ConfigRouter;
 import com.nutomic.syncthingandroid.util.ConfigXml;
 import com.nutomic.syncthingandroid.util.FileUtils;
@@ -155,12 +157,20 @@ public class SyncthingService extends Service {
      * Outcome of {@link #replaceHttpsCertificate} / {@link #resetHttpsCertificate}.
      */
     public enum HttpsCertReplaceResult {
-        /** The new certificate was applied and Syncthing came back online with it. */
+        /** The new certificate was applied and Syncthing came back online serving it. */
         SUCCESS,
         /** The files were written but Syncthing is not currently meant to run; applies on next start. */
         SUCCESS_PENDING_START,
-        /** The change failed and the previous certificate was restored. */
-        FAILED
+        /** Writing the files failed; the previous certificate was restored. Carries a detail message. */
+        FAILED,
+        /**
+         * Syncthing came online but was not serving the new certificate: it could not load the
+         * cert/key pair and generated a replacement self-signed certificate instead of failing.
+         * The previous certificate has been restored.
+         */
+        FAILED_CERT_REJECTED,
+        /** Syncthing did not come back online at all; the previous certificate was restored. */
+        FAILED_NOT_ONLINE
     }
 
     public interface OnHttpsCertReplaceResultListener {
@@ -1141,7 +1151,10 @@ public class SyncthingService extends Service {
             return;
         }
 
-        applyCertChangeWithVerify(certFile, keyFile, certBak, keyBak, listener);
+        // Captured before the restart so we can tell afterwards whether syncthing is actually serving
+        // what we wrote, or replaced it with a self-signed certificate of its own.
+        final String expectedFingerprint = CertificateValidator.leafFingerprint(certPem);
+        applyCertChangeWithVerify(certFile, keyFile, certBak, keyBak, expectedFingerprint, listener);
     }
 
     private void doResetHttpsCertificate(OnHttpsCertReplaceResultListener listener) {
@@ -1163,14 +1176,17 @@ public class SyncthingService extends Service {
         deleteQuietly(certFile);
         deleteQuietly(keyFile);
 
-        applyCertChangeWithVerify(certFile, keyFile, certBak, keyBak, listener);
+        // No expected fingerprint: regenerating is the whole point here, so any certificate syncthing
+        // comes up with is the right one.
+        applyCertChangeWithVerify(certFile, keyFile, certBak, keyBak, null, listener);
     }
 
     private void applyCertChangeWithVerify(File certFile, File keyFile,
                                            @Nullable File certBak, @Nullable File keyBak,
+                                           @Nullable String expectedFingerprint,
                                            OnHttpsCertReplaceResultListener listener) {
         if (mLastDeterminedShouldRun) {
-            verifyRestartAndRollback(certFile, keyFile, certBak, keyBak, listener);
+            verifyRestartAndRollback(certFile, keyFile, certBak, keyBak, expectedFingerprint, listener);
         } else {
             // Not currently meant to run; the new files will take effect on next start.
             deleteQuietly(certBak);
@@ -1180,33 +1196,52 @@ public class SyncthingService extends Service {
     }
 
     /**
-     * Restarts the binary and watches the service state: success on reaching ACTIVE, failure on
-     * ERROR / an abnormal STARTING&rarr;DISABLED transition (crashed binary) / a watchdog timeout.
-     * On failure the backed-up cert/key are restored and a known-good instance is brought back up.
+     * Restarts the binary and watches the service state: failure on ERROR / an abnormal
+     * STARTING&rarr;DISABLED transition (crashed binary) / a watchdog timeout.
+     *
+     * Reaching ACTIVE is necessary but <b>not sufficient</b>. When syncthing cannot load the cert/key
+     * pair it does not fail — it generates a fresh self-signed certificate, overwrites the files, and
+     * starts normally (see {@code lib/api/api.go} {@code getListener}). So success additionally
+     * requires the certificate on disk to still be the one we wrote, identified by
+     * {@code expectedFingerprint}.
+     *
+     * On any failure the backed-up cert/key are restored and a known-good instance is brought back up.
      */
     private void verifyRestartAndRollback(File certFile, File keyFile,
                                           @Nullable File certBak, @Nullable File keyBak,
+                                          @Nullable String expectedFingerprint,
                                           OnHttpsCertReplaceResultListener listener) {
         final boolean[] resolved = {false};
         final boolean[] sawStarting = {false};
         final OnServiceStateChangeListener[] verifyListener = new OnServiceStateChangeListener[1];
         final Runnable[] watchdog = new Runnable[1];
+        final HttpsCertReplaceResult[] failureReason = {HttpsCertReplaceResult.FAILED_NOT_ONLINE};
 
-        final Runnable finishSuccess = () -> {
-            deleteQuietly(certBak);
-            deleteQuietly(keyBak);
-            listener.onResult(HttpsCertReplaceResult.SUCCESS, null);
-        };
         final Runnable finishFailure = () -> {
-            restoreFile(certBak, certFile);
-            restoreFile(keyBak, keyFile);
-            // Bring the previous, known-good certificate back online.
+            // Stop first, then restore. In the FAILED_CERT_REJECTED case syncthing is running and
+            // serving a certificate that differs from the file on disk; restoring the file underneath
+            // a live instance would leave ApiRequest pinning against a certificate that is not the one
+            // being served, so any request in that window fails.
             if (mCurrentState != State.DISABLED && mCurrentState != State.INIT) {
                 shutdown(State.INIT);
             }
+            restoreFile(certBak, certFile);
+            restoreFile(keyBak, keyFile);
+            // Bring the previous, known-good certificate back online.
             launchStartupTask(SyncthingRunnable.Command.main);
-            listener.onResult(HttpsCertReplaceResult.FAILED,
-                    "Syncthing did not come online with the new certificate.");
+            listener.onResult(failureReason[0], null);
+        };
+        final Runnable finishSuccess = () -> {
+            if (expectedFingerprint != null && !certFileHasFingerprint(certFile, expectedFingerprint)) {
+                Log.w(TAG, "verifyRestartAndRollback: Syncthing replaced the supplied certificate " +
+                        "with a generated one; rolling back.");
+                failureReason[0] = HttpsCertReplaceResult.FAILED_CERT_REJECTED;
+                finishFailure.run();
+                return;
+            }
+            deleteQuietly(certBak);
+            deleteQuietly(keyBak);
+            listener.onResult(HttpsCertReplaceResult.SUCCESS, null);
         };
 
         watchdog[0] = () -> {
@@ -1253,6 +1288,19 @@ public class SyncthingService extends Service {
         registerOnServiceStateChangeListener(verifyListener[0]);
         mHandler.postDelayed(watchdog[0], HTTPS_CERT_VERIFY_TIMEOUT_MS);
         launchStartupTask(SyncthingRunnable.Command.main);
+    }
+
+    /**
+     * Whether the certificate currently on disk is the one identified by {@code expected}. A missing
+     * or unreadable file counts as "not it", which routes to the rollback path.
+     */
+    private boolean certFileHasFingerprint(File certFile, String expected) {
+        try {
+            return expected.equals(CertificateValidator.leafFingerprint(Files.toByteArray(certFile)));
+        } catch (IOException e) {
+            Log.w(TAG, "certFileHasFingerprint: Failed to read " + certFile.getName(), e);
+            return false;
+        }
     }
 
     @Nullable
