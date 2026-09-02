@@ -731,4 +731,7 @@
     <string name="cert_check_trust">Zaufany przez to urządzenie</string>
     <string name="cert_check_validity">Okres ważności</string>
     <string name="cert_check_key">Klucz prywatny</string>
+    <string name="web_gui_load_failed">Nie udało się załadować interfejsu sieciowego. Proszę zapisać dziennik i zgłosić ten problem.</string>
+    <string name="more_options">Więcej opcji</string>
+    <string name="show_exact_times">Pokaż dokładne godziny</string>
 </resources>

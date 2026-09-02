@@ -770,4 +770,7 @@
     <string name="cert_check_trust">受此设备信任</string>
     <string name="cert_check_validity">有效期</string>
     <string name="cert_check_key">私钥</string>
+    <string name="web_gui_load_failed">无法加载 Web GUI。请捕获日志并报告此问题。</string>
+    <string name="more_options">更多选项</string>
+    <string name="show_exact_times">显示确切时间</string>
 </resources>
