@@ -770,7 +770,7 @@ public class FolderActivity extends SyncthingActivity {
          */
         final String requestedPath = mFolder.path;
         mCanWriteToPath = false;
-        updateWriteabilityUi(false);
+        updateWriteabilityUi(false, true);
         mFolderAccessExecutor.execute(() -> {
             boolean canWrite = false;
             try {
@@ -784,12 +784,16 @@ public class FolderActivity extends SyncthingActivity {
                     return;
                 }
                 mCanWriteToPath = result;
-                updateWriteabilityUi(result);
+                updateWriteabilityUi(result, false);
             });
         });
     }
 
-    private void updateWriteabilityUi(boolean canWrite) {
+    static boolean shouldForceSendOnly(boolean canWrite, boolean probing) {
+        return !canWrite && !probing;
+    }
+
+    private void updateWriteabilityUi(boolean canWrite, boolean probing) {
         if (canWrite) {
             mAccessExplanationView.setText(R.string.folder_path_readwrite);
             mFolderTypeView.setEnabled(true);
@@ -811,13 +815,16 @@ public class FolderActivity extends SyncthingActivity {
                 mEditIgnoreListContent.setEnabled(true);
             }
         } else {
-            // Force "sendonly" folder.
+            // Force "sendonly" only after the access probe completed. The pessimistic transient
+            // render must not mutate a writable folder while its result is still unknown.
             mAccessExplanationView.setText(R.string.folder_path_readonly);
             mFolderTypeView.setEnabled(false);
             mEditIgnoreListTitle.setEnabled(false);
             mEditIgnoreListContent.setEnabled(false);
-            mFolder.type = Constants.FOLDER_TYPE_SEND_ONLY;
-            updateFolderTypeDescription();
+            if (shouldForceSendOnly(canWrite, probing)) {
+                mFolder.type = Constants.FOLDER_TYPE_SEND_ONLY;
+                updateFolderTypeDescription();
+            }
         }
     }
 

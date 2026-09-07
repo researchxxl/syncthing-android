@@ -17,6 +17,7 @@ import com.nutomic.syncthingandroid.service.folder.SyncthingFolderAccessExceptio
 import com.nutomic.syncthingandroid.service.state.NormalSyncthingStateTransfer;
 import com.nutomic.syncthingandroid.service.state.SyncthingStateAccessException;
 import com.nutomic.syncthingandroid.service.state.SyncthingStateFile;
+import com.nutomic.syncthingandroid.util.FileUtils;
 import com.topjohnwu.superuser.ipc.RootService;
 
 import java.io.File;
@@ -27,7 +28,10 @@ import java.io.InputStreamReader;
 import java.io.BufferedReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -44,6 +48,17 @@ public final class SyncthingSuperuserService extends RootService {
     private static final long ORPHAN_GRACEFUL_WAIT_MS = 5_000L;
     private static final long ORPHAN_POLL_INTERVAL_MS = 100L;
     private static final long PROCESS_WAIT_POLL_INTERVAL_MS = 25L;
+    private static final long MAX_CONFLICT_RESULT_BYTES = 64L * 1024L;
+    private static final int MAX_CONFLICT_RESULT_ITEMS = 512;
+
+    private static final Set<String> ACCEPTED_ENVIRONMENT_KEYS = Set.of(
+            "HOME", "STHOMEDIR", "SQLITE_TMPDIR", "STMONITORED", "STNOUPGRADE",
+            "STVERSIONEXTRA", "STTRACE", "GOGC", "FALLBACK_NET_GATEWAY_IPV4", "all_proxy",
+            "ALL_PROXY_NO_FALLBACK", "http_proxy", "https_proxy");
+    private static final Set<String> SERVER_CONTROLLED_ENVIRONMENT_KEYS = Set.of(
+            "HOME", "STHOMEDIR", "SQLITE_TMPDIR", "STMONITORED", "STNOUPGRADE",
+            "STVERSIONEXTRA");
+    private static final SecureFileAccess FILE_ACCESS = SecureFileAccess.production();
 
     private static final SuperuserStateTransferOperations STATE_TRANSFER_OPERATIONS =
             new SuperuserStateTransferOperations() {
@@ -205,12 +220,22 @@ public final class SyncthingSuperuserService extends RootService {
                     "Syncthing log file is not prepared by the app process");
         }
 
+        Map<String, String> requestedEnvironment = new HashMap<>();
         for (String key : environment.keySet()) {
             Object value = environment.get(key);
-            if (!validEnvironmentKey(key) || !(value instanceof String)
-                    || ((String) value).indexOf('\0') >= 0) {
+            if (!(value instanceof String)) {
                 return invalidRequest("Syncthing environment contains an invalid entry");
             }
+            requestedEnvironment.put(key, (String) value);
+        }
+
+        final Map<String, String> safeEnvironment;
+        try {
+            safeEnvironment = sanitizeEnvironment(requestedEnvironment,
+                    FileUtils.getSyncthingTildeAbsolutePath(), getFilesDir().getAbsolutePath(),
+                    getCacheDir().getAbsolutePath(), getString(com.nutomic.syncthingandroid.R.string.app_name));
+        } catch (IllegalArgumentException exception) {
+            return invalidRequest("Syncthing environment contains an invalid entry");
         }
 
         ProcessIdentityStore identityStore = getIdentityStore();
@@ -226,9 +251,8 @@ public final class SyncthingSuperuserService extends RootService {
             ProcessBuilder builder;
             try {
                 builder = new ProcessBuilder(command.argv(Constants.getSyncthingBinary(this)));
-                for (String key : environment.keySet()) {
-                    builder.environment().put(key, (String) environment.get(key));
-                }
+                builder.environment().clear();
+                builder.environment().putAll(safeEnvironment);
                 mOwnedCore = builder.start();
                 mOwnedIdentity = null;
                 mCaptureStdout = captureStdout;
@@ -593,12 +617,18 @@ public final class SyncthingSuperuserService extends RootService {
             return new SuperuserStateFileResult(SuperuserErrorCode.INVALID_REQUEST.wireCode(),
                     "Unknown Syncthing state file", null);
         }
-        if (!stateFile.isFile()) {
-            return new SuperuserStateFileResult(SuperuserErrorCode.OK.wireCode(), "", null);
-        }
         try {
-            return new SuperuserStateFileResult(SuperuserErrorCode.OK.wireCode(), "",
-                    ParcelFileDescriptor.open(stateFile, ParcelFileDescriptor.MODE_READ_ONLY));
+            try (SecureFileAccess.OpenedFile opened = FILE_ACCESS.openExistingRegular(
+                    stateFile, android.system.OsConstants.O_RDONLY)) {
+                return new SuperuserStateFileResult(SuperuserErrorCode.OK.wireCode(), "",
+                        opened.duplicate());
+            }
+        } catch (SecureFileAccess.AccessException exception) {
+            if (exception.errno() == android.system.OsConstants.ENOENT) {
+                return new SuperuserStateFileResult(SuperuserErrorCode.OK.wireCode(), "", null);
+            }
+            return new SuperuserStateFileResult(SuperuserErrorCode.STATE_ACCESS_FAILED.wireCode(),
+                    "Failed to open Syncthing state", null);
         } catch (IOException | SecurityException exception) {
             return new SuperuserStateFileResult(SuperuserErrorCode.STATE_ACCESS_FAILED.wireCode(),
                     "Failed to open Syncthing state", null);
@@ -619,9 +649,12 @@ public final class SyncthingSuperuserService extends RootService {
 
         File target = stateFile.resolve(getFilesDir());
         File temporary = new File(getFilesDir(), stateFile.fileName() + ".superuser.tmp");
+        boolean temporaryCreated = false;
         try (ParcelFileDescriptor.AutoCloseInputStream input =
                      new ParcelFileDescriptor.AutoCloseInputStream(source);
-             FileOutputStream output = new FileOutputStream(temporary)) {
+             SecureFileAccess.OpenedFile temporaryFile = FILE_ACCESS.createNewRegular(temporary)) {
+            temporaryCreated = true;
+            FileOutputStream output = new FileOutputStream(temporaryFile.descriptor());
             byte[] buffer = new byte[8192];
             int count;
             long total = 0;
@@ -634,7 +667,7 @@ public final class SyncthingSuperuserService extends RootService {
                 output.write(buffer, 0, count);
             }
             output.flush();
-            output.getFD().sync();
+            temporaryFile.sync();
             if (!temporary.renameTo(target)) {
                 return SuperuserOperationResult.failure(SuperuserErrorCode.STATE_ACCESS_FAILED,
                         "Failed to install Syncthing state");
@@ -644,7 +677,7 @@ public final class SyncthingSuperuserService extends RootService {
             return SuperuserOperationResult.failure(SuperuserErrorCode.STATE_ACCESS_FAILED,
                     "Failed to write Syncthing state");
         } finally {
-            if (temporary.exists() && !temporary.delete()) {
+            if (temporaryCreated && temporary.exists() && !temporary.delete()) {
                 // The temporary file is confined to the fixed app-private directory.
             }
         }
@@ -863,12 +896,72 @@ public final class SyncthingSuperuserService extends RootService {
         try {
             String[] conflicts = new NormalSyncthingFolderAccess(this)
                     .findSyncConflicts(absolutePath);
-            return new SuperuserStringListResult(SuperuserErrorCode.OK.wireCode(), "", conflicts);
+            return boundedConflictResult(conflicts);
         } catch (SyncthingFolderAccessException exception) {
             return new SuperuserStringListResult(
                     SuperuserErrorCode.FOLDER_ACCESS_FAILED.wireCode(),
                     "Root conflict discovery failed", new String[0]);
         }
+    }
+
+    /** Returns a Binder-safe conflict result and explicitly reports omitted entries. */
+    static SuperuserStringListResult boundedConflictResult(String[] conflicts) {
+        if (conflicts == null) {
+            return new SuperuserStringListResult(
+                    SuperuserErrorCode.FOLDER_ACCESS_FAILED.wireCode(),
+                    "Root conflict discovery returned no result", new String[0]);
+        }
+
+        List<String> bounded = new ArrayList<>();
+        long serializedBytes = 4L;
+        boolean truncated = false;
+        for (String conflict : conflicts) {
+            if (conflict == null) {
+                truncated = true;
+                break;
+            }
+            long entryBytes = 4L + (long) conflict.length() * 2L;
+            if (bounded.size() >= MAX_CONFLICT_RESULT_ITEMS
+                    || serializedBytes + entryBytes > MAX_CONFLICT_RESULT_BYTES) {
+                truncated = true;
+                break;
+            }
+            bounded.add(conflict);
+            serializedBytes += entryBytes;
+        }
+        return new SuperuserStringListResult(SuperuserErrorCode.OK.wireCode(), "",
+                bounded.toArray(new String[0]), truncated);
+    }
+
+    /** Builds the only environment that the UID-0 process is allowed to inherit. */
+    static Map<String, String> sanitizeEnvironment(Map<String, String> requested,
+                                                   String home, String stateHome,
+                                                   String sqliteTempDir, String versionExtra) {
+        if (requested == null || home == null || stateHome == null || sqliteTempDir == null
+                || versionExtra == null) {
+            throw new IllegalArgumentException("Syncthing environment values must not be null");
+        }
+
+        Map<String, String> safe = new HashMap<>();
+        safe.put("HOME", home);
+        safe.put("STHOMEDIR", stateHome);
+        safe.put("SQLITE_TMPDIR", sqliteTempDir);
+        safe.put("STMONITORED", "1");
+        safe.put("STNOUPGRADE", "1");
+        safe.put("STVERSIONEXTRA", versionExtra);
+
+        for (Map.Entry<String, String> entry : requested.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            if (!validEnvironmentKey(key) || !ACCEPTED_ENVIRONMENT_KEYS.contains(key)
+                    || value == null || value.indexOf('\0') >= 0) {
+                throw new IllegalArgumentException("Syncthing environment contains an invalid entry");
+            }
+            if (!SERVER_CONTROLLED_ENVIRONMENT_KEYS.contains(key)) {
+                safe.put(key, value);
+            }
+        }
+        return safe;
     }
 
     private SuperuserOperationResult repairAppPrivateStateInternal(int appUid, int appGid) {

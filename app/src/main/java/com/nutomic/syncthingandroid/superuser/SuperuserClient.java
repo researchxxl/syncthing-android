@@ -39,6 +39,7 @@ public final class SuperuserClient implements SuperuserCoreClient, SuperuserMode
     private final Context mContext;
     private final RootBindingAdapter mBindingAdapter;
     private final RootPreflightAdapter mRootPreflightAdapter;
+    private final ProcessIdentityStore mIdentityStore;
     private final Object mLock = new Object();
 
     private ISyncthingSuperuserService mService;
@@ -50,15 +51,21 @@ public final class SuperuserClient implements SuperuserCoreClient, SuperuserMode
     private boolean mDeathNotified;
 
     public SuperuserClient(Context context) {
-        this(context, new LibsuRootBindingAdapter(), new LibsuRootPreflightAdapter());
+        this(context, new LibsuRootBindingAdapter(), new LibsuRootPreflightAdapter(), null);
     }
 
     SuperuserClient(Context context, RootBindingAdapter bindingAdapter) {
-        this(context, bindingAdapter, new LibsuRootPreflightAdapter());
+        this(context, bindingAdapter, new LibsuRootPreflightAdapter(), null);
     }
 
     SuperuserClient(Context context, RootBindingAdapter bindingAdapter,
                     RootPreflightAdapter rootPreflightAdapter) {
+        this(context, bindingAdapter, rootPreflightAdapter, null);
+    }
+
+    SuperuserClient(Context context, RootBindingAdapter bindingAdapter,
+                    RootPreflightAdapter rootPreflightAdapter,
+                    ProcessIdentityStore identityStore) {
         if (context == null) {
             throw new IllegalArgumentException("context must not be null");
         }
@@ -72,6 +79,7 @@ public final class SuperuserClient implements SuperuserCoreClient, SuperuserMode
         mContext = applicationContext == null ? context : applicationContext;
         mBindingAdapter = bindingAdapter;
         mRootPreflightAdapter = rootPreflightAdapter;
+        mIdentityStore = identityStore == null ? new ProcessIdentityStore(mContext) : identityStore;
     }
 
     /**
@@ -95,7 +103,7 @@ public final class SuperuserClient implements SuperuserCoreClient, SuperuserMode
             return SuperuserOperationResult.failure(SuperuserErrorCode.TIMEOUT,
                     "Root service binding timeout must be positive");
         }
-        if (!new ProcessIdentityStore(mContext).ensureExists()) {
+        if (!mIdentityStore.ensureExists()) {
             return SuperuserOperationResult.failure(SuperuserErrorCode.STATE_ACCESS_FAILED,
                     "Root process identity record is unavailable");
         }

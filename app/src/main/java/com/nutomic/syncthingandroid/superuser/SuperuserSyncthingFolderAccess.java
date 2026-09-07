@@ -32,6 +32,10 @@ public final class SuperuserSyncthingFolderAccess implements SyncthingFolderAcce
         SuperuserStringListResult result = mClient.findSyncConflicts(
                 absoluteConfiguredFolderPath);
         requireSuccess(result, "Failed to discover Syncthing conflict files");
+        if (result.truncated) {
+            throw new SyncthingFolderAccessException(
+                    "Syncthing conflict discovery returned too many files");
+        }
         return result.values == null ? new String[0] : result.values.clone();
     }
 

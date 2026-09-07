@@ -1,12 +1,13 @@
 package com.nutomic.syncthingandroid.superuser;
 
 import android.content.Context;
+import android.system.OsConstants;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.RandomAccessFile;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -26,29 +27,36 @@ public final class ProcessIdentityStore {
     private static final int MAX_RECORD_BYTES = 16 * 1024;
 
     private final File mRecordFile;
+    private final SecureFileAccess mFileAccess;
 
     public ProcessIdentityStore(Context context) {
-        this(new File(context.getNoBackupFilesDir(), RECORD_FILE_NAME));
+        this(new File(context.getNoBackupFilesDir(), RECORD_FILE_NAME),
+                SecureFileAccess.production());
     }
 
     ProcessIdentityStore(File recordFile) {
+        this(recordFile, SecureFileAccess.production());
+    }
+
+    ProcessIdentityStore(File recordFile, SecureFileAccess fileAccess) {
         if (recordFile == null) {
             throw new IllegalArgumentException("recordFile must not be null");
         }
+        if (fileAccess == null) {
+            throw new IllegalArgumentException("fileAccess must not be null");
+        }
         mRecordFile = recordFile;
+        mFileAccess = fileAccess;
     }
 
     /** Returns the current record; a missing file is the only implicit clear state. */
     public Snapshot read() {
-        if (!mRecordFile.exists()) {
-            return Snapshot.clear();
-        }
-        if (!mRecordFile.isFile()) {
-            return Snapshot.corrupt();
-        }
-
-        try {
-            String content = readUtf8(mRecordFile);
+        try (SecureFileAccess.OpenedFile record = mFileAccess.openExistingRegular(
+                mRecordFile, OsConstants.O_RDONLY)) {
+            // The OpenedFile owns the descriptor; closing the stream itself would close the same
+            // descriptor before the owner can release it.
+            FileInputStream input = new FileInputStream(record.descriptor());
+            String content = readUtf8(input);
             String[] fields = content.split("\\n", -1);
             if (fields.length != 6) {
                 return Snapshot.corrupt();
@@ -77,6 +85,9 @@ public final class ProcessIdentityStore {
                 return Snapshot.corrupt();
             }
             return new Snapshot(state, new ProcessIdentity(pid, startTimeTicks, executable));
+        } catch (SecureFileAccess.AccessException exception) {
+            return exception.errno() == OsConstants.ENOENT
+                    ? Snapshot.clear() : Snapshot.corrupt();
         } catch (IOException | IllegalArgumentException | SecurityException exception) {
             return Snapshot.corrupt();
         }
@@ -89,13 +100,21 @@ public final class ProcessIdentityStore {
             if (parent != null && !parent.exists() && !parent.mkdirs() && !parent.isDirectory()) {
                 return false;
             }
-            if (!mRecordFile.exists()) {
-                if (!mRecordFile.createNewFile()) {
-                    return false;
-                }
-                return writeRecord(ProcessIdentityRecordState.CLEAR, null);
+            try (SecureFileAccess.OpenedFile ignored = mFileAccess.createNewRegular(mRecordFile)) {
+                // The file is created with a regular, app-owned inode before the root service can
+                // ever open it.
             }
-            return mRecordFile.isFile();
+            return writeRecord(ProcessIdentityRecordState.CLEAR, null);
+        } catch (SecureFileAccess.AccessException exception) {
+            if (exception.errno() != OsConstants.EEXIST) {
+                return false;
+            }
+            try (SecureFileAccess.OpenedFile ignored = mFileAccess.openExistingRegular(
+                    mRecordFile, OsConstants.O_RDONLY)) {
+                return true;
+            } catch (IOException | SecurityException ignored) {
+                return false;
+            }
         } catch (IOException | SecurityException exception) {
             return false;
         }
@@ -166,9 +185,6 @@ public final class ProcessIdentityStore {
     }
 
     private boolean writeRecord(ProcessIdentityRecordState state, ProcessIdentity identity) {
-        if (!mRecordFile.exists() || !mRecordFile.isFile()) {
-            return false;
-        }
         int pid = identity == null ? -1 : identity.pid();
         long startTimeTicks = identity == null ? 0 : identity.startTimeTicks();
         String executable = identity == null ? "" : encodeHex(identity.executable());
@@ -176,19 +192,24 @@ public final class ProcessIdentityStore {
                 + startTimeTicks + "\n" + executable + "\n";
         String content = payload + sha256Hex(payload);
         byte[] bytes = content.getBytes(StandardCharsets.UTF_8);
-        try (RandomAccessFile output = new RandomAccessFile(mRecordFile, "rw")) {
-            output.setLength(0);
+        try (SecureFileAccess.OpenedFile record = mFileAccess.openExistingRegular(
+                mRecordFile, OsConstants.O_RDWR)) {
+            record.truncate(0);
+            // The OpenedFile owns the descriptor; it is flushed and synced before the owner closes
+            // it, without allowing the stream to close the descriptor independently.
+            FileOutputStream output = new FileOutputStream(record.descriptor());
             output.write(bytes);
-            output.getFD().sync();
+            output.flush();
+            record.sync();
             return true;
         } catch (IOException | SecurityException exception) {
             return false;
         }
     }
 
-    private static String readUtf8(File file) throws IOException {
-        try (FileInputStream input = new FileInputStream(file);
-             ByteArrayOutputStream output = new ByteArrayOutputStream()) {
+    private static String readUtf8(InputStream input) throws IOException {
+        java.io.ByteArrayOutputStream output = new java.io.ByteArrayOutputStream();
+        try {
             byte[] buffer = new byte[1024];
             int total = 0;
             int count;
@@ -200,6 +221,8 @@ public final class ProcessIdentityStore {
                 output.write(buffer, 0, count);
             }
             return output.toString(StandardCharsets.UTF_8.name());
+        } finally {
+            output.close();
         }
     }
 

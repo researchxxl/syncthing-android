@@ -47,7 +47,8 @@ public class OrphanRecoveryPolicyTest {
         Path directory = Files.createTempDirectory("orphan-corrupt");
         File recordFile = directory.resolve("identity").toFile();
         Files.writeString(recordFile.toPath(), "corrupt");
-        ProcessIdentityStore store = new ProcessIdentityStore(recordFile);
+        ProcessIdentityStore store = new ProcessIdentityStore(recordFile,
+                new JavaSecureFileAccess());
         RecoveryFixture fixture = new RecoveryFixture(store, ProcessIdentityRecordState.CORRUPT);
 
         OrphanRecoveryPolicy.Result result = fixture.recover();
@@ -110,7 +111,7 @@ public class OrphanRecoveryPolicyTest {
                                             ProbeResult... probes) throws Exception {
         Path directory = Files.createTempDirectory("orphan-recovery");
         ProcessIdentityStore store = new ProcessIdentityStore(
-                directory.resolve("identity").toFile());
+                directory.resolve("identity").toFile(), new JavaSecureFileAccess());
         store.ensureExists();
         if (state == ProcessIdentityRecordState.RUNNING) {
             store.writeRunning(IDENTITY);

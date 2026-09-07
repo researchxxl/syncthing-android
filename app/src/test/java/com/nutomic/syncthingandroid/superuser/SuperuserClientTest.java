@@ -50,7 +50,7 @@ public class SuperuserClientTest {
     public void finalizedDeniedGrantReturnsBeforeBinding() {
         FakeRootBindingAdapter binding = new FakeRootBindingAdapter();
         FakeRootPreflightAdapter preflight = new FakeRootPreflightAdapter(Boolean.FALSE);
-        SuperuserClient client = new SuperuserClient(context(), binding, preflight);
+        SuperuserClient client = newClient(binding, preflight);
 
         SuperuserOperationResult result = client.connectBlocking(1000);
 
@@ -64,7 +64,7 @@ public class SuperuserClientTest {
     public void undeterminedDeniedGrantReturnsBeforeBinding() {
         FakeRootBindingAdapter binding = new FakeRootBindingAdapter();
         FakeRootPreflightAdapter preflight = new FakeRootPreflightAdapter(null, Boolean.FALSE);
-        SuperuserClient client = new SuperuserClient(context(), binding, preflight);
+        SuperuserClient client = newClient(binding, preflight);
 
         SuperuserOperationResult result = client.connectBlocking(1000);
 
@@ -79,7 +79,7 @@ public class SuperuserClientTest {
         FakeRootBindingAdapter binding = new FakeRootBindingAdapter();
         binding.completeWith(rootBinder());
         FakeRootPreflightAdapter preflight = new FakeRootPreflightAdapter(null, Boolean.TRUE);
-        SuperuserClient client = new SuperuserClient(context(), binding, preflight);
+        SuperuserClient client = newClient(binding, preflight);
 
         SuperuserOperationResult result = client.connectBlocking(1000);
 
@@ -94,7 +94,7 @@ public class SuperuserClientTest {
     public void undeterminedGrantRemainsPendingUntilPreflightCallback() throws Exception {
         FakeRootBindingAdapter binding = new FakeRootBindingAdapter();
         FakeRootPreflightAdapter preflight = new FakeRootPreflightAdapter(null, null);
-        SuperuserClient client = new SuperuserClient(context(), binding, preflight);
+        SuperuserClient client = newClient(binding, preflight);
         ExecutorService executor = Executors.newSingleThreadExecutor();
 
         try {
@@ -119,7 +119,7 @@ public class SuperuserClientTest {
         FakeRootBindingAdapter binding = new FakeRootBindingAdapter();
         binding.completeWith(rootBinder());
         FakeRootPreflightAdapter preflight = new FakeRootPreflightAdapter(null, null);
-        SuperuserClient client = new SuperuserClient(context(), binding, preflight);
+        SuperuserClient client = newClient(binding, preflight);
         AtomicReference<SuperuserOperationResult> firstResult = new AtomicReference<>();
         Thread worker = new Thread(
                 () -> firstResult.set(client.connectBlocking(1000)),
@@ -162,7 +162,7 @@ public class SuperuserClientTest {
                 callback.onFailure();
             }
         };
-        SuperuserClient client = new SuperuserClient(context(), binding, preflight);
+        SuperuserClient client = newClient(binding, preflight);
 
         SuperuserOperationResult result = client.connectBlocking(1000);
 
@@ -184,7 +184,7 @@ public class SuperuserClientTest {
                 throw new IllegalStateException("libsu acquisition failed");
             }
         };
-        SuperuserClient client = new SuperuserClient(context(), binding, preflight);
+        SuperuserClient client = newClient(binding, preflight);
 
         SuperuserOperationResult result = client.connectBlocking(1000);
 
@@ -197,7 +197,7 @@ public class SuperuserClientTest {
         FakeRootBindingAdapter binding = new FakeRootBindingAdapter();
         binding.completeWith(rootBinder());
         FakeRootPreflightAdapter preflight = new FakeRootPreflightAdapter(null, null);
-        SuperuserClient client = new SuperuserClient(context(), binding, preflight);
+        SuperuserClient client = newClient(binding, preflight);
         ExecutorService executor = Executors.newFixedThreadPool(2);
 
         try {
@@ -225,7 +225,7 @@ public class SuperuserClientTest {
         FakeRootBindingAdapter binding = new FakeRootBindingAdapter();
         binding.completeWith(rootBinder());
         FakeRootPreflightAdapter preflight = new FakeRootPreflightAdapter(null, Boolean.FALSE);
-        SuperuserClient client = new SuperuserClient(context(), binding, preflight);
+        SuperuserClient client = newClient(binding, preflight);
 
         assertEquals(SuperuserErrorCode.ROOT_UNAVAILABLE,
                 client.connectBlocking(1000).error());
@@ -242,7 +242,7 @@ public class SuperuserClientTest {
         FakeRootBindingAdapter binding = new FakeRootBindingAdapter();
         binding.completeWith(rootBinder());
         FakeRootPreflightAdapter preflight = new FakeRootPreflightAdapter(Boolean.TRUE);
-        SuperuserClient client = new SuperuserClient(context(), binding, preflight);
+        SuperuserClient client = newClient(binding, preflight);
 
         SuperuserOperationResult result = client.connectBlocking(1000);
 
@@ -266,7 +266,7 @@ public class SuperuserClientTest {
                 throw new AssertionError("Root resolution should not be requested");
             }
         };
-        SuperuserClient client = new SuperuserClient(context(), binding, preflight);
+        SuperuserClient client = newClient(binding, preflight);
 
         SuperuserOperationResult result = client.connectBlocking(1000);
 
@@ -374,7 +374,10 @@ public class SuperuserClientTest {
 
     private static SuperuserClient newClient(FakeRootBindingAdapter binding,
                                              RootPreflightAdapter preflightAdapter) {
-        return new SuperuserClient(context(), binding, preflightAdapter);
+        ProcessIdentityStore identityStore = new ProcessIdentityStore(
+                new File(context().getNoBackupFilesDir(), ProcessIdentityStore.RECORD_FILE_NAME),
+                new JavaSecureFileAccess());
+        return new SuperuserClient(context(), binding, preflightAdapter, identityStore);
     }
 
     private static Context context() {

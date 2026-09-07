@@ -130,6 +130,14 @@ public final class SuperuserModeController {
         if (!stopped.isSuccess()) {
             return unavailable(stopped);
         }
+        try {
+            host.stopForPrivilegeTransition();
+        } catch (Exception exception) {
+            SuperuserOperationResult failure = SuperuserOperationResult.failure(
+                    SuperuserErrorCode.CORE_STOP_FAILED,
+                    "Syncthing service could not be stopped for normal mode");
+            return unavailable(failure);
+        }
 
         SuperuserOperationResult repaired = mClient.repairAppPrivateState(
                 mContext.getApplicationInfo().uid, Os.getgid());

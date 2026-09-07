@@ -107,7 +107,8 @@ public class RootRestartRecoveryRegressionTest {
     public void unknownOrphanIdentityFailsClosedWithoutSignaling() throws Exception {
         Path directory = Files.createTempDirectory("orphan-unknown");
         File recordFile = directory.resolve("identity").toFile();
-        ProcessIdentityStore store = new ProcessIdentityStore(recordFile);
+        ProcessIdentityStore store = new ProcessIdentityStore(recordFile,
+                new JavaSecureFileAccess());
         store.ensureExists();
         store.writeRunning(IDENTITY);
         List<Integer> signals = new ArrayList<>();

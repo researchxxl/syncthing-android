@@ -2,6 +2,7 @@ package com.nutomic.syncthingandroid.superuser;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertFalse;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
@@ -30,7 +31,8 @@ public class ProcessIdentityTest {
     public void recordRoundTripPreservesRunningIdentity() throws Exception {
         Path directory = Files.createTempDirectory("identity-store");
         File recordFile = directory.resolve("identity").toFile();
-        ProcessIdentityStore store = new ProcessIdentityStore(recordFile);
+        ProcessIdentityStore store = new ProcessIdentityStore(recordFile,
+                new JavaSecureFileAccess());
         ProcessIdentity identity = new ProcessIdentity(123, 987654L,
                 "/data/user/0/app/files/libsyncthingnative.so");
 
@@ -48,8 +50,25 @@ public class ProcessIdentityTest {
         Path directory = Files.createTempDirectory("identity-store-corrupt");
         File recordFile = directory.resolve("identity").toFile();
         Files.writeString(recordFile.toPath(), "truncated", StandardCharsets.UTF_8);
-        ProcessIdentityStore store = new ProcessIdentityStore(recordFile);
+        ProcessIdentityStore store = new ProcessIdentityStore(recordFile,
+                new JavaSecureFileAccess());
 
+        assertEquals(ProcessIdentityRecordState.CORRUPT, store.read().state());
+    }
+
+    @Test
+    public void symlinkRecordIsRejectedWithoutFollowingItsTarget() throws Exception {
+        Path directory = Files.createTempDirectory("identity-store-symlink");
+        Path target = directory.resolve("target");
+        Files.writeString(target, "sentinel", StandardCharsets.UTF_8);
+        Path record = directory.resolve("identity");
+        Files.createSymbolicLink(record, target.getFileName());
+        ProcessIdentityStore store = new ProcessIdentityStore(record.toFile(),
+                new JavaSecureFileAccess());
+
+        assertFalse(store.ensureExists());
+        assertFalse(store.writeRunning(new ProcessIdentity(123, 987654L, "/bin/syncthing")));
+        assertEquals("sentinel", Files.readString(target, StandardCharsets.UTF_8));
         assertEquals(ProcessIdentityRecordState.CORRUPT, store.read().state());
     }
 }

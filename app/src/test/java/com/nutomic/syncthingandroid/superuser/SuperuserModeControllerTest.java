@@ -89,7 +89,7 @@ public class SuperuserModeControllerTest {
         assertEquals(List.of("verify", "recover", "stop", "repair", "disconnect"),
                 client.events);
         assertEquals(List.of("verify-normal"), stateAccess.events);
-        assertEquals(List.of("start"), host.events);
+        assertEquals(List.of("stop", "start"), host.events);
     }
 
     @Test
