@@ -19,6 +19,7 @@ fun OnboardingScreen(
     onContinue: () -> Unit,
     onFinishOnboarding: () -> Unit,
     onGrantLocationPermission: () -> Unit,
+    onGrantLocalNetworkPermission: () -> Unit,
     onGrantNotificationPermission: () -> Unit,
 ) {
     val pagerState = rememberPagerState(pageCount = { uiState.pages.size })
@@ -46,6 +47,7 @@ fun OnboardingScreen(
             onContinue = onContinue,
             onFinishOnboarding = onFinishOnboarding,
             onGrantLocationPermission = onGrantLocationPermission,
+            onGrantLocalNetworkPermission = onGrantLocalNetworkPermission,
             onGrantNotificationPermission = onGrantNotificationPermission,
         )
     }
