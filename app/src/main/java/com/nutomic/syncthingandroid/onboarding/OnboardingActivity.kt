@@ -58,9 +58,6 @@ class OnboardingActivity : ThemedAppCompatActivity() {
     companion object {
         private const val TAG = "OnboardingActivity"
         const val REQUEST_WRITE_STORAGE = 143
-        private const val API_LEVEL_ANDROID_17 = 37
-        // Not available as a constant in compileSdk 36.
-        private const val PERMISSION_ACCESS_LOCAL_NETWORK = "android.permission.ACCESS_LOCAL_NETWORK"
 
         // Key used to persist the whole UI state across configuration changes (e.g. rotation).
         private const val STATE_UI_STATE = "onboarding_ui_state"
@@ -400,12 +397,12 @@ class OnboardingActivity : ThemedAppCompatActivity() {
     }
 
     private fun haveLocalNetworkPermission(): Boolean {
-        if (Build.VERSION.SDK_INT < API_LEVEL_ANDROID_17) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.CINNAMON_BUN) {
             return true
         }
         return ContextCompat.checkSelfPermission(
             this,
-            PERMISSION_ACCESS_LOCAL_NETWORK
+            Manifest.permission.ACCESS_LOCAL_NETWORK
         ) == PackageManager.PERMISSION_GRANTED
     }
 
@@ -446,10 +443,10 @@ class OnboardingActivity : ThemedAppCompatActivity() {
     }
 
     private fun requestLocalNetworkPermission() {
-        if (Build.VERSION.SDK_INT < API_LEVEL_ANDROID_17) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.CINNAMON_BUN) {
             return
         }
-        localNetworkPermissionLauncher.launch(PERMISSION_ACCESS_LOCAL_NETWORK)
+        localNetworkPermissionLauncher.launch(Manifest.permission.ACCESS_LOCAL_NETWORK)
     }
 
     private fun startKeyGeneration() {
