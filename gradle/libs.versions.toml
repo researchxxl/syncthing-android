@@ -4,7 +4,7 @@ android-cmdline-tools = "11076708"
 compile-sdk = "37"
 min-sdk = "23"
 ndk-version = "29.0.14206865"
-target-sdk = "36"
+target-sdk = "37"
 
 # App version
 version-code = "2010500"
