@@ -44,6 +44,7 @@ data class OnboardingUiState(
     val hasStoragePermission: Boolean = false,
     val hasIgnoreDozePermission: Boolean = false,
     val hasLocationPermission: Boolean = false,
+    val hasLocalNetworkPermission: Boolean = false,
     val hasNotificationPermission: Boolean = false,
     val hasConfig: Boolean = false,
     val isRunningOnTv: Boolean = false,
@@ -57,6 +58,9 @@ class OnboardingActivity : ThemedAppCompatActivity() {
     companion object {
         private const val TAG = "OnboardingActivity"
         const val REQUEST_WRITE_STORAGE = 143
+        private const val API_LEVEL_ANDROID_17 = 37
+        // Not available as a constant in compileSdk 36.
+        private const val PERMISSION_ACCESS_LOCAL_NETWORK = "android.permission.ACCESS_LOCAL_NETWORK"
 
         // Key used to persist the whole UI state across configuration changes (e.g. rotation).
         private const val STATE_UI_STATE = "onboarding_ui_state"
@@ -77,6 +81,19 @@ class OnboardingActivity : ThemedAppCompatActivity() {
             advanceIfCurrentPage(OnboardingPage.NOTIFICATION_PERMISSION)
         } else {
             Log.i(TAG, "User denied POST_NOTIFICATIONS permission.")
+        }
+    }
+
+    private val localNetworkPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        refreshPermissionState()
+        if (isGranted) {
+            Toast.makeText(this, R.string.permission_granted, Toast.LENGTH_SHORT).show()
+            Log.i(TAG, "User granted ACCESS_LOCAL_NETWORK permission.")
+            advanceIfCurrentPage(OnboardingPage.LOCAL_NETWORK_PERMISSION)
+        } else {
+            Log.i(TAG, "User denied ACCESS_LOCAL_NETWORK permission.")
         }
     }
 
@@ -150,6 +167,7 @@ class OnboardingActivity : ThemedAppCompatActivity() {
         val haveStoragePermission = haveStoragePermission()
         val haveIgnoreDozePermission = haveIgnoreDozePermission()
         val haveLocationPermission = haveLocationPermission()
+        val haveLocalNetworkPermission = haveLocalNetworkPermission()
         val haveNotificationPermission = haveNotificationPermission()
         val haveConfig = checkForParseableConfig()
 
@@ -158,7 +176,10 @@ class OnboardingActivity : ThemedAppCompatActivity() {
         val savedState = restoreUiState(savedInstanceState)
 
         if (savedState == null) {
-            val shouldSkipToMain = haveStoragePermission && haveNotificationPermission && haveConfig
+            val shouldSkipToMain = haveStoragePermission &&
+                    haveLocalNetworkPermission &&
+                    haveNotificationPermission &&
+                    haveConfig
             if (shouldSkipToMain) {
                 // minimum requirements met, go to main
                 return startApp()
@@ -170,6 +191,7 @@ class OnboardingActivity : ThemedAppCompatActivity() {
             hasStoragePermission = haveStoragePermission,
             hasIgnoreDozePermission = haveIgnoreDozePermission,
             hasLocationPermission = haveLocationPermission,
+            hasLocalNetworkPermission = haveLocalNetworkPermission,
             hasNotificationPermission = haveNotificationPermission,
             hasConfig = haveConfig,
             isRunningOnTv = isRunningOnTv,
@@ -181,12 +203,14 @@ class OnboardingActivity : ThemedAppCompatActivity() {
                 OnboardingPage.STORAGE_PERMISSION.takeUnless { haveStoragePermission },
                 OnboardingPage.BATTERY_OPTIMIZATION.takeUnless { haveIgnoreDozePermission },
                 OnboardingPage.LOCATION_PERMISSION.takeUnless { haveLocationPermission },
+                OnboardingPage.LOCAL_NETWORK_PERMISSION.takeUnless { haveLocalNetworkPermission },
                 OnboardingPage.NOTIFICATION_PERMISSION.takeUnless { haveNotificationPermission },
                 OnboardingPage.KEY_GENERATION.takeUnless { haveConfig },
             ),
             hasStoragePermission = haveStoragePermission,
             hasIgnoreDozePermission = haveIgnoreDozePermission,
             hasLocationPermission = haveLocationPermission,
+            hasLocalNetworkPermission = haveLocalNetworkPermission,
             hasNotificationPermission = haveNotificationPermission,
             hasConfig = haveConfig,
             isRunningOnTv = isRunningOnTv,
@@ -213,6 +237,7 @@ class OnboardingActivity : ThemedAppCompatActivity() {
                         onContinue = ::advance,
                         onFinishOnboarding = ::startApp,
                         onGrantLocationPermission = ::requestLocationPermission,
+                        onGrantLocalNetworkPermission = ::requestLocalNetworkPermission,
                         onGrantNotificationPermission = ::requestNotificationPermission,
                     )
                 }
@@ -256,6 +281,11 @@ class OnboardingActivity : ThemedAppCompatActivity() {
         } else if (currentPage == OnboardingPage.NOTIFICATION_PERMISSION &&
             !oldState.hasNotificationPermission &&
             uiState.hasNotificationPermission
+        ) {
+            advance()
+        } else if (currentPage == OnboardingPage.LOCAL_NETWORK_PERMISSION &&
+            !oldState.hasLocalNetworkPermission &&
+            uiState.hasLocalNetworkPermission
         ) {
             advance()
         }
@@ -338,6 +368,7 @@ class OnboardingActivity : ThemedAppCompatActivity() {
             hasStoragePermission = haveStoragePermission(),
             hasIgnoreDozePermission = haveIgnoreDozePermission(),
             hasLocationPermission = haveLocationPermission(),
+            hasLocalNetworkPermission = haveLocalNetworkPermission(),
             hasNotificationPermission = haveNotificationPermission(),
             hasConfig = checkForParseableConfig(),
         )
@@ -368,6 +399,15 @@ class OnboardingActivity : ThemedAppCompatActivity() {
         return coarseLocationGranted && backgroundLocationGranted
     }
 
+    private fun haveLocalNetworkPermission(): Boolean {
+        if (Build.VERSION.SDK_INT < API_LEVEL_ANDROID_17) {
+            return true
+        }
+        return ContextCompat.checkSelfPermission(
+            this,
+            PERMISSION_ACCESS_LOCAL_NETWORK
+        ) == PackageManager.PERMISSION_GRANTED
+    }
 
     private fun haveNotificationPermission(): Boolean {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
@@ -403,6 +443,13 @@ class OnboardingActivity : ThemedAppCompatActivity() {
             return
         }
         notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+    }
+
+    private fun requestLocalNetworkPermission() {
+        if (Build.VERSION.SDK_INT < API_LEVEL_ANDROID_17) {
+            return
+        }
+        localNetworkPermissionLauncher.launch(PERMISSION_ACCESS_LOCAL_NETWORK)
     }
 
     private fun startKeyGeneration() {

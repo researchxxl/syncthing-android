@@ -3,6 +3,7 @@ package com.nutomic.syncthingandroid.onboarding
 import androidx.compose.runtime.Composable
 import com.nutomic.syncthingandroid.onboarding.pages.BatteryOptimizationPage
 import com.nutomic.syncthingandroid.onboarding.pages.KeyGenerationPage
+import com.nutomic.syncthingandroid.onboarding.pages.LocalNetworkPermissionPage
 import com.nutomic.syncthingandroid.onboarding.pages.LocationPermissionPage
 import com.nutomic.syncthingandroid.onboarding.pages.NotificationPermissionPage
 import com.nutomic.syncthingandroid.onboarding.pages.StoragePermissionPage
@@ -16,6 +17,7 @@ enum class OnboardingPage {
     STORAGE_PERMISSION,
     BATTERY_OPTIMIZATION,
     LOCATION_PERMISSION,
+    LOCAL_NETWORK_PERMISSION,
     NOTIFICATION_PERMISSION,
     KEY_GENERATION,
 }
@@ -33,6 +35,7 @@ fun OnboardingPage(
     onContinue: () -> Unit,
     onFinishOnboarding: () -> Unit,
     onGrantLocationPermission: () -> Unit,
+    onGrantLocalNetworkPermission: () -> Unit,
     onGrantNotificationPermission: () -> Unit,
 ) {
     when (page) {
@@ -64,6 +67,14 @@ fun OnboardingPage(
             onBack = onBack,
             onContinue = onContinue,
             onGrantLocationPermission = onGrantLocationPermission,
+        )
+        OnboardingPage.LOCAL_NETWORK_PERMISSION -> LocalNetworkPermissionPage(
+            uiState = uiState,
+            pageIndex = pageIndex,
+            requestTvFocus = requestTvFocus,
+            onBack = onBack,
+            onContinue = onContinue,
+            onGrantLocalNetworkPermission = onGrantLocalNetworkPermission,
         )
         OnboardingPage.NOTIFICATION_PERMISSION -> NotificationPermissionPage(
             uiState = uiState,
