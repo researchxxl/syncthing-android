@@ -734,4 +734,6 @@
     <string name="web_gui_load_failed">Nie udało się załadować interfejsu sieciowego. Proszę zapisać dziennik i zgłosić ten problem.</string>
     <string name="more_options">Więcej opcji</string>
     <string name="show_exact_times">Pokaż dokładne godziny</string>
+    <string name="local_network_permission_title">Uprawnienia do sieci lokalnej</string>
+    <string name="local_network_permission_desc">W systemie Android 17 i nowszych dostęp do sieci lokalnej wymaga wyraźnego zezwolenia. Jest ono niezbędne do lokalnego wyszukiwania i bezpośrednich transferów w sieci LAN.</string>
 </resources>
