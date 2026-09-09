@@ -773,4 +773,6 @@
     <string name="web_gui_load_failed">无法加载 Web GUI。请捕获日志并报告此问题。</string>
     <string name="more_options">更多选项</string>
     <string name="show_exact_times">显示确切时间</string>
+    <string name="local_network_permission_title">本地网络权限</string>
+    <string name="local_network_permission_desc">在 Android 17 及更高版本中，本地网络访问需要明确的权限。这是在局域网上进行本地发现和直接传输所必需的。</string>
 </resources>
