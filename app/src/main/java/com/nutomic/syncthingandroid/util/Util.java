@@ -3,6 +3,8 @@ package com.nutomic.syncthingandroid.util;
 import android.app.Dialog;
 import android.app.UiModeManager;
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.SystemClock;
@@ -12,7 +14,9 @@ import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.common.base.Charsets;
+import com.nutomic.syncthingandroid.root.RootAccess;
 import com.nutomic.syncthingandroid.R;
+import com.nutomic.syncthingandroid.service.AppPrefs;
 import com.nutomic.syncthingandroid.service.Constants;
 
 import java.io.BufferedReader;
@@ -75,15 +79,77 @@ public class Util {
     }
 
     /**
+     * Normally an application's data directory is only accessible by the corresponding application.
+     * Therefore, every file and directory is owned by an application's user and group. When running Syncthing as root,
+     * it writes to the application's data directory. This leaves files and directories behind which are owned by root having 0600.
+     * Moreover, those actions performed as root changes a file's type in terms of SELinux.
+     * A subsequent start of Syncthing will fail due to insufficient permissions.
+     * Hence, this method fixes the owner, group and the files' type of the data directory.
+     *
+     * @return true if the operation was successfully performed. False otherwise.
+     */
+    public static boolean fixAppDataPermissions(Context context) {
+        // We can safely assume that root magic is somehow available, because readConfig and saveChanges check for
+        // read and write access before calling us.
+        // Be paranoid :) and check if root is available.
+        // Ignore the 'use_root' preference, because we might want to fix the permission
+        // just after the root option has been disabled.
+        if (!RootAccess.isRootAvailableBlocking()) {
+            Log.e(TAG, "Root is not available. Cannot fix permissions.");
+            return false;
+        }
+
+        String packageName;
+        ApplicationInfo appInfo;
+        try {
+            packageName = context.getPackageName();
+            appInfo = context.getPackageManager().getApplicationInfo(packageName, 0);
+
+        } catch (NameNotFoundException e) {
+            // This should not happen!
+            // One should always be able to retrieve the application info for its own package.
+            Log.w(TAG, "Error getting current package name", e);
+            return false;
+        }
+        Log.d(TAG, "Uid of '" + packageName + "' is " + appInfo.uid);
+
+        // Get private app's "files" dir residing in "/data/data/[packageName]".
+        String dir = context.getFilesDir().getAbsolutePath();
+        String quotedDir = shellQuote(dir);
+        String cmd = "chown -R " + appInfo.uid + ":" + appInfo.uid + " " + quotedDir + "; ";
+        // Running Syncthing as root might change a file's or directories type in terms of SELinux.
+        // Leaving them as they are, the Android service won't be able to access them.
+        // At least for those files residing in an application's data folder.
+        // Simply reverting the type to its default should do the trick.
+        cmd += "restorecon -R " + quotedDir + "\n";
+        Log.d(TAG, "Running: '" + cmd);
+        int exitCode = runShellCommand(cmd, true);
+        if (exitCode == 0) {
+            Log.i(TAG, "Fixed app data permissions on '" + dir + "'.");
+        } else {
+            Log.w(TAG, "Failed to fix app data permissions on '" + dir + "'. Result: " +
+                Integer.toString(exitCode));
+        }
+        return exitCode == 0;
+    }
+
+    /**
      * Returns if the syncthing binary would be able to write a file into
      * the given folder given the configured access level.
      */
     public static boolean nativeBinaryCanWriteToPath(Context context, String absoluteFolderPath) {
         final String TOUCH_FILE_NAME = ".stwritetest";
+        Boolean useRoot = false;
+        if (AppPrefs.getUseRoot(context) && RootAccess.isRootAvailableBlocking()) {
+            useRoot = true;
+        }
 
         // Write permission test file.
+        // The folder path is chosen by the user, so it must be quoted - it may contain characters
+        // the shell would otherwise expand, and this command runs as root when root mode is on.
         String touchFile = absoluteFolderPath + "/" + TOUCH_FILE_NAME;
-        int exitCode = runShellCommand("echo \"\" > \"" + touchFile + "\"\n");
+        String quotedTouchFile = shellQuote(touchFile);
+        int exitCode = runShellCommand("echo \"\" > " + quotedTouchFile + "\n", useRoot);
         if (exitCode != 0) {
             String error;
             switch (exitCode) {
@@ -102,9 +168,54 @@ public class Util {
         Log.i(TAG, "Successfully wrote test file '" + touchFile + "'");
 
         // Remove test file.
-        if (runShellCommand("rm \"" + touchFile + "\"\n") != 0) {
+        if (runShellCommand("rm " + quotedTouchFile + "\n", useRoot) != 0) {
             // This is very unlikely to happen, so we have less error handling.
             Log.i(TAG, "Failed to remove test file");
+        }
+        return true;
+    }
+
+    /**
+     * Quotes a string for safe use as a single argument in a POSIX shell command line.
+     *
+     * Everything is wrapped in single quotes, within which the shell performs no expansion at all,
+     * so '$', '`', '"', '\' and whitespace are passed through literally. An embedded single quote
+     * cannot be escaped inside single quotes, so it is emitted as '\'' - closing the quoted run,
+     * appending an escaped quote, then reopening it.
+     *
+     * Always use this for any value that ends up in a command line, especially when the command
+     * runs as root. Values reachable from the UI (folder paths, custom environment variables) are
+     * otherwise evaluated by the shell.
+     */
+    public static String shellQuote(String s) {
+        if (s == null) {
+            return "''";
+        }
+        return "'" + s.replace("'", "'\\''") + "'";
+    }
+
+    /**
+     * Returns whether the given name is a valid POSIX shell variable name, i.e. matches
+     * [A-Za-z_][A-Za-z0-9_]*
+     *
+     * The name side of an "export NAME=value" statement cannot be quoted - it has to be a bare
+     * identifier - so unlike the value it cannot be made safe by escaping. It must be rejected
+     * instead, otherwise a crafted name injects additional shell commands.
+     */
+    public static boolean isValidEnvVarName(String name) {
+        if (TextUtils.isEmpty(name)) {
+            return false;
+        }
+        for (int i = 0; i < name.length(); i++) {
+            char c = name.charAt(i);
+            boolean isAlpha = (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '_';
+            if (isAlpha) {
+                continue;
+            }
+            if (i > 0 && c >= '0' && c <= '9') {
+                continue;
+            }
+            return false;
         }
         return true;
     }
@@ -113,9 +224,9 @@ public class Util {
      * Look for running processes and return an array
      * containing the PIDs of found instances.
      */
-    public static List<String> getProcessPIDs(final String processName) {
+    public static List<String> getProcessPIDs(final String processName, final Boolean useRoot) {
         List<String> processPIDs = new ArrayList<String>();
-        String output = runShellCommandGetOutput("ps\n");
+        String output = runShellCommandGetOutput("ps\n", useRoot);
         if (TextUtils.isEmpty(output)) {
             Log.w(TAG, "getProcessPIDs: Failed to list processes. ps command returned empty.");
             return processPIDs;
@@ -141,15 +252,15 @@ public class Util {
     /**
      * Look for running processes and end them gracefully.
      */
-    public static void killProcess(final String processName) {
+    public static void killProcess(final String processName, final Boolean useRoot) {
         int exitCode;
-        List<String> processPIDs = getProcessPIDs(processName);
+        List<String> processPIDs = getProcessPIDs(processName, useRoot);
         if (processPIDs.isEmpty()) {
             Log.v(TAG, "killProcess: Found no running instances of [" + processName + "]");
             return;
         }
         for (String processPID : processPIDs) {
-            exitCode = runShellCommand("kill -SIGINT " + processPID + "\n");
+            exitCode = runShellCommand("kill -SIGINT " + processPID + "\n", useRoot);
             if (exitCode != 0) {
                 Log.w(TAG, "killProcess: Failed to send kill SIGINT to process [" + processPID +
                         "] exit code " + Integer.toString(exitCode));
@@ -159,7 +270,7 @@ public class Util {
         /**
          * Wait for process to end.
          */
-        while (!getProcessPIDs(processName).isEmpty()) {
+        while (!getProcessPIDs(processName, useRoot).isEmpty()) {
             SystemClock.sleep(50);
         }
         Log.d(TAG, "killProcess: No more instances of [" + processName + "] running");
@@ -168,14 +279,14 @@ public class Util {
     /**
      * Run command in a shell and return the exit code.
      */
-    public static int runShellCommand(String cmd) {
+    public static int runShellCommand(String cmd, Boolean useRoot) {
         // Assume "failure" exit code if an error is caught.
         // Note: redirectErrorStream(true); System.getProperty("line.separator");
         int exitCode = 255;
         Process shellProc = null;
         DataOutputStream shellOut = null;
         try {
-            shellProc = Runtime.getRuntime().exec("sh");
+            shellProc = Runtime.getRuntime().exec((useRoot) ? "su" : "sh");
             shellOut = new DataOutputStream(shellProc.getOutputStream());
             BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(shellOut));
             Log.d(TAG, "runShellCommand: " + cmd);
@@ -216,13 +327,17 @@ public class Util {
     }
 
     public static String runShellCommandGetOutput(String cmd) {
+        return runShellCommandGetOutput(cmd, false);
+    }
+
+    public static String runShellCommandGetOutput(String cmd, Boolean useRoot) {
         // Note: redirectErrorStream(true); System.getProperty("line.separator");
         int exitCode = 255;
         String capturedStdOut = "";
         Process shellProc = null;
         DataOutputStream shellOut = null;
         try {
-            shellProc = Runtime.getRuntime().exec("sh");
+            shellProc = Runtime.getRuntime().exec((useRoot) ? "su" : "sh");
             shellOut = new DataOutputStream(shellProc.getOutputStream());
             BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(shellOut));
             Log.d(TAG, "runShellCommandGetOutput: " + cmd);
@@ -501,7 +616,7 @@ public class Util {
     /**
      * Called by RestApi/setRemoteCompletionInfo after folder completed.
      */
-    public static String[] getSyncConflictFiles(final String absPath) {
+    public static String[] getSyncConflictFiles(final String absPath, final Boolean useRoot) {
         StringBuilder cmdBuilder = new StringBuilder();
         cmdBuilder.append("cd \"").append(absPath).append("/\";");
         // Unescaped:
@@ -509,7 +624,7 @@ public class Util {
         cmdBuilder.append("find -type f -name \"*\\.sync-conflict-[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]-[0-9][0-9][0-9][0-9][0-9][0-9]-[a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9]*\" -not -path \"\\.\\/\\" + Constants.FOLDER_NAME_STVERSIONS + "\\/*\" -print | sed \"s~\\\\.\\/~~\"");
         String command = cmdBuilder.toString();
         // Log.v(TAG, "getSyncConflictFileCount: Exec [" + command + "]");
-        String output = runShellCommandGetOutput(command);
+        String output = runShellCommandGetOutput(command, useRoot);
         // Log.v(TAG, "getSyncConflictFileCount: Exec result [" + output + "]");
         if (output == null || output.isEmpty()) {
             return new String[]{};

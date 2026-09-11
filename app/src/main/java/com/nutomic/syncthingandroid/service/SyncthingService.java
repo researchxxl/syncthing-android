@@ -584,7 +584,7 @@ public class SyncthingService extends Service {
          * Check if an old syncthing instance is still running.
          * This happens after an in-place app upgrade. If so, end it.
          */
-        Util.killProcess(Constants.FILENAME_SYNCTHING_BINARY);
+        Util.killProcess(Constants.FILENAME_SYNCTHING_BINARY, AppPrefs.getUseRoot(this));
 
         // Start the syncthing binary in a separate thread.
         Thread.UncaughtExceptionHandler syncthingRunnableThreadExceptionHandler = new Thread.UncaughtExceptionHandler() {
@@ -712,7 +712,7 @@ public class SyncthingService extends Service {
         }
 
         if (mSyncthingRunnable != null) {
-            Util.killProcess(Constants.FILENAME_SYNCTHING_BINARY);
+            Util.killProcess(Constants.FILENAME_SYNCTHING_BINARY, AppPrefs.getUseRoot(this));
             if (mSyncthingRunnableThread != null) {
                 LogV("Waiting for mSyncthingRunnableThread to finish after killProcess(Syncthing) ...");
                 try {
@@ -1383,7 +1383,6 @@ public class SyncthingService extends Service {
                         case "pref_current_language":
                         case "restartOnWakeup":
                         case "wakelock_while_binary_running":
-                        case "use_root":
                         case "important_news_shown_version":
                             LogV("importConfig: Ignoring deprecated pref \"" + prefKey + "\".");
                             break;
