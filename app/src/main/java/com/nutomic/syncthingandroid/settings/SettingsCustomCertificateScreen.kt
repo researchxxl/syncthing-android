@@ -451,8 +451,8 @@ private fun HelpRow() {
     val context = LocalContext.current
     val url = stringResource(R.string.wiki_url) + CUSTOM_CERT_WIKI_PATH
     Preference(
-        title = { Text(stringResource(R.string.custom_cert_get_help)) },
-        summary = { Text(stringResource(R.string.custom_cert_get_help_summary)) },
+        title = { Text(stringResource(R.string.generic_help)) },
+        summary = { Text(stringResource(R.string.wiki_open_setup_guide)) },
         icon = {
             Icon(
                 Icons.AutoMirrored.Filled.HelpOutline,
@@ -463,8 +463,8 @@ private fun HelpRow() {
         onClick = {
             try {
                 context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
-            } catch (e: ActivityNotFoundException) {
-                toast(context, R.string.custom_cert_help_unavailable)
+            } catch (_: ActivityNotFoundException) {
+                toast(context, R.string.no_app_to_open_link)
             }
         },
     )
@@ -485,7 +485,7 @@ private fun readPicked(context: Context, uri: Uri?): Pair<String, ByteArray>? {
         } else {
             (queryDisplayName(context, uri) ?: "selected file") to bytes
         }
-    } catch (e: Exception) {
+    } catch (_: Exception) {
         toast(context, R.string.custom_cert_read_failed)
         null
     }

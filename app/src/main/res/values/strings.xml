@@ -758,6 +758,9 @@
     <!-- URL of the GitHub wiki -->
     <string name="wiki_url" translatable="false">https://github.com/researchxxl/syncthing-android/tree/main/wiki</string>
 
+    <!-- Summary of a preference row that opens a setup guide on the wiki -->
+    <string name="wiki_open_setup_guide">Opens the setup guide on the wiki</string>
+
     <!-- URL of the Syncthing project homepage -->
     <string name="url_syncthing_homepage" translatable="false">https://syncthing.net</string>
 
@@ -1144,9 +1147,6 @@
     <string name="custom_cert_apply_failed_title">Could not apply the certificate</string>
     <string name="custom_cert_failed_rejected">Syncthing could not load this certificate and key, so it created a new self-signed certificate instead. Your previous certificate has been restored.\n\nThe most common cause is an encrypted or mismatched private key. Syncthing needs an unencrypted key that matches the certificate.</string>
     <string name="custom_cert_failed_not_online">Syncthing did not come back online with the new certificate. Your previous certificate has been restored.</string>
-    <string name="custom_cert_get_help">Get help</string>
-    <string name="custom_cert_get_help_summary">Opens the setup guide on the wiki</string>
-    <string name="custom_cert_help_unavailable">No app available to open the wiki page.</string>
     <string name="custom_cert_reset_done">Reset to a new self-signed certificate.</string>
     <string name="custom_cert_file_too_large">That file is too large to be a certificate or key.</string>
     <string name="custom_cert_read_failed">Could not read the selected file.</string>
