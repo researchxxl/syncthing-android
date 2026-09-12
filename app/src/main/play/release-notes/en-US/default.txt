@@ -1,5 +1,0 @@
-Features
-* enhancement(RecentChangesActivity): modernize recent changes activity by @dbhavsar76 in #327
-
-Other
-* fix(WebGuiActivity): fix web gui not loading by @dbhavsar76 in #354

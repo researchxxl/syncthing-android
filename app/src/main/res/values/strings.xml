@@ -35,6 +35,10 @@
     <string name="location_permission_desc">Syncthing can be configured to work on selected Wi-Fi networks. Android requires the app to have location permission to read the active Wi-Fi network name. If you want to use this feature, press the button above. You may skip this step. See our privacy policy for more details.</string>
     <string name="location_permission_desc_api_29">Tip for Android 10+: \"Allow all the time\"</string>
 
+    <!-- Slide "Local Network Permission" -->
+    <string name="local_network_permission_title">Local Network Permission</string>
+    <string name="local_network_permission_desc">On Android 17 and newer, local network access requires explicit permission. This is needed for local discovery and direct transfers on your LAN.</string>
+
     <!-- Slide "Notification Permission" -->
     <string name="notification_permission_title">Notification Permission</string>
     <string name="notification_permission_desc">Required to show notifications regarding new device connections, folder sharing requests and to keep the service alive and connected.</string>

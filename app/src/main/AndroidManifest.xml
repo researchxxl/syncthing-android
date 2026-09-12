@@ -39,6 +39,8 @@
         android:name="android.permission.INTERACT_ACROSS_USERS"
         android:minSdkVersion="37"
         tools:ignore="ProtectedPermissions" />
+    <!-- Android 17+ blocks local network traffic without this runtime permission. -->
+    <uses-permission android:name="android.permission.ACCESS_LOCAL_NETWORK" />
 
     <!--
         Apps can listen to our notifications about sync progress by subscribing to ACTION_NOTIFY_FOLDER_SYNC_COMPLETE,
