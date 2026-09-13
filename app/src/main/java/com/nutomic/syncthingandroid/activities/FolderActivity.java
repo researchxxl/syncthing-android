@@ -117,6 +117,7 @@ public class FolderActivity extends SyncthingActivity {
     private EditText mLabelView;
     private EditText mIdView;
     private TextView mPathView;
+    private View mSelectAndroidDataDirectory;
     private View mSelectAdvancedDirectory;
     private TextView mAccessExplanationView;
     private TextView mFolderTypeTitleView;
@@ -278,6 +279,7 @@ public class FolderActivity extends SyncthingActivity {
         mLabelView = findViewById(R.id.label);
         mIdView = findViewById(R.id.id);
         mPathView = findViewById(R.id.directoryTextView);
+        mSelectAndroidDataDirectory = findViewById(R.id.selectAndroidDataDirectory);
         mSelectAdvancedDirectory = findViewById(R.id.selectAdvancedDirectory);
         mAccessExplanationView = findViewById(R.id.accessExplanationView);
         mFolderTypeTitleView = findViewById(R.id.folderTypeTitle);
@@ -306,9 +308,13 @@ public class FolderActivity extends SyncthingActivity {
         }
 
         // Android 11 disallows selecting the "Downloads" and the emulated storage root directory.
+        mSelectAndroidDataDirectory.setVisibility(
+                (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) ? View.VISIBLE : View.GONE
+        );
         mSelectAdvancedDirectory.setVisibility(
                 (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) ? View.VISIBLE : View.GONE
         );
+        mSelectAndroidDataDirectory.setOnClickListener(view -> onSelectAndroidDataDirectoryClick());
         mSelectAdvancedDirectory.setOnClickListener(view -> onSelectAdvancedDirectoryClick());
 
         mPathView.setOnClickListener(view -> onPathViewClick());
@@ -373,6 +379,7 @@ public class FolderActivity extends SyncthingActivity {
             mIdView.setEnabled(false);
             mPathView.setFocusable(false);
             mPathView.setEnabled(false);
+            mSelectAndroidDataDirectory.setVisibility(View.GONE);
             mSelectAdvancedDirectory.setVisibility(View.GONE);
         }
         folderTypeContainer.setEnabled(!mFolder.type.equals(Constants.FOLDER_TYPE_RECEIVE_ENCRYPTED));
@@ -403,35 +410,7 @@ public class FolderActivity extends SyncthingActivity {
      */
     @SuppressLint("InlinedAPI")
     private void onPathViewClick() {
-        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
-        
-        // Determine directory initialUri for SAF file picker dialog.
-        // This has to be android.net.Uri as it implements a Parcelable.
-        android.net.Uri initialUri = null;
-        android.net.Uri externalFilesDirUri = FileUtils.getExternalFilesDirUri(FolderActivity.this, ExternalStorageDirType.INT_MEDIA);
-        if (FileUtils.directoryUriExists(FolderActivity.this, externalFilesDirUri)) {
-            initialUri = externalFilesDirUri;
-        } else {
-            android.net.Uri internalFilesDirUri = FileUtils.getInternalStorageRootUri();
-            if (FileUtils.directoryUriExists(FolderActivity.this, internalFilesDirUri)) {
-                initialUri = internalFilesDirUri;
-            }
-        }
-        if (initialUri != null) {
-            Log.v(TAG, "onPathViewClick: INITIAL_URI = " + initialUri);
-            intent.putExtra("android.provider.extra.INITIAL_URI", initialUri);
-        }
-
-        // Display storage access framework directory picker UI.
-        intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
-        intent.putExtra("android.content.extra.SHOW_ADVANCED", true);
-        try {
-            startActivityForResult(intent, CHOOSE_FOLDER_REQUEST);
-        } catch (android.content.ActivityNotFoundException e) {
-            Log.e(TAG, "onPathViewClick exception, falling back to built-in FolderPickerActivity.", e);
-            startActivityForResult(FolderPickerActivity.createIntent(this, mFolder.path, null),
-                FolderPickerActivity.DIRECTORY_REQUEST_CODE);
-        }
+        launchDirectoryPicker(resolveDefaultPickerInitialUri(), "onPathViewClick");
     }
 
     /**
@@ -459,6 +438,58 @@ public class FolderActivity extends SyncthingActivity {
     private void onSelectAdvancedDirectoryClick() {
         startActivityForResult(FolderPickerActivity.createIntent(this, mFolder.path, null),
             FolderPickerActivity.DIRECTORY_REQUEST_CODE);
+    }
+
+    /**
+     * Invoked after user clicked on the Android/data SAF shortcut button.
+     */
+    private void onSelectAndroidDataDirectoryClick() {
+        launchDirectoryPicker(resolveAndroidDataPickerInitialUri(), "onSelectAndroidDataDirectoryClick");
+    }
+
+    @SuppressLint("InlinedAPI")
+    private void launchDirectoryPicker(android.net.Uri initialUri, String source) {
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+        if (initialUri != null) {
+            Log.v(TAG, source + ": INITIAL_URI = " + initialUri);
+            intent.putExtra("android.provider.extra.INITIAL_URI", initialUri);
+        }
+
+        // Display storage access framework directory picker UI.
+        intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
+        intent.putExtra("android.content.extra.SHOW_ADVANCED", true);
+        try {
+            startActivityForResult(intent, CHOOSE_FOLDER_REQUEST);
+        } catch (android.content.ActivityNotFoundException e) {
+            Log.e(TAG, source + " exception, falling back to built-in FolderPickerActivity.", e);
+            startActivityForResult(FolderPickerActivity.createIntent(this, mFolder.path, null),
+                FolderPickerActivity.DIRECTORY_REQUEST_CODE);
+        }
+    }
+
+    private android.net.Uri resolveDefaultPickerInitialUri() {
+        android.net.Uri externalFilesDirUri = FileUtils.getExternalFilesDirUri(FolderActivity.this, ExternalStorageDirType.INT_MEDIA);
+        if (directoryUriExists(externalFilesDirUri)) {
+            return externalFilesDirUri;
+        }
+
+        android.net.Uri internalFilesDirUri = FileUtils.getInternalStorageRootUri();
+        if (directoryUriExists(internalFilesDirUri)) {
+            return internalFilesDirUri;
+        }
+        return null;
+    }
+
+    private android.net.Uri resolveAndroidDataPickerInitialUri() {
+        android.net.Uri appDataDirUri = FileUtils.getExternalFilesDirUri(FolderActivity.this, ExternalStorageDirType.DATA);
+        if (directoryUriExists(appDataDirUri)) {
+            return appDataDirUri;
+        }
+        return resolveDefaultPickerInitialUri();
+    }
+
+    private boolean directoryUriExists(android.net.Uri uri) {
+        return uri != null && FileUtils.directoryUriExists(FolderActivity.this, uri);
     }
 
     private void showFolderTypeDialog() {

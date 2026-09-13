@@ -74,6 +74,17 @@
                         android:hint="@string/directory"/>
 
                     <ImageView
+                        android:id="@+id/selectAndroidDataDirectory"
+                        style="?actionButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:contentDescription="@string/android_data_directory_selection"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:srcCompat="@drawable/baseline_folder_24" />
+
+                    <ImageView
                         android:id="@+id/selectAdvancedDirectory"
                         style="?actionButtonStyle"
                         android:layout_width="wrap_content"
