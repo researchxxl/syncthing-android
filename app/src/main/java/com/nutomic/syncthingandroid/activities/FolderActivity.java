@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
+import android.provider.DocumentsContract;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -104,6 +105,7 @@ public class FolderActivity extends SyncthingActivity {
     private static final int PULL_ORDER_DIALOG_REQUEST = 3455;
     private static final int FOLDER_TYPE_DIALOG_REQUEST =3456;
     private static final int CHOOSE_FOLDER_REQUEST = 3459;
+    private static final String EXTERNAL_STORAGE_AUTHORITY = "com.android.externalstorage.documents";
 
     public static final int FOLDER_ADD_CODE = 402;
 
@@ -485,11 +487,28 @@ public class FolderActivity extends SyncthingActivity {
     }
 
     private android.net.Uri resolveAndroidDataPickerInitialUri() {
-        android.net.Uri appDataDirUri = FileUtils.getExternalFilesDirUri(FolderActivity.this, ExternalStorageDirType.DATA);
-        if (directoryUriExists(appDataDirUri)) {
-            return appDataDirUri;
+        android.net.Uri androidDataInitialUri = buildAndroidDataInitialUri();
+        if (androidDataInitialUri != null) {
+            return androidDataInitialUri;
         }
         return resolveDefaultPickerInitialUri();
+    }
+
+    private android.net.Uri buildAndroidDataInitialUri() {
+        android.net.Uri appDataDirUri = FileUtils.getExternalFilesDirUri(FolderActivity.this, ExternalStorageDirType.DATA);
+        if (appDataDirUri != null) {
+            try {
+                String documentId = DocumentsContract.getDocumentId(appDataDirUri);
+                int volumeSeparatorIndex = documentId.indexOf(':');
+                if (volumeSeparatorIndex > 0) {
+                    String volumeId = documentId.substring(0, volumeSeparatorIndex);
+                    return DocumentsContract.buildDocumentUri(EXTERNAL_STORAGE_AUTHORITY, volumeId + ":Android/data");
+                }
+            } catch (Exception e) {
+                Log.w(TAG, "buildAndroidDataInitialUri exception", e);
+            }
+        }
+        return DocumentsContract.buildDocumentUri(EXTERNAL_STORAGE_AUTHORITY, "primary:Android/data");
     }
 
     private boolean directoryUriExists(android.net.Uri uri) {
