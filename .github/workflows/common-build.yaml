@@ -52,6 +52,12 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
+          cache: gradle
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@0b6dd653ba04f4f93bf581ec31e66cbd7dcb644d # v4.4.3
+        with:
+          cache-read-only: false
 
       - name: Get NDK version from gradle catalog
         id: get_ndk_version
@@ -77,16 +83,14 @@ jobs:
             ~/go/pkg/mod
           key: ${{ runner.os }}-go${{ env.GO_VERSION }}-${{ hashFiles('syncthing/src/github.com/syncthing/syncthing/go.sum') }}
 
-      - name: Cache Gradle and Android user home
+      - name: Cache Android user home
         uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5.0.3
         with:
           path: |
-            ${{ runner.temp }}/.gradle/caches
-            ${{ runner.temp }}/.gradle/wrapper
             ${{ runner.temp }}/.android
-          key: ${{ runner.os }}-gradle-android-${{ inputs.buildType }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties', '**/libs.versions.toml') }}
+          key: ${{ runner.os }}-android-user-home-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties', '**/libs.versions.toml') }}
           restore-keys: |
-            ${{ runner.os }}-gradle-android-${{ inputs.buildType }}-
+            ${{ runner.os }}-android-user-home-
 
       - name: Get syncthing commit hash for native libs cache
         id: get_syncthing_commit
@@ -106,17 +110,14 @@ jobs:
             /opt/syncthing-android-prereq/prebuilt-jnilibs
           key: ${{ runner.os }}-prebuilt-jnilibs-go${{ env.GO_VERSION }}-ndk${{ steps.get_ndk_version.outputs.ndk_version }}-${{ steps.get_syncthing_commit.outputs.syncthing_tag }}-${{ steps.get_syncthing_commit.outputs.syncthing_commit }}
 
-      - name: Set Gradle and Android user home environment variables
+      - name: Set Android user home environment variable
         run: |
           set -eu
-          echo "GRADLE_USER_HOME=${{ runner.temp }}/.gradle" >> $GITHUB_ENV
           echo "ANDROID_USER_HOME=${{ runner.temp }}/.android" >> $GITHUB_ENV
           
           # Create directories to ensure they exist
-          mkdir -p "${{ runner.temp }}/.gradle"
           mkdir -p "${{ runner.temp }}/.android"
           
-          echo "Set GRADLE_USER_HOME to: ${{ runner.temp }}/.gradle"
           echo "Set ANDROID_USER_HOME to: ${{ runner.temp }}/.android"
 
       - name: Cache Android SDK
@@ -183,6 +184,8 @@ jobs:
           fi
 
       - name: Build app
+        env:
+          IS_COPILOT: "true"
         run: |
           set -eu
           unset ANDROID_NDK_HOME
