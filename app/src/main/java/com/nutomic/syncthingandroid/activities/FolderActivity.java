@@ -106,6 +106,8 @@ public class FolderActivity extends SyncthingActivity {
     private static final int FOLDER_TYPE_DIALOG_REQUEST =3456;
     private static final int CHOOSE_FOLDER_REQUEST = 3459;
     private static final String EXTRA_INITIAL_URI = "android.provider.extra.INITIAL_URI";
+    private static final int DOCUMENT_TREE_URI_PERMISSIONS =
+        Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
 
     public static final int FOLDER_ADD_CODE = 402;
 
@@ -470,6 +472,7 @@ public class FolderActivity extends SyncthingActivity {
         }
 
         // Display storage access framework directory picker UI.
+        intent.addFlags(DOCUMENT_TREE_URI_PERMISSIONS | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
         intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
         intent.putExtra("android.content.extra.SHOW_ADVANCED", true);
         try {
@@ -774,11 +777,15 @@ public class FolderActivity extends SyncthingActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK && requestCode == CHOOSE_FOLDER_REQUEST) {
+            if (data == null) {
+                return;
+            }
             // This result case only occurs on API level >= Build.VERSION_CODES.LOLLIPOP (21)
             mFolderUri = data.getData();
             if (mFolderUri == null) {
                 return;
             }
+            persistTreeUriPermission(mFolderUri, data);
             // Get the folder path unix style, e.g. "/storage/0000-0000/DCIM"
             String targetPath = FileUtils.getAbsolutePathFromSAFUri(FolderActivity.this, mFolderUri);
             if (targetPath != null) {
@@ -822,6 +829,18 @@ public class FolderActivity extends SyncthingActivity {
             mFolderNeedsToUpdate = true;
         } else if (resultCode == Activity.RESULT_OK && requestCode == DeviceActivity.DEVICE_ADD_CODE) {
             updateViewsAndSetListeners();
+        }
+    }
+
+    private void persistTreeUriPermission(Uri folderUri, Intent data) {
+        try {
+            int grantedFlags = data.getFlags() & DOCUMENT_TREE_URI_PERMISSIONS;
+            if (grantedFlags == 0) {
+                grantedFlags = DOCUMENT_TREE_URI_PERMISSIONS;
+            }
+            getContentResolver().takePersistableUriPermission(folderUri, grantedFlags);
+        } catch (SecurityException e) {
+            Log.w(TAG, "Could not persist SAF URI permission for: " + folderUri, e);
         }
     }
 
