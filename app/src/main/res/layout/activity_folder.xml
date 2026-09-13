@@ -73,7 +73,7 @@
                         android:focusable="true"
                         android:hint="@string/directory"/>
 
-                    <ImageView
+                    <ImageButton
                         android:id="@+id/selectAndroidDataDirectory"
                         style="?actionButtonStyle"
                         android:layout_width="wrap_content"
