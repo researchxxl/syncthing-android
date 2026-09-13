@@ -85,6 +85,7 @@
                         android:focusable="true"
                         android:minHeight="?attr/actionBarSize"
                         android:minWidth="?attr/actionBarSize"
+                        app:tint="?android:attr/textColorSecondary"
                         app:srcCompat="@drawable/baseline_folder_24" />
 
                     <ImageView
