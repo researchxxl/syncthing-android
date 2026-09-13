@@ -88,16 +88,20 @@
                         app:tint="?android:attr/textColorSecondary"
                         app:srcCompat="@drawable/baseline_smartphone_24" />
 
-                    <ImageView
+                    <ImageButton
                         android:id="@+id/selectAdvancedDirectory"
                         style="?actionButtonStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginEnd="@dimen/abc_action_bar_content_inset_material"
+                        android:background="?android:attr/selectableItemBackgroundBorderless"
                         android:contentDescription="@string/advanced_directory_selection"
                         android:clickable="true"
                         android:focusable="true"
+                        android:minHeight="?attr/actionBarSize"
+                        android:minWidth="?attr/actionBarSize"
+                        app:tint="?android:attr/textColorSecondary"
                         app:srcCompat="@drawable/baseline_settings_24" />
 
                 </LinearLayout>
