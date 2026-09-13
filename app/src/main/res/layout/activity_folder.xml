@@ -86,7 +86,7 @@
                         android:minHeight="?attr/actionBarSize"
                         android:minWidth="?attr/actionBarSize"
                         app:tint="?android:attr/textColorSecondary"
-                        app:srcCompat="@drawable/baseline_folder_24" />
+                        app:srcCompat="@drawable/baseline_smartphone_24" />
 
                     <ImageView
                         android:id="@+id/selectAdvancedDirectory"
