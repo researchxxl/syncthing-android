@@ -410,6 +410,10 @@ public class FolderActivity extends SyncthingActivity {
      */
     @SuppressLint("InlinedAPI")
     private void onPathViewClick() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+            onSelectAdvancedDirectoryClick();
+            return;
+        }
         launchDirectoryPicker(resolveDefaultPickerInitialUri(), "onPathViewClick");
     }
 
