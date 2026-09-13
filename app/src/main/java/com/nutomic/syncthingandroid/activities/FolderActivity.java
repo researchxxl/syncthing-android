@@ -13,7 +13,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
-import android.provider.DocumentsContract;
+import android.os.storage.StorageManager;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -105,7 +105,7 @@ public class FolderActivity extends SyncthingActivity {
     private static final int PULL_ORDER_DIALOG_REQUEST = 3455;
     private static final int FOLDER_TYPE_DIALOG_REQUEST =3456;
     private static final int CHOOSE_FOLDER_REQUEST = 3459;
-    private static final String EXTERNAL_STORAGE_AUTHORITY = "com.android.externalstorage.documents";
+    private static final String EXTRA_INITIAL_URI = "android.provider.extra.INITIAL_URI";
 
     public static final int FOLDER_ADD_CODE = 402;
 
@@ -450,15 +450,23 @@ public class FolderActivity extends SyncthingActivity {
      * Invoked after user clicked on the Android/data SAF shortcut button.
      */
     private void onSelectAndroidDataDirectoryClick() {
-        launchDirectoryPicker(resolveAndroidDataPickerInitialUri(), "onSelectAndroidDataDirectoryClick");
+        Intent intent = createOpenDocumentTreeIntent();
+        launchDirectoryPicker(intent,
+            resolveAndroidDataPickerInitialUri(intent),
+            "onSelectAndroidDataDirectoryClick"
+        );
     }
 
     @SuppressLint("InlinedAPI")
     private void launchDirectoryPicker(android.net.Uri initialUri, String source) {
-        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+        launchDirectoryPicker(new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE), initialUri, source);
+    }
+
+    @SuppressLint("InlinedAPI")
+    private void launchDirectoryPicker(Intent intent, android.net.Uri initialUri, String source) {
         if (initialUri != null) {
             Log.v(TAG, source + ": INITIAL_URI = " + initialUri);
-            intent.putExtra("android.provider.extra.INITIAL_URI", initialUri);
+            intent.putExtra(EXTRA_INITIAL_URI, initialUri);
         }
 
         // Display storage access framework directory picker UI.
@@ -486,29 +494,50 @@ public class FolderActivity extends SyncthingActivity {
         return null;
     }
 
-    private android.net.Uri resolveAndroidDataPickerInitialUri() {
-        android.net.Uri androidDataInitialUri = buildAndroidDataInitialUri();
-        if (androidDataInitialUri != null) {
-            return androidDataInitialUri;
+    private android.net.Uri resolveAndroidDataPickerInitialUri(Intent openDocumentTreeIntent) {
+        android.net.Uri androidDataInitialUriFromRoot = buildAndroidDataInitialUriFromRootIntent(openDocumentTreeIntent);
+        if (androidDataInitialUriFromRoot != null) {
+            return androidDataInitialUriFromRoot;
+        }
+        android.net.Uri appDataDirUri = FileUtils.getExternalFilesDirUri(FolderActivity.this, ExternalStorageDirType.DATA);
+        if (appDataDirUri != null) {
+            return appDataDirUri;
         }
         return resolveDefaultPickerInitialUri();
     }
 
-    private android.net.Uri buildAndroidDataInitialUri() {
-        android.net.Uri appDataDirUri = FileUtils.getExternalFilesDirUri(FolderActivity.this, ExternalStorageDirType.DATA);
-        if (appDataDirUri != null) {
-            try {
-                String documentId = DocumentsContract.getDocumentId(appDataDirUri);
-                int volumeSeparatorIndex = documentId.indexOf(':');
-                if (volumeSeparatorIndex > 0) {
-                    String volumeId = documentId.substring(0, volumeSeparatorIndex);
-                    return DocumentsContract.buildDocumentUri(EXTERNAL_STORAGE_AUTHORITY, volumeId + ":Android/data");
+    @SuppressLint("InlinedAPI")
+    private Intent createOpenDocumentTreeIntent() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            StorageManager storageManager = getSystemService(StorageManager.class);
+            if (storageManager != null) {
+                try {
+                    return storageManager.getPrimaryStorageVolume().createOpenDocumentTreeIntent();
+                } catch (Exception e) {
+                    Log.w(TAG, "createOpenDocumentTreeIntent exception", e);
                 }
-            } catch (Exception e) {
-                Log.w(TAG, "buildAndroidDataInitialUri exception", e);
             }
         }
-        return DocumentsContract.buildDocumentUri(EXTERNAL_STORAGE_AUTHORITY, "primary:Android/data");
+        return new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+    }
+
+    private android.net.Uri buildAndroidDataInitialUriFromRootIntent(Intent openDocumentTreeIntent) {
+        try {
+            android.net.Uri rootUri = openDocumentTreeIntent.getParcelableExtra(EXTRA_INITIAL_URI);
+            if (rootUri == null) {
+                return null;
+            }
+            String uriString = rootUri.toString();
+            if (!uriString.contains("/root/")) {
+                return null;
+            }
+            String targetSubdirectory = Uri.encode("Android/data/" + getPackageName());
+            String androidDataInitialUri = uriString.replace("/root/", "/document/") + "%3A" + targetSubdirectory;
+            return Uri.parse(androidDataInitialUri);
+        } catch (Exception e) {
+            Log.w(TAG, "buildAndroidDataInitialUriFromRootIntent exception", e);
+            return null;
+        }
     }
 
     private boolean directoryUriExists(android.net.Uri uri) {
