@@ -106,6 +106,8 @@ public class FolderActivity extends SyncthingActivity {
     private static final int FOLDER_TYPE_DIALOG_REQUEST =3456;
     private static final int CHOOSE_FOLDER_REQUEST = 3459;
     private static final String EXTRA_INITIAL_URI = "android.provider.extra.INITIAL_URI";
+    private static final String EXTRA_SHOW_ADVANCED_PROVIDER = "android.provider.extra.SHOW_ADVANCED";
+    private static final String EXTRA_SHOW_ADVANCED_CONTENT = "android.content.extra.SHOW_ADVANCED";
     private static final int DOCUMENT_TREE_URI_PERMISSIONS =
         Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
 
@@ -474,7 +476,9 @@ public class FolderActivity extends SyncthingActivity {
         // Display storage access framework directory picker UI.
         intent.addFlags(DOCUMENT_TREE_URI_PERMISSIONS | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
         intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
-        intent.putExtra("android.content.extra.SHOW_ADVANCED", true);
+        intent.putExtra(EXTRA_SHOW_ADVANCED_PROVIDER, true);
+        // Keep legacy key for compatibility with picker variants.
+        intent.putExtra(EXTRA_SHOW_ADVANCED_CONTENT, true);
         try {
             startActivityForResult(intent, CHOOSE_FOLDER_REQUEST);
         } catch (android.content.ActivityNotFoundException e) {
