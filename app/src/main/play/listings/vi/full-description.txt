@@ -28,7 +28,7 @@ Trang web: https://github.com/researchxxl/syncthing-android
 
 Mã nguồn: https://github.com/researchxxl/syncthing-android
 
-Cách Syncthing ghi vào thẻ SD ngoài: https://github.com/researchxxl/syncthing-android/blob/master/wiki/SD-card-write-access.md
+Cách Syncthing ghi vào thẻ SD ngoài: https://github.com/researchxxl/syncthing-android/blob/main/wiki/known-bug-workarounds/All-files-access_SD-card-write-access.md
 
 Wiki, câu hỏi thường gặp và bài viết hữu ích: https://github.com/researchxxl/syncthing-android/tree/main/wiki#readme
 

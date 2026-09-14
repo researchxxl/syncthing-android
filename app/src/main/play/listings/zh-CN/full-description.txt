@@ -17,7 +17,7 @@ Android 版 Syncthing-Fork 是 Syncthing 的包装器，它提供 Android UI，�
 
 源代码：https://github.com/researchxxl/syncthing-android
 
-Syncthing 如何写入外部 SD 卡：https://github.com/researchxxl/syncthing-android/blob/master/wiki/SD-card-write-access.md
+Syncthing 如何写入外部 SD 卡：https://github.com/researchxxl/syncthing-android/blob/main/wiki/known-bug-workarounds/All-files-access_SD-card-write-access.md
 
 Wiki、常见问题解答和有用的文章：https://github.com/researchxxl/syncthing-android/tree/main/wiki#readme
 
