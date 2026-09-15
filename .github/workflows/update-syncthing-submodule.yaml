@@ -31,11 +31,12 @@ jobs:
       - name: Get latest syncthing release commit
         id: latest
         run: |
-          LATEST_TAG=$(curl -s https://api.github.com/repos/syncthing/syncthing/releases \
-            | jq -r 'map(select(.draft == false)) | .[0].tag_name')
+          set -eu
+          RELEASE_JSON=$(curl -s https://api.github.com/repos/syncthing/syncthing/releases/latest)
+          LATEST_TAG=$(echo "$RELEASE_JSON" | jq -r '.tag_name')
           echo "tag=${LATEST_TAG}" >> $GITHUB_OUTPUT
           echo "Latest tag: ${LATEST_TAG}"
-          LATEST_COMMIT=$(git ls-remote https://github.com/syncthing/syncthing.git refs/tags/${LATEST_TAG}^{} | awk '{print $1}')
+          LATEST_COMMIT=$(git ls-remote https://github.com/syncthing/syncthing.git "refs/tags/${LATEST_TAG}^{}" | awk '{print $1}')
           echo "commit=${LATEST_COMMIT}" >> $GITHUB_OUTPUT
           echo "Latest commit: ${LATEST_COMMIT}"
 
