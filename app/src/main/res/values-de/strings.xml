@@ -4,7 +4,7 @@
     <string name="app_description">Eine offene, vertrauenswürdige und dezentralisierte Anwendung zur Dateisynchronisation.</string>
     <!-- FirstStartActivity -->
     <!-- Title for dialog displayed on first start -->
-    <string name="welcome_title">Willkommen bei Syncthing für Android</string>
+    <string name="welcome_title">Willkommen bei\nSyncthing für Android</string>
     <!-- Welcome wizard -->
     <!-- Slide "Introduction" -->
     <string name="introduction">Einführung</string>
@@ -744,4 +744,5 @@
     <string name="category_schedule">Planen</string>
     <string name="category_battery">Akku</string>
     <string name="device_id_qr_code">Geräte ID QR Code</string>
+    <string name="local_network_permission_title">Berechtigung für lokales Netzwerk</string>
 </resources>
