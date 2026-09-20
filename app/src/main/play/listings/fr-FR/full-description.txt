@@ -17,7 +17,7 @@ Site web : https://github.com/researchxxl/syncthing-android
 
 Code source : https://github.com/researchxxl/syncthing-android
 
-Comment Syncthing écrit sur les SD card externes : https://github.com/researchxxl/syncthing-android/blob/main/wiki/SD-card-write-access.md
+Comment Syncthing écrit sur les SD card externes : https://github.com/researchxxl/syncthing-android/blob/main/wiki/known-bug-workarounds/All-files-access_SD-card-write-access.md
 
 Wiki, FAQ et articles utiles : https://github.com/researchxxl/syncthing-android/tree/main/wiki#readme
 

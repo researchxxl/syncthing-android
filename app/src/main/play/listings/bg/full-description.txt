@@ -17,7 +17,7 @@ Syncthing-Fork за Андроид е обвивка за Syncthing, която 
 
 Изходен код: https://github.com/researchxxl/syncthing-android
 
-Как Syncthing записва на външна SD карта: https://github.com/researchxxl/syncthing-android/blob/main/wiki/SD-card-write-access.md
+Как Syncthing записва на външна SD карта: https://github.com/researchxxl/syncthing-android/blob/main/wiki/known-bug-workarounds/All-files-access_SD-card-write-access.md
 
 Wiki, въпроси и отговори, и полезни статии: https://github.com/researchxxl/syncthing-android/tree/main/wiki#readme
 

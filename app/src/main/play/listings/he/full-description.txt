@@ -17,7 +17,7 @@ Syncthing-Fork עבור אנדרואיד הוא עטיפה עבור Syncthing ש
 
 קוד מקור: https://github.com/researchxxl/syncthing-android
 
-איך Syncthing כותב לכרטיס SD חיצוני: https://github.com/researchxxl/syncthing-android/blob/main/wiki/SD-card-write-access.md
+איך Syncthing כותב לכרטיס SD חיצוני: https://github.com/researchxxl/syncthing-android/blob/main/wiki/known-bug-workarounds/All-files-access_SD-card-write-access.md
 
 אתר שיתופי, שאלות נוספות ומאמרים מועילים: https://github.com/researchxxl/syncthing-android/tree/main/wiki#readme
 

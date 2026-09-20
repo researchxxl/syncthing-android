@@ -28,7 +28,7 @@ Syncthing-Fork لنظام Android هو غلاف لـ Syncthing يوفر واجه
 
 شفرة المصدر: https://github.com/researchxxl/syncthing-android
 
-كيف يكتب Syncthing على بطاقة SD الخارجية: https://github.com/researchxxl/syncthing-android/blob/master/wiki/SD-card-write-access.md
+كيف يكتب Syncthing على بطاقة SD الخارجية: https://github.com/researchxxl/syncthing-android/blob/main/wiki/known-bug-workarounds/All-files-access_SD-card-write-access.md
 
 الويكي، الأسئلة الشائعة، والمقالات المفيدة: https://github.com/researchxxl/syncthing-android/tree/main/wiki#readme
 
