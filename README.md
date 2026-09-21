@@ -42,3 +42,11 @@ See our document on privacy: [privacy-policy.md](privacy-policy.md).
 ## License
 
 The project is licensed under [MPLv2](LICENSE).
+
+## Third-party Community Projects
+
+They extend use cases of our app or depend on our app. You might be curious to check their readme.
+
+- [DecSync CC](https://f-droid.org/packages/org.decsync.cc/) - "Sync contacts, calendars and tasks without a server using DecSync"
+- [Flym DecSync](https://f-droid.org/packages/org.decsync.flym/) - "Sync RSS without a server using DecSync"
+- [SleepSync](https://github.com/Baggio94/SleepSync) - "Pause Syncthing-Fork when your Android device sleeps and automatically resume it when the screen wakes."
