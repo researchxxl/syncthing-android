@@ -15,7 +15,13 @@ local use, so only do this if you specifically need a CA-signed certificate.
 
 You will need:
 
-1. **A certificate and its private key** for the Syncthing Web GUI, in PEM format.
+1. **A certificate and its private key** for the Syncthing Web GUI, in PEM format. The private key
+   must be **unencrypted** — Syncthing cannot read a password-protected key, and the app will refuse
+   one rather than let you apply it. If yours is encrypted, decrypt it first:
+
+   ```
+   openssl pkcs8 -topk8 -nocrypt -in encrypted-key.pem -out https-key.pem
+   ```
 2. **The full certificate chain** in the certificate file. The file must contain your server
    (leaf) certificate **followed by any intermediate certificate(s)**, in order. If you only put
    the leaf certificate in the file, the app (and browsers) can't link it back to your root CA and
@@ -50,8 +56,10 @@ Syncthing for you, rolling back automatically if anything goes wrong.
      device trusts)
    - **Validity period** — not expired / not yet valid.
    - **Private key** — does the key match the certificate?
-5. Tap **Apply certificate**. Syncthing restarts with the new certificate. If it doesn't come back
-   online, the previous certificate is restored automatically and you'll see an error.
+5. Tap **Apply certificate**. Syncthing restarts with the new certificate, and the app then confirms
+   that the certificate actually in use is the one you supplied. If Syncthing didn't come back
+   online, or it rejected the certificate and generated its own instead, the previous certificate is
+   restored automatically and the reason stays on screen with a link to this page.
 
 To go back to the default, use **Reset to auto-generated certificate** on the same screen — Syncthing
 creates a fresh self-signed certificate.
@@ -96,6 +104,10 @@ seems unreachable), check the following — almost always it's one of these:
   certificate(s) after the leaf, not just the leaf on its own.
 - **The wrong key was used.** `https-key.pem` must be the private key that matches the leaf
   certificate in `https-cert.pem`.
+- **The key is encrypted.** Syncthing cannot read a password-protected key. Note what it does in that
+  case: rather than failing, it quietly generates a *new self-signed* certificate and starts with
+  that, so the Web GUI keeps working and your certificate is simply gone. Method A detects this and
+  puts your previous certificate back; with Method B there is nothing to warn you.
 - **The archive layout changed.** When repacking `config.zip`, keep the original file names and
   structure so the import recognizes the files.
 
