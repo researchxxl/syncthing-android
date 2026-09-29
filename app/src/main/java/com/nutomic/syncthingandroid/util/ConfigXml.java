@@ -15,20 +15,24 @@ import com.nutomic.syncthingandroid.model.IgnoredFolder;
 import com.nutomic.syncthingandroid.model.Options;
 import com.nutomic.syncthingandroid.model.SharedWithDevice;
 import com.nutomic.syncthingandroid.R;
+import com.nutomic.syncthingandroid.SyncthingApp;
+import com.nutomic.syncthingandroid.runtime.ConfigStorage;
+import com.nutomic.syncthingandroid.runtime.ConfiguredFolderReference;
+import com.nutomic.syncthingandroid.runtime.DefaultSyncthingRuntime;
+import com.nutomic.syncthingandroid.runtime.ExecutableNotFoundException;
+import com.nutomic.syncthingandroid.runtime.FolderIgnoreResult;
 import com.nutomic.syncthingandroid.service.AppPrefs;
 import com.nutomic.syncthingandroid.service.Constants;
 import com.nutomic.syncthingandroid.service.SyncthingRunnable;
+import com.nutomic.syncthingandroid.runtime.SyncthingCommand;
 import com.nutomic.syncthingandroid.util.FileUtils.ExternalStorageDirType;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStreamReader;
 import java.io.IOException;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.ByteArrayInputStream;
 import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -60,8 +64,9 @@ import org.xml.sax.SAXException;
 import org.xml.sax.InputSource;
 
 /**
- * Provides direct access to the config.xml file in the file system.
- * This class should only be used if the syncthing API is not available (usually during startup).
+ * Provides semantic access to Syncthing configuration state when the REST API is unavailable.
+ * The selected runtime supplies configuration storage while this class retains XML parsing and
+ * application-specific configuration edits.
  */
 public class ConfigXml {
 
@@ -98,14 +103,26 @@ public class ConfigXml {
 
     private final Context mContext;
 
-    private final File mConfigFile;
+    private final ConfigStorage mConfigStorage;
+
+    private final DefaultSyncthingRuntime mRuntime;
 
     private Document mConfig;
 
     public ConfigXml(Context context) {
+        this(
+                context,
+                ((SyncthingApp) context.getApplicationContext())
+                        .component()
+                        .getSyncthingRuntime()
+        );
+    }
+
+    public ConfigXml(Context context, DefaultSyncthingRuntime runtime) {
         mContext = context;
         ENABLE_VERBOSE_LOG = AppPrefs.getPrefVerboseLog(context);
-        mConfigFile = Constants.getConfigFile(mContext);
+        mRuntime = runtime;
+        mConfigStorage = runtime.configStorage();
     }
 
     public void loadConfig() throws OpenConfigException {
@@ -117,10 +134,10 @@ public class ConfigXml {
      * This should run within an AsyncTask as it can cause a full CPU load
      * for more than 30 seconds on older phone hardware.
      */
-    public void generateConfig() throws OpenConfigException, SyncthingRunnable.ExecutableNotFoundException {
+    public void generateConfig() throws OpenConfigException, ExecutableNotFoundException {
         // Create new secret keys and config.
         Log.i(TAG, "(Re)Generating keys and config.");
-        new SyncthingRunnable(mContext, SyncthingRunnable.Command.generate).run(true);
+        new SyncthingRunnable(mContext, SyncthingCommand.GENERATE).run(true);
         parseConfig();
         Boolean changed = false;
 
@@ -194,7 +211,7 @@ public class ConfigXml {
             Log.d(TAG, "getLocalDeviceIDfromPref: Local device ID unavailable, trying to retrieve it from syncthing ...");
             try {
                 localDeviceID = getLocalDeviceIDandStoreToPref();
-            } catch (SyncthingRunnable.ExecutableNotFoundException e) {
+            } catch (ExecutableNotFoundException e) {
                 Log.e(TAG, "getLocalDeviceIDfromPref: Failed to execute syncthing core");
             }
             if (TextUtils.isEmpty(localDeviceID)) {
@@ -204,8 +221,8 @@ public class ConfigXml {
         return localDeviceID;
     }
 
-    private String getLocalDeviceIDandStoreToPref() throws SyncthingRunnable.ExecutableNotFoundException {
-        String logOutput = new SyncthingRunnable(mContext, SyncthingRunnable.Command.deviceid).run(true);
+    private String getLocalDeviceIDandStoreToPref() throws ExecutableNotFoundException {
+        String logOutput = new SyncthingRunnable(mContext, SyncthingCommand.DEVICE_ID).run(true);
         String localDeviceID = logOutput.replace("\n", "");
 
         // Verify that local device ID is correctly formatted.
@@ -225,23 +242,22 @@ public class ConfigXml {
     }
 
     private void parseConfig() {
-        if (!mConfigFile.canRead()) {
-            Log.w(TAG, "Failed to open config file '" + mConfigFile + "'");
+        if (!mConfigStorage.canRead()) {
+            Log.w(TAG, "Failed to open config file");
             throw new OpenConfigException();
         }
         try {
-            FileInputStream inputStream = new FileInputStream(mConfigFile);
+            ByteArrayInputStream inputStream = new ByteArrayInputStream(mConfigStorage.load());
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
             InputSource inputSource = new InputSource(inputStreamReader);
             inputSource.setEncoding("UTF-8");
             DocumentBuilderFactory dbfactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbfactory.newDocumentBuilder();
-            // LogV("Parsing config file '" + mConfigFile + "'");
             mConfig = db.parse(inputSource);
             inputStream.close();
             // LogV("Successfully parsed config file");
         } catch (SAXException | ParserConfigurationException | IOException e) {
-            Log.w(TAG, "Failed to parse config file '" + mConfigFile + "'", e);
+            Log.w(TAG, "Failed to parse config file", e);
             throw new OpenConfigException();
         }
     }
@@ -746,35 +762,10 @@ public class ConfigXml {
      */
     public void getFolderIgnoreList(Folder folder, OnResultListener1<FolderIgnoreList> listener) {
         FolderIgnoreList folderIgnoreList = new FolderIgnoreList();
-        File file;
-        FileInputStream fileInputStream = null;
-        try {
-            file = new File(folder.path, Constants.FILENAME_STIGNORE);
-            if (file.exists()) {
-                fileInputStream = new FileInputStream(file);
-                InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, StandardCharsets.UTF_8);
-                byte[] data = new byte[(int) file.length()];
-                fileInputStream.read(data);
-                folderIgnoreList.ignore = new String(data, StandardCharsets.UTF_8).split("\n");
-            } else {
-                // File not found.
-                Log.w(TAG, "getFolderIgnoreList: File missing " + file);
-                /**
-                 * Don't fail as the file might be expectedly missing when users didn't
-                 * set ignores in the past storyline of that folder.
-                 */
-            }
-        } catch (IOException e) {
-            Log.e(TAG, "getFolderIgnoreList: Failed to read '" + folder.path + "/" + Constants.FILENAME_STIGNORE + "' #1", e);
-        } finally {
-            try {
-                if (fileInputStream != null) {
-                    fileInputStream.close();
-                }
-            } catch (IOException e) {
-                Log.e(TAG, "getFolderIgnoreList: Failed to read '" + folder.path + "/" + Constants.FILENAME_STIGNORE + "' #2", e);
-            }
-        }
+        FolderIgnoreResult result = mRuntime.loadFolderIgnoreList(
+                ConfiguredFolderReference.of(folder.id, folder.path)
+        );
+        folderIgnoreList.ignore = result.lines();
         listener.onResult(folderIgnoreList);
     }
 
@@ -782,32 +773,10 @@ public class ConfigXml {
      * Stores ignore list for given folder.
      */
     public void postFolderIgnoreList(Folder folder, String[] ignore) {
-        File file;
-        FileOutputStream fileOutputStream = null;
-        try {
-            file = new File(folder.path, Constants.FILENAME_STIGNORE);
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-            fileOutputStream = new FileOutputStream(file);
-            // LogV("postFolderIgnoreList: Writing " + Constants.FILENAME_STIGNORE + " content=" + TextUtils.join("\n", ignore));
-            fileOutputStream.write(TextUtils.join("\n", ignore).getBytes(StandardCharsets.UTF_8));
-            fileOutputStream.flush();
-        } catch (IOException e) {
-            /**
-             * This will happen on external storage folders which exist outside the
-             * "/Android/data/[package_name]/files" folder on Android 5+.
-             */
-            Log.w(TAG, "postFolderIgnoreList: Failed to write '" + folder.path + "/" + Constants.FILENAME_STIGNORE + "' #1", e);
-        } finally {
-            try {
-                if (fileOutputStream != null) {
-                    fileOutputStream.close();
-                }
-            } catch (IOException e) {
-                Log.e(TAG, "postFolderIgnoreList: Failed to write '" + folder.path + "/" + Constants.FILENAME_STIGNORE + "' #2", e);
-            }
-        }
+        mRuntime.saveFolderIgnoreList(
+                ConfiguredFolderReference.of(folder.id, folder.path),
+                ignore
+        );
     }
 
     public List<Device> getDevices(Boolean includeLocal) {
@@ -1261,17 +1230,16 @@ public class ConfigXml {
      * Writes updated mConfig back to file.
      */
     public void saveChanges() {
-        if (!mConfigFile.canWrite()) {
+        if (!mConfigStorage.canWrite()) {
             Log.w(TAG, "Failed to save updated config. Cannot change the owner of the config file.");
             return;
         }
 
         Log.i(TAG, "Saving config file");
-        File mConfigTempFile = Constants.getConfigTempFile(mContext);
         try {
             // Write XML header.
-            FileOutputStream fileOutputStream = new FileOutputStream(mConfigTempFile);
-            fileOutputStream.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>".getBytes(StandardCharsets.UTF_8));
+            ByteArrayOutputStream configOutput = new ByteArrayOutputStream();
+            configOutput.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>".getBytes(StandardCharsets.UTF_8));
 
             // Prepare Object-to-XML transform.
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -1287,22 +1255,13 @@ public class ConfigXml {
             StreamResult streamResult = new StreamResult(new OutputStreamWriter(byteArrayOutputStream, StandardCharsets.UTF_8));
             transformer.transform(new DOMSource(mConfig), streamResult);
             byte[] outputBytes = byteArrayOutputStream.toByteArray();
-            fileOutputStream.write(outputBytes);
-            fileOutputStream.close();
+            configOutput.write(outputBytes);
+            mConfigStorage.save(configOutput.toByteArray());
         } catch (TransformerException e) {
             Log.w(TAG, "Failed to transform object to xml and save temporary config file", e);
             return;
-        } catch (FileNotFoundException e) {
-            Log.w(TAG, "Failed to save temporary config file, FileNotFoundException", e);
-        } catch (UnsupportedEncodingException e) {
-            Log.w(TAG, "Failed to save temporary config file, UnsupportedEncodingException", e);
         } catch (IOException e) {
             Log.w(TAG, "Failed to save temporary config file, IOException", e);
-        }
-        try {
-            mConfigTempFile.renameTo(mConfigFile);
-        } catch (Exception e) {
-            Log.w(TAG, "Failed to rename temporary config file to original file");
         }
     }
 

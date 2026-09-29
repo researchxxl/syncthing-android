@@ -9,6 +9,7 @@ plugins {
 }
 
 dependencies {
+    testImplementation(libs.junit)
     implementation(libs.aboutlibraries.compose.m3)
     implementation(libs.aboutlibraries.core)
     implementation(libs.accompanist.permissions)

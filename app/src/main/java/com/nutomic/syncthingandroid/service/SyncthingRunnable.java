@@ -17,8 +17,13 @@ import com.google.common.base.Charsets;
 import com.google.common.io.Files;
 import com.nutomic.syncthingandroid.R;
 import com.nutomic.syncthingandroid.SyncthingApp;
+import com.nutomic.syncthingandroid.runtime.DefaultSyncthingRuntime;
+import com.nutomic.syncthingandroid.runtime.ExecutionAdmissionException;
+import com.nutomic.syncthingandroid.runtime.ExecutableNotFoundException;
+import com.nutomic.syncthingandroid.runtime.SyncthingCommand;
+import com.nutomic.syncthingandroid.runtime.SyncthingEnvironment;
+import com.nutomic.syncthingandroid.runtime.SyncthingExecution;
 import com.nutomic.syncthingandroid.util.FileUtils;
-import com.nutomic.syncthingandroid.util.Util;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -29,11 +34,9 @@ import java.io.InputStreamReader;
 import java.io.RandomAccessFile;
 import java.net.Inet4Address;
 import java.net.InetAddress;
-import java.security.InvalidParameterException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicReference;
 
 import javax.inject.Inject;
 
@@ -54,10 +57,8 @@ public class SyncthingRunnable implements Runnable {
     private static final int LOG_FILE_MAX_LINES = 200000;
     private static final int LOG_FILE_BUFFER_SIZE = 1024 * 1024;
 
-    private static final AtomicReference<Process> mSyncthing = new AtomicReference<>();
     private final Context mContext;
-    private final File mSyncthingBinary;
-    private String[] mCommand;
+    private final SyncthingCommand mCommand;
     private final File mSyncthingLogFile;
 
     @Inject
@@ -66,47 +67,20 @@ public class SyncthingRunnable implements Runnable {
     @Inject
     NotificationHandler mNotificationHandler;
 
-    public enum Command {
-        deviceid,           // Output the device ID to the command line.
-        generate,           // Generate keys, a config file and immediately exit.
-        main,               // Run the main Syncthing application.
-        resetdatabase,      // Reset Syncthing's database
-        resetdeltas,        // Reset Syncthing's delta indexes
-    }
+    @Inject
+    DefaultSyncthingRuntime mRuntime;
 
     /**
      * Constructs instance.
      *
      * @param command Which type of Syncthing command to execute.
      */
-    public SyncthingRunnable(Context context, Command command) {
+    public SyncthingRunnable(Context context, SyncthingCommand command) {
         ((SyncthingApp) context.getApplicationContext()).component().inject(this);
         ENABLE_VERBOSE_LOG = AppPrefs.getPrefVerboseLog(mPreferences);
         mContext = context;
-        // Example: mSyncthingBinary="/data/app/${applicationId}-8HsN-IsVtZXc8GrE5-Hepw==/lib/x86/libsyncthingnative.so"
-        mSyncthingBinary = Constants.getSyncthingBinary(mContext);
+        mCommand = command;
         mSyncthingLogFile = Constants.getSyncthingLogFile(mContext);
-
-        // Get preferences relevant to starting syncthing core.
-        switch (command) {
-            case deviceid:
-                mCommand = new String[]{mSyncthingBinary.getPath(), "device-id"};
-                break;
-            case generate:
-                mCommand = new String[]{mSyncthingBinary.getPath(), "generate"};
-                break;
-            case main:
-                mCommand = new String[]{mSyncthingBinary.getPath(), "serve", "--no-browser"};
-                break;
-            case resetdatabase:
-                mCommand = new String[]{mSyncthingBinary.getPath(), "debug", "reset-database"};
-                break;
-            case resetdeltas:
-                mCommand = new String[]{mSyncthingBinary.getPath(), "serve", "--debug-reset-delta-idxs"};
-                break;
-            default:
-                throw new InvalidParameterException("Unknown command option");
-        }
     }
 
     @Override
@@ -118,6 +92,11 @@ public class SyncthingRunnable implements Runnable {
         }
     }
 
+    /**
+     * Runs the configured bundled Syncthing command.
+     *
+     * @throws ExecutionAdmissionException when another bundled invocation is still active
+     */
     public String run(boolean returnStdOut) throws ExecutableNotFoundException {
         Boolean sendStopToService = false;
         Boolean restartSyncthingNative = false;
@@ -128,7 +107,8 @@ public class SyncthingRunnable implements Runnable {
         trimSyncthingLogFile();
 
         MulticastLock multicastLock = null;
-        Process process = null;
+        SyncthingExecution execution = null;
+        boolean executionExitObserved = false;
         try {
             // Android 11 blocks local discovery if we did not acquire MulticastLock.
             WifiManager wifi = (WifiManager) mContext.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
@@ -139,17 +119,15 @@ public class SyncthingRunnable implements Runnable {
             /**
              * Setup and run a new syncthing instance
              */
-            HashMap<String, String> targetEnv = buildEnvironment();
-            process = setupAndLaunch(targetEnv);
-
-            mSyncthing.set(process);
+            SyncthingEnvironment targetEnv = buildEnvironment();
+            execution = mRuntime.start(mCommand, targetEnv);
 
             Thread lInfo = null;
             Thread lWarn = null;
             if (returnStdOut) {
                 BufferedReader br = null;
                 try {
-                    br = new BufferedReader(new InputStreamReader(process.getInputStream(), Charsets.UTF_8));
+                    br = new BufferedReader(new InputStreamReader(execution.stdout(), Charsets.UTF_8));
                     String line;
                     while ((line = br.readLine()) != null) {
                         Log.i(TAG_NATIVE, line);
@@ -162,13 +140,13 @@ public class SyncthingRunnable implements Runnable {
                         br.close();
                 }
             } else {
-                lInfo = log(process.getInputStream(), Log.INFO);
-                lWarn = log(process.getErrorStream(), Log.WARN);
+                lInfo = log(execution.stdout(), Log.INFO);
+                lWarn = log(execution.stderr(), Log.WARN);
             }
 
-            exitCode = process.waitFor();
+            exitCode = execution.await();
+            executionExitObserved = true;
             LogV("Syncthing exited with code " + exitCode);
-            mSyncthing.set(null);
             if (lInfo != null) {
                 lInfo.join();
             }
@@ -213,6 +191,9 @@ public class SyncthingRunnable implements Runnable {
                     mNotificationHandler.showCrashedNotification(R.string.notification_crash_title, Integer.toString(exitCode));
                     sendStopToService = true;
             }
+        } catch (ExecutableNotFoundException e) {
+            Log.e(TAG, "CRITICAL - Syncthing core binary is missing in APK package location " + e.getMessage());
+            throw e;
         } catch (IOException | InterruptedException e) {
             Log.e(TAG, "Failed to execute syncthing binary or read output", e);
         } finally {
@@ -220,8 +201,16 @@ public class SyncthingRunnable implements Runnable {
                 multicastLock.release();
                 multicastLock = null;
             }
-            if (process != null) {
-                process.destroy();
+            if (execution != null) {
+                execution.destroy();
+                if (!executionExitObserved) {
+                    try {
+                        execution.await();
+                    } catch (InterruptedException e) {
+                        Log.w(TAG, "Interrupted while waiting for Syncthing termination", e);
+                        Thread.currentThread().interrupt();
+                    }
+                }
             }
         }
 
@@ -243,16 +232,19 @@ public class SyncthingRunnable implements Runnable {
         return capturedStdOut;
     }
 
-    private void putCustomEnvironmentVariables(Map<String, String> environment, SharedPreferences sp) {
+    private Map<String, String> customEnvironmentVariables(SharedPreferences sp) {
+        Map<String, String> environment = new HashMap<>();
         String customEnvironment = sp.getString(Constants.PREF_ENVIRONMENT_VARIABLES, null);
-        if (TextUtils.isEmpty(customEnvironment))
-            return;
+        if (TextUtils.isEmpty(customEnvironment)) {
+            return environment;
+        }
 
         for (String e : customEnvironment.split(" ")) {
             String[] e2 = e.split("=", 2);
             LogV("Setting env var: [" + e2[0] + "]=[" + e2[1] + "]");
             environment.put(e2[0], e2[1]);
         }
+        return environment;
     }
 
     /**
@@ -376,43 +368,28 @@ public class SyncthingRunnable implements Runnable {
         }
     }
 
-    private HashMap<String, String> buildEnvironment() {
-        HashMap<String, String> targetEnv = new HashMap<>();
-
-        // Set home directory to data folder for web GUI folder picker.
-        targetEnv.put("HOME", FileUtils.getSyncthingTildeAbsolutePath());
-
-        // Set config, key and database directory.
-        targetEnv.put("STHOMEDIR", mContext.getFilesDir().toString());
-        targetEnv.put("STTRACE", TextUtils.join(" ",
-                mPreferences.getStringSet(Constants.PREF_DEBUG_FACILITIES_ENABLED, new HashSet<>())));
-        targetEnv.put("STMONITORED", "1");
-        targetEnv.put("STNOUPGRADE", "1");
-        targetEnv.put("STVERSIONEXTRA", mContext.getString(R.string.app_name));
-
-        // Database tuning against slowness.
-        targetEnv.put("SQLITE_TMPDIR", mContext.getCacheDir().getAbsolutePath());
+    private SyncthingEnvironment buildEnvironment() {
+        SyncthingEnvironment.Builder builder = SyncthingEnvironment.builder()
+                // Set home directory to data folder for web GUI folder picker.
+                .home(FileUtils.getSyncthingTildeAbsolutePath())
+                // Set config, key and database directory.
+                .syncthingHome(mContext.getFilesDir().toString())
+                .trace(TextUtils.join(" ",
+                        mPreferences.getStringSet(Constants.PREF_DEBUG_FACILITIES_ENABLED, new HashSet<>())))
+                .monitored()
+                .noUpgrade()
+                .versionExtra(mContext.getString(R.string.app_name))
+                // Database tuning against slowness.
+                .sqliteTemporaryDirectory(mContext.getCacheDir().getAbsolutePath());
 
         // Workaround SyncthingNativeCode denied to read gatewayIP by Android 14+ restriction.
-        final String gatewayIpV4 = getGatewayIpV4(mContext);
-        if (gatewayIpV4 != null) {
-            targetEnv.put("FALLBACK_NET_GATEWAY_IPV4", gatewayIpV4);
-        }
+        builder.fallbackGatewayIpv4(getGatewayIpV4(mContext));
 
         if (mPreferences.getBoolean(Constants.PREF_USE_TOR, false)) {
-            targetEnv.put("all_proxy", "socks5://localhost:9050");
-            targetEnv.put("ALL_PROXY_NO_FALLBACK", "1");
+            builder.torProxy();
         } else {
-            String socksProxyAddress = mPreferences.getString(Constants.PREF_SOCKS_PROXY_ADDRESS, "");
-            if (!socksProxyAddress.equals("")) {
-                targetEnv.put("all_proxy", socksProxyAddress);
-            }
-
-            String httpProxyAddress = mPreferences.getString(Constants.PREF_HTTP_PROXY_ADDRESS, "");
-            if (!httpProxyAddress.equals("")) {
-                targetEnv.put("http_proxy", httpProxyAddress);
-                targetEnv.put("https_proxy", httpProxyAddress);
-            }
+            builder.socksProxy(mPreferences.getString(Constants.PREF_SOCKS_PROXY_ADDRESS, ""));
+            builder.httpProxy(mPreferences.getString(Constants.PREF_HTTP_PROXY_ADDRESS, ""));
         }
 
         // Optimize memory usage for older devices.
@@ -421,36 +398,10 @@ public class SyncthingRunnable implements Runnable {
             gogc = 75;
         }
         LogV("Setting env var: [GOGC]=[" + Integer.toString(gogc) + "]");
-        targetEnv.put("GOGC", Integer.toString(gogc));
-
-        putCustomEnvironmentVariables(targetEnv, mPreferences);
-        return targetEnv;
-    }
-
-    private Process setupAndLaunch(HashMap<String, String> env) throws IOException, ExecutableNotFoundException {
-        // Check if "libsyncthingnative.so" exists.
-        if (mCommand.length > 0) {
-            File libSyncthing = new File(mCommand[0]);
-            if (!libSyncthing.exists()) {
-                Log.e(TAG, "CRITICAL - Syncthing core binary is missing in APK package location " + mCommand[0]);
-                throw new ExecutableNotFoundException(mCommand[0]);
-            }
-        }
-        ProcessBuilder pb = new ProcessBuilder(mCommand);
-        pb.environment().putAll(env);
-        return pb.start();
-    }
-
-    public class ExecutableNotFoundException extends Exception {
-
-        public ExecutableNotFoundException(String message) {
-            super(message);
-        }
-
-        public ExecutableNotFoundException(String message, Throwable throwable) {
-            super(message, throwable);
-        }
-
+        return builder
+                .gogc(gogc)
+                .customVariables(customEnvironmentVariables(mPreferences))
+                .build();
     }
 
     private void LogV(String logMessage) {

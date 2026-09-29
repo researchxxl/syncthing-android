@@ -26,7 +26,7 @@ import com.nutomic.syncthingandroid.activities.MainActivity
 import com.nutomic.syncthingandroid.activities.ThemedAppCompatActivity
 import com.nutomic.syncthingandroid.webgui.WebGuiActivity
 import com.nutomic.syncthingandroid.service.Constants
-import com.nutomic.syncthingandroid.service.SyncthingRunnable.ExecutableNotFoundException
+import com.nutomic.syncthingandroid.runtime.ExecutableNotFoundException
 import com.nutomic.syncthingandroid.theme.ApplicationTheme
 import com.nutomic.syncthingandroid.util.ConfigXml
 import com.nutomic.syncthingandroid.util.ConfigXml.OpenConfigException

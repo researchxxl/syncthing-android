@@ -45,6 +45,8 @@ import com.nutomic.syncthingandroid.model.Device;
 import com.nutomic.syncthingandroid.model.Folder;
 import com.nutomic.syncthingandroid.model.FolderIgnoreList;
 import com.nutomic.syncthingandroid.model.SharedWithDevice;
+import com.nutomic.syncthingandroid.runtime.DefaultSyncthingRuntime;
+import com.nutomic.syncthingandroid.runtime.FolderWriteability;
 import com.nutomic.syncthingandroid.service.Constants;
 import com.nutomic.syncthingandroid.service.RestApi;
 import com.nutomic.syncthingandroid.service.SyncthingService;
@@ -143,6 +145,9 @@ public class FolderActivity extends SyncthingActivity {
 
     @Inject
     SharedPreferences mPreferences;
+
+    @Inject
+    DefaultSyncthingRuntime mRuntime;
 
     private boolean mPrefExpertMode = false;
 
@@ -756,7 +761,8 @@ public class FolderActivity extends SyncthingActivity {
          * Access level readonly: folder can only be configured "sendonly".
          * Access level readwrite: folder can be configured "sendonly" or "sendreceive".
          */
-        mCanWriteToPath = Util.nativeBinaryCanWriteToPath(FolderActivity.this, mFolder.path);
+        mCanWriteToPath = mRuntime.validateCandidateFolder(mFolder.path)
+                == FolderWriteability.WRITABLE;
         if (mCanWriteToPath) {
             mAccessExplanationView.setText(R.string.folder_path_readwrite);
             mFolderTypeView.setEnabled(true);

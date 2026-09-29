@@ -50,6 +50,9 @@ import com.nutomic.syncthingandroid.model.RemoteIgnoredDevice;
 import com.nutomic.syncthingandroid.model.SharedWithDevice;
 import com.nutomic.syncthingandroid.model.SystemStatus;
 import com.nutomic.syncthingandroid.model.SystemVersion;
+import com.nutomic.syncthingandroid.runtime.ConfiguredFolderReference;
+import com.nutomic.syncthingandroid.runtime.DefaultSyncthingRuntime;
+import com.nutomic.syncthingandroid.runtime.FolderEvent;
 import com.nutomic.syncthingandroid.service.Constants;
 import com.nutomic.syncthingandroid.util.FileUtils;
 import com.nutomic.syncthingandroid.util.Util;
@@ -179,6 +182,8 @@ public class RestApi {
     private final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     @Inject NotificationHandler mNotificationHandler;
+
+    @Inject DefaultSyncthingRuntime mRuntime;
 
     public RestApi(Context context, URL url, String apiKey, OnApiAvailableListener apiListener,
                    OnConfigChangedListener configListener) {
@@ -1262,7 +1267,9 @@ public class RestApi {
                 // Check for ".sync-conflict-YYYYMMDD-HHMMSS-DEVICEI*" files.
                 mLocalCompletion.setDiscoveredConflictFiles(
                         folderId,
-                        Util.getSyncConflictFiles(folder.path)
+                        mRuntime.discoverConflicts(
+                                ConfiguredFolderReference.of(folder.id, folder.path)
+                        ).relativePaths().toArray(new String[0])
                 );
             }
 
@@ -1287,11 +1294,9 @@ public class RestApi {
             Constants.DYN_PREF_OBJECT_FOLDER_RUN_SCRIPT(folder.id), false
         );
         if (folderRunScriptEnabled) {
-            Util.runScriptSet(
-                    folder.path + "/" + Constants.FILENAME_STFOLDER, 
-                    new String[]{
-                            "sync_complete"
-                    }
+            mRuntime.runFolderScripts(
+                    ConfiguredFolderReference.of(folder.id, folder.path),
+                    FolderEvent.SYNC_COMPLETE
             );
         }
 

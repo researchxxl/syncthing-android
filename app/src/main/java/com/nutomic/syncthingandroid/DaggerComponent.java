@@ -11,6 +11,7 @@ import com.nutomic.syncthingandroid.fragments.FolderListFragment;
 import com.nutomic.syncthingandroid.fragments.StatusFragment;
 import com.nutomic.syncthingandroid.onboarding.OnboardingActivity;
 import com.nutomic.syncthingandroid.receiver.AppConfigReceiver;
+import com.nutomic.syncthingandroid.runtime.DefaultSyncthingRuntime;
 import com.nutomic.syncthingandroid.service.RunConditionMonitor;
 import com.nutomic.syncthingandroid.service.EventProcessor;
 import com.nutomic.syncthingandroid.service.RestApi;
@@ -25,6 +26,8 @@ import dagger.Component;
 @Singleton
 @Component(modules = {SyncthingModule.class})
 public interface DaggerComponent {
+    DefaultSyncthingRuntime getSyncthingRuntime();
+
     void inject(AppConfigReceiver appConfigReceiver);
     void inject(DeviceActivity activity);
     void inject(DeviceListFragment fragment);
