@@ -172,6 +172,11 @@ public class RestApi {
     private int mLastOnlineDeviceCount = 0;
     private int mLastTotalSyncCompletion = -1;
 
+    private final Set<String> mObservedFolderStates =
+            Collections.synchronizedSet(new HashSet<>());
+    private final Set<String> mObservedRemoteCompletions =
+            Collections.synchronizedSet(new HashSet<>());
+
     private Boolean hasShutdown = false;
 
     private Gson mGson;
@@ -243,6 +248,10 @@ public class RestApi {
                 asyncQueryConfigComplete &&
                 asyncQuerySystemStatusComplete) {
             LogV("Reading config from REST completed. Syncthing version is " + mVersion);
+            // Recompute once all config/system identity data is available so the
+            // remote-device counters cannot accidentally include the local device.
+            onTotalSyncCompletionChange();
+
             // Tell SyncthingService it can transition to State.ACTIVE.
             mOnApiAvailableListener.onApiAvailable();
 
@@ -393,6 +402,20 @@ public class RestApi {
         mLocalCompletion.updateFromConfig(tmpFolders);
         mRemoteCompletion.updateFromConfig(getDevices(true), tmpFolders);
 
+        final Set<String> configuredFolderIds = new HashSet<>();
+        final Set<String> configuredRemoteCompletionKeys = new HashSet<>();
+        for (Folder folder : tmpFolders) {
+            configuredFolderIds.add(folder.id);
+            for (SharedWithDevice device : folder.getSharedWithDevices()) {
+                configuredRemoteCompletionKeys.add(
+                        remoteCompletionKey(device.deviceID, folder.id));
+            }
+        }
+        mObservedFolderStates.retainAll(configuredFolderIds);
+        mObservedRemoteCompletions.retainAll(configuredRemoteCompletionKeys);
+
+        onTotalSyncCompletionChange();
+
         // Perform first query for remote device status by forcing a cache miss.
         getRemoteDeviceStatus("");
 
@@ -419,6 +442,9 @@ public class RestApi {
                     remoteCompletionInfo.completion = completionInfo.completion;
                     remoteCompletionInfo.needBytes = completionInfo.needBytes;
                     mRemoteCompletion.setCompletionInfo(device.deviceID, folder.id, remoteCompletionInfo);
+                    mObservedRemoteCompletions.add(
+                            remoteCompletionKey(device.deviceID, folder.id));
+                    onTotalSyncCompletionChange();
                 }, error -> {});
             }
         }
@@ -906,6 +932,7 @@ public class RestApi {
                                 e.getValue()            // connection
                         );
                     }
+                    onTotalSyncCompletionChange();
             }, error -> {});
             new GetRequest(mContext, mUrl, GetRequest.URI_STATS_DEVICE, mApiKey, null, result -> {
                     /**
@@ -1158,6 +1185,7 @@ public class RestApi {
     public void setLocalFolderStatus(final String folderId,
                                             final FolderStatus folderStatus) {
         mLocalCompletion.setFolderStatus(folderId, folderStatus);
+        mObservedFolderStates.add(folderId);
         onTotalSyncCompletionChange();
     }
 
@@ -1216,6 +1244,7 @@ public class RestApi {
             remoteCompletionInfo.needBytes = needBytes;
         }
         mRemoteCompletion.setCompletionInfo(deviceId, folderId, remoteCompletionInfo);
+        mObservedRemoteCompletions.add(remoteCompletionKey(deviceId, folderId));
         onTotalSyncCompletionChange();
 
         /**
@@ -1308,12 +1337,16 @@ public class RestApi {
     public void updateLocalFolderPause(final String folderId, final Boolean newPaused) {
         // Clear status cache when pausing or resuming the folder.
         mLocalCompletion.setFolderStatus(folderId, newPaused, new FolderStatus());
+        mObservedFolderStates.remove(folderId);
+        onTotalSyncCompletionChange();
     }
 
     public void updateLocalFolderState(final String folderId, final String newState) {
         final Map.Entry<FolderStatus, CachedFolderStatus> cacheEntry = mLocalCompletion.getFolderStatus(folderId);
         cacheEntry.getKey().state = newState;
         mLocalCompletion.setFolderStatus(folderId, cacheEntry.getKey());
+        mObservedFolderStates.add(folderId);
+        onTotalSyncCompletionChange();
     }
 
     public void updateRemoteDeviceConnected(final String deviceId, final Boolean newConnected) {
@@ -1493,8 +1526,144 @@ public class RestApi {
         return;
     }
 
+    private static String remoteCompletionKey(
+            final String deviceId,
+            final String folderId) {
+        return deviceId + "\u0000" + folderId;
+    }
+
+    private void publishRemoteControlSyncCounters() {
+        int foldersIdle = 0;
+        int foldersScanning = 0;
+        int foldersSyncing = 0;
+        int foldersCleaning = 0;
+        int foldersErrored = 0;
+        int foldersStarting = 0;
+
+        final List<Folder> folders = getFolders();
+
+        for (Folder folder : folders) {
+            if (folder.paused) {
+                continue;
+            }
+
+            if (!mObservedFolderStates.contains(folder.id)) {
+                foldersStarting++;
+                continue;
+            }
+
+            final FolderStatus folderStatus = mLocalCompletion.getFolderStatus(folder.id).getKey();
+            final String state = folderStatus.state == null ? "unknown" : folderStatus.state;
+
+            if ("error".equals(state)
+                    || !TextUtils.isEmpty(folderStatus.error)
+                    || !TextUtils.isEmpty(folderStatus.invalid)
+                    || !TextUtils.isEmpty(folderStatus.watchError)
+                    || folderStatus.errors > 0
+                    || folderStatus.pullErrors > 0) {
+                foldersErrored++;
+                continue;
+            }
+
+            if ("unknown".equals(state)) {
+                foldersStarting++;
+                continue;
+            }
+
+            switch (state) {
+                case "idle":
+                    // An idle folder can still have unresolved local work (for example
+                    // receive-only/send-only divergence). Keep that state conservative.
+                    if (folderStatus.needBytes > 0 || folderStatus.needTotalItems > 0) {
+                        foldersStarting++;
+                    } else {
+                        foldersIdle++;
+                    }
+                    break;
+                case "scanning":
+                    foldersScanning++;
+                    break;
+                case "syncing":
+                    foldersSyncing++;
+                    break;
+                case "cleaning":
+                    foldersCleaning++;
+                    break;
+                case "scan-waiting":
+                case "sync-waiting":
+                case "clean-waiting":
+                case "sync-preparing":
+                    foldersStarting++;
+                    break;
+                default:
+                    // Unknown future Syncthing states must not look synchronized.
+                    foldersStarting++;
+                    break;
+            }
+        }
+
+        int devicesConnected = 0;
+        int devicesSyncing = 0;
+        int devicesPending = 0;
+
+        for (Device device : getDevices(false)) {
+            if (device.paused) {
+                continue;
+            }
+
+            final Connection connection = mRemoteCompletion.getDeviceStatus(device.deviceID);
+            if (connection.paused) {
+                continue;
+            }
+
+            boolean completionObserved = true;
+            for (Folder folder : folders) {
+                if (folder.paused || folder.getDevice(device.deviceID) == null) {
+                    continue;
+                }
+
+                if (!mObservedRemoteCompletions.contains(
+                        remoteCompletionKey(device.deviceID, folder.id))) {
+                    completionObserved = false;
+                    break;
+                }
+            }
+
+            final double needBytes = mRemoteCompletion.getDeviceNeedBytes(device.deviceID);
+            final int completion = mRemoteCompletion.getDeviceCompletion(device.deviceID);
+            final boolean hasPendingWork =
+                    !completionObserved
+                            || needBytes > 0
+                            || (completion > 0 && completion < 100);
+
+            if (connection.connected) {
+                devicesConnected++;
+                if (hasPendingWork) {
+                    devicesSyncing++;
+                }
+            } else if (hasPendingWork) {
+                devicesPending++;
+            }
+        }
+
+        SyncthingService.updateRemoteControlSyncCounters(
+                mContext,
+                foldersIdle,
+                foldersScanning,
+                foldersSyncing,
+                foldersCleaning,
+                foldersErrored,
+                foldersStarting,
+                devicesConnected,
+                devicesSyncing,
+                devicesPending
+        );
+    }
+
     private void onTotalSyncCompletionChange() {
         // LogV("onTotalSyncCompletionChange fired.");
+        publishRemoteControlSyncCounters();
+
         if (mNotificationHandler == null) {
             return;
         }

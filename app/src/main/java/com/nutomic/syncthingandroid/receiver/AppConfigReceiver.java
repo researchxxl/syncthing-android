@@ -41,6 +41,11 @@ public class AppConfigReceiver extends BroadcastReceiver {
      */
     private static final String ACTION_STOP  = ".action.STOP";
 
+    /**
+     * Request the current Syncthing service control mode and runtime state.
+     */
+    private static final String ACTION_REQUEST_STATE = ".action.REQUEST_STATE";
+
     @Inject NotificationHandler mNotificationHandler;
 
     @Override
@@ -52,6 +57,7 @@ public class AppConfigReceiver extends BroadcastReceiver {
                 case ACTION_FOLLOW:
                 case ACTION_START:
                 case ACTION_STOP:
+                case ACTION_REQUEST_STATE:
                     Log.w(TAG, "Ignored intent action \"" + intentAction +
                                 "\". Enable Settings > Experimental > Service Control by Broadcast if you like to control syncthing remotely.");
                     break;
@@ -74,6 +80,10 @@ public class AppConfigReceiver extends BroadcastReceiver {
                 Log.d(TAG, "forceStop by intent");
                 setPrefBtnStateForceStartStopAndNotify(context, Constants.BTNSTATE_FORCE_STOP);
                 break;
+            case ACTION_REQUEST_STATE:
+                Log.d(TAG, "send current state by intent");
+                SyncthingService.broadcastRemoteControlState(context, true);
+                break;
             default:
                 Log.w(TAG, "invalid intent action: " + intentAction);
         }
@@ -95,6 +105,8 @@ public class AppConfigReceiver extends BroadcastReceiver {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt(Constants.PREF_BTNSTATE_FORCE_START_STOP, newState);
         editor.apply();
+
+        SyncthingService.broadcastRemoteControlState(context);
 
         // Notify {@link RunConditionMonitor} that the button's state changed.
         LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(context);
