@@ -11,7 +11,7 @@ import androidx.preference.PreferenceManager;
 import com.nutomic.syncthingandroid.SyncthingApp;
 import com.nutomic.syncthingandroid.service.NotificationHandler;
 import com.nutomic.syncthingandroid.service.Constants;
-import com.nutomic.syncthingandroid.service.SyncthingService;
+import com.nutomic.syncthingandroid.service.RunConditionMonitor;
 
 import javax.inject.Inject;
 
@@ -51,7 +51,12 @@ public class AppConfigReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         ((SyncthingApp) context.getApplicationContext()).component().inject(this);
-        String intentAction = intent.getAction().replaceFirst(context.getPackageName(), "");
+        String action = intent.getAction();
+        String packageName = context.getPackageName();
+        if (action == null || !action.startsWith(packageName + ".action.")) {
+            return;
+        }
+        String intentAction = action.substring(packageName.length());
         if (!getPrefBroadcastServiceControl(context)) {
             switch (intentAction) {
                 case ACTION_FOLLOW:
@@ -82,7 +87,7 @@ public class AppConfigReceiver extends BroadcastReceiver {
                 break;
             case ACTION_REQUEST_STATE:
                 Log.d(TAG, "send current state by intent");
-                SyncthingService.broadcastRemoteControlState(context, true);
+                RunConditionMonitor.broadcastRemoteControlState(context, true);
                 break;
             default:
                 Log.w(TAG, "invalid intent action: " + intentAction);
@@ -106,7 +111,7 @@ public class AppConfigReceiver extends BroadcastReceiver {
         editor.putInt(Constants.PREF_BTNSTATE_FORCE_START_STOP, newState);
         editor.apply();
 
-        SyncthingService.broadcastRemoteControlState(context);
+        RunConditionMonitor.broadcastRemoteControlState(context);
 
         // Notify {@link RunConditionMonitor} that the button's state changed.
         LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(context);

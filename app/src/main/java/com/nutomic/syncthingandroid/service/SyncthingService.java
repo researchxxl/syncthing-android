@@ -1,7 +1,6 @@
 package com.nutomic.syncthingandroid.service;
 
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Environment;
@@ -10,8 +9,8 @@ import android.os.Looper;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
-import androidx.preference.PreferenceManager;
 
+import com.google.common.util.concurrent.Uninterruptibles;
 import com.nutomic.syncthingandroid.R;
 import com.nutomic.syncthingandroid.SyncthingApp;
 import com.nutomic.syncthingandroid.http.PollWebGuiAvailableTask;
@@ -52,28 +51,6 @@ import net.lingala.zip4j.model.enums.AesKeyStrength;
 public class SyncthingService extends Service {
 
     private static final String TAG = "SyncthingService";
-
-    private static final String ACTION_REMOTE_STATE_CHANGED = ".action.STATE_CHANGED";
-    private static final String EXTRA_REMOTE_MODE = "mode";
-    private static final String EXTRA_REMOTE_RUN_STATE = "run_state";
-    private static final String EXTRA_FOLDERS_IDLE_COUNT = "folders_idle_count";
-    private static final String EXTRA_FOLDERS_SCANNING_COUNT = "folders_scanning_count";
-    private static final String EXTRA_FOLDERS_SYNCING_COUNT = "folders_syncing_count";
-    private static final String EXTRA_FOLDERS_CLEANING_COUNT = "folders_cleaning_count";
-    private static final String EXTRA_FOLDERS_ERRORED_COUNT = "folders_errored_count";
-    private static final String EXTRA_FOLDERS_STARTING_COUNT = "folders_starting_count";
-    private static final String EXTRA_DEVICES_CONNECTED_COUNT = "devices_connected_count";
-    private static final String EXTRA_DEVICES_SYNCING_COUNT = "devices_syncing_count";
-    private static final String EXTRA_DEVICES_PENDING_COUNT = "devices_pending_count";
-
-    private static final String REMOTE_MODE_FOLLOW = "FOLLOW";
-    private static final String REMOTE_MODE_FORCE_START = "FORCE_START";
-    private static final String REMOTE_MODE_FORCE_STOP = "FORCE_STOP";
-
-    private static final String REMOTE_RUN_STATE_STARTING = "STARTING";
-    private static final String REMOTE_RUN_STATE_RUNNING = "RUNNING";
-    private static final String REMOTE_RUN_STATE_STOPPED = "STOPPED";
-    private static final String REMOTE_RUN_STATE_ERROR = "ERROR";
 
     private Boolean ENABLE_VERBOSE_LOG = false;
 
@@ -219,40 +196,12 @@ public class SyncthingService extends Service {
         ERROR,
     }
 
-    private static final int SYNC_COUNTER_COUNT = 9;
-    private static final int COUNTER_FOLDERS_IDLE = 0;
-    private static final int COUNTER_FOLDERS_SCANNING = 1;
-    private static final int COUNTER_FOLDERS_SYNCING = 2;
-    private static final int COUNTER_FOLDERS_CLEANING = 3;
-    private static final int COUNTER_FOLDERS_ERRORED = 4;
-    private static final int COUNTER_FOLDERS_STARTING = 5;
-    private static final int COUNTER_DEVICES_CONNECTED = 6;
-    private static final int COUNTER_DEVICES_SYNCING = 7;
-    private static final int COUNTER_DEVICES_PENDING = 8;
-
-    private static volatile State sCurrentState = State.DISABLED;
-    private static String sLastBroadcastMode = null;
-    private static String sLastBroadcastRunState = null;
-    private static int[] sCurrentSyncCounters = new int[SYNC_COUNTER_COUNT];
-    private static int[] sLastBroadcastSyncCounters = null;
-
     /**
      * Initialize the service with State.DISABLED as {@link RunConditionMonitor} will
      * send an update if we should run the binary after it got instantiated in
      * {@link #onStartCommand}.
      */
     private State mCurrentState = State.DISABLED;
-
-    private final SharedPreferences.OnSharedPreferenceChangeListener mRemoteControlStatePreferenceListener =
-            (sharedPreferences, key) -> {
-                if (Constants.PREF_BTNSTATE_FORCE_START_STOP.equals(key)) {
-                    broadcastRemoteControlState(this);
-                } else if (Constants.PREF_BROADCAST_SERVICE_CONTROL.equals(key)
-                        && sharedPreferences.getBoolean(Constants.PREF_BROADCAST_SERVICE_CONTROL, false)) {
-                    broadcastRemoteControlState(this, true);
-                }
-            };
-
     private ConfigRouter mConfigRouter;
     private ConfigXml mConfig;
     private Thread mSyncthingRunnableThread = null;
@@ -305,9 +254,7 @@ public class SyncthingService extends Service {
         super.onCreate();
         ((SyncthingApp) getApplication()).component().inject(this);
         ENABLE_VERBOSE_LOG = AppPrefs.getPrefVerboseLog(mPreferences);
-        mPreferences.registerOnSharedPreferenceChangeListener(mRemoteControlStatePreferenceListener);
-        sCurrentState = mCurrentState;
-        resetRemoteControlSyncCounters();
+        RunConditionMonitor.updateServiceState(this, mCurrentState);
         LogV("onCreate");
         mConfigRouter = new ConfigRouter(SyncthingService.this);
         mHandler = new Handler();
@@ -708,9 +655,6 @@ public class SyncthingService extends Service {
     @Override
     public void onDestroy() {
         Log.d(TAG, "onDestroy");
-        if (mPreferences != null) {
-            mPreferences.unregisterOnSharedPreferenceChangeListener(mRemoteControlStatePreferenceListener);
-        }
         if (mRunConditionMonitor != null) {
             /**
              * Shut down the OnShouldRunChangedListener so we won't get interrupted by run
@@ -773,16 +717,13 @@ public class SyncthingService extends Service {
             Util.killProcess(Constants.FILENAME_SYNCTHING_BINARY);
             if (mSyncthingRunnableThread != null) {
                 LogV("Waiting for mSyncthingRunnableThread to finish after killProcess(Syncthing) ...");
-                try {
-                    mSyncthingRunnableThread.join();
-                } catch (InterruptedException e) {
-                    Log.w(TAG, "mSyncthingRunnableThread InterruptedException");
-                }
+                Uninterruptibles.joinUninterruptibly(mSyncthingRunnableThread);
                 Log.d(TAG, "Finished mSyncthingRunnableThread.");
                 mSyncthingRunnableThread = null;
             }
             mSyncthingRunnable = null;
         }
+        RunConditionMonitor.updateServiceState(this, newState);
     }
 
     public @Nullable
@@ -837,11 +778,11 @@ public class SyncthingService extends Service {
         }
         Log.i(TAG, "onServiceStateChange: from " + mCurrentState + " to " + newState);
         mCurrentState = newState;
-        sCurrentState = newState;
-        if (newState != State.ACTIVE) {
-            resetRemoteControlSyncCounters();
+        // DISABLED is set before teardown. Publish STOPPED only after shutdown()
+        // has waited for the native process thread to finish.
+        if (newState != State.DISABLED) {
+            RunConditionMonitor.updateServiceState(this, newState);
         }
-        broadcastRemoteControlState(this);
         mHandler.post(() -> {
             mNotificationHandler.updatePersistentNotification(this);
             Iterator<OnServiceStateChangeListener> it = mOnServiceStateChangeListeners.iterator();
@@ -854,124 +795,6 @@ public class SyncthingService extends Service {
                 }
             }
         });
-    }
-
-    private static synchronized void resetRemoteControlSyncCounters() {
-        sCurrentSyncCounters = new int[SYNC_COUNTER_COUNT];
-    }
-
-    public static synchronized void updateRemoteControlSyncCounters(
-            Context context,
-            int foldersIdle,
-            int foldersScanning,
-            int foldersSyncing,
-            int foldersCleaning,
-            int foldersErrored,
-            int foldersStarting,
-            int devicesConnected,
-            int devicesSyncing,
-            int devicesPending
-    ) {
-        int[] next = new int[]{
-                foldersIdle,
-                foldersScanning,
-                foldersSyncing,
-                foldersCleaning,
-                foldersErrored,
-                foldersStarting,
-                devicesConnected,
-                devicesSyncing,
-                devicesPending
-        };
-
-        if (Arrays.equals(next, sCurrentSyncCounters)) {
-            return;
-        }
-
-        sCurrentSyncCounters = next;
-        broadcastRemoteControlState(context);
-    }
-
-    public static void broadcastRemoteControlState(Context context) {
-        broadcastRemoteControlState(context, false);
-    }
-
-    public static synchronized void broadcastRemoteControlState(Context context, boolean force) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-
-        if (!preferences.getBoolean(Constants.PREF_BROADCAST_SERVICE_CONTROL, false)) {
-            return;
-        }
-
-        String mode;
-        switch (preferences.getInt(
-                Constants.PREF_BTNSTATE_FORCE_START_STOP,
-                Constants.BTNSTATE_NO_FORCE_START_STOP
-        )) {
-            case Constants.BTNSTATE_FORCE_START:
-                mode = REMOTE_MODE_FORCE_START;
-                break;
-            case Constants.BTNSTATE_FORCE_STOP:
-                mode = REMOTE_MODE_FORCE_STOP;
-                break;
-            case Constants.BTNSTATE_NO_FORCE_START_STOP:
-            default:
-                mode = REMOTE_MODE_FOLLOW;
-                break;
-        }
-
-        String runState;
-        switch (sCurrentState) {
-            case INIT:
-            case STARTING:
-                runState = REMOTE_RUN_STATE_STARTING;
-                break;
-            case ACTIVE:
-                runState = REMOTE_RUN_STATE_RUNNING;
-                break;
-            case ERROR:
-                runState = REMOTE_RUN_STATE_ERROR;
-                break;
-            case DISABLED:
-            default:
-                runState = REMOTE_RUN_STATE_STOPPED;
-                break;
-        }
-
-        if (!force
-                && mode.equals(sLastBroadcastMode)
-                && runState.equals(sLastBroadcastRunState)
-                && Arrays.equals(sCurrentSyncCounters, sLastBroadcastSyncCounters)) {
-            return;
-        }
-
-        Intent intent = new Intent(context.getPackageName() + ACTION_REMOTE_STATE_CHANGED);
-        intent.putExtra(EXTRA_REMOTE_MODE, mode);
-        intent.putExtra(EXTRA_REMOTE_RUN_STATE, runState);
-        intent.putExtra(EXTRA_FOLDERS_IDLE_COUNT,
-                sCurrentSyncCounters[COUNTER_FOLDERS_IDLE]);
-        intent.putExtra(EXTRA_FOLDERS_SCANNING_COUNT,
-                sCurrentSyncCounters[COUNTER_FOLDERS_SCANNING]);
-        intent.putExtra(EXTRA_FOLDERS_SYNCING_COUNT,
-                sCurrentSyncCounters[COUNTER_FOLDERS_SYNCING]);
-        intent.putExtra(EXTRA_FOLDERS_CLEANING_COUNT,
-                sCurrentSyncCounters[COUNTER_FOLDERS_CLEANING]);
-        intent.putExtra(EXTRA_FOLDERS_ERRORED_COUNT,
-                sCurrentSyncCounters[COUNTER_FOLDERS_ERRORED]);
-        intent.putExtra(EXTRA_FOLDERS_STARTING_COUNT,
-                sCurrentSyncCounters[COUNTER_FOLDERS_STARTING]);
-        intent.putExtra(EXTRA_DEVICES_CONNECTED_COUNT,
-                sCurrentSyncCounters[COUNTER_DEVICES_CONNECTED]);
-        intent.putExtra(EXTRA_DEVICES_SYNCING_COUNT,
-                sCurrentSyncCounters[COUNTER_DEVICES_SYNCING]);
-        intent.putExtra(EXTRA_DEVICES_PENDING_COUNT,
-                sCurrentSyncCounters[COUNTER_DEVICES_PENDING]);
-        context.sendBroadcast(intent);
-
-        sLastBroadcastMode = mode;
-        sLastBroadcastRunState = runState;
-        sLastBroadcastSyncCounters =
-                Arrays.copyOf(sCurrentSyncCounters, sCurrentSyncCounters.length);
     }
 
     public State getCurrentState() {
