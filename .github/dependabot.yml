@@ -13,3 +13,12 @@ updates:
   - dependency-name: com.google.zxing:core
     versions:
     - "> 3.3.0"
+- package-ecosystem: "github-actions"
+  directory: "/"
+  schedule:
+    interval: monthly
+  open-pull-requests-limit: 10
+  groups:
+    actions-core:
+      patterns:
+        - "actions/*"
