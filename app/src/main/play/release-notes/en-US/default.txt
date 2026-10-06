@@ -1,0 +1,8 @@
+### Fixes
+- fix(AndroidManifest): add requestRawExternalStorageAccess by @researchxxl in #403
+- Add local network permission in onboarding @researchxxl
+
+### Other
+- Target sdk is now Android 17
+- ndk version is now 30
+- go version is now 1.27.1
