@@ -217,6 +217,7 @@
                 <action android:name="${applicationId}.action.FOLLOW" />
                 <action android:name="${applicationId}.action.START" />
                 <action android:name="${applicationId}.action.STOP" />
+                <action android:name="${applicationId}.action.REQUEST_STATE" />
             </intent-filter>
         </receiver>
         <activity android:name=".activities.FolderTypeDialogActivity"

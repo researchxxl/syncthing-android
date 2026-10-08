@@ -10,6 +10,7 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import com.google.common.util.concurrent.Uninterruptibles;
 import com.nutomic.syncthingandroid.R;
 import com.nutomic.syncthingandroid.SyncthingApp;
 import com.nutomic.syncthingandroid.http.PollWebGuiAvailableTask;
@@ -253,6 +254,7 @@ public class SyncthingService extends Service {
         super.onCreate();
         ((SyncthingApp) getApplication()).component().inject(this);
         ENABLE_VERBOSE_LOG = AppPrefs.getPrefVerboseLog(mPreferences);
+        RunConditionMonitor.updateServiceState(this, mCurrentState);
         LogV("onCreate");
         mConfigRouter = new ConfigRouter(SyncthingService.this);
         mHandler = new Handler();
@@ -313,7 +315,7 @@ public class SyncthingService extends Service {
                  * use for clean shutdown to take place. Instead, we will immediately shutdown the crashed
                  * instance forcefully.
                  */
-                mCurrentState = State.ERROR;
+                onServiceStateChange(State.ERROR);
                 shutdown(State.DISABLED);
             } else {
                 // Graceful shutdown.
@@ -715,16 +717,13 @@ public class SyncthingService extends Service {
             Util.killProcess(Constants.FILENAME_SYNCTHING_BINARY);
             if (mSyncthingRunnableThread != null) {
                 LogV("Waiting for mSyncthingRunnableThread to finish after killProcess(Syncthing) ...");
-                try {
-                    mSyncthingRunnableThread.join();
-                } catch (InterruptedException e) {
-                    Log.w(TAG, "mSyncthingRunnableThread InterruptedException");
-                }
+                Uninterruptibles.joinUninterruptibly(mSyncthingRunnableThread);
                 Log.d(TAG, "Finished mSyncthingRunnableThread.");
                 mSyncthingRunnableThread = null;
             }
             mSyncthingRunnable = null;
         }
+        RunConditionMonitor.updateServiceState(this, newState);
     }
 
     public @Nullable
@@ -779,6 +778,11 @@ public class SyncthingService extends Service {
         }
         Log.i(TAG, "onServiceStateChange: from " + mCurrentState + " to " + newState);
         mCurrentState = newState;
+        // DISABLED is set before teardown. Publish STOPPED only after shutdown()
+        // has waited for the native process thread to finish.
+        if (newState != State.DISABLED) {
+            RunConditionMonitor.updateServiceState(this, newState);
+        }
         mHandler.post(() -> {
             mNotificationHandler.updatePersistentNotification(this);
             Iterator<OnServiceStateChangeListener> it = mOnServiceStateChangeListeners.iterator();

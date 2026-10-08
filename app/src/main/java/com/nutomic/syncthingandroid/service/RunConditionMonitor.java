@@ -19,6 +19,7 @@ import android.os.Looper;
 import android.os.PowerManager;
 import androidx.annotation.Nullable;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.preference.PreferenceManager;
 import android.os.SystemClock;
 import android.util.Log;
 
@@ -39,6 +40,12 @@ import javax.inject.Inject;
 public class RunConditionMonitor {
 
     private static final String TAG = "RunConditionMonitor";
+
+    // Updated by SyncthingService. Keep the last confirmed state available to
+    // REQUEST_STATE without starting the service or changing run conditions.
+    private static SyncthingService.State sServiceState = SyncthingService.State.DISABLED;
+    private static String sLastBroadcastMode;
+    private static String sLastBroadcastRunState;
 
     private Boolean ENABLE_VERBOSE_LOG = false;
 
@@ -89,6 +96,8 @@ public class RunConditionMonitor {
     }
 
     private final Context mContext;
+    private final SharedPreferences.OnSharedPreferenceChangeListener mRemoteControlPreferenceListener =
+            this::onRemoteControlPreferenceChanged;
     private ReceiverManager mReceiverManager;
     private @Nullable SyncTriggerReceiver mSyncTriggerReceiver = null;
     private @Nullable UpdateShouldRunDecisionReceiver mUpdateShouldRunDecisionReceiver = null;
@@ -133,6 +142,7 @@ public class RunConditionMonitor {
         ENABLE_VERBOSE_LOG = AppPrefs.getPrefVerboseLog(mPreferences);
         LogV("Created new instance");
         mContext = context;
+        mPreferences.registerOnSharedPreferenceChangeListener(mRemoteControlPreferenceListener);
         res = mContext.getResources();
         mOnShouldRunChangedListener = onShouldRunChangedListener;
         mOnSyncPreconditionChangedListener = onSyncPreconditionChangedListener;
@@ -213,6 +223,7 @@ public class RunConditionMonitor {
 
     public void shutdown() {
         LogV("Shutting down");
+        mPreferences.unregisterOnSharedPreferenceChangeListener(mRemoteControlPreferenceListener);
         JobUtils.cancelAllScheduledJobs(mContext);
         if (mSyncStatusObserverHandle != null) {
             ContentResolver.removeStatusChangeListener(mSyncStatusObserverHandle);
@@ -424,6 +435,73 @@ public class RunConditionMonitor {
 
     public String getRunDecisionExplanation() {
         return mRunDecisionExplanation;
+    }
+
+    private void onRemoteControlPreferenceChanged(SharedPreferences preferences, String key) {
+        if (Constants.PREF_BTNSTATE_FORCE_START_STOP.equals(key)) {
+            broadcastRemoteControlState(mContext);
+        } else if (Constants.PREF_BROADCAST_SERVICE_CONTROL.equals(key)
+                && preferences.getBoolean(Constants.PREF_BROADCAST_SERVICE_CONTROL, false)) {
+            broadcastRemoteControlState(mContext, true);
+        }
+    }
+
+    static synchronized void updateServiceState(Context context, SyncthingService.State state) {
+        sServiceState = state;
+        broadcastRemoteControlState(context);
+    }
+
+    public static void broadcastRemoteControlState(Context context) {
+        broadcastRemoteControlState(context, false);
+    }
+
+    public static synchronized void broadcastRemoteControlState(Context context, boolean force) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        if (!preferences.getBoolean(Constants.PREF_BROADCAST_SERVICE_CONTROL, false)) {
+            return;
+        }
+
+        String mode;
+        switch (preferences.getInt(Constants.PREF_BTNSTATE_FORCE_START_STOP,
+                Constants.BTNSTATE_NO_FORCE_START_STOP)) {
+            case Constants.BTNSTATE_FORCE_START:
+                mode = "FORCE_START";
+                break;
+            case Constants.BTNSTATE_FORCE_STOP:
+                mode = "FORCE_STOP";
+                break;
+            default:
+                mode = "FOLLOW";
+                break;
+        }
+
+        String runState;
+        switch (sServiceState) {
+            case INIT:
+            case STARTING:
+                runState = "STARTING";
+                break;
+            case ACTIVE:
+                runState = "RUNNING";
+                break;
+            case ERROR:
+                runState = "ERROR";
+                break;
+            default:
+                runState = "STOPPED";
+                break;
+        }
+
+        if (!force && mode.equals(sLastBroadcastMode) && runState.equals(sLastBroadcastRunState)) {
+            return;
+        }
+
+        Intent intent = new Intent(context.getPackageName() + ".action.STATE_CHANGED");
+        intent.putExtra("mode", mode);
+        intent.putExtra("run_state", runState);
+        context.sendBroadcast(intent);
+        sLastBroadcastMode = mode;
+        sLastBroadcastRunState = runState;
     }
 
     /**
