@@ -786,4 +786,9 @@
     <string name="cert_check_trust">De confianza para este dispositivo</string>
     <string name="cert_check_validity">Periodo de validez</string>
     <string name="cert_check_key">Clave privada</string>
+    <string name="local_network_permission_title">Permiso de red local</string>
+    <string name="local_network_permission_desc">En Android 17 y versiones posteriores, el acceso a la red local requiere un permiso explícito. Esto es necesario para la detección local y las transferencias directas en tu red LAN.</string>
+    <string name="more_options">Más opciones</string>
+    <string name="show_exact_times">Mostrar horas exactas</string>
+    <string name="web_gui_load_failed">No se pudo cargar la interfaz web. Por favor, captura un registro de depuración e informa del problema.</string>
 </resources>
