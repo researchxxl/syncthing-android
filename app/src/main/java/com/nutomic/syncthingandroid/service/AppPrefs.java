@@ -34,4 +34,9 @@ public class AppPrefs {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         return sp.getBoolean(Constants.PREF_START_SERVICE_ON_BOOT, false);
     }
+
+    public static final boolean getUseRoot(Context context) {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+        return sp.getBoolean(Constants.PREF_USE_ROOT, false);
+    }
 }
