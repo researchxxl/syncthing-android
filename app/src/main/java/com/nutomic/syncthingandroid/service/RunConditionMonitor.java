@@ -213,7 +213,7 @@ public class RunConditionMonitor {
 
     public void shutdown() {
         LogV("Shutting down");
-        JobUtils.cancelAllScheduledJobs(mContext);
+        JobUtils.cancelSyncTriggerServiceJob(mContext);
         if (mSyncStatusObserverHandle != null) {
             ContentResolver.removeStatusChangeListener(mSyncStatusObserverHandle);
             mSyncStatusObserverHandle = null;
@@ -278,7 +278,7 @@ public class RunConditionMonitor {
                  * Reschedule the job to see if the user turned on this feature in the meantime.
                  */
                 mTimeConditionMatch = false;
-                JobUtils.cancelAllScheduledJobs(context);
+                JobUtils.cancelSyncTriggerServiceJob(context);
                 JobUtils.scheduleSyncTriggerServiceJob(
                         context,
                         triggeredSyncSleepIntervalS,
@@ -291,7 +291,7 @@ public class RunConditionMonitor {
             if (extraBeginActiveTimeWindow) {
                 // We should immediately start SyncthingNative for TRIGGERED_SYNC_DURATION_SECS.
                 mTimeConditionMatch = true;
-                JobUtils.cancelAllScheduledJobs(context);
+                JobUtils.cancelSyncTriggerServiceJob(context);
                 JobUtils.scheduleSyncTriggerServiceJob(
                         context,
                         triggeredSyncDurationS,
@@ -338,7 +338,7 @@ public class RunConditionMonitor {
              * scheduled correctly.
              */
             if (!mRunAllowedStopScheduled && !lastDeterminedShouldRun) {
-                JobUtils.cancelAllScheduledJobs(context);
+                JobUtils.cancelSyncTriggerServiceJob(context);
                 JobUtils.scheduleSyncTriggerServiceJob(
                         context,
                         triggeredSyncSleepIntervalS,
@@ -408,7 +408,7 @@ public class RunConditionMonitor {
                     !mRunAllowedStopScheduled &&
                     mPreferences.getBoolean(Constants.PREF_RUN_ON_TIME_SCHEDULE, false) &&
                     mPreferences.getInt(Constants.PREF_BTNSTATE_FORCE_START_STOP, Constants.BTNSTATE_NO_FORCE_START_STOP) == Constants.BTNSTATE_NO_FORCE_START_STOP) {
-                JobUtils.cancelAllScheduledJobs(mContext);
+                JobUtils.cancelSyncTriggerServiceJob(mContext);
                 JobUtils.scheduleSyncTriggerServiceJob(
                         mContext,
                         triggeredSyncDurationS,

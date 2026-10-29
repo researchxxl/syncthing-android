@@ -20,6 +20,7 @@ import com.nutomic.syncthingandroid.util.CertificateValidator;
 import com.nutomic.syncthingandroid.util.ConfigRouter;
 import com.nutomic.syncthingandroid.util.ConfigXml;
 import com.nutomic.syncthingandroid.util.FileUtils;
+import com.nutomic.syncthingandroid.util.JobUtils;
 import com.nutomic.syncthingandroid.util.PermissionUtil;
 import com.nutomic.syncthingandroid.util.Util;
 
@@ -214,6 +215,16 @@ public class SyncthingService extends Service {
     private ConfigRouter mConfigRouter;
     private ConfigXml mConfig;
     private Thread mSyncthingRunnableThread = null;
+
+    /**
+     * Whether a SyncthingService instance exists in this process. A new process after Android
+     * killed the app starts with false, which is how {@link ServiceWatchdogJobService} tells.
+     */
+    private static volatile boolean sRunning = false;
+
+    public static boolean isRunning() {
+        return sRunning;
+    }
     private Handler mHandler;
 
     private final HashSet<OnServiceStateChangeListener> mOnServiceStateChangeListeners = new HashSet<>();
@@ -276,6 +287,9 @@ public class SyncthingService extends Service {
         if (mNotificationHandler != null) {
             mNotificationHandler.setAppShutdownInProgress(false);
         }
+
+        sRunning = true;
+        JobUtils.scheduleServiceWatchdogJob(this);
     }
 
     /**
@@ -663,6 +677,9 @@ public class SyncthingService extends Service {
     @Override
     public void onDestroy() {
         Log.d(TAG, "onDestroy");
+        // A deliberate stop: the watchdog must not bring the service back.
+        sRunning = false;
+        JobUtils.cancelServiceWatchdogJob(this);
         if (mRunConditionMonitor != null) {
             /**
              * Shut down the OnShouldRunChangedListener so we won't get interrupted by run
