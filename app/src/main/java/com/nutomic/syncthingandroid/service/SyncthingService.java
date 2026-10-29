@@ -54,6 +54,16 @@ public class SyncthingService extends Service {
 
     private static final String TAG = "SyncthingService";
 
+    /**
+     * Whether a SyncthingService instance exists in this process. A new process after Android
+     * killed the app starts with false, which is how {@link ServiceWatchdogJobService} tells.
+     */
+    private static boolean sRunning = false;
+
+    public static boolean isRunning() {
+        return sRunning;
+    }
+
     private Boolean ENABLE_VERBOSE_LOG = false;
 
     /**
@@ -215,16 +225,6 @@ public class SyncthingService extends Service {
     private ConfigRouter mConfigRouter;
     private ConfigXml mConfig;
     private Thread mSyncthingRunnableThread = null;
-
-    /**
-     * Whether a SyncthingService instance exists in this process. A new process after Android
-     * killed the app starts with false, which is how {@link ServiceWatchdogJobService} tells.
-     */
-    private static volatile boolean sRunning = false;
-
-    public static boolean isRunning() {
-        return sRunning;
-    }
     private Handler mHandler;
 
     private final HashSet<OnServiceStateChangeListener> mOnServiceStateChangeListeners = new HashSet<>();
@@ -289,7 +289,9 @@ public class SyncthingService extends Service {
         }
 
         sRunning = true;
-        JobUtils.scheduleServiceWatchdogJob(this);
+        if (AppPrefs.getStartServiceOnBoot(this)) {
+            JobUtils.scheduleServiceWatchdogJob(this);
+        }
     }
 
     /**

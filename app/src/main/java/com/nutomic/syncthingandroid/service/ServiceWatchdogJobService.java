@@ -14,7 +14,6 @@ import com.nutomic.syncthingandroid.util.JobUtils;
  * A killed process never reaches {@link SyncthingService#onDestroy}, so this job, scheduled
  * while the service runs, survives the kill. START_STICKY alone is not enough: Android may
  * never honor it, leaving the service dead until the user opens the app or reboots.
- * See {@link JobUtils#scheduleServiceWatchdogJob} for more details.
  */
 public class ServiceWatchdogJobService extends JobService {
     private static final String TAG = "ServiceWatchdogJob";
@@ -22,7 +21,12 @@ public class ServiceWatchdogJobService extends JobService {
     @Override
     public boolean onStartJob(JobParameters params) {
         Context context = getApplicationContext();
-        if (SyncthingService.isRunning() || !AppPrefs.getStartServiceOnBoot(context)) {
+        if (!AppPrefs.getStartServiceOnBoot(context)) {
+            // The user turned off running in the background since the job was scheduled.
+            JobUtils.cancelServiceWatchdogJob(context);
+            return false;
+        }
+        if (SyncthingService.isRunning()) {
             return false;
         }
         Log.i(TAG, "SyncthingService is not running, restarting it.");
