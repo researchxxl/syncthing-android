@@ -9,6 +9,8 @@ import android.util.Log;
 import com.nutomic.syncthingandroid.service.AppPrefs;
 import com.nutomic.syncthingandroid.service.Constants;
 import com.nutomic.syncthingandroid.service.SyncthingService;
+import com.nutomic.syncthingandroid.root.RootAccess;
+import com.nutomic.syncthingandroid.util.Util;
 
 import java.lang.SecurityException;
 
@@ -26,6 +28,16 @@ public class BootReceiver extends BroadcastReceiver {
         Boolean packageReplaced = intent.getAction().equals(Intent.ACTION_MY_PACKAGE_REPLACED);
         if (!bootCompleted && !packageReplaced) {
             return;
+        }
+
+        if (packageReplaced) {
+            if (AppPrefs.getUseRoot(context) && RootAccess.isRootAvailableBlocking()) {
+                /**
+                 * In Root mode, there will be a SyncthingNative process left running after app update.
+                 */
+                Log.d(TAG, "ACTION_MY_PACKAGE_REPLACED: Killing leftover SyncthingNative instance if present ...");
+                Util.killProcess(Constants.FILENAME_SYNCTHING_BINARY, true);
+            }
         }
 
         // Check if we should (re)start now.
