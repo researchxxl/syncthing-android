@@ -54,7 +54,7 @@
     <string name="yes">Tak</string>
     <string name="no">Nie</string>
     <string name="open_website">Otwórz stronę internetową</string>
-    <string name="toast_write_storage_permission_required">Wymagane zezwolenie na zapisywanie do pamięci zewnętrznej</string>
+    <string name="toast_write_storage_permission_required">Wymagane uprawnienie do zapisu w pamięci zewnętrznej</string>
     <string name="device_rejected">Urządzenie \"%1$s\" chce się połączyć</string>
     <string name="folder_rejected">Urządzenie \"%1$s\" chce udostępnić folder \"%2$s\"</string>
     <!-- StateDialogActivity -->
@@ -603,13 +603,13 @@
     <string name="reason_on_whitelisted_wifi">Syncthing może działać w bieżącej sieci Wi-Fi.</string>
     <string name="undo_ignored_devices_folders_done">Pomyślnie cofnięto decyzje.</string>
     <string name="current_path">Bieżąca ścieżka: %1$s</string>
-    <string name="notification_permission_title">Zezwolenie na powiadomienia</string>
+    <string name="notification_permission_title">Uprawnienie do powiadomień</string>
     <string name="preference_app_theme_title">Motyw</string>
     <string name="folder_type_receiveonly_description">Pliki są synchronizowane z pozostałych urządzeń, ale wszelkie zmiany dokonane lokalnie nie będą wysyłanie do innych urządzeń.</string>
     <string name="default_syncthing_camera_folder_label">Aparat Syncthing</string>
     <string name="category_debug">Diagnozowanie błędów</string>
     <string name="reason_not_within_time_frame_0_min">mniej niż minutę</string>
-    <string name="toast_notification_permission_required">Syncthing wymaga zezwolenia na powiadomienia, aby usługa działała i była połączona.</string>
+    <string name="toast_notification_permission_required">Syncthing wymaga uprawnienia do powiadomień, aby usługa działała i była połączona.</string>
     <string name="reason_not_while_auto_sync_data_disabled">Syncthing nie jest uruchomiony, ponieważ w systemie Android jest obecnie wyłączona funkcja „Autosynchronizacja danych”.</string>
     <string name="reason_on_nonmetered_wifi">Syncthing może działać w przypadku nietaryfowych połączeń Wi-Fi. Aktywne połączenie Wi-Fi jest nietaryfowe.</string>
     <string name="run_on_wifi_summary">Działaj, gdy urządzenie jest połączone z siecią Wi-Fi lub Ethernet.</string>
@@ -705,7 +705,7 @@
     <string name="no_app_to_open_link">Brak dostępnej aplikacji umożliwiającej otwarcie tego odnośnika.</string>
     <string name="webui_custom_cert_title">Niestandardowy certyfikat HTTPS</string>
     <string name="webui_custom_cert_summary">Użyj własnego certyfikatu dla lokalnego interfejsu sieciowego</string>
-    <string name="custom_cert_explanation">Zastąp wbudowany certyfikat samodzielnie podpisany przez Syncthing własnym. Wybierz certyfikat (PEM, w tym cały łańcuch) i jego klucz prywatny, sprawdź wyniki walidacji, a następnie zastosuj. Syncthing uruchomi się ponownie, aby załadować nowy certyfikat; jeśli nie uda się go ponownie uruchomić, poprzedni certyfikat zostanie automatycznie przywrócony.\n\nW przypadku certyfikatu podpisanego przez własny urząd certyfikacji, najpierw zainstaluj certyfikat główny tego urzędu na tym urządzeniu (Ustawienia → Bezpieczeństwo → Zainstaluj certyfikat urzędu certyfikacji).</string>
+    <string name="custom_cert_explanation">Zastąp wbudowany certyfikat samodzielnie podpisany przez Syncthing własnym. Wybierz certyfikat (PEM, w tym cały łańcuch) i jego klucz prywatny, sprawdź wyniki walidacji, a następnie zastosuj. Syncthing uruchomi się ponownie, aby załadować nowy certyfikat; jeśli nie uda się go ponownie uruchomić, poprzedni certyfikat zostanie automatycznie przywrócony.\n\nW przypadku certyfikatu podpisanego przez własny urząd certyfikacji, najpierw zainstaluj certyfikat główny tego urzędu na tym urządzeniu (Ustawienia → Bezpieczeństwo → Zainstaluj certyfikat urzędu certyfikacji).</string>
     <string name="custom_cert_current_title">Bieżący certyfikat</string>
     <string name="custom_cert_current_none">Nie znaleziono certyfikatu.</string>
     <string name="custom_cert_subject">Podmiot: %1$s</string>
@@ -734,6 +734,10 @@
     <string name="web_gui_load_failed">Nie udało się załadować interfejsu sieciowego. Proszę zapisać dziennik i zgłosić ten problem.</string>
     <string name="more_options">Więcej opcji</string>
     <string name="show_exact_times">Pokaż dokładne godziny</string>
-    <string name="local_network_permission_title">Uprawnienia do sieci lokalnej</string>
+    <string name="local_network_permission_title">Uprawnienie do sieci lokalnej</string>
     <string name="local_network_permission_desc">W systemie Android 17 i nowszych dostęp do sieci lokalnej wymaga wyraźnego zezwolenia. Jest ono niezbędne do lokalnego wyszukiwania i bezpośrednich transferów w sieci LAN.</string>
+    <string name="custom_cert_apply_failed_title">Nie udało się zastosować certyfikatu</string>
+    <string name="wiki_open_setup_guide">Otwiera przewodnik konfiguracji w witrynie wiki</string>
+    <string name="custom_cert_failed_rejected">Syncthing nie był w stanie wczytać tego certyfikatu oraz klucza, dlatego utworzył nowy, samodzielnie podpisany certyfikat. Poprzedni certyfikat został przywrócony.\n\nNajczęstszą przyczyną jest zaszyfrowany lub niedopasowany klucz prywatny. Syncthing wymaga klucza niezaszyfrowanego, który odpowiada danemu certyfikatowi.</string>
+    <string name="custom_cert_failed_not_online">Syncthing nie powrócił do trybu online z nowym certyfikatem. Przywrócono poprzedni certyfikat.</string>
 </resources>
