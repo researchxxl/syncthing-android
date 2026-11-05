@@ -17,6 +17,9 @@ public class CachedFolderStatus {
     // Example: "Test1.sync-conflict-20250514-140912-XF3FVSV", "subfolder/Test2.sync-conflict-20250514-140912-XF3FVSV"
     public String[] discoveredConflictFiles = new String[]{};
 
+    // Folder sequence at the last conflict file check, -1 if none yet.
+    public long conflictFilesCheckedSequence = -1;
+
     // Example: "update"
     public String lastItemFinishedAction = "";
 
