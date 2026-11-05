@@ -17,6 +17,7 @@ import com.google.common.base.Charsets;
 import com.google.common.io.Files;
 import com.nutomic.syncthingandroid.R;
 import com.nutomic.syncthingandroid.SyncthingApp;
+import com.nutomic.syncthingandroid.util.ConfigXml;
 import com.nutomic.syncthingandroid.util.FileUtils;
 import com.nutomic.syncthingandroid.util.Util;
 
@@ -131,10 +132,16 @@ public class SyncthingRunnable implements Runnable {
         Process process = null;
         try {
             // Android 11 blocks local discovery if we did not acquire MulticastLock.
-            WifiManager wifi = (WifiManager) mContext.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-            multicastLock = wifi.createMulticastLock("multicastLock");
-            multicastLock.setReferenceCounted(true);
-            multicastLock.acquire();
+            // The lock lets every broadcast and multicast packet on the network wake the
+            // device, so only take it when local discovery is on.
+            if (isLocalDiscoveryEnabled()) {
+                WifiManager wifi = (WifiManager) mContext.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+                multicastLock = wifi.createMulticastLock("multicastLock");
+                multicastLock.setReferenceCounted(true);
+                multicastLock.acquire();
+            } else {
+                Log.i(TAG, "Local discovery is off, not acquiring MulticastLock.");
+            }
 
             /**
              * Setup and run a new syncthing instance
@@ -241,6 +248,21 @@ public class SyncthingRunnable implements Runnable {
 
         // Return captured command line output.
         return capturedStdOut;
+    }
+
+    /**
+     * Reads localAnnounceEnabled from config.xml. Falls back to true, which keeps the old
+     * behaviour of always acquiring MulticastLock, if the config can't be read.
+     */
+    private boolean isLocalDiscoveryEnabled() {
+        try {
+            ConfigXml configXml = new ConfigXml(mContext);
+            configXml.loadConfigReadOnly();
+            return configXml.getOptions().localAnnounceEnabled;
+        } catch (Exception e) {
+            Log.w(TAG, "isLocalDiscoveryEnabled: Failed to read config, assuming true", e);
+            return true;
+        }
     }
 
     private void putCustomEnvironmentVariables(Map<String, String> environment, SharedPreferences sp) {
