@@ -1,6 +1,7 @@
 package com.nutomic.syncthingandroid.settings
 
 import android.content.ClipData
+import android.content.Intent
 import android.os.Build
 import android.util.Log
 import android.widget.Toast
@@ -251,7 +252,16 @@ fun SettingsSyncthingOptionsScreen() {
             item {
                 SwitchPreference(
                     title = { Text(stringResource(R.string.local_announce_enabled)) },
-                    state = localDiscovery,
+                    value = localDiscovery.value,
+                    onValueChange = { enabled ->
+                        localDiscovery.value = enabled
+                        if (enabled) {
+                            context.startService(
+                                Intent(context, SyncthingService::class.java)
+                                    .setAction(SyncthingService.ACTION_RESTART)
+                            )
+                        }
+                    },
                     enabled = isStServiceActive,
                 )
             }
