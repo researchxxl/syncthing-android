@@ -8,6 +8,7 @@ import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 
+import androidx.annotation.Nullable;
 import androidx.preference.PreferenceManager;
 
 import com.annimon.stream.Stream;
@@ -23,6 +24,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.nutomic.syncthingandroid.SyncthingApp;
 import com.nutomic.syncthingandroid.activities.ShareActivity;
+import com.nutomic.syncthingandroid.http.ApiRequest;
 import com.nutomic.syncthingandroid.http.GetRequest;
 import com.nutomic.syncthingandroid.http.PostRequest;
 import com.nutomic.syncthingandroid.model.CachedFolderStatus;
@@ -595,13 +597,21 @@ public class RestApi {
      * EventProcessor will trigger this.reloadConfig().
      */
     public void sendConfig() {
+        sendConfig(null);
+    }
+
+    /**
+     * Same as {@link #sendConfig()}. The listener is called once Syncthing has
+     * saved the config to config.xml.
+     */
+    public void sendConfig(@Nullable ApiRequest.OnSuccessListener listener) {
         String jsonConfig;
         synchronized (mConfigLock) {
             jsonConfig = mGson.toJson(mConfig);
         }
         // LogVMultipleLines("sendConfig: config=" + jsonToPrettyFormat(jsonConfig));
         new PostRequest(mContext, mUrl, PostRequest.URI_SYSTEM_CONFIG, mApiKey,
-            null, jsonConfig, null);
+            null, jsonConfig, listener);
         mUrl = getWebGuiUrl();
         mOnConfigChangedListener.onConfigChanged();
     }
