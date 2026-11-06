@@ -114,13 +114,6 @@ public class ConfigXml {
     }
 
     /**
-     * Parses the config without upgrading or saving it.
-     */
-    public void loadConfigReadOnly() throws OpenConfigException {
-        parseConfig();
-    }
-
-    /**
      * This should run within an AsyncTask as it can cause a full CPU load
      * for more than 30 seconds on older phone hardware.
      */

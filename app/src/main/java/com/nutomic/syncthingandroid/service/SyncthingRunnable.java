@@ -257,7 +257,7 @@ public class SyncthingRunnable implements Runnable {
     private boolean isLocalDiscoveryEnabled() {
         try {
             ConfigXml configXml = new ConfigXml(mContext);
-            configXml.loadConfigReadOnly();
+            configXml.loadConfig();
             return configXml.getOptions().localAnnounceEnabled;
         } catch (Exception e) {
             Log.w(TAG, "isLocalDiscoveryEnabled: Failed to read config, assuming true", e);
