@@ -140,7 +140,7 @@ public class SyncthingRunnable implements Runnable {
                 multicastLock.setReferenceCounted(true);
                 multicastLock.acquire();
             } else {
-                Log.i(TAG, "Local discovery is off, not acquiring MulticastLock.");
+                Log.i(TAG, "Local discovery is disabled, not acquiring MulticastLock.");
             }
 
             /**
