@@ -1231,9 +1231,19 @@ public class RestApi {
         final Boolean folderIsSyncing = folderStatus.state.contains("sync");
         if (remoteCompletionInfo.completion == 100) {
             if (!folderIsSyncing) {
-                planGetSyncConflictFiles = true;
-
                 final CachedFolderStatus cachedFolderStatus = cacheEntry.getValue();
+
+                /**
+                 * The conflict check walks the whole folder. A conflict file can only appear or
+                 * disappear through a local change, which moves the folder's sequence, so skip
+                 * the walk while the sequence is the one we last checked.
+                **/
+                if (folderStatus.sequence == 0 ||
+                        folderStatus.sequence != cachedFolderStatus.conflictFilesCheckedSequence) {
+                    mLocalCompletion.setConflictFilesCheckedSequence(folderId, folderStatus.sequence);
+                    planGetSyncConflictFiles = true;
+                }
+
                 if (cachedFolderStatus.remoteIndexUpdated) {
                     mLocalCompletion.setRemoteIndexUpdated(folderId, false);
                     planOnFolderSyncCompleted = true;
