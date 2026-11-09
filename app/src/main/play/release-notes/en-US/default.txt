@@ -1,3 +1,8 @@
+### Fixes
+- fix(SyncthingRunnable): only acquire MulticastLock when local discovery is on @Elliotisnt
+- fix(RestApi): skip the conflict file walk while the folder sequence is unchanged @Elliotisnt
+
 ### Other
-- chore(build-release): minimize package size by @researchxxl 
-- enhancement(custom http cert): Improved custom http certificate and key validation by @dbhavsar76 in #356
+- go 1.27.3
+- updated dependencies
+- updated translations
