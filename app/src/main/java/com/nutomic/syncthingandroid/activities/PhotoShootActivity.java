@@ -172,6 +172,10 @@ public class PhotoShootActivity extends ThemedAppCompatActivity {
         if (photoFile != null) {
             Uri photoURI = FileProvider.getUriForFile(this, getPackageName() + ".provider", photoFile);
             pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+            pictureIntent.setClipData(ClipData.newRawUri("photo", photoURI));
+            pictureIntent.addFlags(
+                    Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+            );
 
             Log.d(TAG, "Launching take picture intent ...");
             lastPhotoURI = photoURI;
