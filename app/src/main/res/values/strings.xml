@@ -1154,4 +1154,6 @@
     <string name="cert_check_trust">Trusted by this device</string>
     <string name="cert_check_validity">Validity period</string>
     <string name="cert_check_key">Private key</string>
+    <string name="hide_from_recents_title">Hide from recent apps</string>
+    <string name="hide_from_recents_summary">Default: Disabled. Hide the app\'s tasks from the recent apps switcher. This only changes task visibility, not synchronization or Android\'s background restrictions.</string>
 </resources>
