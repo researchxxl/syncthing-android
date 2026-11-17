@@ -8,6 +8,7 @@ import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 
+import androidx.annotation.Nullable;
 import androidx.preference.PreferenceManager;
 
 import com.annimon.stream.Stream;
@@ -23,6 +24,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.nutomic.syncthingandroid.SyncthingApp;
 import com.nutomic.syncthingandroid.activities.ShareActivity;
+import com.nutomic.syncthingandroid.http.ApiRequest;
 import com.nutomic.syncthingandroid.http.GetRequest;
 import com.nutomic.syncthingandroid.http.PostRequest;
 import com.nutomic.syncthingandroid.model.CachedFolderStatus;
@@ -595,13 +597,21 @@ public class RestApi {
      * EventProcessor will trigger this.reloadConfig().
      */
     public void sendConfig() {
+        sendConfig(null);
+    }
+
+    /**
+     * Same as {@link #sendConfig()}. The listener is called once Syncthing has
+     * saved the config to config.xml.
+     */
+    public void sendConfig(@Nullable ApiRequest.OnSuccessListener listener) {
         String jsonConfig;
         synchronized (mConfigLock) {
             jsonConfig = mGson.toJson(mConfig);
         }
         // LogVMultipleLines("sendConfig: config=" + jsonToPrettyFormat(jsonConfig));
         new PostRequest(mContext, mUrl, PostRequest.URI_SYSTEM_CONFIG, mApiKey,
-            null, jsonConfig, null);
+            null, jsonConfig, listener);
         mUrl = getWebGuiUrl();
         mOnConfigChangedListener.onConfigChanged();
     }
@@ -1231,9 +1241,19 @@ public class RestApi {
         final Boolean folderIsSyncing = folderStatus.state.contains("sync");
         if (remoteCompletionInfo.completion == 100) {
             if (!folderIsSyncing) {
-                planGetSyncConflictFiles = true;
-
                 final CachedFolderStatus cachedFolderStatus = cacheEntry.getValue();
+
+                /**
+                 * The conflict check walks the whole folder. A conflict file can only appear or
+                 * disappear through a local change, which moves the folder's sequence, so skip
+                 * the walk while the sequence is the one we last checked.
+                **/
+                if (folderStatus.sequence == 0 ||
+                        folderStatus.sequence != cachedFolderStatus.conflictFilesCheckedSequence) {
+                    mLocalCompletion.setConflictFilesCheckedSequence(folderId, folderStatus.sequence);
+                    planGetSyncConflictFiles = true;
+                }
+
                 if (cachedFolderStatus.remoteIndexUpdated) {
                     mLocalCompletion.setRemoteIndexUpdated(folderId, false);
                     planOnFolderSyncCompleted = true;

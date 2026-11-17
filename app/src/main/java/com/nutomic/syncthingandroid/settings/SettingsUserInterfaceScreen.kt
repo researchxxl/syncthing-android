@@ -45,6 +45,7 @@ fun SettingsUserInterfaceScreen() {
     var theme by rememberPreferenceState(Constants.PREF_APP_THEME, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM.toString())
     val expertMode = rememberPreferenceState(Constants.PREF_EXPERT_MODE, false)
     val startInWebGui = rememberPreferenceState(Constants.PREF_START_INTO_WEB_GUI, false)
+    val hideFromRecents = rememberPreferenceState(Constants.PREF_HIDE_FROM_RECENTS, false)
 
     SettingsScaffold(
         title = stringResource(R.string.category_user_interface),
@@ -94,6 +95,13 @@ fun SettingsUserInterfaceScreen() {
                 title = { Text(stringResource(R.string.start_into_web_gui_title)) },
                 summary = { Text(stringResource(R.string.start_into_web_gui_summary)) },
                 state = startInWebGui,
+            )
+        }
+        item {
+            SwitchPreference(
+                title = { Text(stringResource(R.string.hide_from_recents_title)) },
+                summary = { Text(stringResource(R.string.hide_from_recents_summary)) },
+                state = hideFromRecents,
             )
         }
     }

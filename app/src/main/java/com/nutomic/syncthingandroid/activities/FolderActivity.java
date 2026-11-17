@@ -641,7 +641,6 @@ public class FolderActivity extends SyncthingActivity {
         }
         int itemId = item.getItemId();
         if (itemId == R.id.save) {
-            item.setEnabled(false);
             onSave();
             return true;
         } else if (itemId == R.id.remove) {

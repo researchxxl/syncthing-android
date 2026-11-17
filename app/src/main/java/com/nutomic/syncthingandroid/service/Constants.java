@@ -46,6 +46,7 @@ public class Constants {
     public static final String PREF_APP_THEME                   = "app_theme";
     public static final String PREF_EXPERT_MODE                 = "expert_mode";
     public static final String PREF_START_INTO_WEB_GUI          = "start_into_web_gui";
+    public static final String PREF_HIDE_FROM_RECENTS           = "hide_from_recents";
 
     // Preferences - Behaviour
     public static final String PREF_START_SERVICE_ON_BOOT       = "always_run_in_background";

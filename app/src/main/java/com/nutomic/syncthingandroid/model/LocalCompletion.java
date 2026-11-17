@@ -210,6 +210,18 @@ public class LocalCompletion {
         }
     }
 
+    public void setConflictFilesCheckedSequence(final String folderId,
+                                                    final long sequence) {
+        synchronized(mFolderMapLock) {
+            final Map.Entry<FolderStatus, CachedFolderStatus> cacheEntry = getFolderStatus(folderId);
+            CachedFolderStatus cachedFolderStatus = cacheEntry.getValue();
+            cachedFolderStatus.conflictFilesCheckedSequence = sequence;
+
+            // Add folder or update existing folder entry.
+            mFolderMap.put(folderId, new SimpleEntry(cacheEntry.getKey(), cachedFolderStatus));
+        }
+    }
+
     public void setDiscoveredConflictFiles(final String folderId,
                                             final String[] discoveredConflictFiles) {
         synchronized(mFolderMapLock) {
