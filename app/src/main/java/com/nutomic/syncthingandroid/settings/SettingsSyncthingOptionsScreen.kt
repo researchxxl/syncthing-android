@@ -1,6 +1,7 @@
 package com.nutomic.syncthingandroid.settings
 
 import android.content.ClipData
+import android.content.Intent
 import android.os.Build
 import android.util.Log
 import android.widget.Toast
@@ -112,7 +113,23 @@ fun SettingsSyncthingOptionsScreen() {
             apiPrefFlow
                 .drop(1)
                 .debounce(0.5.seconds)
-                .collect { currentApi.preferences = it }
+                .collect { prefs ->
+                    val localDiscoveryBefore = currentApi.options?.localAnnounceEnabled
+                    currentApi.preferences = prefs
+                    val localDiscoveryAfter = prefs.asMap()[Keys.LOCAL_DISCOVERY] as Boolean?
+                    if (localDiscoveryBefore != null && localDiscoveryAfter != null &&
+                            localDiscoveryBefore != localDiscoveryAfter) {
+                        // SyncthingRunnable reads local discovery from config.xml when it starts
+                        // the binary, to decide on the MulticastLock. Restart once it is saved.
+                        val appContext = context.applicationContext
+                        currentApi.sendConfig {
+                            appContext.startService(
+                                Intent(appContext, SyncthingService::class.java)
+                                    .setAction(SyncthingService.ACTION_RESTART)
+                            )
+                        }
+                    }
+                }
         }
     }
 
