@@ -1,4 +1,6 @@
 ### Fixes
+- feat(settings): add hide-from-recents option @rkdawn
+- fix(FolderActivity): create folder action after validation errors @f1nch1k
 - fix(SyncthingRunnable): only acquire MulticastLock when local discovery is on @Elliotisnt
 - fix(RestApi): skip the conflict file walk while the folder sequence is unchanged @Elliotisnt
 
