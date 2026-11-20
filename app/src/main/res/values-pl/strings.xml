@@ -349,7 +349,7 @@
     <string name="notifications_other_channel">Inne powiadomienia</string>
     <!-- RestApi -->
     <!-- Title of the notification shown when a restart is needed -->
-    <string name="restart_title">Wymagane ponowne uruchomienie</string>
+    <string name="restart_title">Potrzebne ponowne uruchomienie</string>
     <!-- Text for positive button in restart dialog -->
     <!-- Text for the dismiss button of the restart Activity -->
     <!-- Text of the notification shown when a restart is needed -->
@@ -705,7 +705,7 @@
     <string name="no_app_to_open_link">Brak dostępnej aplikacji umożliwiającej otwarcie tego odnośnika.</string>
     <string name="webui_custom_cert_title">Niestandardowy certyfikat HTTPS</string>
     <string name="webui_custom_cert_summary">Użyj własnego certyfikatu dla lokalnego interfejsu sieciowego</string>
-    <string name="custom_cert_explanation">Zastąp wbudowany certyfikat samodzielnie podpisany przez Syncthing własnym. Wybierz certyfikat (PEM, w tym cały łańcuch) i jego klucz prywatny, sprawdź wyniki walidacji, a następnie zastosuj. Syncthing uruchomi się ponownie, aby załadować nowy certyfikat; jeśli nie uda się go ponownie uruchomić, poprzedni certyfikat zostanie automatycznie przywrócony.\n\nW przypadku certyfikatu podpisanego przez własny urząd certyfikacji, najpierw zainstaluj certyfikat główny tego urzędu na tym urządzeniu (Ustawienia → Bezpieczeństwo → Zainstaluj certyfikat urzędu certyfikacji).</string>
+    <string name="custom_cert_explanation">Zastąp wbudowany certyfikat samodzielnie podpisany przez Syncthing własnym. Wybierz certyfikat (PEM, w tym cały łańcuch) i jego klucz prywatny, sprawdź wyniki walidacji, a następnie zastosuj. Syncthing uruchomi się ponownie, aby załadować nowy certyfikat; jeśli nie uda się go ponownie uruchomić, poprzedni certyfikat zostanie automatycznie przywrócony.\n\nW przypadku certyfikatu podpisanego przez własny urząd certyfikacji, najpierw zainstaluj certyfikat główny tego urzędu na tym urządzeniu (Ustawienia → Bezpieczeństwo → Zainstaluj certyfikat urzędu certyfikacji).</string>
     <string name="custom_cert_current_title">Bieżący certyfikat</string>
     <string name="custom_cert_current_none">Nie znaleziono certyfikatu.</string>
     <string name="custom_cert_subject">Podmiot: %1$s</string>
@@ -740,4 +740,6 @@
     <string name="wiki_open_setup_guide">Otwiera przewodnik konfiguracji w witrynie wiki</string>
     <string name="custom_cert_failed_rejected">Syncthing nie był w stanie wczytać tego certyfikatu oraz klucza, dlatego utworzył nowy, samodzielnie podpisany certyfikat. Poprzedni certyfikat został przywrócony.\n\nNajczęstszą przyczyną jest zaszyfrowany lub niedopasowany klucz prywatny. Syncthing wymaga klucza niezaszyfrowanego, który odpowiada danemu certyfikatowi.</string>
     <string name="custom_cert_failed_not_online">Syncthing nie powrócił do trybu online z nowym certyfikatem. Przywrócono poprzedni certyfikat.</string>
+    <string name="hide_from_recents_title">Ukryj w ostatnich aplikacjach</string>
+    <string name="hide_from_recents_summary">Domyślnie: wyłączone. Ukrywa zadania aplikacji w przełączniku ostatnich aplikacji. Zmienia to jedynie widoczność zadań, nie wpływając na synchronizację ani ograniczenia systemu Android dotyczące pracy w tle.</string>
 </resources>

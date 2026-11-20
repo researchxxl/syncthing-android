@@ -744,7 +744,7 @@
     <string name="no_app_to_open_link">没有可用的应用可以打开此链接。</string>
     <string name="webui_custom_cert_title">自定义 HTTPS 证书</string>
     <string name="webui_custom_cert_summary">为本地 Web UI 使用您自己的证书</string>
-    <string name="custom_cert_explanation">将 Syncthing 内置的自签名证书替换为您自己的证书。选择证书（PEM 格式，包含完整证书链）及其私钥，检查验证结果，然后应用。Syncthing 将重启以加载新证书；如果它无法恢复在线，则会自动恢复之前的证书。\n\n对于由您自己的 CA 签名的证书，请先在此设备上安装该 CA 的根证书（设置 → 安全 → 安装 CA 证书）。</string>
+    <string name="custom_cert_explanation">将 Syncthing 内置的自签名证书替换为您自己的证书。选择证书（PEM 格式，包含完整证书链）及其私钥，检查验证结果，然后应用。Syncthing 将重启以加载新证书；如果它无法恢复在线，则会自动恢复先前证书。\n\n对于由您自己的 CA 签名的证书，请先在此设备上安装该 CA 的根证书（设置 → 安全 → 安装 CA 证书）。</string>
     <string name="custom_cert_current_title">当前证书</string>
     <string name="custom_cert_current_none">未找到证书。</string>
     <string name="custom_cert_subject">主题：%1$s</string>
@@ -775,4 +775,10 @@
     <string name="show_exact_times">显示确切时间</string>
     <string name="local_network_permission_title">本地网络权限</string>
     <string name="local_network_permission_desc">在 Android 17 及更高版本中，本地网络访问需要明确的权限。这是在局域网上进行本地发现和直接传输所必需的。</string>
+    <string name="wiki_open_setup_guide">打开 Wiki 上的设置指南</string>
+    <string name="custom_cert_apply_failed_title">无法应用证书</string>
+    <string name="custom_cert_failed_rejected">Syncthing 无法加载此证书和密钥，因此它创建了一个新的自签名证书。您的先前证书已恢复。\n\n最常见的原因是私钥加密或不匹配。Syncthing 需要与证书匹配的未加密密钥。</string>
+    <string name="custom_cert_failed_not_online">Syncthing 未使用新证书恢复在线。您的先前证书已恢复。</string>
+    <string name="hide_from_recents_title">从最近用过的应用中隐藏</string>
+    <string name="hide_from_recents_summary">默认：已禁用。从最近用过的应用切换器中隐藏该应用的任务。这只会更改任务可见性，不会更改同步或 Android 的后台限制。</string>
 </resources>
