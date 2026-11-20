@@ -744,4 +744,8 @@
     <string name="category_schedule">Planen</string>
     <string name="category_battery">Akku</string>
     <string name="device_id_qr_code">Geräte ID QR Code</string>
+    <plurals name="folder_local_status">
+        <item quantity="one">Lokal: %1$d Datei • %2$s</item>
+        <item quantity="other">Lokal: %1$d Dateien • %2$s</item>
+    </plurals>
 </resources>
