@@ -150,6 +150,12 @@
         <item quantity="other">%1$d / %2$d Files</item>
     </plurals>
 
+    <!-- Local folder file count and size -->
+    <plurals name="folder_local_status">
+        <item quantity="one">Local: %1$d file • %2$s</item>
+        <item quantity="other">Local: %1$d files • %2$s</item>
+    </plurals>
+
     <!-- Format string for conflict file count -->
     <plurals name="conflicts">
         <item quantity="one">%1$d conflict</item>

@@ -245,6 +245,12 @@ public class FoldersAdapter extends ArrayAdapter<Folder> {
         itemsAndSize += mContext.getString(R.string.folder_size_format,
                 Util.readableFileSize(mContext, folderStatus.inSyncBytes),
                 Util.readableFileSize(mContext, folderStatus.globalBytes));
+        if (folderStatus.localFiles != folderStatus.globalFiles ||
+                folderStatus.localBytes != folderStatus.globalBytes) {
+            itemsAndSize += "\n" + mContext.getResources().getQuantityString(
+                    R.plurals.folder_local_status, (int) folderStatus.localFiles,
+                    folderStatus.localFiles, Util.readableFileSize(mContext, folderStatus.localBytes));
+        }
         holder.items.setText(itemsAndSize);
 
         setTextOrHide(holder.invalid, folderStatus.invalid);
