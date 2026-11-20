@@ -1067,6 +1067,8 @@ public class SyncthingService extends Service {
             Log.d(TAG, "importConfig: Importing shared preferences");
             failSuccess = failSuccess && importConfigSharedPrefs(sharedPreferencesFile);
             sharedPreferencesFile.delete();
+        } else {
+            mPreferences.edit().remove(Constants.PREF_LOCAL_DEVICE_ID).apply();
         }
 
         try {
