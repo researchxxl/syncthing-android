@@ -781,4 +781,7 @@
     <string name="custom_cert_failed_not_online">Syncthing 未使用新证书恢复在线。您的先前证书已恢复。</string>
     <string name="hide_from_recents_title">从最近用过的应用中隐藏</string>
     <string name="hide_from_recents_summary">默认：已禁用。从最近用过的应用切换器中隐藏该应用的任务。这只会更改任务可见性，不会更改同步或 Android 的后台限制。</string>
+    <plurals name="folder_local_status">
+        <item quantity="other">本地：%1$d 个文件 • %2$s</item>
+    </plurals>
 </resources>
