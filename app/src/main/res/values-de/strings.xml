@@ -4,7 +4,7 @@
     <string name="app_description">Eine offene, vertrauenswürdige und dezentralisierte Anwendung zur Dateisynchronisation.</string>
     <!-- FirstStartActivity -->
     <!-- Title for dialog displayed on first start -->
-    <string name="welcome_title">Willkommen bei Syncthing für Android</string>
+    <string name="welcome_title">Willkommen bei\nSyncthing für Android</string>
     <!-- Welcome wizard -->
     <!-- Slide "Introduction" -->
     <string name="introduction">Einführung</string>
@@ -21,7 +21,7 @@
     <string name="dialog_disable_battery_optimizations_not_supported">Dieses Gerät unterstützt das Deaktivieren der Batterielaufzeit-Optimierung nicht</string>
     <!-- Slide "Location Permission" -->
     <string name="location_permission_title">Standortberechtigung</string>
-    <string name="location_permission_desc">Syncthing kann eingestellt werden, in bestimmten WLAN-Netzwerken zu arbeiten. Android erfordert, dass die App über die Standortberechtigung verfügt, um den Namen des aktiven Wi-Fi-Netzwerks auszulesen. Wenn Sie diese Funktion verwenden möchten, betätigen Sie die Schaltfläche oben. Sie können diesen Schritt überspringen. Weitere Informationen finden Sie in unserer Datenschutzerklärung.</string>
+    <string name="location_permission_desc">Syncthing kann so konfiguriert werden, dass es nur in ausgewählten WLANs ausgeführt wird. Android verlangt, dass die App über die Standortberechtigung verfügt, um den Namen des aktiven WLAN-Netzwerks auszulesen. Wenn Sie diese Funktion nutzen möchten, bitte auf die Schaltfläche oben tippen. Sie können diesen Schritt auch überspringen. Weitere Informationen finden Sie in unserer Datenschutzerklärung.</string>
     <string name="location_permission_desc_api_29">Android 10+ Tipp: „Immer zulassen“</string>
     <!-- Slide "Key Generation" -->
     <string name="key_generation_title">Schlüsselerstellung</string>
@@ -533,10 +533,10 @@
     <string name="reason_not_on_wifi">Syncthing darf bei WLAN-Verbindung laufen, jedoch ist WLAN gerade nicht verbunden oder das Telefon befindet sich im Flugzeugmodus.</string>
     <string name="reason_on_metered_nonmetered_wifi">Syncthing darf bei getakteter und nicht-getakteter WLAN-Verbindung laufen.</string>
     <string name="reason_on_whitelisted_wifi">Syncthing darf im aktuellen WLAN-Netzwerk laufen.</string>
-    <string name="reason_not_on_whitelisted_wifi">Syncthing läuft nicht, weil der Name des aktuellen WLAN-Netzwerks nicht auf der weißen Liste steht.</string>
-    <string name="reason_on_nonmetered_wifi">Syncthing darf bei nicht-getakteter WLAN-Verbindung laufen. Die aktive WLAN-Verbindung ist nicht-getaktet.</string>
-    <string name="reason_not_nonmetered_wifi">Syncthing läuft nicht, weil verboten wurde, dass es bei getakteten WLAN-Verbindungen läuft.</string>
-    <string name="reason_location_unavailable">In den Einstellungen ist „In ausgewählten WLAN-Netzwerken starten“ aktiviert. Die Android-Standorterfassung ist derzeit ausgeschaltet. Aufgrund von Android-Beschränkungen kann Syncthing den aktuellen WLAN-Netzwerknamen nicht ermitteln, um zu entscheiden, ob es starten soll. Lösung: Den Standort einschalten, Standortberechtigung erteilen und WLAN erneut verbinden.</string>
+    <string name="reason_not_on_whitelisted_wifi">Syncthing läuft nicht, weil der Name des aktuellen WLANs nicht auf der weißen Liste steht.</string>
+    <string name="reason_on_nonmetered_wifi">Syncthing darf bei nicht getakteter WLAN-Verbindung laufen. Die aktive WLAN-Verbindung ist nicht getaktet.</string>
+    <string name="reason_not_nonmetered_wifi">Syncthing wird nicht ausgeführt, da die Ausführung über getaktete WLAN-Verbindungen nicht erlaubt ist.</string>
+    <string name="reason_location_unavailable">In den Einstellungen ist „In ausgewählten WLANs starten“ aktiviert. Die Android-Standorterfassung ist derzeit ausgeschaltet. Aufgrund von Android-Beschränkungen kann Syncthing den aktuellen WLAN-Netzwerknamen nicht ermitteln, um zu entscheiden, ob es starten soll. Lösung: Den Standort einschalten, Standortberechtigung erteilen und WLAN erneut verbinden.</string>
     <string name="reason_on_flight_mode">Syncthing läuft, weil erlaubt wurde, dass es bei eingeschaltetem Flugzeugmodus läuft.</string>
     <string name="reason_run_condition_monitor_not_instantiated">Laufkonditionen-Überwachung ist nicht instantiiert. Bitte die App neu starten und einen Fehlerbericht erstellen, falls das Problem nach dem Neustart nicht verschwindet.</string>
     <!-- Sync Conditions Dialog -->
@@ -744,4 +744,5 @@
     <string name="category_schedule">Planen</string>
     <string name="category_battery">Akku</string>
     <string name="device_id_qr_code">Geräte ID QR Code</string>
+    <string name="local_network_permission_title">Berechtigung für das lokale Netzwerk</string>
 </resources>

@@ -719,7 +719,7 @@
     <string name="custom_cert_apply">Zastosuj certyfikat</string>
     <string name="custom_cert_reset_title">Zresetuj do automatycznie wygenerowanego certyfikatu</string>
     <string name="custom_cert_reset_summary">Usuń niestandardowy certyfikat i pozwól Syncthing utworzyć nowy, podpisany samodzielnie certyfikat</string>
-    <string name="custom_cert_reset_question">Czy zastąpić obecny certyfikat nowym, świeżo wygenerowanym i podpisanym samodzielnie?</string>
+    <string name="custom_cert_reset_question">Czy zastąpić obecny certyfikat nowym, świeżo wygenerowanym i podpisanym samodzielnie?</string>
     <string name="custom_cert_applying">Stosowanie — ponowne uruchamianie Syncthing…</string>
     <string name="custom_cert_applied">Certyfikat zastosowano.</string>
     <string name="custom_cert_applied_pending">Zapisano. Zmiany zaczną obowiązywać przy następnym uruchomieniu Syncthing.</string>
@@ -742,4 +742,10 @@
     <string name="custom_cert_failed_not_online">Syncthing nie powrócił do trybu online z nowym certyfikatem. Przywrócono poprzedni certyfikat.</string>
     <string name="hide_from_recents_title">Ukryj w ostatnich aplikacjach</string>
     <string name="hide_from_recents_summary">Domyślnie: wyłączone. Ukrywa zadania aplikacji w przełączniku ostatnich aplikacji. Zmienia to jedynie widoczność zadań, nie wpływając na synchronizację ani ograniczenia systemu Android dotyczące pracy w tle.</string>
+    <plurals name="folder_local_status">
+        <item quantity="one">Lokalnie: %1$d plik • %2$s</item>
+        <item quantity="few">Lokalnie: %1$d pliki • %2$s</item>
+        <item quantity="many">Lokalnie: %1$d plików • %2$s</item>
+        <item quantity="other">Lokalnie: %1$d plików • %2$s</item>
+    </plurals>
 </resources>
